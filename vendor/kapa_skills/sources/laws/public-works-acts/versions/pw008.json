@@ -1,0 +1,835 @@
+{
+ "lsId": "001607",
+ "name": "문화유산의 보존 및 활용에 관한 법률",
+ "fetched": "2026-11-08",
+ "versions": [
+  {
+   "lsiSeq": "283305",
+   "efYd": "20260624",
+   "ancYd": "20260210",
+   "ancNo": "21335",
+   "name": "문화유산의 보존 및 활용에 관한 법률",
+   "kind": "일부개정",
+   "status": "current"
+  },
+  {
+   "lsiSeq": "285665",
+   "efYd": "20260517",
+   "ancYd": "20260428",
+   "ancNo": "21585",
+   "name": "문화유산의 보존 및 활용에 관한 법률",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "277173",
+   "efYd": "20260102",
+   "ancYd": "20251001",
+   "ancNo": "21065",
+   "name": "문화유산의 보존 및 활용에 관한 법률",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "260205",
+   "efYd": "20250214",
+   "ancYd": "20240213",
+   "ancNo": "20286",
+   "name": "문화유산의 보존 및 활용에 관한 법률",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "259069",
+   "efYd": "20250124",
+   "ancYd": "20240123",
+   "ancNo": "20077",
+   "name": "문화유산의 보존 및 활용에 관한 법률",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "260479",
+   "efYd": "20241101",
+   "ancYd": "20240213",
+   "ancNo": "20309",
+   "name": "문화유산의 보존 및 활용에 관한 법률",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "255781",
+   "efYd": "20241101",
+   "ancYd": "20231031",
+   "ancNo": "19796",
+   "name": "문화유산의 보존 및 활용에 관한 법률",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "260479",
+   "efYd": "20240915",
+   "ancYd": "20240213",
+   "ancNo": "20309",
+   "name": "문화유산의 보존 및 활용에 관한 법률",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "254831",
+   "efYd": "20240915",
+   "ancYd": "20230914",
+   "ancNo": "19704",
+   "name": "문화유산의 보존 및 활용에 관한 법률",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "260205",
+   "efYd": "20240814",
+   "ancYd": "20240213",
+   "ancNo": "20286",
+   "name": "문화유산의 보존 및 활용에 관한 법률",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "260479",
+   "efYd": "20240724",
+   "ancYd": "20240213",
+   "ancNo": "20309",
+   "name": "문화유산의 보존 및 활용에 관한 법률",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "259069",
+   "efYd": "20240724",
+   "ancYd": "20240123",
+   "ancNo": "20077",
+   "name": "문화유산의 보존 및 활용에 관한 법률",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "260849",
+   "efYd": "20240517",
+   "ancYd": "20240227",
+   "ancNo": "20369",
+   "name": "문화유산의 보존 및 활용에 관한 법률",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "260479",
+   "efYd": "20240517",
+   "ancYd": "20240213",
+   "ancNo": "20309",
+   "name": "문화유산의 보존 및 활용에 관한 법률",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "258061",
+   "efYd": "20240517",
+   "ancYd": "20240109",
+   "ancNo": "19951",
+   "name": "문화유산의 보존 및 활용에 관한 법률",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "254003",
+   "efYd": "20240517",
+   "ancYd": "20230816",
+   "ancNo": "19690",
+   "name": "문화유산의 보존 및 활용에 관한 법률",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "253405",
+   "efYd": "20240517",
+   "ancYd": "20230808",
+   "ancNo": "19590",
+   "name": "문화유산의 보존 및 활용에 관한 법률",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "248935",
+   "efYd": "20240517",
+   "ancYd": "20230321",
+   "ancNo": "19248",
+   "name": "문화유산의 보존 및 활용에 관한 법률",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "259639",
+   "efYd": "20240322",
+   "ancYd": "20240206",
+   "ancNo": "20194",
+   "name": "문화재보호법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "253569",
+   "efYd": "20230808",
+   "ancYd": "20230808",
+   "ancNo": "19592",
+   "name": "문화재보호법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "242067",
+   "efYd": "20230504",
+   "ancYd": "20220503",
+   "ancNo": "18859",
+   "name": "문화재보호법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "237023",
+   "efYd": "20221201",
+   "ancYd": "20211130",
+   "ancNo": "18522",
+   "name": "문화재보호법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "239481",
+   "efYd": "20220719",
+   "ancYd": "20220118",
+   "ancNo": "18770",
+   "name": "문화재보호법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "232177",
+   "efYd": "20211119",
+   "ancYd": "20210518",
+   "ancNo": "18157",
+   "name": "문화재보호법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "219073",
+   "efYd": "20210610",
+   "ancYd": "20200609",
+   "ancNo": "17409",
+   "name": "문화재보호법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "223489",
+   "efYd": "20210609",
+   "ancYd": "20201208",
+   "ancNo": "17586",
+   "name": "문화재보호법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "224591",
+   "efYd": "20201222",
+   "ancYd": "20201222",
+   "ancNo": "17711",
+   "name": "문화재보호법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "219073",
+   "efYd": "20201210",
+   "ancYd": "20200609",
+   "ancNo": "17409",
+   "name": "문화재보호법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "223513",
+   "efYd": "20201208",
+   "ancYd": "20201208",
+   "ancNo": "17592",
+   "name": "문화재보호법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "223489",
+   "efYd": "20201208",
+   "ancYd": "20201208",
+   "ancNo": "17586",
+   "name": "문화재보호법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "211487",
+   "efYd": "20201127",
+   "ancYd": "20191126",
+   "ancNo": "16596",
+   "name": "문화재보호법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "219073",
+   "efYd": "20200609",
+   "ancYd": "20200609",
+   "ancNo": "17409",
+   "name": "문화재보호법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "211487",
+   "efYd": "20200527",
+   "ancYd": "20191126",
+   "ancNo": "16596",
+   "name": "문화재보호법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "206047",
+   "efYd": "20191225",
+   "ancYd": "20181224",
+   "ancNo": "16057",
+   "name": "문화재보호법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "204807",
+   "efYd": "20190417",
+   "ancYd": "20181016",
+   "ancNo": "15827",
+   "name": "문화재보호법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "203735",
+   "efYd": "20181213",
+   "ancYd": "20180612",
+   "ancNo": "15639",
+   "name": "문화재보호법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "203735",
+   "efYd": "20180713",
+   "ancYd": "20180612",
+   "ancNo": "15639",
+   "name": "문화재보호법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "199102",
+   "efYd": "20180529",
+   "ancYd": "20171128",
+   "ancNo": "15065",
+   "name": "문화재보호법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "193422",
+   "efYd": "20180419",
+   "ancYd": "20170418",
+   "ancNo": "14795",
+   "name": "문화재보호법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "192480",
+   "efYd": "20180322",
+   "ancYd": "20170321",
+   "ancNo": "14640",
+   "name": "문화재보호법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "199102",
+   "efYd": "20171128",
+   "ancYd": "20171128",
+   "ancNo": "15065",
+   "name": "문화재보호법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "192480",
+   "efYd": "20170922",
+   "ancYd": "20170321",
+   "ancNo": "14640",
+   "name": "문화재보호법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "188409",
+   "efYd": "20170621",
+   "ancYd": "20161220",
+   "ancNo": "14436",
+   "name": "문화재보호법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "182044",
+   "efYd": "20170330",
+   "ancYd": "20160329",
+   "ancNo": "14113",
+   "name": "문화재보호법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "192480",
+   "efYd": "20170321",
+   "ancYd": "20170321",
+   "ancNo": "14640",
+   "name": "문화재보호법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "180721",
+   "efYd": "20160804",
+   "ancYd": "20160203",
+   "ancNo": "13964",
+   "name": "문화재보호법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "169514",
+   "efYd": "20160328",
+   "ancYd": "20150327",
+   "ancNo": "13249",
+   "name": "문화재보호법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "180721",
+   "efYd": "20160203",
+   "ancYd": "20160203",
+   "ancNo": "13964",
+   "name": "문화재보호법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "170992",
+   "efYd": "20150819",
+   "ancYd": "20150518",
+   "ancNo": "13291",
+   "name": "문화재보호법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "150707",
+   "efYd": "20150129",
+   "ancYd": "20140128",
+   "ancNo": "12352",
+   "name": "문화재보호법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "154258",
+   "efYd": "20140829",
+   "ancYd": "20140528",
+   "ancNo": "12692",
+   "name": "문화재보호법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "122422",
+   "efYd": "20120727",
+   "ancYd": "20120126",
+   "ancNo": "11228",
+   "name": "문화재보호법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "116998",
+   "efYd": "20120317",
+   "ancYd": "20110916",
+   "ancNo": "11053",
+   "name": "문화재보호법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "115836",
+   "efYd": "20120205",
+   "ancYd": "20110804",
+   "ancNo": "11037",
+   "name": "문화재보호법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "114771",
+   "efYd": "20111015",
+   "ancYd": "20110714",
+   "ancNo": "10829",
+   "name": "문화재보호법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "112042",
+   "efYd": "20110406",
+   "ancYd": "20110406",
+   "ancNo": "10562",
+   "name": "문화재보호법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "102447",
+   "efYd": "20110205",
+   "ancYd": "20100204",
+   "ancNo": "10000",
+   "name": "문화재보호법",
+   "kind": "전부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "102447",
+   "efYd": "20100204",
+   "ancYd": "20100204",
+   "ancNo": "10000",
+   "name": "문화재보호법",
+   "kind": "전부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "91421",
+   "efYd": "20090731",
+   "ancYd": "20090130",
+   "ancNo": "09401",
+   "name": "문화재보호법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "90556",
+   "efYd": "20081231",
+   "ancYd": "20081231",
+   "ancNo": "09313",
+   "name": "문화재보호법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "87485",
+   "efYd": "20081214",
+   "ancYd": "20080613",
+   "ancNo": "09116",
+   "name": "문화재보호법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "86420",
+   "efYd": "20080929",
+   "ancYd": "20080328",
+   "ancNo": "09002",
+   "name": "문화재보호법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "83440",
+   "efYd": "20080229",
+   "ancYd": "20080229",
+   "ancNo": "08852",
+   "name": "문화재보호법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "78011",
+   "efYd": "20070411",
+   "ancYd": "20070411",
+   "ancNo": "08346",
+   "name": "문화재보호법",
+   "kind": "전부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "75761",
+   "efYd": "20070101",
+   "ancYd": "20061004",
+   "ancNo": "08050",
+   "name": "문화재보호법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "73170",
+   "efYd": "20060701",
+   "ancYd": "20060221",
+   "ancNo": "07849",
+   "name": "문화재보호법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "72372",
+   "efYd": "20060701",
+   "ancYd": "20051229",
+   "ancNo": "07796",
+   "name": "문화재보호법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "72199",
+   "efYd": "20060624",
+   "ancYd": "20051223",
+   "ancNo": "07734",
+   "name": "문화재보호법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "67668",
+   "efYd": "20060401",
+   "ancYd": "20050331",
+   "ancNo": "07428",
+   "name": "문화재보호법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "66642",
+   "efYd": "20050728",
+   "ancYd": "20050127",
+   "ancNo": "07365",
+   "name": "문화재보호법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "58883",
+   "efYd": "20030701",
+   "ancYd": "20021230",
+   "ancNo": "06840",
+   "name": "문화재보호법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "58884",
+   "efYd": "20030101",
+   "ancYd": "20020204",
+   "ancNo": "06656",
+   "name": "문화재보호법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "57481",
+   "efYd": "20010701",
+   "ancYd": "20010328",
+   "ancNo": "06443",
+   "name": "문화재보호법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "58777",
+   "efYd": "20000701",
+   "ancYd": "20000112",
+   "ancNo": "06133",
+   "name": "문화재보호법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "58886",
+   "efYd": "19990701",
+   "ancYd": "19990524",
+   "ancNo": "05982",
+   "name": "문화재보호법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "58885",
+   "efYd": "19990701",
+   "ancYd": "19990129",
+   "ancNo": "05719",
+   "name": "문화재보호법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "57377",
+   "efYd": "19980101",
+   "ancYd": "19971213",
+   "ancNo": "05453",
+   "name": "문화재보호법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "57374",
+   "efYd": "19960701",
+   "ancYd": "19951229",
+   "ancNo": "05073",
+   "name": "문화재보호법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "57480",
+   "efYd": "19960101",
+   "ancYd": "19950105",
+   "ancNo": "04884",
+   "name": "문화재보호법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "57482",
+   "efYd": "19930306",
+   "ancYd": "19930306",
+   "ancNo": "04541",
+   "name": "문화재보호법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "57344",
+   "efYd": "19900103",
+   "ancYd": "19891230",
+   "ancNo": "04183",
+   "name": "문화재보호법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "57483",
+   "efYd": "19890101",
+   "ancYd": "19881226",
+   "ancNo": "04031",
+   "name": "문화재보호법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "57485",
+   "efYd": "19880529",
+   "ancYd": "19871128",
+   "ancNo": "03947",
+   "name": "문화재보호법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "57484",
+   "efYd": "19841231",
+   "ancYd": "19841231",
+   "ancNo": "03787",
+   "name": "문화재보호법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "58776",
+   "efYd": "19830701",
+   "ancYd": "19821231",
+   "ancNo": "03644",
+   "name": "문화재보호법",
+   "kind": "전부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "5082",
+   "efYd": "19730205",
+   "ancYd": "19730205",
+   "ancNo": "02468",
+   "name": "문화재보호법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "5081",
+   "efYd": "19700910",
+   "ancYd": "19700810",
+   "ancNo": "02233",
+   "name": "문화재보호법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "5080",
+   "efYd": "19650701",
+   "ancYd": "19650630",
+   "ancNo": "01701",
+   "name": "문화재보호법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "5079",
+   "efYd": "19631217",
+   "ancYd": "19631216",
+   "ancNo": "01583",
+   "name": "문화재보호법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "5078",
+   "efYd": "19631205",
+   "ancYd": "19631205",
+   "ancNo": "01462",
+   "name": "문화재보호법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "5077",
+   "efYd": "19630209",
+   "ancYd": "19630209",
+   "ancNo": "01265",
+   "name": "문화재보호법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "5076",
+   "efYd": "19620110",
+   "ancYd": "19620110",
+   "ancNo": "00961",
+   "name": "문화재보호법",
+   "kind": "제정",
+   "status": "predecessor"
+  }
+ ]
+}

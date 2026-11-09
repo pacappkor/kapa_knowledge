@@ -1,0 +1,520 @@
+{
+ "lsId": "009847",
+ "name": "철도의 건설 및 철도시설 유지관리에 관한 법률",
+ "fetched": "2026-11-08",
+ "versions": [
+  {
+   "lsiSeq": "286613",
+   "efYd": "20260602",
+   "ancYd": "20260602",
+   "ancNo": "21738",
+   "name": "철도의 건설 및 철도시설 유지관리에 관한 법률",
+   "kind": "타법개정",
+   "status": "current"
+  },
+  {
+   "lsiSeq": "277035",
+   "efYd": "20260102",
+   "ancYd": "20251001",
+   "ancNo": "21065",
+   "name": "철도의 건설 및 철도시설 유지관리에 관한 법률",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "268761",
+   "efYd": "20250801",
+   "ancYd": "20250131",
+   "ancNo": "20764",
+   "name": "철도의 건설 및 철도시설 유지관리에 관한 법률",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "259591",
+   "efYd": "20250131",
+   "ancYd": "20240130",
+   "ancNo": "20177",
+   "name": "철도의 건설 및 철도시설 유지관리에 관한 법률",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "258323",
+   "efYd": "20240109",
+   "ancYd": "20240109",
+   "ancNo": "19987",
+   "name": "철도의 건설 및 철도시설 유지관리에 관한 법률",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "250119",
+   "efYd": "20230719",
+   "ancYd": "20230418",
+   "ancNo": "19393",
+   "name": "철도의 건설 및 철도시설 유지관리에 관한 법률",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "251657",
+   "efYd": "20230710",
+   "ancYd": "20230609",
+   "ancNo": "19430",
+   "name": "철도의 건설 및 철도시설 유지관리에 관한 법률",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "246799",
+   "efYd": "20230628",
+   "ancYd": "20221227",
+   "ancNo": "19117",
+   "name": "철도의 건설 및 철도시설 유지관리에 관한 법률",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "237077",
+   "efYd": "20221201",
+   "ancYd": "20211130",
+   "ancNo": "18522",
+   "name": "철도의 건설 및 철도시설 유지관리에 관한 법률",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "239545",
+   "efYd": "20220719",
+   "ancYd": "20220118",
+   "ancNo": "18787",
+   "name": "철도의 건설 및 철도시설 유지관리에 관한 법률",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "219351",
+   "efYd": "20210610",
+   "ancYd": "20200609",
+   "ancNo": "17458",
+   "name": "철도의 건설 및 철도시설 유지관리에 관한 법률",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "216311",
+   "efYd": "20210401",
+   "ancYd": "20200331",
+   "ancNo": "17171",
+   "name": "철도의 건설 및 철도시설 유지관리에 관한 법률",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "219173",
+   "efYd": "20201210",
+   "ancYd": "20200609",
+   "ancNo": "17447",
+   "name": "철도의 건설 및 철도시설 유지관리에 관한 법률",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "219383",
+   "efYd": "20200910",
+   "ancYd": "20200609",
+   "ancNo": "17460",
+   "name": "철도의 건설 및 철도시설 유지관리에 관한 법률",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "219319",
+   "efYd": "20200609",
+   "ancYd": "20200609",
+   "ancNo": "17453",
+   "name": "철도의 건설 및 철도시설 유지관리에 관한 법률",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "211613",
+   "efYd": "20191227",
+   "ancYd": "20191126",
+   "ancNo": "16639",
+   "name": "철도의 건설 및 철도시설 유지관리에 관한 법률",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "202660",
+   "efYd": "20190314",
+   "ancYd": "20180313",
+   "ancNo": "15460",
+   "name": "철도의 건설 및 철도시설 유지관리에 관한 법률",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "200238",
+   "efYd": "20180627",
+   "ancYd": "20171226",
+   "ancNo": "15323",
+   "name": "철도건설법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "191111",
+   "efYd": "20180118",
+   "ancYd": "20170117",
+   "ancNo": "14532",
+   "name": "철도건설법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "179641",
+   "efYd": "20170120",
+   "ancYd": "20160119",
+   "ancNo": "13797",
+   "name": "철도건설법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "173872",
+   "efYd": "20160212",
+   "ancYd": "20150811",
+   "ancNo": "13490",
+   "name": "철도건설법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "154130",
+   "efYd": "20141122",
+   "ancYd": "20140521",
+   "ancNo": "12647",
+   "name": "철도건설법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "150064",
+   "efYd": "20140715",
+   "ancYd": "20140114",
+   "ancNo": "12248",
+   "name": "철도건설법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "140254",
+   "efYd": "20140523",
+   "ancYd": "20130522",
+   "ancNo": "11794",
+   "name": "철도건설법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "142685",
+   "efYd": "20140207",
+   "ancYd": "20130806",
+   "ancNo": "12023",
+   "name": "철도건설법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "138794",
+   "efYd": "20131006",
+   "ancYd": "20130405",
+   "ancNo": "11752",
+   "name": "철도건설법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "137197",
+   "efYd": "20130323",
+   "ancYd": "20130323",
+   "ancNo": "11690",
+   "name": "철도건설법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "112441",
+   "efYd": "20120415",
+   "ancYd": "20110414",
+   "ancNo": "10599",
+   "name": "철도건설법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "105489",
+   "efYd": "20101201",
+   "ancYd": "20100531",
+   "ancNo": "10331",
+   "name": "철도건설법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "104533",
+   "efYd": "20101016",
+   "ancYd": "20100415",
+   "ancNo": "10272",
+   "name": "철도건설법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "104464",
+   "efYd": "20101016",
+   "ancYd": "20100415",
+   "ancNo": "10266",
+   "name": "철도건설법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "94489",
+   "efYd": "20100701",
+   "ancYd": "20090609",
+   "ancNo": "09770",
+   "name": "철도건설법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "94487",
+   "efYd": "20100310",
+   "ancYd": "20090609",
+   "ancNo": "09763",
+   "name": "철도건설법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "94492",
+   "efYd": "20091210",
+   "ancYd": "20090609",
+   "ancNo": "09772",
+   "name": "철도건설법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "91488",
+   "efYd": "20090731",
+   "ancYd": "20090130",
+   "ancNo": "09401",
+   "name": "철도건설법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "92142",
+   "efYd": "20090626",
+   "ancYd": "20090325",
+   "ancNo": "09547",
+   "name": "철도건설법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "90966",
+   "efYd": "20081231",
+   "ancYd": "20081231",
+   "ancNo": "09313",
+   "name": "철도건설법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "81868",
+   "efYd": "20080922",
+   "ancYd": "20071221",
+   "ancNo": "08733",
+   "name": "철도건설법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "82255",
+   "efYd": "20080628",
+   "ancYd": "20071227",
+   "ancNo": "08820",
+   "name": "철도건설법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "82254",
+   "efYd": "20080628",
+   "ancYd": "20071227",
+   "ancNo": "08819",
+   "name": "철도건설법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "77894",
+   "efYd": "20080407",
+   "ancYd": "20070406",
+   "ancNo": "08338",
+   "name": "철도건설법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "86512",
+   "efYd": "20080321",
+   "ancYd": "20080321",
+   "ancNo": "08976",
+   "name": "철도건설법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "86354",
+   "efYd": "20080321",
+   "ancYd": "20080321",
+   "ancNo": "08974",
+   "name": "철도건설법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "84749",
+   "efYd": "20080229",
+   "ancYd": "20080229",
+   "ancNo": "08852",
+   "name": "철도건설법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "79079",
+   "efYd": "20071118",
+   "ancYd": "20070517",
+   "ancNo": "08466",
+   "name": "철도건설법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "75658",
+   "efYd": "20070928",
+   "ancYd": "20060927",
+   "ancNo": "08014",
+   "name": "철도건설법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "78816",
+   "efYd": "20070427",
+   "ancYd": "20070427",
+   "ancNo": "08404",
+   "name": "철도건설법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "77203",
+   "efYd": "20070420",
+   "ancYd": "20070119",
+   "ancNo": "08251",
+   "name": "철도건설법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "78552",
+   "efYd": "20070411",
+   "ancYd": "20070411",
+   "ancNo": "08370",
+   "name": "철도건설법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "78551",
+   "efYd": "20070411",
+   "ancYd": "20070411",
+   "ancNo": "08369",
+   "name": "철도건설법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "78502",
+   "efYd": "20070411",
+   "ancYd": "20070411",
+   "ancNo": "08371",
+   "name": "철도건설법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "78098",
+   "efYd": "20070411",
+   "ancYd": "20070411",
+   "ancNo": "08355",
+   "name": "철도건설법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "78097",
+   "efYd": "20070411",
+   "ancYd": "20070411",
+   "ancNo": "08352",
+   "name": "철도건설법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "71159",
+   "efYd": "20060805",
+   "ancYd": "20050804",
+   "ancNo": "07678",
+   "name": "철도건설법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "72388",
+   "efYd": "20060701",
+   "ancYd": "20051229",
+   "ancNo": "07796",
+   "name": "철도건설법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "67781",
+   "efYd": "20060401",
+   "ancYd": "20050331",
+   "ancNo": "07459",
+   "name": "철도건설법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "66125",
+   "efYd": "20050701",
+   "ancYd": "20041231",
+   "ancNo": "07304",
+   "name": "철도건설법",
+   "kind": "제정",
+   "status": "predecessor"
+  }
+ ]
+}

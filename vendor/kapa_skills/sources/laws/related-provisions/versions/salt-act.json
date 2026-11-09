@@ -1,0 +1,295 @@
+{
+ "lsId": "000319",
+ "name": "소금산업 진흥법",
+ "fetched": "2026-11-08",
+ "versions": [
+  {
+   "lsiSeq": "255831",
+   "efYd": "20240501",
+   "ancYd": "20231031",
+   "ancNo": "19807",
+   "name": "소금산업 진흥법",
+   "kind": "타법개정",
+   "status": "current"
+  },
+  {
+   "lsiSeq": "238867",
+   "efYd": "20220405",
+   "ancYd": "20220104",
+   "ancNo": "18698",
+   "name": "소금산업 진흥법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "218313",
+   "efYd": "20210527",
+   "ancYd": "20200526",
+   "ancNo": "17330",
+   "name": "소금산업 진흥법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "214485",
+   "efYd": "20210219",
+   "ancYd": "20200218",
+   "ancNo": "17037",
+   "name": "소금산업 진흥법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "210322",
+   "efYd": "20200828",
+   "ancYd": "20190827",
+   "ancNo": "16568",
+   "name": "소금산업 진흥법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "218313",
+   "efYd": "20200526",
+   "ancYd": "20200526",
+   "ancNo": "17330",
+   "name": "소금산업 진흥법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "206335",
+   "efYd": "20190701",
+   "ancYd": "20181231",
+   "ancNo": "16125",
+   "name": "소금산업 진흥법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "205659",
+   "efYd": "20190612",
+   "ancYd": "20181211",
+   "ancNo": "15915",
+   "name": "소금산업 진흥법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "202704",
+   "efYd": "20190314",
+   "ancYd": "20180313",
+   "ancNo": "15483",
+   "name": "소금산업 진흥법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "192581",
+   "efYd": "20170922",
+   "ancYd": "20170321",
+   "ancNo": "14735",
+   "name": "소금산업 진흥법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "188579",
+   "efYd": "20170328",
+   "ancYd": "20161227",
+   "ancNo": "14476",
+   "name": "소금산업 진흥법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "172235",
+   "efYd": "20151223",
+   "ancYd": "20150622",
+   "ancNo": "13383",
+   "name": "소금산업 진흥법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "168034",
+   "efYd": "20150504",
+   "ancYd": "20150203",
+   "ancNo": "13187",
+   "name": "소금산업 진흥법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "137291",
+   "efYd": "20130323",
+   "ancYd": "20130323",
+   "ancNo": "11700",
+   "name": "소금산업 진흥법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "118850",
+   "efYd": "20121123",
+   "ancYd": "20111122",
+   "ancNo": "11101",
+   "name": "소금산업 진흥법",
+   "kind": "전부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "104001",
+   "efYd": "20110101",
+   "ancYd": "20100331",
+   "ancNo": "10219",
+   "name": "염관리법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "102136",
+   "efYd": "20100726",
+   "ancYd": "20100125",
+   "ancNo": "09958",
+   "name": "염관리법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "90193",
+   "efYd": "20090320",
+   "ancYd": "20081219",
+   "ancNo": "09157",
+   "name": "염관리법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "82073",
+   "efYd": "20080328",
+   "ancYd": "20071227",
+   "ancNo": "08801",
+   "name": "염관리법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "85055",
+   "efYd": "20080229",
+   "ancYd": "20080229",
+   "ancNo": "08852",
+   "name": "염관리법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "67602",
+   "efYd": "20060401",
+   "ancYd": "20050331",
+   "ancNo": "07428",
+   "name": "염관리법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "68720",
+   "efYd": "20050827",
+   "ancYd": "20050526",
+   "ancNo": "07509",
+   "name": "염관리법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "53813",
+   "efYd": "20020701",
+   "ancYd": "20020126",
+   "ancNo": "06627",
+   "name": "염관리법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "52277",
+   "efYd": "20020101",
+   "ancYd": "20011231",
+   "ancNo": "06583",
+   "name": "염관리법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "356",
+   "efYd": "20000101",
+   "ancYd": "19991231",
+   "ancNo": "06101",
+   "name": "염관리법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "355",
+   "efYd": "19990205",
+   "ancYd": "19990205",
+   "ancNo": "05776",
+   "name": "염관리법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "354",
+   "efYd": "19980101",
+   "ancYd": "19971213",
+   "ancNo": "05453",
+   "name": "염관리법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "353",
+   "efYd": "19960701",
+   "ancYd": "19951229",
+   "ancNo": "05087",
+   "name": "염관리법",
+   "kind": "전부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "352",
+   "efYd": "19930306",
+   "ancYd": "19930306",
+   "ancNo": "04541",
+   "name": "염관리법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "351",
+   "efYd": "19770301",
+   "ancYd": "19761231",
+   "ancNo": "02965",
+   "name": "염관리법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "350",
+   "efYd": "19670330",
+   "ancYd": "19670330",
+   "ancNo": "01938",
+   "name": "염관리법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "349",
+   "efYd": "19631028",
+   "ancYd": "19631028",
+   "ancNo": "01419",
+   "name": "염관리법",
+   "kind": "제정",
+   "status": "predecessor"
+  }
+ ]
+}

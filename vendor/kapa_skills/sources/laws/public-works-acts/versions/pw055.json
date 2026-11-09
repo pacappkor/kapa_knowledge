@@ -1,0 +1,754 @@
+{
+ "lsId": "000243",
+ "name": "민간임대주택에 관한 특별법",
+ "fetched": "2026-11-08",
+ "versions": [
+  {
+   "lsiSeq": "289353",
+   "efYd": "20270909",
+   "ancYd": "20260908",
+   "ancNo": "21901",
+   "name": "민간임대주택에 관한 특별법",
+   "kind": "타법개정",
+   "status": "scheduled"
+  },
+  {
+   "lsiSeq": "289169",
+   "efYd": "20270309",
+   "ancYd": "20260908",
+   "ancNo": "21899",
+   "name": "민간임대주택에 관한 특별법",
+   "kind": "일부개정",
+   "status": "scheduled"
+  },
+  {
+   "lsiSeq": "276995",
+   "efYd": "20260102",
+   "ancYd": "20251001",
+   "ancNo": "21065",
+   "name": "민간임대주택에 관한 특별법",
+   "kind": "타법개정",
+   "status": "current"
+  },
+  {
+   "lsiSeq": "276995",
+   "efYd": "20251001",
+   "ancYd": "20251001",
+   "ancNo": "21065",
+   "name": "민간임대주택에 관한 특별법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "268183",
+   "efYd": "20250604",
+   "ancYd": "20250114",
+   "ancNo": "20661",
+   "name": "민간임대주택에 관한 특별법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "266703",
+   "efYd": "20250604",
+   "ancYd": "20241203",
+   "ancNo": "20550",
+   "name": "민간임대주택에 관한 특별법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "268183",
+   "efYd": "20250114",
+   "ancYd": "20250114",
+   "ancNo": "20661",
+   "name": "민간임대주택에 관한 특별법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "254111",
+   "efYd": "20240217",
+   "ancYd": "20230816",
+   "ancNo": "19680",
+   "name": "민간임대주택에 관한 특별법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "251381",
+   "efYd": "20231002",
+   "ancYd": "20230601",
+   "ancNo": "19424",
+   "name": "민간임대주택에 관한 특별법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "249393",
+   "efYd": "20230929",
+   "ancYd": "20230328",
+   "ancNo": "19313",
+   "name": "민간임대주택에 관한 특별법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "246725",
+   "efYd": "20230628",
+   "ancYd": "20221227",
+   "ancNo": "19117",
+   "name": "민간임대주택에 관한 특별법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "251381",
+   "efYd": "20230601",
+   "ancYd": "20230601",
+   "ancNo": "19424",
+   "name": "민간임대주택에 관한 특별법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "249393",
+   "efYd": "20230328",
+   "ancYd": "20230328",
+   "ancNo": "19313",
+   "name": "민간임대주택에 관한 특별법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "235369",
+   "efYd": "20220115",
+   "ancYd": "20210914",
+   "ancNo": "18452",
+   "name": "민간임대주택에 관한 특별법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "239353",
+   "efYd": "20220111",
+   "ancYd": "20220111",
+   "ancNo": "18750",
+   "name": "민간임대주택에 관한 특별법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "235369",
+   "efYd": "20210914",
+   "ancYd": "20210914",
+   "ancNo": "18452",
+   "name": "민간임대주택에 관한 특별법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "230273",
+   "efYd": "20210617",
+   "ancYd": "20210316",
+   "ancNo": "17939",
+   "name": "민간임대주택에 관한 특별법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "230221",
+   "efYd": "20210517",
+   "ancYd": "20210316",
+   "ancNo": "17944",
+   "name": "민간임대주택에 관한 특별법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "216259",
+   "efYd": "20210401",
+   "ancYd": "20200331",
+   "ancNo": "17171",
+   "name": "민간임대주택에 관한 특별법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "224645",
+   "efYd": "20210323",
+   "ancYd": "20201222",
+   "ancNo": "17738",
+   "name": "민간임대주택에 관한 특별법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "230221",
+   "efYd": "20210316",
+   "ancYd": "20210316",
+   "ancNo": "17944",
+   "name": "민간임대주택에 관한 특별법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "224647",
+   "efYd": "20201222",
+   "ancYd": "20201222",
+   "ancNo": "17739",
+   "name": "민간임대주택에 관한 특별법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "220963",
+   "efYd": "20201210",
+   "ancYd": "20200818",
+   "ancNo": "17482",
+   "name": "민간임대주택에 관한 특별법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "219183",
+   "efYd": "20201210",
+   "ancYd": "20200609",
+   "ancNo": "17452",
+   "name": "민간임대주택에 관한 특별법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "211593",
+   "efYd": "20201127",
+   "ancYd": "20191126",
+   "ancNo": "16630",
+   "name": "민간임대주택에 관한 특별법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "220963",
+   "efYd": "20200818",
+   "ancYd": "20200818",
+   "ancNo": "17482",
+   "name": "민간임대주택에 관한 특별법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "217331",
+   "efYd": "20200708",
+   "ancYd": "20200407",
+   "ancNo": "17219",
+   "name": "민간임대주택에 관한 특별법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "219267",
+   "efYd": "20200609",
+   "ancYd": "20200609",
+   "ancNo": "17453",
+   "name": "민간임대주택에 관한 특별법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "211593",
+   "efYd": "20200527",
+   "ancYd": "20191126",
+   "ancNo": "16630",
+   "name": "민간임대주택에 관한 특별법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "215753",
+   "efYd": "20200324",
+   "ancYd": "20200324",
+   "ancNo": "17091",
+   "name": "민간임대주택에 관한 특별법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "208479",
+   "efYd": "20191024",
+   "ancYd": "20190423",
+   "ancNo": "16386",
+   "name": "민간임대주택에 관한 특별법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "205845",
+   "efYd": "20190619",
+   "ancYd": "20181218",
+   "ancNo": "16000",
+   "name": "민간임대주택에 관한 특별법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "202668",
+   "efYd": "20190314",
+   "ancYd": "20180313",
+   "ancNo": "15460",
+   "name": "민간임대주택에 관한 특별법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "204211",
+   "efYd": "20190215",
+   "ancYd": "20180814",
+   "ancNo": "15730",
+   "name": "민간임대주택에 관한 특별법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "198237",
+   "efYd": "20181025",
+   "ancYd": "20171024",
+   "ancNo": "14912",
+   "name": "민간임대주택에 관한 특별법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "204211",
+   "efYd": "20180814",
+   "ancYd": "20180814",
+   "ancNo": "15730",
+   "name": "민간임대주택에 관한 특별법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "201177",
+   "efYd": "20180717",
+   "ancYd": "20180116",
+   "ancNo": "15356",
+   "name": "민간임대주택에 관한 특별법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "200234",
+   "efYd": "20180327",
+   "ancYd": "20171226",
+   "ancNo": "15319",
+   "name": "민간임대주택에 관한 특별법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "200211",
+   "efYd": "20180327",
+   "ancYd": "20171226",
+   "ancNo": "15309",
+   "name": "민간임대주택에 관한 특별법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "191076",
+   "efYd": "20180118",
+   "ancYd": "20170117",
+   "ancNo": "14532",
+   "name": "민간임대주택에 관한 특별법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "191273",
+   "efYd": "20170718",
+   "ancYd": "20170117",
+   "ancNo": "14542",
+   "name": "민간임대주택에 관한 특별법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "188653",
+   "efYd": "20161227",
+   "ancYd": "20161227",
+   "ancNo": "14480",
+   "name": "민간임대주택에 관한 특별법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "179539",
+   "efYd": "20160901",
+   "ancYd": "20160119",
+   "ancNo": "13782",
+   "name": "민간임대주택에 관한 특별법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "179690",
+   "efYd": "20160812",
+   "ancYd": "20160119",
+   "ancNo": "13805",
+   "name": "민간임대주택에 관한 특별법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "174472",
+   "efYd": "20151229",
+   "ancYd": "20150828",
+   "ancNo": "13499",
+   "name": "민간임대주택에 관한 특별법",
+   "kind": "전부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "171027",
+   "efYd": "20150919",
+   "ancYd": "20150518",
+   "ancNo": "13328",
+   "name": "임대주택법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "166962",
+   "efYd": "20150701",
+   "ancYd": "20150106",
+   "ancNo": "12989",
+   "name": "임대주택법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "171027",
+   "efYd": "20150518",
+   "ancYd": "20150518",
+   "ancNo": "13328",
+   "name": "임대주택법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "166519",
+   "efYd": "20150106",
+   "ancYd": "20150106",
+   "ancNo": "12985",
+   "name": "임대주택법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "154286",
+   "efYd": "20140929",
+   "ancYd": "20140528",
+   "ancNo": "12704",
+   "name": "임대주택법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "142637",
+   "efYd": "20140807",
+   "ancYd": "20130806",
+   "ancNo": "11998",
+   "name": "임대주택법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "148144",
+   "efYd": "20140625",
+   "ancYd": "20131224",
+   "ancNo": "12117",
+   "name": "임대주택법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "154286",
+   "efYd": "20140528",
+   "ancYd": "20140528",
+   "ancNo": "12704",
+   "name": "임대주택법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "140970",
+   "efYd": "20131205",
+   "ancYd": "20130604",
+   "ancNo": "11870",
+   "name": "임대주택법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "130875",
+   "efYd": "20130619",
+   "ancYd": "20121218",
+   "ancNo": "11587",
+   "name": "임대주택법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "140970",
+   "efYd": "20130604",
+   "ancYd": "20130604",
+   "ancNo": "11870",
+   "name": "임대주택법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "137192",
+   "efYd": "20130323",
+   "ancYd": "20130323",
+   "ancNo": "11690",
+   "name": "임대주택법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "130875",
+   "efYd": "20130319",
+   "ancYd": "20121218",
+   "ancNo": "11587",
+   "name": "임대주택법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "122447",
+   "efYd": "20120805",
+   "ancYd": "20120126",
+   "ancNo": "11242",
+   "name": "임대주택법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "115797",
+   "efYd": "20120805",
+   "ancYd": "20110804",
+   "ancNo": "11021",
+   "name": "임대주택법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "122447",
+   "efYd": "20120427",
+   "ancYd": "20120126",
+   "ancNo": "11242",
+   "name": "임대주택법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "115797",
+   "efYd": "20120205",
+   "ancYd": "20110804",
+   "ancNo": "11021",
+   "name": "임대주택법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "122447",
+   "efYd": "20120126",
+   "ancYd": "20120126",
+   "ancNo": "11242",
+   "name": "임대주택법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "115797",
+   "efYd": "20110804",
+   "ancYd": "20110804",
+   "ancNo": "11021",
+   "name": "임대주택법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "111006",
+   "efYd": "20110610",
+   "ancYd": "20110309",
+   "ancNo": "10463",
+   "name": "임대주택법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "111006",
+   "efYd": "20110309",
+   "ancYd": "20110309",
+   "ancNo": "10463",
+   "name": "임대주택법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "97993",
+   "efYd": "20100330",
+   "ancYd": "20091229",
+   "ancNo": "09863",
+   "name": "임대주택법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "97993",
+   "efYd": "20091229",
+   "ancYd": "20091229",
+   "ancNo": "09863",
+   "name": "임대주택법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "92136",
+   "efYd": "20090626",
+   "ancYd": "20090325",
+   "ancNo": "09541",
+   "name": "임대주택법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "85960",
+   "efYd": "20080622",
+   "ancYd": "20080321",
+   "ancNo": "08966",
+   "name": "임대주택법",
+   "kind": "전부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "84403",
+   "efYd": "20080229",
+   "ancYd": "20080229",
+   "ancNo": "08852",
+   "name": "임대주택법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "79785",
+   "efYd": "20070719",
+   "ancYd": "20070719",
+   "ancNo": "08534",
+   "name": "임대주택법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "75569",
+   "efYd": "20070328",
+   "ancYd": "20060927",
+   "ancNo": "08015",
+   "name": "임대주택법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "70270",
+   "efYd": "20050713",
+   "ancYd": "20050713",
+   "ancNo": "07598",
+   "name": "임대주택법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "59243",
+   "efYd": "20031130",
+   "ancYd": "20030529",
+   "ancNo": "06916",
+   "name": "임대주택법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "59244",
+   "efYd": "20030627",
+   "ancYd": "20021226",
+   "ancNo": "06833",
+   "name": "임대주택법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "59245",
+   "efYd": "20030101",
+   "ancYd": "20020204",
+   "ancNo": "06656",
+   "name": "임대주택법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "59246",
+   "efYd": "20000713",
+   "ancYd": "20000112",
+   "ancNo": "06167",
+   "name": "임대주택법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "59390",
+   "efYd": "19980101",
+   "ancYd": "19971213",
+   "ancNo": "05453",
+   "name": "임대주택법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "59393",
+   "efYd": "19970301",
+   "ancYd": "19961230",
+   "ancNo": "05228",
+   "name": "임대주택법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "59384",
+   "efYd": "19960101",
+   "ancYd": "19951229",
+   "ancNo": "05109",
+   "name": "임대주택법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "59247",
+   "efYd": "19940401",
+   "ancYd": "19931227",
+   "ancNo": "04629",
+   "name": "임대주택법",
+   "kind": "전부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "1675",
+   "efYd": "19850131",
+   "ancYd": "19841231",
+   "ancNo": "03783",
+   "name": "임대주택건설촉진법",
+   "kind": "제정",
+   "status": "predecessor"
+  }
+ ]
+}

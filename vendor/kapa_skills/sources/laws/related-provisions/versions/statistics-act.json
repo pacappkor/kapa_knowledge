@@ -1,0 +1,241 @@
+{
+ "lsId": "000658",
+ "name": "통계법",
+ "fetched": "2026-11-08",
+ "versions": [
+  {
+   "lsiSeq": "285539",
+   "efYd": "20260722",
+   "ancYd": "20260421",
+   "ancNo": "21575",
+   "name": "통계법",
+   "kind": "일부개정",
+   "status": "current"
+  },
+  {
+   "lsiSeq": "277157",
+   "efYd": "20260102",
+   "ancYd": "20251001",
+   "ancNo": "21065",
+   "name": "통계법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "277157",
+   "efYd": "20251001",
+   "ancYd": "20251001",
+   "ancNo": "21065",
+   "name": "통계법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "261425",
+   "efYd": "20240326",
+   "ancYd": "20240326",
+   "ancNo": "20408",
+   "name": "통계법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "252677",
+   "efYd": "20240119",
+   "ancYd": "20230718",
+   "ancNo": "19543",
+   "name": "통계법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "218715",
+   "efYd": "20200609",
+   "ancYd": "20200609",
+   "ancNo": "17339",
+   "name": "통계법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "196492",
+   "efYd": "20180210",
+   "ancYd": "20170809",
+   "ancNo": "14843",
+   "name": "통계법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "195024",
+   "efYd": "20170726",
+   "ancYd": "20170726",
+   "ancNo": "14839",
+   "name": "통계법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "188528",
+   "efYd": "20170628",
+   "ancYd": "20161227",
+   "ancNo": "14467",
+   "name": "통계법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "188528",
+   "efYd": "20161227",
+   "ancYd": "20161227",
+   "ancNo": "14467",
+   "name": "통계법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "180329",
+   "efYd": "20160728",
+   "ancYd": "20160127",
+   "ancNo": "13818",
+   "name": "통계법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "180329",
+   "efYd": "20160127",
+   "ancYd": "20160127",
+   "ancNo": "13818",
+   "name": "통계법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "162068",
+   "efYd": "20141119",
+   "ancYd": "20141119",
+   "ancNo": "12844",
+   "name": "통계법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "153903",
+   "efYd": "20140514",
+   "ancYd": "20140514",
+   "ancNo": "12571",
+   "name": "통계법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "130812",
+   "efYd": "20130319",
+   "ancYd": "20121218",
+   "ancNo": "11553",
+   "name": "통계법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "130812",
+   "efYd": "20121218",
+   "ancYd": "20121218",
+   "ancNo": "11553",
+   "name": "통계법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "103945",
+   "efYd": "20100701",
+   "ancYd": "20100331",
+   "ancNo": "10196",
+   "name": "통계법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "92300",
+   "efYd": "20090702",
+   "ancYd": "20090401",
+   "ancNo": "09557",
+   "name": "통계법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "90534",
+   "efYd": "20090701",
+   "ancYd": "20081231",
+   "ancNo": "09284",
+   "name": "통계법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "78739",
+   "efYd": "20071028",
+   "ancYd": "20070427",
+   "ancNo": "08387",
+   "name": "통계법",
+   "kind": "전부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "79821",
+   "efYd": "20070723",
+   "ancYd": "20070723",
+   "ancNo": "08541",
+   "name": "통계법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "2859",
+   "efYd": "19990401",
+   "ancYd": "19990129",
+   "ancNo": "05691",
+   "name": "통계법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "2858",
+   "efYd": "19960401",
+   "ancYd": "19951229",
+   "ancNo": "05043",
+   "name": "통계법",
+   "kind": "전부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "2857",
+   "efYd": "19751231",
+   "ancYd": "19751231",
+   "ancNo": "02799",
+   "name": "통계법",
+   "kind": "전부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "2856",
+   "efYd": "19621212",
+   "ancYd": "19621212",
+   "ancNo": "01215",
+   "name": "통계법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "2855",
+   "efYd": "19620115",
+   "ancYd": "19620115",
+   "ancNo": "00980",
+   "name": "통계법",
+   "kind": "제정",
+   "status": "past"
+  }
+ ]
+}

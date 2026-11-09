@@ -1,0 +1,691 @@
+{
+ "lsId": "001486",
+ "name": "수산업법",
+ "fetched": "2026-11-08",
+ "versions": [
+  {
+   "lsiSeq": "289939",
+   "efYd": "20270617",
+   "ancYd": "20260922",
+   "ancNo": "21976",
+   "name": "수산업법",
+   "kind": "일부개정",
+   "status": "scheduled"
+  },
+  {
+   "lsiSeq": "285535",
+   "efYd": "20261022",
+   "ancYd": "20260421",
+   "ancNo": "21570",
+   "name": "수산업법",
+   "kind": "일부개정",
+   "status": "current"
+  },
+  {
+   "lsiSeq": "270747",
+   "efYd": "20260423",
+   "ancYd": "20250422",
+   "ancNo": "20940",
+   "name": "수산업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "273641",
+   "efYd": "20260317",
+   "ancYd": "20250916",
+   "ancNo": "21055",
+   "name": "수산업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "270747",
+   "efYd": "20250723",
+   "ancYd": "20250422",
+   "ancNo": "20940",
+   "name": "수산업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "257631",
+   "efYd": "20250103",
+   "ancYd": "20240102",
+   "ancNo": "19908",
+   "name": "수산업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "255835",
+   "efYd": "20240501",
+   "ancYd": "20231031",
+   "ancNo": "19807",
+   "name": "수산업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "239373",
+   "efYd": "20240112",
+   "ancYd": "20220111",
+   "ancNo": "18755",
+   "name": "수산업법",
+   "kind": "전부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "243111",
+   "efYd": "20230112",
+   "ancYd": "20220610",
+   "ancNo": "18959",
+   "name": "수산업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "239373",
+   "efYd": "20230112",
+   "ancYd": "20220111",
+   "ancNo": "18755",
+   "name": "수산업법",
+   "kind": "전부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "233109",
+   "efYd": "20210615",
+   "ancYd": "20210615",
+   "ancNo": "18288",
+   "name": "수산업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "218317",
+   "efYd": "20210301",
+   "ancYd": "20200526",
+   "ancNo": "17331",
+   "name": "수산업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "211877",
+   "efYd": "20201204",
+   "ancYd": "20191203",
+   "ancNo": "16699",
+   "name": "수산업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "210360",
+   "efYd": "20200828",
+   "ancYd": "20190827",
+   "ancNo": "16569",
+   "name": "수산업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "210326",
+   "efYd": "20200828",
+   "ancYd": "20190827",
+   "ancNo": "16568",
+   "name": "수산업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "215789",
+   "efYd": "20200324",
+   "ancYd": "20200324",
+   "ancNo": "17091",
+   "name": "수산업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "214503",
+   "efYd": "20200218",
+   "ancYd": "20200218",
+   "ancNo": "17038",
+   "name": "수산업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "206607",
+   "efYd": "20190709",
+   "ancYd": "20190108",
+   "ancNo": "16212",
+   "name": "수산업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "206604",
+   "efYd": "20190709",
+   "ancYd": "20190108",
+   "ancNo": "16211",
+   "name": "수산업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "206604",
+   "efYd": "20190108",
+   "ancYd": "20190108",
+   "ancNo": "16211",
+   "name": "수산업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "188116",
+   "efYd": "20171203",
+   "ancYd": "20161202",
+   "ancNo": "14349",
+   "name": "수산업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "172346",
+   "efYd": "20160623",
+   "ancYd": "20150622",
+   "ancNo": "13385",
+   "name": "수산업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "169544",
+   "efYd": "20160328",
+   "ancYd": "20150327",
+   "ancNo": "13268",
+   "name": "수산업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "172331",
+   "efYd": "20151223",
+   "ancYd": "20150622",
+   "ancNo": "13384",
+   "name": "수산업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "172281",
+   "efYd": "20151223",
+   "ancYd": "20150622",
+   "ancNo": "13383",
+   "name": "수산업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "172331",
+   "efYd": "20150923",
+   "ancYd": "20150622",
+   "ancNo": "13384",
+   "name": "수산업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "152367",
+   "efYd": "20150325",
+   "ancYd": "20140324",
+   "ancNo": "12541",
+   "name": "수산업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "167422",
+   "efYd": "20150120",
+   "ancYd": "20150120",
+   "ancNo": "13054",
+   "name": "수산업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "161222",
+   "efYd": "20150116",
+   "ancYd": "20141015",
+   "ancNo": "12823",
+   "name": "수산업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "142627",
+   "efYd": "20140807",
+   "ancYd": "20130806",
+   "ancNo": "11998",
+   "name": "수산업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "130841",
+   "efYd": "20131219",
+   "ancYd": "20121218",
+   "ancNo": "11566",
+   "name": "수산업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "143013",
+   "efYd": "20130813",
+   "ancYd": "20130813",
+   "ancNo": "12084",
+   "name": "수산업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "136871",
+   "efYd": "20130323",
+   "ancYd": "20130323",
+   "ancNo": "11690",
+   "name": "수산업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "115286",
+   "efYd": "20120726",
+   "ancYd": "20110725",
+   "ancNo": "10947",
+   "name": "수산업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "115282",
+   "efYd": "20120126",
+   "ancYd": "20110725",
+   "ancNo": "10944",
+   "name": "수산업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "115280",
+   "efYd": "20111026",
+   "ancYd": "20110725",
+   "ancNo": "10943",
+   "name": "수산업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "114997",
+   "efYd": "20111022",
+   "ancYd": "20110721",
+   "ancNo": "10890",
+   "name": "수산업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "105147",
+   "efYd": "20101118",
+   "ancYd": "20100517",
+   "ancNo": "10292",
+   "name": "수산업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "104503",
+   "efYd": "20101016",
+   "ancYd": "20100415",
+   "ancNo": "10272",
+   "name": "수산업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "102122",
+   "efYd": "20100701",
+   "ancYd": "20100125",
+   "ancNo": "09948",
+   "name": "수산업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "102122",
+   "efYd": "20100423",
+   "ancYd": "20100125",
+   "ancNo": "09948",
+   "name": "수산업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "92760",
+   "efYd": "20100423",
+   "ancYd": "20090422",
+   "ancNo": "09626",
+   "name": "수산업법",
+   "kind": "전부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "92417",
+   "efYd": "20091002",
+   "ancYd": "20090401",
+   "ancNo": "09620",
+   "name": "수산업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "85061",
+   "efYd": "20080229",
+   "ancYd": "20080229",
+   "ancNo": "08852",
+   "name": "수산업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "80051",
+   "efYd": "20080204",
+   "ancYd": "20070803",
+   "ancNo": "08626",
+   "name": "수산업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "79911",
+   "efYd": "20070727",
+   "ancYd": "20070727",
+   "ancNo": "08564",
+   "name": "수산업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "77977",
+   "efYd": "20070411",
+   "ancYd": "20070411",
+   "ancNo": "08377",
+   "name": "수산업법",
+   "kind": "전부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "76685",
+   "efYd": "20070404",
+   "ancYd": "20070103",
+   "ancNo": "08226",
+   "name": "수산업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "67766",
+   "efYd": "20051001",
+   "ancYd": "20050331",
+   "ancNo": "07477",
+   "name": "수산업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "66271",
+   "efYd": "20050701",
+   "ancYd": "20041231",
+   "ancNo": "07314",
+   "name": "수산업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "54982",
+   "efYd": "20030715",
+   "ancYd": "20020114",
+   "ancNo": "06611",
+   "name": "수산업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "54870",
+   "efYd": "20030101",
+   "ancYd": "20020204",
+   "ancNo": "06656",
+   "name": "수산업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "53428",
+   "efYd": "20011001",
+   "ancYd": "20010129",
+   "ancNo": "06398",
+   "name": "수산업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "10093",
+   "efYd": "20010901",
+   "ancYd": "20010129",
+   "ancNo": "06399",
+   "name": "수산업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "10092",
+   "efYd": "20010129",
+   "ancYd": "20000128",
+   "ancNo": "06257",
+   "name": "수산업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "10091",
+   "efYd": "19990809",
+   "ancYd": "19990208",
+   "ancNo": "05911",
+   "name": "수산업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "10090",
+   "efYd": "19990415",
+   "ancYd": "19990415",
+   "ancNo": "05977",
+   "name": "수산업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "10086",
+   "efYd": "19980101",
+   "ancYd": "19971213",
+   "ancNo": "05453",
+   "name": "수산업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "10085",
+   "efYd": "19980101",
+   "ancYd": "19971213",
+   "ancNo": "05454",
+   "name": "수산업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "10084",
+   "efYd": "19961231",
+   "ancYd": "19951230",
+   "ancNo": "05131",
+   "name": "수산업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "51434",
+   "efYd": "19960808",
+   "ancYd": "19960808",
+   "ancNo": "05153",
+   "name": "수산업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "5832",
+   "efYd": "19910909",
+   "ancYd": "19910308",
+   "ancNo": "04365",
+   "name": "수산업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "5831",
+   "efYd": "19910202",
+   "ancYd": "19900801",
+   "ancNo": "04252",
+   "name": "수산업법",
+   "kind": "전부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "5830",
+   "efYd": "19850701",
+   "ancYd": "19841231",
+   "ancNo": "03764",
+   "name": "수산업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "5829",
+   "efYd": "19820201",
+   "ancYd": "19811231",
+   "ancNo": "03492",
+   "name": "수산업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "5828",
+   "efYd": "19810621",
+   "ancYd": "19810320",
+   "ancNo": "03392",
+   "name": "수산업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "5827",
+   "efYd": "19760701",
+   "ancYd": "19751231",
+   "ancNo": "02836",
+   "name": "수산업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "5826",
+   "efYd": "19721007",
+   "ancYd": "19721007",
+   "ancNo": "02347",
+   "name": "수산업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "5825",
+   "efYd": "19710723",
+   "ancYd": "19710122",
+   "ancNo": "02300",
+   "name": "수산업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "5824",
+   "efYd": "19660423",
+   "ancYd": "19660423",
+   "ancNo": "01780",
+   "name": "수산업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "5823",
+   "efYd": "19651230",
+   "ancYd": "19651230",
+   "ancNo": "01736",
+   "name": "수산업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "5822",
+   "efYd": "19630715",
+   "ancYd": "19630715",
+   "ancNo": "01365",
+   "name": "수산업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "5821",
+   "efYd": "19630701",
+   "ancYd": "19630411",
+   "ancNo": "01321",
+   "name": "수산업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "5820",
+   "efYd": "19551212",
+   "ancYd": "19551212",
+   "ancNo": "00377",
+   "name": "수산업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "5819",
+   "efYd": "19540402",
+   "ancYd": "19540312",
+   "ancNo": "00313",
+   "name": "수산업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "5818",
+   "efYd": "19531209",
+   "ancYd": "19530909",
+   "ancNo": "00295",
+   "name": "수산업법",
+   "kind": "제정",
+   "status": "past"
+  }
+ ]
+}

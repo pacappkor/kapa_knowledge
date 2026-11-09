@@ -1,0 +1,304 @@
+{
+ "lsId": "009512",
+ "name": "항만공사법",
+ "fetched": "2026-11-08",
+ "versions": [
+  {
+   "lsiSeq": "287995",
+   "efYd": "20270108",
+   "ancYd": "20260707",
+   "ancNo": "21854",
+   "name": "항만공사법",
+   "kind": "일부개정",
+   "status": "scheduled"
+  },
+  {
+   "lsiSeq": "284405",
+   "efYd": "20260918",
+   "ancYd": "20260317",
+   "ancNo": "21467",
+   "name": "항만공사법",
+   "kind": "타법개정",
+   "status": "current"
+  },
+  {
+   "lsiSeq": "277089",
+   "efYd": "20260102",
+   "ancYd": "20251001",
+   "ancNo": "21065",
+   "name": "항만공사법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "246821",
+   "efYd": "20230628",
+   "ancYd": "20221227",
+   "ancNo": "19117",
+   "name": "항만공사법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "250997",
+   "efYd": "20230516",
+   "ancYd": "20230516",
+   "ancNo": "19415",
+   "name": "항만공사법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "245369",
+   "efYd": "20230516",
+   "ancYd": "20221115",
+   "ancNo": "19059",
+   "name": "항만공사법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "216317",
+   "efYd": "20210401",
+   "ancYd": "20200331",
+   "ancNo": "17171",
+   "name": "항만공사법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "213701",
+   "efYd": "20200730",
+   "ancYd": "20200129",
+   "ancNo": "16904",
+   "name": "항만공사법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "213669",
+   "efYd": "20200730",
+   "ancYd": "20200129",
+   "ancNo": "16902",
+   "name": "항만공사법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "206609",
+   "efYd": "20190409",
+   "ancYd": "20190108",
+   "ancNo": "16213",
+   "name": "항만공사법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "202680",
+   "efYd": "20190314",
+   "ancYd": "20180313",
+   "ancNo": "15460",
+   "name": "항만공사법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "192589",
+   "efYd": "20170922",
+   "ancYd": "20170321",
+   "ancNo": "14743",
+   "name": "항만공사법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "188426",
+   "efYd": "20170621",
+   "ancYd": "20161220",
+   "ancNo": "14451",
+   "name": "항만공사법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "167424",
+   "efYd": "20150120",
+   "ancYd": "20150120",
+   "ancNo": "13056",
+   "name": "항만공사법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "160165",
+   "efYd": "20141015",
+   "ancYd": "20141015",
+   "ancNo": "12831",
+   "name": "항만공사법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "150071",
+   "efYd": "20140715",
+   "ancYd": "20140114",
+   "ancNo": "12248",
+   "name": "항만공사법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "152082",
+   "efYd": "20140619",
+   "ancYd": "20140318",
+   "ancNo": "12488",
+   "name": "항만공사법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "137230",
+   "efYd": "20130323",
+   "ancYd": "20130323",
+   "ancNo": "11690",
+   "name": "항만공사법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "125908",
+   "efYd": "20120902",
+   "ancYd": "20120601",
+   "ancNo": "11477",
+   "name": "항만공사법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "105502",
+   "efYd": "20101201",
+   "ancYd": "20100531",
+   "ancNo": "10331",
+   "name": "항만공사법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "104546",
+   "efYd": "20101016",
+   "ancYd": "20100415",
+   "ancNo": "10272",
+   "name": "항만공사법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "102530",
+   "efYd": "20100505",
+   "ancYd": "20100204",
+   "ancNo": "10041",
+   "name": "항만공사법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "94618",
+   "efYd": "20091210",
+   "ancYd": "20090609",
+   "ancNo": "09773",
+   "name": "항만공사법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "91461",
+   "efYd": "20090731",
+   "ancYd": "20090130",
+   "ancNo": "09401",
+   "name": "항만공사법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "82306",
+   "efYd": "20080628",
+   "ancYd": "20071227",
+   "ancNo": "08819",
+   "name": "항만공사법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "86197",
+   "efYd": "20080321",
+   "ancYd": "20080321",
+   "ancNo": "08976",
+   "name": "항만공사법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "84696",
+   "efYd": "20080229",
+   "ancYd": "20080229",
+   "ancNo": "08852",
+   "name": "항만공사법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "78536",
+   "efYd": "20070411",
+   "ancYd": "20070411",
+   "ancNo": "08379",
+   "name": "항만공사법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "78535",
+   "efYd": "20070411",
+   "ancYd": "20070411",
+   "ancNo": "08370",
+   "name": "항만공사법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "78534",
+   "efYd": "20070411",
+   "ancYd": "20070411",
+   "ancNo": "08352",
+   "name": "항만공사법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "75707",
+   "efYd": "20070405",
+   "ancYd": "20061004",
+   "ancNo": "08043",
+   "name": "항만공사법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "71148",
+   "efYd": "20060805",
+   "ancYd": "20050804",
+   "ancNo": "07678",
+   "name": "항만공사법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "57593",
+   "efYd": "20031130",
+   "ancYd": "20030529",
+   "ancNo": "06918",
+   "name": "항만공사법",
+   "kind": "제정",
+   "status": "past"
+  }
+ ]
+}

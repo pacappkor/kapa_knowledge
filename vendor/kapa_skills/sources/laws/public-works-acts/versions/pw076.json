@@ -1,0 +1,592 @@
+{
+ "lsId": "001837",
+ "name": "자연공원법",
+ "fetched": "2026-11-08",
+ "versions": [
+  {
+   "lsiSeq": "288003",
+   "efYd": "20270708",
+   "ancYd": "20260707",
+   "ancNo": "21848",
+   "name": "자연공원법",
+   "kind": "일부개정",
+   "status": "scheduled"
+  },
+  {
+   "lsiSeq": "288003",
+   "efYd": "20260707",
+   "ancYd": "20260707",
+   "ancNo": "21848",
+   "name": "자연공원법",
+   "kind": "일부개정",
+   "status": "current"
+  },
+  {
+   "lsiSeq": "276781",
+   "efYd": "20251001",
+   "ancYd": "20251001",
+   "ancNo": "21065",
+   "name": "자연공원법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "259935",
+   "efYd": "20250807",
+   "ancYd": "20240206",
+   "ancNo": "20231",
+   "name": "자연공원법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "253477",
+   "efYd": "20240517",
+   "ancYd": "20230808",
+   "ancNo": "19590",
+   "name": "자연공원법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "248995",
+   "efYd": "20240517",
+   "ancYd": "20230321",
+   "ancNo": "19251",
+   "name": "자연공원법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "259561",
+   "efYd": "20240130",
+   "ancYd": "20240130",
+   "ancNo": "20172",
+   "name": "자연공원법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "250005",
+   "efYd": "20230719",
+   "ancYd": "20230418",
+   "ancNo": "19361",
+   "name": "자연공원법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "246771",
+   "efYd": "20230628",
+   "ancYd": "20221227",
+   "ancNo": "19117",
+   "name": "자연공원법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "246013",
+   "efYd": "20230114",
+   "ancYd": "20221213",
+   "ancNo": "19089",
+   "name": "자연공원법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "243001",
+   "efYd": "20220911",
+   "ancYd": "20220610",
+   "ancNo": "18909",
+   "name": "자연공원법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "219109",
+   "efYd": "20201210",
+   "ancYd": "20200609",
+   "ancNo": "17425",
+   "name": "자연공원법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "211507",
+   "efYd": "20200527",
+   "ancYd": "20191126",
+   "ancNo": "16596",
+   "name": "자연공원법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "218219",
+   "efYd": "20200526",
+   "ancYd": "20200526",
+   "ancNo": "17326",
+   "name": "자연공원법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "204814",
+   "efYd": "20190117",
+   "ancYd": "20181016",
+   "ancNo": "15830",
+   "name": "자연공원법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "204825",
+   "efYd": "20181016",
+   "ancYd": "20181016",
+   "ancNo": "15838",
+   "name": "자연공원법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "199544",
+   "efYd": "20180313",
+   "ancYd": "20171212",
+   "ancNo": "15198",
+   "name": "자연공원법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "193400",
+   "efYd": "20170719",
+   "ancYd": "20170418",
+   "ancNo": "14782",
+   "name": "자연공원법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "188708",
+   "efYd": "20170628",
+   "ancYd": "20161227",
+   "ancNo": "14492",
+   "name": "자연공원법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "183657",
+   "efYd": "20170530",
+   "ancYd": "20160529",
+   "ancNo": "14228",
+   "name": "자연공원법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "188668",
+   "efYd": "20161227",
+   "ancYd": "20161227",
+   "ancNo": "14480",
+   "name": "자연공원법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "183657",
+   "efYd": "20160529",
+   "ancYd": "20160529",
+   "ancNo": "14228",
+   "name": "자연공원법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "150033",
+   "efYd": "20140715",
+   "ancYd": "20140114",
+   "ancNo": "12248",
+   "name": "자연공원법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "115471",
+   "efYd": "20120701",
+   "ancYd": "20110728",
+   "ancNo": "10978",
+   "name": "자연공원법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "115471",
+   "efYd": "20120129",
+   "ancYd": "20110728",
+   "ancNo": "10978",
+   "name": "자연공원법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "111954",
+   "efYd": "20111006",
+   "ancYd": "20110405",
+   "ancNo": "10548",
+   "name": "자연공원법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "102464",
+   "efYd": "20110205",
+   "ancYd": "20100204",
+   "ancNo": "10001",
+   "name": "자연공원법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "102453",
+   "efYd": "20110205",
+   "ancYd": "20100204",
+   "ancNo": "10000",
+   "name": "자연공원법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "105470",
+   "efYd": "20101201",
+   "ancYd": "20100531",
+   "ancNo": "10331",
+   "name": "자연공원법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "104516",
+   "efYd": "20101016",
+   "ancYd": "20100415",
+   "ancNo": "10272",
+   "name": "자연공원법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "90573",
+   "efYd": "20081231",
+   "ancYd": "20081231",
+   "ancNo": "09313",
+   "name": "자연공원법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "86466",
+   "efYd": "20080922",
+   "ancYd": "20080321",
+   "ancNo": "08976",
+   "name": "자연공원법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "85949",
+   "efYd": "20080922",
+   "ancYd": "20080321",
+   "ancNo": "08950",
+   "name": "자연공원법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "81998",
+   "efYd": "20080922",
+   "ancYd": "20071221",
+   "ancNo": "08733",
+   "name": "자연공원법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "86466",
+   "efYd": "20080407",
+   "ancYd": "20080321",
+   "ancNo": "08976",
+   "name": "자연공원법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "77851",
+   "efYd": "20080407",
+   "ancYd": "20070406",
+   "ancNo": "08338",
+   "name": "자연공원법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "76699",
+   "efYd": "20070704",
+   "ancYd": "20070103",
+   "ancNo": "08211",
+   "name": "자연공원법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "79343",
+   "efYd": "20070411",
+   "ancYd": "20070411",
+   "ancNo": "08370",
+   "name": "자연공원법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "79342",
+   "efYd": "20070411",
+   "ancYd": "20070411",
+   "ancNo": "08352",
+   "name": "자연공원법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "79341",
+   "efYd": "20070411",
+   "ancYd": "20070411",
+   "ancNo": "08346",
+   "name": "자연공원법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "71115",
+   "efYd": "20060805",
+   "ancYd": "20050804",
+   "ancNo": "07678",
+   "name": "자연공원법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "67776",
+   "efYd": "20051001",
+   "ancYd": "20050331",
+   "ancNo": "07456",
+   "name": "자연공원법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "57698",
+   "efYd": "20031001",
+   "ancYd": "20021230",
+   "ancNo": "06841",
+   "name": "자연공원법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "52185",
+   "efYd": "20030101",
+   "ancYd": "20020204",
+   "ancNo": "06656",
+   "name": "자연공원법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "51899",
+   "efYd": "20030101",
+   "ancYd": "20020204",
+   "ancNo": "06654",
+   "name": "자연공원법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "49892",
+   "efYd": "20010929",
+   "ancYd": "20010328",
+   "ancNo": "06450",
+   "name": "자연공원법",
+   "kind": "전부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "51080",
+   "efYd": "20000701",
+   "ancYd": "20000128",
+   "ancNo": "06241",
+   "name": "자연공원법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "51079",
+   "efYd": "19990809",
+   "ancYd": "19990208",
+   "ancNo": "05893",
+   "name": "자연공원법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "51078",
+   "efYd": "19990809",
+   "ancYd": "19990208",
+   "ancNo": "05911",
+   "name": "자연공원법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "51077",
+   "efYd": "19990809",
+   "ancYd": "19990208",
+   "ancNo": "05914",
+   "name": "자연공원법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "51076",
+   "efYd": "19990208",
+   "ancYd": "19990208",
+   "ancNo": "05874",
+   "name": "자연공원법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "51075",
+   "efYd": "19980228",
+   "ancYd": "19980228",
+   "ancNo": "05529",
+   "name": "자연공원법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "50968",
+   "efYd": "19980101",
+   "ancYd": "19971213",
+   "ancNo": "05453",
+   "name": "자연공원법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "50967",
+   "efYd": "19980101",
+   "ancYd": "19971213",
+   "ancNo": "05454",
+   "name": "자연공원법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "50966",
+   "efYd": "19971217",
+   "ancYd": "19971217",
+   "ancNo": "05461",
+   "name": "자연공원법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "50965",
+   "efYd": "19960701",
+   "ancYd": "19951230",
+   "ancNo": "05122",
+   "name": "자연공원법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "50964",
+   "efYd": "19930306",
+   "ancYd": "19930306",
+   "ancNo": "04541",
+   "name": "자연공원법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "50963",
+   "efYd": "19921215",
+   "ancYd": "19911214",
+   "ancNo": "04429",
+   "name": "자연공원법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "50962",
+   "efYd": "19910201",
+   "ancYd": "19901227",
+   "ancNo": "04268",
+   "name": "자연공원법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "50961",
+   "efYd": "19900103",
+   "ancYd": "19891230",
+   "ancNo": "04183",
+   "name": "자연공원법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "50960",
+   "efYd": "19900101",
+   "ancYd": "19891230",
+   "ancNo": "04175",
+   "name": "자연공원법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "50959",
+   "efYd": "19870701",
+   "ancYd": "19861231",
+   "ancNo": "03900",
+   "name": "자연공원법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "50958",
+   "efYd": "19830701",
+   "ancYd": "19821231",
+   "ancNo": "03644",
+   "name": "자연공원법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "50957",
+   "efYd": "19820201",
+   "ancYd": "19811231",
+   "ancNo": "03492",
+   "name": "자연공원법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "50956",
+   "efYd": "19800601",
+   "ancYd": "19800104",
+   "ancNo": "03243",
+   "name": "자연공원법",
+   "kind": "제정",
+   "status": "past"
+  }
+ ]
+}

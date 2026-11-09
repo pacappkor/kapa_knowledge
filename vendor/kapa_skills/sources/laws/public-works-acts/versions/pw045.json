@@ -1,0 +1,466 @@
+{
+ "lsId": "001981",
+ "name": "댐건설ㆍ관리 및 주변지역지원 등에 관한 법률",
+ "fetched": "2026-11-08",
+ "versions": [
+  {
+   "lsiSeq": "284437",
+   "efYd": "20270318",
+   "ancYd": "20260317",
+   "ancNo": "21471",
+   "name": "댐건설ㆍ관리 및 주변지역지원 등에 관한 법률",
+   "kind": "타법개정",
+   "status": "scheduled"
+  },
+  {
+   "lsiSeq": "284331",
+   "efYd": "20260918",
+   "ancYd": "20260317",
+   "ancNo": "21466",
+   "name": "댐건설ㆍ관리 및 주변지역지원 등에 관한 법률",
+   "kind": "일부개정",
+   "status": "current"
+  },
+  {
+   "lsiSeq": "276719",
+   "efYd": "20260102",
+   "ancYd": "20251001",
+   "ancNo": "21065",
+   "name": "댐건설ㆍ관리 및 주변지역지원 등에 관한 법률",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "276719",
+   "efYd": "20251001",
+   "ancYd": "20251001",
+   "ancNo": "21065",
+   "name": "댐건설ㆍ관리 및 주변지역지원 등에 관한 법률",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "270205",
+   "efYd": "20250325",
+   "ancYd": "20250325",
+   "ancNo": "20853",
+   "name": "댐건설ㆍ관리 및 주변지역지원 등에 관한 법률",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "259541",
+   "efYd": "20240130",
+   "ancYd": "20240130",
+   "ancNo": "20172",
+   "name": "댐건설ㆍ관리 및 주변지역지원 등에 관한 법률",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "246699",
+   "efYd": "20230628",
+   "ancYd": "20221227",
+   "ancNo": "19117",
+   "name": "댐건설ㆍ관리 및 주변지역지원 등에 관한 법률",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "233065",
+   "efYd": "20220616",
+   "ancYd": "20210615",
+   "ancNo": "18284",
+   "name": "댐건설ㆍ관리 및 주변지역지원 등에 관한 법률",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "233065",
+   "efYd": "20211216",
+   "ancYd": "20210615",
+   "ancNo": "18284",
+   "name": "댐건설 및 주변지역지원 등에 관한 법률",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "233065",
+   "efYd": "20210615",
+   "ancYd": "20210615",
+   "ancNo": "18284",
+   "name": "댐건설 및 주변지역지원 등에 관한 법률",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "216337",
+   "efYd": "20201001",
+   "ancYd": "20200331",
+   "ancNo": "17175",
+   "name": "댐건설 및 주변지역지원 등에 관한 법률",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "210313",
+   "efYd": "20200828",
+   "ancYd": "20190827",
+   "ancNo": "16568",
+   "name": "댐건설 및 주변지역지원 등에 관한 법률",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "203690",
+   "efYd": "20180608",
+   "ancYd": "20180608",
+   "ancNo": "15624",
+   "name": "댐건설 및 주변지역지원 등에 관한 법률",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "191068",
+   "efYd": "20180118",
+   "ancYd": "20170117",
+   "ancNo": "14532",
+   "name": "댐건설 및 주변지역지원 등에 관한 법률",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "191143",
+   "efYd": "20170718",
+   "ancYd": "20170117",
+   "ancNo": "14544",
+   "name": "댐건설 및 주변지역지원 등에 관한 법률",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "188102",
+   "efYd": "20170603",
+   "ancYd": "20161202",
+   "ancNo": "14337",
+   "name": "댐건설 및 주변지역지원 등에 관한 법률",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "188646",
+   "efYd": "20161227",
+   "ancYd": "20161227",
+   "ancNo": "14480",
+   "name": "댐건설 및 주변지역지원 등에 관한 법률",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "166530",
+   "efYd": "20150701",
+   "ancYd": "20150106",
+   "ancNo": "12989",
+   "name": "댐건설 및 주변지역지원 등에 관한 법률",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "149981",
+   "efYd": "20140715",
+   "ancYd": "20140114",
+   "ancNo": "12248",
+   "name": "댐건설 및 주변지역지원 등에 관한 법률",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "137147",
+   "efYd": "20130323",
+   "ancYd": "20130323",
+   "ancNo": "11690",
+   "name": "댐건설 및 주변지역지원 등에 관한 법률",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "115021",
+   "efYd": "20120722",
+   "ancYd": "20110721",
+   "ancNo": "10892",
+   "name": "댐건설 및 주변지역지원 등에 관한 법률",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "121996",
+   "efYd": "20120718",
+   "ancYd": "20120117",
+   "ancNo": "11185",
+   "name": "댐건설 및 주변지역지원 등에 관한 법률",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "112405",
+   "efYd": "20120415",
+   "ancYd": "20110414",
+   "ancNo": "10599",
+   "name": "댐건설 및 주변지역지원 등에 관한 법률",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "113566",
+   "efYd": "20111201",
+   "ancYd": "20110530",
+   "ancNo": "10760",
+   "name": "댐건설 및 주변지역지원 등에 관한 법률",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "112294",
+   "efYd": "20111013",
+   "ancYd": "20110412",
+   "ancNo": "10580",
+   "name": "댐건설 및 주변지역지원 등에 관한 법률",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "105438",
+   "efYd": "20101201",
+   "ancYd": "20100531",
+   "ancNo": "10331",
+   "name": "댐건설 및 주변지역지원 등에 관한 법률",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "104489",
+   "efYd": "20101016",
+   "ancYd": "20100415",
+   "ancNo": "10272",
+   "name": "댐건설 및 주변지역지원 등에 관한 법률",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "94540",
+   "efYd": "20091210",
+   "ancYd": "20090609",
+   "ancNo": "09758",
+   "name": "댐건설 및 주변지역지원 등에 관한 법률",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "92284",
+   "efYd": "20090401",
+   "ancYd": "20090401",
+   "ancNo": "09597",
+   "name": "댐건설 및 주변지역지원 등에 관한 법률",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "86679",
+   "efYd": "20090101",
+   "ancYd": "20080328",
+   "ancNo": "09037",
+   "name": "댐건설 및 주변지역지원 등에 관한 법률",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "82004",
+   "efYd": "20080922",
+   "ancYd": "20071221",
+   "ancNo": "08733",
+   "name": "댐건설 및 주변지역지원 등에 관한 법률",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "82192",
+   "efYd": "20080628",
+   "ancYd": "20071227",
+   "ancNo": "08820",
+   "name": "댐건설 및 주변지역지원 등에 관한 법률",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "80960",
+   "efYd": "20080407",
+   "ancYd": "20071017",
+   "ancNo": "08659",
+   "name": "댐건설 및 주변지역지원 등에 관한 법률",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "77855",
+   "efYd": "20080407",
+   "ancYd": "20070406",
+   "ancNo": "08338",
+   "name": "댐건설및주변지역지원등에관한법률",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "86043",
+   "efYd": "20080321",
+   "ancYd": "20080321",
+   "ancNo": "08976",
+   "name": "댐건설 및 주변지역지원 등에 관한 법률",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "84342",
+   "efYd": "20080229",
+   "ancYd": "20080229",
+   "ancNo": "08852",
+   "name": "댐건설 및 주변지역지원 등에 관한 법률",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "79060",
+   "efYd": "20071118",
+   "ancYd": "20070517",
+   "ancNo": "08466",
+   "name": "댐건설및주변지역지원등에관한법률",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "75637",
+   "efYd": "20070928",
+   "ancYd": "20060927",
+   "ancNo": "08014",
+   "name": "댐건설및주변지역지원등에관한법률",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "77250",
+   "efYd": "20070727",
+   "ancYd": "20070126",
+   "ancNo": "08283",
+   "name": "댐건설및주변지역지원등에관한법률",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "78142",
+   "efYd": "20070411",
+   "ancYd": "20070411",
+   "ancNo": "08371",
+   "name": "댐건설및주변지역지원등에관한법률",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "78141",
+   "efYd": "20070411",
+   "ancYd": "20070411",
+   "ancNo": "08352",
+   "name": "댐건설및주변지역지원등에관한법률",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "78140",
+   "efYd": "20070411",
+   "ancYd": "20070411",
+   "ancNo": "08351",
+   "name": "댐건설및주변지역지원등에관한법률",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "71127",
+   "efYd": "20060805",
+   "ancYd": "20050804",
+   "ancNo": "07678",
+   "name": "댐건설및주변지역지원등에관한법률",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "72071",
+   "efYd": "20060608",
+   "ancYd": "20051207",
+   "ancNo": "07715",
+   "name": "댐건설및주변지역지원등에관한법률",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "60762",
+   "efYd": "20040730",
+   "ancYd": "20040129",
+   "ancNo": "07158",
+   "name": "댐건설및주변지역지원등에관한법률",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "50054",
+   "efYd": "20031130",
+   "ancYd": "20030529",
+   "ancNo": "06916",
+   "name": "댐건설및주변지역지원등에관한법률",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "55543",
+   "efYd": "20031001",
+   "ancYd": "20021230",
+   "ancNo": "06841",
+   "name": "댐건설및주변지역지원등에관한법률",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "55546",
+   "efYd": "20030101",
+   "ancYd": "20020204",
+   "ancNo": "06655",
+   "name": "댐건설및주변지역지원등에관한법률",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "55545",
+   "efYd": "20030101",
+   "ancYd": "20020204",
+   "ancNo": "06656",
+   "name": "댐건설및주변지역지원등에관한법률",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "3355",
+   "efYd": "20020701",
+   "ancYd": "20011231",
+   "ancNo": "06587",
+   "name": "댐건설및주변지역지원등에관한법률",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "3068",
+   "efYd": "20000308",
+   "ancYd": "19990907",
+   "ancNo": "06021",
+   "name": "댐건설및주변지역지원등에관한법률",
+   "kind": "제정",
+   "status": "predecessor"
+  }
+ ]
+}

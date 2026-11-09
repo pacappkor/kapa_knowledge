@@ -223,13 +223,24 @@ def staged_files(targets):
 def sha(data):
     return hashlib.sha256(data).hexdigest()
 
-def load_index(root=ROOT, *, read_text=None, inspect_bytes=None):
+def load_index(root=ROOT, *, read_text=None, inspect_bytes=None, read_bytes=None):
     read_text = read_text or (lambda path: path.read_text(encoding='utf-8'))
     lock = readjson(read_text(root / 'deps.lock'))['kapa_skills']
     sibling = Path(os.environ.get('KK_SKILLS_ROOT', CODE_ROOT.parent / 'kapa_skills')).resolve()
-    if not sibling.is_dir():
-        raise ValueError('검증 불가: kapa_skills 형제 체크아웃 없음')
     commit = lock['commit']
+    if not sibling.is_dir():
+        vendor = root / 'vendor/kapa_skills'
+        files = vendor_manifest(lock)
+        blobs = {name: vendor_bytes(root, lock, name, inspect_bytes=inspect_bytes,
+                                    read_bytes=read_bytes) for name in files}
+        data = readjson(blobs['docs/law-index.json'])
+        if data.get('schema') != 1:
+            raise ValueError('지원하지 않는 색인 schema')
+        expected = {'docs/law-index.json'} | {law['versions_file']
+                   for law in data.get('laws', {}).values() if law.get('versions_file')}
+        if set(files) != expected:
+            raise ValueError('검증 불가: vendored metadata 목록 불일치')
+        return data, vendor, commit
     try:
         if commit == 'WORKTREE':
             text = read_text(sibling / 'docs/law-index.json')
@@ -246,6 +257,53 @@ def load_index(root=ROOT, *, read_text=None, inspect_bytes=None):
         return data, sibling, commit
     except (OSError, ValueError, subprocess.CalledProcessError) as exc:
         raise ValueError('검증 불가: 잠금 판본 law-index를 읽지 못함') from exc
+
+def vendor_manifest(lock):
+    """The vendor lock must bind both the upstream revision and every raw blob."""
+    commit = lock.get('commit')
+    vendor = lock.get('vendor', {})
+    files = vendor.get('files', {})
+    if (not isinstance(commit, str) or not re.fullmatch(r'[0-9a-f]{40}', commit)
+            or vendor.get('commit') != commit or not isinstance(files, dict)
+            or 'docs/law-index.json' not in files
+            or any(not isinstance(digest, str) or not re.fullmatch(r'[0-9a-f]{64}', digest)
+                   for digest in files.values())):
+        raise ValueError('검증 불가: vendored metadata 잠금 오류; 명시적 갱신 필요')
+    return files
+
+
+def vendor_bytes(root, lock, name, *, inspect_bytes=None, read_bytes=None):
+    files = vendor_manifest(lock)
+    if name not in files or not isinstance(name, str) or '\\' in name or ':' in name:
+        raise ValueError('검증 불가: vendored metadata 경로 오류')
+    vendor = root / 'vendor/kapa_skills'
+    path = vendor / name
+    # Check from the repository root so a linked vendor parent is rejected too.
+    check_output_path(path, root=root, require_exists=True)
+    raw = read_bytes(path) if read_bytes is not None else path.read_bytes()
+    if inspect_bytes is not None:
+        inspect_bytes(path, raw)
+    if sha(raw) != files[name]:
+        raise ValueError('검증 불가: vendored metadata SHA-256 불일치')
+    return raw
+
+
+def dependency_bytes(root, sibling, commit, name, *, inspect_bytes=None, read_bytes=None):
+    """Read historical metadata from the pinned checkout or verified vendor."""
+    if sibling == root / 'vendor/kapa_skills':
+        lock_path = root / 'deps.lock'
+        raw_lock = read_bytes(lock_path) if read_bytes is not None else lock_path.read_bytes()
+        if inspect_bytes is not None:
+            inspect_bytes(root / 'deps.lock', raw_lock)
+        lock = readjson(raw_lock)['kapa_skills']
+        if lock['commit'] != commit:
+            raise ValueError('Dependency revision changed during validation.')
+        return vendor_bytes(root, lock, name, inspect_bytes=inspect_bytes, read_bytes=read_bytes)
+    raw = run_git(sibling, ['cat-file', '-p', commit + ':' + name]).stdout
+    if inspect_bytes is not None:
+        inspect_bytes(sibling / name, raw)
+    return raw
+
 
 def unique(pairs):
     result = {}

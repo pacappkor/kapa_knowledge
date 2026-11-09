@@ -25,7 +25,7 @@
 
 진행 상태는 자동으로 올릴 수 있지만 참조 상태는 검토 근거가 필요하다. 요약은 원문을 대신하지 않는다. 검토자는 에이전트이며 모델과 증거를 기록한다. 초깃값에는 실제 수집 자료가 없다.
 
-`deps.lock`의 kapa_skills commit과 형제 체크아웃의 `docs/law-index.json`으로 참조를 검증한다. 개발 중 WORKTREE는 경고이며 PR에서는 실제 SHA를 고정한다. 형제 저장소가 없으면 검증 불가다.
+`deps.lock`의 kapa_skills commit과 형제 체크아웃의 `docs/law-index.json`으로 참조를 검증한다. 개발 중 WORKTREE는 경고이며 PR에서는 실제 SHA를 고정한다. 형제 체크아웃이 없으면 `vendor/kapa_skills/`의 고정 색인·과거 판본 메타데이터를 사용한다. 법령 본문은 복제하지 않는다. vendor commit과 각 원본 바이트의 SHA-256을 deps.lock에 함께 기록하며, commit 불일치·파일 누락·해시 불일치에는 실패한다. 존재하는 형제 저장소의 잠금 객체를 읽지 못한 경우에는 vendor로 숨기지 않고 실패한다.
 
 ## credential 검사 범위
 
@@ -37,7 +37,25 @@
 
 도구 실행은 `-I -B`를 함께 사용하여 import 전부터 바이트코드 캐시 쓰기를 막는다. 비격리 실행의 `PYTHONDONTWRITEBYTECODE=1`도 같은 효과지만 `-I`는 Python 환경변수를 무시하므로 이 절차에서는 명시적 `-B`가 필수다.
 
-로컬에서는 개발자가 셸 환경변수 LAW_OC를 설정하여 실행한다. CI는 GitHub secret LAW_OC를 환경변수 LAW_OC로 전달하는 전용 필수 검사 단계를 별도 CI PR에서 추가할 예정이다. 실행 명령과 종료 코드는 [갱신 절차](rules/knowledge-update-maintenance/SKILL.md)에 둔다. 이 PR은 workflow를 추가하지 않는다.
+로컬에서는 개발자가 셸 환경변수 LAW_OC를 설정하여 실행한다. CI는 GitHub secret LAW_OC를 전용 필수 검사 단계에만 전달한다. 실행 명령과 종료 코드는 [갱신 절차](rules/knowledge-update-maintenance/SKILL.md)에 둔다.
+
+## CI
+
+credential 검사를 받는 PR의 허용 base는 기본 브랜치 `main`뿐이다. workflow의 pull_request branches 필터와 인라인 준비의 base ref == main == repository default branch 확인을 함께 적용하며, ref 확인 후에만 이벤트의 immutable base SHA를 읽고 blob을 추출한다. 임의 브랜치의 regular scanner는 신뢰하지 않는다. `main`이 신뢰된 리뷰로 관리된다는 운영 전제이며 branch protection이 실제 설정되어 있다고 가정하거나 보장하지 않는다. 기본 브랜치 변경은 허용 정책·workflow의 명시적 검토를 요구한다.
+
+GitHub Actions는 PR·main 푸시·수동 실행에 단일 ubuntu-latest 작업과 Python 3.12를 사용한다. 예약 실행·행렬·외부 자료 수집·다른 비공개 저장소 checkout은 없다. 권한은 contents: read이며 checkout 인증정보는 남기지 않는다.
+
+- checkout·Python 준비 뒤 인라인 표준 라이브러리 코드만으로 trusted scanner를 준비한다. PR은 이벤트의 base SHA, main push는 해당 SHA, 수동 실행은 기본 브랜치의 원격 추적 ref를 commit으로 고정한다. 그 Git 객체의 tools/secret_scan.py·credentials.py·git_read.py 일반 blob 세 개만 작업 트리 밖의 새 runner 임시 디렉터리에 추출한다. 준비 단계는 PR 코드·helper를 import하거나 실행하지 않으며 객체·모듈 누락이나 비정규 파일에는 실패하고 PR 코드로 fallback하지 않는다.
+- 첫 저장소 코드 실행은 Scan actual LAW_OC value 단계의 추출된 trusted scanner다. 격리 실행으로 PR의 scanner·의존모듈·동명 shadow 모듈을 import하지 않으며 cwd는 PR checkout을 유지해 추적 파일과 미추적·비무시 파일 전체의 현재 바이트·경로를 필수 검사한다. 경로와 무관하게 실행하며 secret은 이 단계에만 노출하고 출력하지 않는다. fork PR 등 secret을 받지 못하는 실행은 실패 폐쇄(fail closed)한다.
+- 이 분리는 scanner나 의존모듈을 바꾼 PR이 검사 중 secret을 실행 코드로 받는 경로를 막는다. same-repo PR이 workflow YAML 자체를 바꾸어 secret을 직접 사용하는 경로까지 차단하지는 않는다. trusted base만으로 workflow의 실행 출처를 고정했다고 주장하지 않으며, workflow 작성 권한과 PR 리뷰는 여전히 신뢰 경계다. 악성 workflow 변경까지 승인 전에 차단하려면 별도 environment secret·승인 규칙 또는 PR이 수정할 수 없는 workflow 실행 경계가 필요하다. 이 PR은 저장소 설정·리뷰어·environment를 변경하지 않는다.
+- 추적 symlink·gitlink를 기존 검증기의 가벼운 링크 검사로 거부한다.
+- 변경 경로로 일반 검증과 전체 회귀 시험을 선택하고 실행 요약에 표시한다. 문서·자료만 바뀌면 검증만, tools·workflow·CI helper·deps.lock·vendor 또는 분류 불명 경로가 바뀌면 둘 다 실행한다. 어떤 경로도 링크 대상일 수 있어 자료 변경도 검증을 생략하지 않는다.
+- PR은 base SHA와의 세 점 비교, 일반 푸시는 조상 before와의 두 점 비교를 사용한다. 강제 푸시는 공통 조상을 기준으로 전체 검사하며 수동 실행·기준 누락·공통 조상 없음·diff 실패도 전체 검사한다. rename 탐지를 끄므로 이전 도구 경로 삭제가 숨겨지지 않는다.
+- 일반 검증을 선택하면 문서 전체 바이트 snapshot도 별도의 읽기 전용 검사로 대조한다. 문서만 바뀌어 전체 도구 시험을 생략해도 snapshot 미갱신이 통과하지 않으며 CI에서 자동 재생성하지 않는다.
+- 시험 감독기는 import 없이 패키지 구조를 확인한 뒤 표준 unittest discovery를 그대로 실행한다. 종료 코드 0과 stderr의 마지막 Ran N tests 요약·그 직후 OK 또는 OK (...)를 요구한다. 0건은 실제 skip 보고가 있어야 허용한다. 종료 직후 대기 바이트까지만 판정에 포함하고 하위 프로세스가 파이프를 계속 잡아도 출력 대기는 10초로 제한한다. 신뢰된 시험 코드의 우발적 조기 종료 검사이며 sandbox·파일별 실행 증명·악성 출력 위조 방어는 아니다.
+- 마지막으로 무시 파일을 포함한 작업 트리 불변성과 diff 공백을 검사한다. 공백 기준은 변경 선택과 공유하며 기준이 없으면 빈 트리, 수동 실행은 부모가 있으면 HEAD^, rewind는 새 commit이 없어 공백만 건너뛴다. 현재 sources에는 보존할 공백 오류가 없어 sources/**도 제외하지 않는다.
+
+모든 Python 실행은 격리·바이트코드 쓰기 금지를 함께 사용하고 작업 환경에도 PYTHONDONTWRITEBYTECODE를 설정한다. `.github/ci/`는 Git 비교·Actions 출력 파일·시험 자식 실행을 담당하는 CI 전용 감독 영역이다. tools의 운영 import 경로에서 사용하지 않으며 운영 도구의 공용 안전 쓰기·git_read plumbing 제한을 완화하지 않는다. 이 경계와 신뢰된 workflow·시험 코드는 PR에서 함께 검토한다. 의존성 갱신은 [갱신 절차](rules/knowledge-update-maintenance/SKILL.md)의 명시적 vendor 갱신을 따른다.
 
 ## 변경과 권리
 

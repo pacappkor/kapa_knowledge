@@ -1,0 +1,403 @@
+{
+ "lsId": "012524",
+ "name": "항공안전법",
+ "fetched": "2026-11-08",
+ "versions": [
+  {
+   "lsiSeq": "285967",
+   "efYd": "20290513",
+   "ancYd": "20260512",
+   "ancNo": "21636",
+   "name": "항공안전법",
+   "kind": "일부개정",
+   "status": "scheduled"
+  },
+  {
+   "lsiSeq": "285967",
+   "efYd": "20280528",
+   "ancYd": "20260512",
+   "ancNo": "21636",
+   "name": "항공안전법",
+   "kind": "일부개정",
+   "status": "scheduled"
+  },
+  {
+   "lsiSeq": "271281",
+   "efYd": "20280528",
+   "ancYd": "20250527",
+   "ancNo": "20981",
+   "name": "항공안전법",
+   "kind": "일부개정",
+   "status": "scheduled"
+  },
+  {
+   "lsiSeq": "285967",
+   "efYd": "20261113",
+   "ancYd": "20260512",
+   "ancNo": "21636",
+   "name": "항공안전법",
+   "kind": "일부개정",
+   "status": "scheduled"
+  },
+  {
+   "lsiSeq": "286927",
+   "efYd": "20260917",
+   "ancYd": "20260616",
+   "ancNo": "21822",
+   "name": "항공안전법",
+   "kind": "일부개정",
+   "status": "current"
+  },
+  {
+   "lsiSeq": "281945",
+   "efYd": "20260701",
+   "ancYd": "20251230",
+   "ancNo": "21268",
+   "name": "항공안전법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "285967",
+   "efYd": "20260512",
+   "ancYd": "20260512",
+   "ancNo": "21636",
+   "name": "항공안전법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "281945",
+   "efYd": "20260331",
+   "ancYd": "20251230",
+   "ancNo": "21268",
+   "name": "항공안전법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "281945",
+   "efYd": "20251230",
+   "ancYd": "20251230",
+   "ancNo": "21268",
+   "name": "항공안전법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "271281",
+   "efYd": "20251128",
+   "ancYd": "20250527",
+   "ancNo": "20981",
+   "name": "항공안전법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "271281",
+   "efYd": "20250828",
+   "ancYd": "20250527",
+   "ancNo": "20981",
+   "name": "항공안전법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "239547",
+   "efYd": "20250119",
+   "ancYd": "20220118",
+   "ancNo": "18789",
+   "name": "항공안전법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "261223",
+   "efYd": "20250117",
+   "ancYd": "20240319",
+   "ancNo": "20396",
+   "name": "항공안전법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "258789",
+   "efYd": "20250117",
+   "ancYd": "20240116",
+   "ancNo": "20051",
+   "name": "항공안전법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "261223",
+   "efYd": "20240920",
+   "ancYd": "20240319",
+   "ancNo": "20396",
+   "name": "항공안전법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "258789",
+   "efYd": "20240717",
+   "ancYd": "20240116",
+   "ancNo": "20051",
+   "name": "항공안전법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "258293",
+   "efYd": "20240710",
+   "ancYd": "20240109",
+   "ancNo": "19985",
+   "name": "항공안전법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "261223",
+   "efYd": "20240620",
+   "ancYd": "20240319",
+   "ancNo": "20396",
+   "name": "항공안전법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "261223",
+   "efYd": "20240319",
+   "ancYd": "20240319",
+   "ancNo": "20396",
+   "name": "항공안전법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "258789",
+   "efYd": "20240116",
+   "ancYd": "20240116",
+   "ancNo": "20051",
+   "name": "항공안전법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "250091",
+   "efYd": "20231019",
+   "ancYd": "20230418",
+   "ancNo": "19394",
+   "name": "항공안전법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "239547",
+   "efYd": "20230119",
+   "ancYd": "20220118",
+   "ancNo": "18789",
+   "name": "항공안전법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "243103",
+   "efYd": "20221211",
+   "ancYd": "20220610",
+   "ancNo": "18952",
+   "name": "항공안전법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "237429",
+   "efYd": "20221208",
+   "ancYd": "20211207",
+   "ancNo": "18566",
+   "name": "항공안전법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "219587",
+   "efYd": "20221127",
+   "ancYd": "20200609",
+   "ancNo": "17463",
+   "name": "항공안전법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "211621",
+   "efYd": "20221127",
+   "ancYd": "20191126",
+   "ancNo": "16643",
+   "name": "항공안전법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "239547",
+   "efYd": "20220719",
+   "ancYd": "20220118",
+   "ancNo": "18789",
+   "name": "항공안전법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "237429",
+   "efYd": "20220608",
+   "ancYd": "20211207",
+   "ancNo": "18566",
+   "name": "항공안전법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "237429",
+   "efYd": "20211207",
+   "ancYd": "20211207",
+   "ancNo": "18566",
+   "name": "항공안전법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "232243",
+   "efYd": "20211119",
+   "ancYd": "20210518",
+   "ancNo": "18187",
+   "name": "항공안전법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "223569",
+   "efYd": "20210609",
+   "ancYd": "20201208",
+   "ancNo": "17613",
+   "name": "항공안전법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "219587",
+   "efYd": "20201210",
+   "ancYd": "20200609",
+   "ancNo": "17463",
+   "name": "항공안전법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "219587",
+   "efYd": "20200609",
+   "ancYd": "20200609",
+   "ancNo": "17463",
+   "name": "항공안전법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "219333",
+   "efYd": "20200609",
+   "ancYd": "20200609",
+   "ancNo": "17453",
+   "name": "항공안전법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "211621",
+   "efYd": "20200527",
+   "ancYd": "20191126",
+   "ancNo": "16643",
+   "name": "항공안전법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "210295",
+   "efYd": "20200228",
+   "ancYd": "20190827",
+   "ancNo": "16566",
+   "name": "항공안전법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "182178",
+   "efYd": "20190330",
+   "ancYd": "20160329",
+   "ancNo": "14116",
+   "name": "항공안전법",
+   "kind": "제정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "200241",
+   "efYd": "20180627",
+   "ancYd": "20171226",
+   "ancNo": "15326",
+   "name": "항공안전법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "198300",
+   "efYd": "20180425",
+   "ancYd": "20171024",
+   "ancNo": "14955",
+   "name": "항공안전법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "198281",
+   "efYd": "20180101",
+   "ancYd": "20171024",
+   "ancNo": "14939",
+   "name": "항공안전법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "196521",
+   "efYd": "20171110",
+   "ancYd": "20170809",
+   "ancNo": "14872",
+   "name": "항공안전법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "191167",
+   "efYd": "20170718",
+   "ancYd": "20170117",
+   "ancNo": "14551",
+   "name": "항공안전법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "191167",
+   "efYd": "20170330",
+   "ancYd": "20170117",
+   "ancNo": "14551",
+   "name": "항공안전법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "182178",
+   "efYd": "20170330",
+   "ancYd": "20160329",
+   "ancNo": "14116",
+   "name": "항공안전법",
+   "kind": "제정",
+   "status": "past"
+  }
+ ]
+}

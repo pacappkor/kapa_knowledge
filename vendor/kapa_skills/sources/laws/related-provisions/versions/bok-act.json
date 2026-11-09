@@ -1,0 +1,259 @@
+{
+ "lsId": "001550",
+ "name": "한국은행법",
+ "fetched": "2026-11-08",
+ "versions": [
+  {
+   "lsiSeq": "276153",
+   "efYd": "20260102",
+   "ancYd": "20251001",
+   "ancNo": "21065",
+   "name": "한국은행법",
+   "kind": "타법개정",
+   "status": "current"
+  },
+  {
+   "lsiSeq": "251083",
+   "efYd": "20240517",
+   "ancYd": "20230516",
+   "ancNo": "19409",
+   "name": "한국은행법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "202626",
+   "efYd": "20180313",
+   "ancYd": "20180313",
+   "ancNo": "15427",
+   "name": "한국은행법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "183701",
+   "efYd": "20161201",
+   "ancYd": "20160529",
+   "ancNo": "14242",
+   "name": "한국은행법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "182008",
+   "efYd": "20160329",
+   "ancYd": "20160329",
+   "ancNo": "14101",
+   "name": "한국은행법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "124024",
+   "efYd": "20120530",
+   "ancYd": "20120321",
+   "ancNo": "11380",
+   "name": "한국은행법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "124024",
+   "efYd": "20120422",
+   "ancYd": "20120321",
+   "ancNo": "11380",
+   "name": "한국은행법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "111730",
+   "efYd": "20120302",
+   "ancYd": "20110331",
+   "ancNo": "10522",
+   "name": "한국은행법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "116994",
+   "efYd": "20111217",
+   "ancYd": "20110916",
+   "ancNo": "11051",
+   "name": "한국은행법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "105240",
+   "efYd": "20101118",
+   "ancYd": "20100517",
+   "ancNo": "10303",
+   "name": "한국은행법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "84314",
+   "efYd": "20080229",
+   "ancYd": "20080229",
+   "ancNo": "08863",
+   "name": "한국은행법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "84313",
+   "efYd": "20080229",
+   "ancYd": "20080229",
+   "ancNo": "08852",
+   "name": "한국은행법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "75814",
+   "efYd": "20070101",
+   "ancYd": "20061004",
+   "ancNo": "08050",
+   "name": "한국은행법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "59972",
+   "efYd": "20040101",
+   "ancYd": "20030903",
+   "ancNo": "06971",
+   "name": "한국은행법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "60388",
+   "efYd": "20030101",
+   "ancYd": "20021230",
+   "ancNo": "06836",
+   "name": "한국은행법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "59973",
+   "efYd": "20020301",
+   "ancYd": "20010328",
+   "ancNo": "06429",
+   "name": "한국은행법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "59974",
+   "efYd": "20001124",
+   "ancYd": "20001023",
+   "ancNo": "06274",
+   "name": "한국은행법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "59975",
+   "efYd": "20000701",
+   "ancYd": "20000128",
+   "ancNo": "06256",
+   "name": "한국은행법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "56019",
+   "efYd": "20000701",
+   "ancYd": "19990907",
+   "ancNo": "06018",
+   "name": "한국은행법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "56008",
+   "efYd": "19980401",
+   "ancYd": "19971231",
+   "ancNo": "05491",
+   "name": "한국은행법",
+   "kind": "전부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "4860",
+   "efYd": "19960808",
+   "ancYd": "19960808",
+   "ancNo": "05153",
+   "name": "한국은행법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "4859",
+   "efYd": "19930306",
+   "ancYd": "19930306",
+   "ancNo": "04541",
+   "name": "한국은행법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "4858",
+   "efYd": "19821231",
+   "ancYd": "19821231",
+   "ancNo": "03624",
+   "name": "한국은행법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "4857",
+   "efYd": "19780101",
+   "ancYd": "19771230",
+   "ancNo": "03035",
+   "name": "한국은행법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "4856",
+   "efYd": "19680725",
+   "ancYd": "19680725",
+   "ancNo": "02042",
+   "name": "한국은행법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "4855",
+   "efYd": "19631217",
+   "ancYd": "19631216",
+   "ancNo": "01556",
+   "name": "한국은행법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "4854",
+   "efYd": "19620524",
+   "ancYd": "19620524",
+   "ancNo": "01074",
+   "name": "한국은행법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "4853",
+   "efYd": "19500526",
+   "ancYd": "19500505",
+   "ancNo": "00138",
+   "name": "한국은행법",
+   "kind": "제정",
+   "status": "past"
+  }
+ ]
+}

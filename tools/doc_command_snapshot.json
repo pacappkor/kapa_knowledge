@@ -1,8 +1,8 @@
 [
   {
     "file": "AGENTS.md",
-    "sha256": "b87c14ff2c826f6a5089b1e546fb3ec2f9bf2a0e8000bb5ece25e52396569232",
-    "size": 3913
+    "sha256": "3d07804d3b1aee3710ceffce644eef41c8a2b2b4bda2bf4250a780ad0bbe4683",
+    "size": 5063
   },
   {
     "file": "CLAUDE.md",
@@ -11,8 +11,8 @@
   },
   {
     "file": "README.md",
-    "sha256": "e11b01eb1a98105184f746afdec4263fd78a2c33862dc1e4e836aea02c8b3fc3",
-    "size": 9614
+    "sha256": "7030266e08bf2a1424daa54eedf17701f2211d75126195701912ea692a6cad5c",
+    "size": 15172
   },
   {
     "file": "docs/RELEASING.md",
@@ -31,7 +31,7 @@
   },
   {
     "file": "rules/knowledge-update-maintenance/SKILL.md",
-    "sha256": "8d85d2d88667fc8d7ff0b8dd464d7667005d0134c7db67d5e196f1a84ebf8b2b",
-    "size": 21579
+    "sha256": "f536acd63ca9167ff1f88e2f7752ff337342b4e0a899b643487c59874bd16b09",
+    "size": 25554
   }
 ]

@@ -1,0 +1,1114 @@
+{
+ "lsId": "001744",
+ "name": "관광진흥법",
+ "fetched": "2026-11-08",
+ "versions": [
+  {
+   "lsiSeq": "279659",
+   "efYd": "20270201",
+   "ancYd": "20251111",
+   "ancNo": "21087",
+   "name": "관광진흥법",
+   "kind": "일부개정",
+   "status": "scheduled"
+  },
+  {
+   "lsiSeq": "268707",
+   "efYd": "20270201",
+   "ancYd": "20250131",
+   "ancNo": "20739",
+   "name": "관광진흥법",
+   "kind": "일부개정",
+   "status": "scheduled"
+  },
+  {
+   "lsiSeq": "291209",
+   "efYd": "20270121",
+   "ancYd": "20261020",
+   "ancNo": "22086",
+   "name": "관광진흥법",
+   "kind": "일부개정",
+   "status": "scheduled"
+  },
+  {
+   "lsiSeq": "286465",
+   "efYd": "20261203",
+   "ancYd": "20260602",
+   "ancNo": "21741",
+   "name": "관광진흥법",
+   "kind": "일부개정",
+   "status": "scheduled"
+  },
+  {
+   "lsiSeq": "285653",
+   "efYd": "20261029",
+   "ancYd": "20260428",
+   "ancNo": "21584",
+   "name": "관광진흥법",
+   "kind": "일부개정",
+   "status": "current"
+  },
+  {
+   "lsiSeq": "279659",
+   "efYd": "20260512",
+   "ancYd": "20251111",
+   "ancNo": "21087",
+   "name": "관광진흥법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "276383",
+   "efYd": "20260102",
+   "ancYd": "20251001",
+   "ancNo": "21065",
+   "name": "관광진흥법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "265901",
+   "efYd": "20251023",
+   "ancYd": "20241022",
+   "ancNo": "20488",
+   "name": "관광진흥법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "270585",
+   "efYd": "20251009",
+   "ancYd": "20250408",
+   "ancNo": "20912",
+   "name": "관광진흥법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "276383",
+   "efYd": "20251001",
+   "ancYd": "20251001",
+   "ancNo": "21065",
+   "name": "관광진흥법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "270183",
+   "efYd": "20250926",
+   "ancYd": "20250325",
+   "ancNo": "20830",
+   "name": "관광진흥법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "261441",
+   "efYd": "20250828",
+   "ancYd": "20240326",
+   "ancNo": "20412",
+   "name": "관광진흥법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "260767",
+   "efYd": "20250828",
+   "ancYd": "20240227",
+   "ancNo": "20357",
+   "name": "관광진흥법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "268707",
+   "efYd": "20250801",
+   "ancYd": "20250131",
+   "ancNo": "20739",
+   "name": "관광진흥법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "265901",
+   "efYd": "20250423",
+   "ancYd": "20241022",
+   "ancNo": "20488",
+   "name": "관광진흥법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "260767",
+   "efYd": "20240828",
+   "ancYd": "20240227",
+   "ancNo": "20357",
+   "name": "관광진흥법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "255789",
+   "efYd": "20240501",
+   "ancYd": "20231031",
+   "ancNo": "19793",
+   "name": "관광진흥법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "260767",
+   "efYd": "20240227",
+   "ancYd": "20240227",
+   "ancNo": "20357",
+   "name": "관광진흥법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "253329",
+   "efYd": "20240209",
+   "ancYd": "20230808",
+   "ancNo": "19586",
+   "name": "관광진흥법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "252877",
+   "efYd": "20240126",
+   "ancYd": "20230725",
+   "ancNo": "19573",
+   "name": "관광진흥법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "259067",
+   "efYd": "20240123",
+   "ancYd": "20240123",
+   "ancNo": "20076",
+   "name": "관광진흥법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "251865",
+   "efYd": "20231221",
+   "ancYd": "20230620",
+   "ancNo": "19478",
+   "name": "관광진흥법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "248919",
+   "efYd": "20230922",
+   "ancYd": "20230321",
+   "ancNo": "19246",
+   "name": "관광진흥법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "253543",
+   "efYd": "20230808",
+   "ancYd": "20230808",
+   "ancNo": "19592",
+   "name": "관광진흥법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "246665",
+   "efYd": "20230628",
+   "ancYd": "20221227",
+   "ancNo": "19117",
+   "name": "관광진흥법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "248919",
+   "efYd": "20230622",
+   "ancYd": "20230321",
+   "ancNo": "19246",
+   "name": "관광진흥법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "251111",
+   "efYd": "20230516",
+   "ancYd": "20230516",
+   "ancNo": "19411",
+   "name": "관광진흥법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "242063",
+   "efYd": "20230504",
+   "ancYd": "20220503",
+   "ancNo": "18856",
+   "name": "관광진흥법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "244691",
+   "efYd": "20220927",
+   "ancYd": "20220927",
+   "ancNo": "18982",
+   "name": "관광진흥법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "225489",
+   "efYd": "20220101",
+   "ancYd": "20201231",
+   "ancNo": "17814",
+   "name": "관광진흥법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "231329",
+   "efYd": "20211014",
+   "ancYd": "20210413",
+   "ancNo": "18009",
+   "name": "관광진흥법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "232859",
+   "efYd": "20210916",
+   "ancYd": "20210615",
+   "ancNo": "18248",
+   "name": "관광진흥법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "234567",
+   "efYd": "20210810",
+   "ancYd": "20210810",
+   "ancNo": "18377",
+   "name": "관광진흥법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "224577",
+   "efYd": "20210623",
+   "ancYd": "20201222",
+   "ancNo": "17704",
+   "name": "관광진흥법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "224577",
+   "efYd": "20210123",
+   "ancYd": "20201222",
+   "ancNo": "17704",
+   "name": "관광진흥법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "224857",
+   "efYd": "20210101",
+   "ancYd": "20201229",
+   "ancNo": "17761",
+   "name": "관광진흥법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "224467",
+   "efYd": "20210101",
+   "ancYd": "20201222",
+   "ancNo": "17689",
+   "name": "관광진흥법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "219053",
+   "efYd": "20201210",
+   "ancYd": "20200609",
+   "ancNo": "17399",
+   "name": "관광진흥법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "213583",
+   "efYd": "20200730",
+   "ancYd": "20200129",
+   "ancNo": "16902",
+   "name": "관광진흥법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "211843",
+   "efYd": "20200604",
+   "ancYd": "20191203",
+   "ancNo": "16684",
+   "name": "관광진흥법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "215713",
+   "efYd": "20200324",
+   "ancYd": "20200324",
+   "ancNo": "17091",
+   "name": "관광진흥법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "211843",
+   "efYd": "20191203",
+   "ancYd": "20191203",
+   "ancNo": "16684",
+   "name": "관광진흥법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "206041",
+   "efYd": "20190625",
+   "ancYd": "20181224",
+   "ancNo": "16051",
+   "name": "관광진흥법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "205599",
+   "efYd": "20190612",
+   "ancYd": "20181211",
+   "ancNo": "15860",
+   "name": "관광진흥법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "202883",
+   "efYd": "20190328",
+   "ancYd": "20180327",
+   "ancNo": "15530",
+   "name": "관광진흥법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "205599",
+   "efYd": "20190101",
+   "ancYd": "20181211",
+   "ancNo": "15860",
+   "name": "관광진흥법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "206041",
+   "efYd": "20181224",
+   "ancYd": "20181224",
+   "ancNo": "16051",
+   "name": "관광진흥법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "205599",
+   "efYd": "20181211",
+   "ancYd": "20181211",
+   "ancNo": "15860",
+   "name": "관광진흥법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "199095",
+   "efYd": "20181129",
+   "ancYd": "20171128",
+   "ancNo": "15058",
+   "name": "관광진흥법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "203731",
+   "efYd": "20180713",
+   "ancYd": "20180612",
+   "ancNo": "15636",
+   "name": "관광진흥법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "202635",
+   "efYd": "20180614",
+   "ancYd": "20180313",
+   "ancNo": "15436",
+   "name": "관광진흥법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "203731",
+   "efYd": "20180612",
+   "ancYd": "20180612",
+   "ancNo": "15636",
+   "name": "관광진흥법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "199095",
+   "efYd": "20180301",
+   "ancYd": "20171128",
+   "ancNo": "15058",
+   "name": "관광진흥법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "191034",
+   "efYd": "20170718",
+   "ancYd": "20170117",
+   "ancNo": "14525",
+   "name": "관광진흥법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "192463",
+   "efYd": "20170622",
+   "ancYd": "20170321",
+   "ancNo": "14623",
+   "name": "관광진흥법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "188562",
+   "efYd": "20170328",
+   "ancYd": "20161227",
+   "ancNo": "14476",
+   "name": "관광진흥법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "192463",
+   "efYd": "20170321",
+   "ancYd": "20170321",
+   "ancNo": "14623",
+   "name": "관광진흥법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "180717",
+   "efYd": "20160804",
+   "ancYd": "20160203",
+   "ancNo": "13958",
+   "name": "관광진흥법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "179045",
+   "efYd": "20160707",
+   "ancYd": "20160106",
+   "ancNo": "13726",
+   "name": "관광진흥법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "180717",
+   "efYd": "20160504",
+   "ancYd": "20160203",
+   "ancNo": "13958",
+   "name": "관광진흥법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "177656",
+   "efYd": "20160323",
+   "ancYd": "20151222",
+   "ancNo": "13594",
+   "name": "관광진흥법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "167955",
+   "efYd": "20160204",
+   "ancYd": "20150203",
+   "ancNo": "13127",
+   "name": "관광진흥법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "180717",
+   "efYd": "20160203",
+   "ancYd": "20160203",
+   "ancNo": "13958",
+   "name": "관광진흥법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "171000",
+   "efYd": "20151119",
+   "ancYd": "20150518",
+   "ancNo": "13300",
+   "name": "관광진흥법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "171000",
+   "efYd": "20150819",
+   "ancYd": "20150518",
+   "ancNo": "13300",
+   "name": "관광진흥법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "167955",
+   "efYd": "20150804",
+   "ancYd": "20150203",
+   "ancNo": "13127",
+   "name": "관광진흥법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "154362",
+   "efYd": "20141129",
+   "ancYd": "20140528",
+   "ancNo": "12689",
+   "name": "관광진흥법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "151793",
+   "efYd": "20140912",
+   "ancYd": "20140311",
+   "ancNo": "12406",
+   "name": "관광진흥법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "142595",
+   "efYd": "20140807",
+   "ancYd": "20130806",
+   "ancNo": "11998",
+   "name": "관광진흥법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "149967",
+   "efYd": "20140715",
+   "ancYd": "20140114",
+   "ancNo": "12248",
+   "name": "관광진흥법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "154362",
+   "efYd": "20140528",
+   "ancYd": "20140528",
+   "ancNo": "12689",
+   "name": "관광진흥법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "136818",
+   "efYd": "20130323",
+   "ancYd": "20130323",
+   "ancNo": "11690",
+   "name": "관광진흥법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "112398",
+   "efYd": "20120415",
+   "ancYd": "20110414",
+   "ancNo": "10599",
+   "name": "관광진흥법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "114026",
+   "efYd": "20111216",
+   "ancYd": "20110615",
+   "ancNo": "10801",
+   "name": "관광진흥법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "111966",
+   "efYd": "20111006",
+   "ancYd": "20110405",
+   "ancNo": "10556",
+   "name": "관광진흥법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "111966",
+   "efYd": "20110706",
+   "ancYd": "20110405",
+   "ancNo": "10556",
+   "name": "관광진흥법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "111966",
+   "efYd": "20110405",
+   "ancYd": "20110405",
+   "ancNo": "10556",
+   "name": "관광진흥법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "103976",
+   "efYd": "20110101",
+   "ancYd": "20100331",
+   "ancNo": "10219",
+   "name": "관광진흥법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "105423",
+   "efYd": "20101201",
+   "ancYd": "20100531",
+   "ancNo": "10331",
+   "name": "관광진흥법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "104479",
+   "efYd": "20101016",
+   "ancYd": "20100415",
+   "ancNo": "10272",
+   "name": "관광진흥법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "103396",
+   "efYd": "20100317",
+   "ancYd": "20100317",
+   "ancNo": "10112",
+   "name": "관광진흥법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "92070",
+   "efYd": "20090926",
+   "ancYd": "20090325",
+   "ancNo": "09527",
+   "name": "관광진흥법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "91648",
+   "efYd": "20090807",
+   "ancYd": "20090206",
+   "ancNo": "09432",
+   "name": "관광진흥법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "87340",
+   "efYd": "20081206",
+   "ancYd": "20080605",
+   "ancNo": "09097",
+   "name": "관광진흥법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "82162",
+   "efYd": "20080628",
+   "ancYd": "20071227",
+   "ancNo": "08820",
+   "name": "관광진흥법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "82161",
+   "efYd": "20080628",
+   "ancYd": "20071227",
+   "ancNo": "08819",
+   "name": "관광진흥법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "86544",
+   "efYd": "20080328",
+   "ancYd": "20080328",
+   "ancNo": "09005",
+   "name": "관광진흥법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "86034",
+   "efYd": "20080321",
+   "ancYd": "20080321",
+   "ancNo": "08976",
+   "name": "관광진흥법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "83319",
+   "efYd": "20080229",
+   "ancYd": "20080229",
+   "ancNo": "08852",
+   "name": "관광진흥법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "79812",
+   "efYd": "20071020",
+   "ancYd": "20070719",
+   "ancNo": "08531",
+   "name": "관광진흥법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "77980",
+   "efYd": "20070928",
+   "ancYd": "20070411",
+   "ancNo": "08343",
+   "name": "관광진흥법",
+   "kind": "전부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "77980",
+   "efYd": "20070411",
+   "ancYd": "20070411",
+   "ancNo": "08343",
+   "name": "관광진흥법",
+   "kind": "전부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "71100",
+   "efYd": "20060804",
+   "ancYd": "20050804",
+   "ancNo": "07678",
+   "name": "관광진흥법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "67546",
+   "efYd": "20060401",
+   "ancYd": "20050331",
+   "ancNo": "07428",
+   "name": "관광진흥법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "3279",
+   "efYd": "20050417",
+   "ancYd": "20041016",
+   "ancNo": "07232",
+   "name": "관광진흥법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "58671",
+   "efYd": "20031001",
+   "ancYd": "20021230",
+   "ancNo": "06841",
+   "name": "관광진흥법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "52173",
+   "efYd": "20030101",
+   "ancYd": "20020204",
+   "ancNo": "06656",
+   "name": "관광진흥법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "53837",
+   "efYd": "20021027",
+   "ancYd": "20020126",
+   "ancNo": "06633",
+   "name": "관광진흥법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "53832",
+   "efYd": "20020701",
+   "ancYd": "20020126",
+   "ancNo": "06627",
+   "name": "관광진흥법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "53837",
+   "efYd": "20020427",
+   "ancYd": "20020126",
+   "ancNo": "06633",
+   "name": "관광진흥법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "44066",
+   "efYd": "20010701",
+   "ancYd": "20010407",
+   "ancNo": "06460",
+   "name": "관광진흥법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "44065",
+   "efYd": "19990809",
+   "ancYd": "19990208",
+   "ancNo": "05914",
+   "name": "관광진흥법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "44064",
+   "efYd": "19990509",
+   "ancYd": "19990208",
+   "ancNo": "05925",
+   "name": "관광진흥법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "44063",
+   "efYd": "19990322",
+   "ancYd": "19990121",
+   "ancNo": "05654",
+   "name": "관광진흥법",
+   "kind": "전부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "6795",
+   "efYd": "19980101",
+   "ancYd": "19971213",
+   "ancNo": "05454",
+   "name": "관광진흥법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "6794",
+   "efYd": "19980101",
+   "ancYd": "19971213",
+   "ancNo": "05453",
+   "name": "관광진흥법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "6793",
+   "efYd": "19950101",
+   "ancYd": "19941222",
+   "ancNo": "04796",
+   "name": "관광진흥법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "6792",
+   "efYd": "19941204",
+   "ancYd": "19940803",
+   "ancNo": "04778",
+   "name": "관광진흥법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "6791",
+   "efYd": "19940628",
+   "ancYd": "19931227",
+   "ancNo": "04645",
+   "name": "관광진흥법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "6790",
+   "efYd": "19940101",
+   "ancYd": "19930805",
+   "ancNo": "04572",
+   "name": "관광진흥법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "6789",
+   "efYd": "19921215",
+   "ancYd": "19911214",
+   "ancNo": "04429",
+   "name": "관광진흥법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "6788",
+   "efYd": "19910609",
+   "ancYd": "19910308",
+   "ancNo": "04358",
+   "name": "관광진흥법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "6787",
+   "efYd": "19890701",
+   "ancYd": "19890331",
+   "ancNo": "04106",
+   "name": "관광진흥법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "6786",
+   "efYd": "19890101",
+   "ancYd": "19881231",
+   "ancNo": "04065",
+   "name": "관광진흥법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "6785",
+   "efYd": "19870701",
+   "ancYd": "19861231",
+   "ancNo": "03910",
+   "name": "관광진흥법",
+   "kind": "전부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "6784",
+   "efYd": "19870401",
+   "ancYd": "19861226",
+   "ancNo": "03870",
+   "name": "관광사업법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "6783",
+   "efYd": "19870401",
+   "ancYd": "19861226",
+   "ancNo": "03869",
+   "name": "관광사업법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "6782",
+   "efYd": "19861111",
+   "ancYd": "19860510",
+   "ancNo": "03822",
+   "name": "관광사업법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "6781",
+   "efYd": "19820502",
+   "ancYd": "19820401",
+   "ancNo": "03545",
+   "name": "관광사업법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "6780",
+   "efYd": "19810514",
+   "ancYd": "19810413",
+   "ancNo": "03441",
+   "name": "관광사업법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "6779",
+   "efYd": "19801227",
+   "ancYd": "19801227",
+   "ancNo": "03296",
+   "name": "관광사업법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "55649",
+   "efYd": "19771231",
+   "ancYd": "19771231",
+   "ancNo": "03088",
+   "name": "관광사업법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "6778",
+   "efYd": "19760701",
+   "ancYd": "19751231",
+   "ancNo": "02878",
+   "name": "관광사업법",
+   "kind": "제정",
+   "status": "predecessor"
+  }
+ ]
+}

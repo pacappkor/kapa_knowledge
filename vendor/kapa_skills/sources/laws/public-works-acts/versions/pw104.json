@@ -1,0 +1,709 @@
+{
+ "lsId": "001737",
+ "name": "항만법",
+ "fetched": "2026-11-08",
+ "versions": [
+  {
+   "lsiSeq": "291459",
+   "efYd": "20271028",
+   "ancYd": "20261027",
+   "ancNo": "22132",
+   "name": "항만법",
+   "kind": "일부개정",
+   "status": "scheduled"
+  },
+  {
+   "lsiSeq": "285879",
+   "efYd": "20261113",
+   "ancYd": "20260512",
+   "ancNo": "21640",
+   "name": "항만법",
+   "kind": "일부개정",
+   "status": "scheduled"
+  },
+  {
+   "lsiSeq": "291459",
+   "efYd": "20261027",
+   "ancYd": "20261027",
+   "ancNo": "22132",
+   "name": "항만법",
+   "kind": "일부개정",
+   "status": "current"
+  },
+  {
+   "lsiSeq": "283707",
+   "efYd": "20260227",
+   "ancYd": "20260227",
+   "ancNo": "21415",
+   "name": "항만법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "259953",
+   "efYd": "20250807",
+   "ancYd": "20240206",
+   "ancNo": "20231",
+   "name": "항만법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "255493",
+   "efYd": "20240425",
+   "ancYd": "20231024",
+   "ancNo": "19778",
+   "name": "항만법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "246897",
+   "efYd": "20230628",
+   "ancYd": "20221227",
+   "ancNo": "19140",
+   "name": "항만법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "246823",
+   "efYd": "20230628",
+   "ancYd": "20221227",
+   "ancNo": "19117",
+   "name": "항만법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "250999",
+   "efYd": "20230516",
+   "ancYd": "20230516",
+   "ancNo": "19415",
+   "name": "항만법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "239425",
+   "efYd": "20230112",
+   "ancYd": "20220111",
+   "ancNo": "18755",
+   "name": "항만법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "237085",
+   "efYd": "20221201",
+   "ancYd": "20211130",
+   "ancNo": "18522",
+   "name": "항만법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "238869",
+   "efYd": "20220705",
+   "ancYd": "20220104",
+   "ancNo": "18701",
+   "name": "항만법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "238869",
+   "efYd": "20220104",
+   "ancYd": "20220104",
+   "ancNo": "18701",
+   "name": "항만법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "223609",
+   "efYd": "20210609",
+   "ancYd": "20201208",
+   "ancNo": "17620",
+   "name": "항만법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "216319",
+   "efYd": "20210401",
+   "ancYd": "20200331",
+   "ancNo": "17171",
+   "name": "항만법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "214401",
+   "efYd": "20210101",
+   "ancYd": "20200218",
+   "ancNo": "17007",
+   "name": "항만법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "210352",
+   "efYd": "20200828",
+   "ancYd": "20190827",
+   "ancNo": "16568",
+   "name": "항만법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "213569",
+   "efYd": "20200730",
+   "ancYd": "20200129",
+   "ancNo": "16902",
+   "name": "항만법",
+   "kind": "전부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "206743",
+   "efYd": "20190716",
+   "ancYd": "20190115",
+   "ancNo": "16287",
+   "name": "항만법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "206610",
+   "efYd": "20190709",
+   "ancYd": "20190108",
+   "ancNo": "16214",
+   "name": "항만법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "206386",
+   "efYd": "20190701",
+   "ancYd": "20181231",
+   "ancNo": "16160",
+   "name": "항만법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "191161",
+   "efYd": "20180118",
+   "ancYd": "20170117",
+   "ancNo": "14545",
+   "name": "항만법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "198525",
+   "efYd": "20171201",
+   "ancYd": "20171031",
+   "ancNo": "15010",
+   "name": "항만법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "199177",
+   "efYd": "20171128",
+   "ancYd": "20171128",
+   "ancNo": "15134",
+   "name": "항만법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "188427",
+   "efYd": "20170621",
+   "ancYd": "20161220",
+   "ancNo": "14452",
+   "name": "항만법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "179642",
+   "efYd": "20170120",
+   "ancYd": "20160119",
+   "ancNo": "13797",
+   "name": "항만법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "179738",
+   "efYd": "20160812",
+   "ancYd": "20160119",
+   "ancNo": "13805",
+   "name": "항만법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "168054",
+   "efYd": "20150804",
+   "ancYd": "20150203",
+   "ancNo": "13186",
+   "name": "항만법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "169548",
+   "efYd": "20150628",
+   "ancYd": "20150327",
+   "ancNo": "13274",
+   "name": "항만법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "152347",
+   "efYd": "20140925",
+   "ancYd": "20140324",
+   "ancNo": "12545",
+   "name": "항만법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "150072",
+   "efYd": "20140715",
+   "ancYd": "20140114",
+   "ancNo": "12248",
+   "name": "항만법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "130884",
+   "efYd": "20130619",
+   "ancYd": "20121218",
+   "ancNo": "11594",
+   "name": "항만법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "137219",
+   "efYd": "20130323",
+   "ancYd": "20130323",
+   "ancNo": "11690",
+   "name": "항만법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "123411",
+   "efYd": "20120823",
+   "ancYd": "20120222",
+   "ancNo": "11371",
+   "name": "항만법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "115035",
+   "efYd": "20120722",
+   "ancYd": "20110721",
+   "ancNo": "10892",
+   "name": "항만법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "112460",
+   "efYd": "20120415",
+   "ancYd": "20110414",
+   "ancNo": "10599",
+   "name": "항만법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "115852",
+   "efYd": "20120205",
+   "ancYd": "20110804",
+   "ancNo": "11037",
+   "name": "항만법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "113270",
+   "efYd": "20110819",
+   "ancYd": "20110518",
+   "ancNo": "10628",
+   "name": "항만법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "104076",
+   "efYd": "20110101",
+   "ancYd": "20100331",
+   "ancNo": "10220",
+   "name": "항만법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "105503",
+   "efYd": "20101201",
+   "ancYd": "20100531",
+   "ancNo": "10331",
+   "name": "항만법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "104547",
+   "efYd": "20101016",
+   "ancYd": "20100415",
+   "ancNo": "10272",
+   "name": "항만법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "104360",
+   "efYd": "20100713",
+   "ancYd": "20100412",
+   "ancNo": "10252",
+   "name": "항만법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "94420",
+   "efYd": "20100310",
+   "ancYd": "20090609",
+   "ancNo": "09763",
+   "name": "항만법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "94400",
+   "efYd": "20091210",
+   "ancYd": "20090609",
+   "ancNo": "09773",
+   "name": "항만법",
+   "kind": "전부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "86670",
+   "efYd": "20090101",
+   "ancYd": "20080328",
+   "ancNo": "09071",
+   "name": "항만법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "82160",
+   "efYd": "20080628",
+   "ancYd": "20071227",
+   "ancNo": "08819",
+   "name": "항만법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "86032",
+   "efYd": "20080321",
+   "ancYd": "20080321",
+   "ancNo": "08976",
+   "name": "항만법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "84565",
+   "efYd": "20080229",
+   "ancYd": "20080229",
+   "ancNo": "08852",
+   "name": "항만법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "80060",
+   "efYd": "20080204",
+   "ancYd": "20070803",
+   "ancNo": "08628",
+   "name": "항만법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "77979",
+   "efYd": "20070411",
+   "ancYd": "20070411",
+   "ancNo": "08379",
+   "name": "항만법",
+   "kind": "전부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "71111",
+   "efYd": "20060805",
+   "ancYd": "20050804",
+   "ancNo": "07678",
+   "name": "항만법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "68819",
+   "efYd": "20051201",
+   "ancYd": "20050531",
+   "ancNo": "07571",
+   "name": "항만법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "57031",
+   "efYd": "20040530",
+   "ancYd": "20030529",
+   "ancNo": "06893",
+   "name": "항만법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "55425",
+   "efYd": "20031001",
+   "ancYd": "20021230",
+   "ancNo": "06841",
+   "name": "항만법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "52172",
+   "efYd": "20030101",
+   "ancYd": "20020204",
+   "ancNo": "06656",
+   "name": "항만법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "50323",
+   "efYd": "20011125",
+   "ancYd": "20010524",
+   "ancNo": "06487",
+   "name": "항만법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "49781",
+   "efYd": "20010730",
+   "ancYd": "20010129",
+   "ancNo": "06394",
+   "name": "항만법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "50043",
+   "efYd": "20010701",
+   "ancYd": "20010129",
+   "ancNo": "06406",
+   "name": "항만법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "6605",
+   "efYd": "20000729",
+   "ancYd": "20000128",
+   "ancNo": "06254",
+   "name": "항만법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "6604",
+   "efYd": "19990809",
+   "ancYd": "19990208",
+   "ancNo": "05893",
+   "name": "항만법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "6482",
+   "efYd": "19990809",
+   "ancYd": "19990208",
+   "ancNo": "05911",
+   "name": "항만법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "6481",
+   "efYd": "19990809",
+   "ancYd": "19990208",
+   "ancNo": "05914",
+   "name": "항만법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "6479",
+   "efYd": "19990806",
+   "ancYd": "19990205",
+   "ancNo": "05807",
+   "name": "항만법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "6478",
+   "efYd": "19990806",
+   "ancYd": "19990205",
+   "ancNo": "05808",
+   "name": "항만법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "6480",
+   "efYd": "19990701",
+   "ancYd": "19990208",
+   "ancNo": "05835",
+   "name": "항만법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "6477",
+   "efYd": "19980101",
+   "ancYd": "19971213",
+   "ancNo": "05453",
+   "name": "항만법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "6476",
+   "efYd": "19980101",
+   "ancYd": "19971213",
+   "ancNo": "05454",
+   "name": "항만법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "6475",
+   "efYd": "19960630",
+   "ancYd": "19951229",
+   "ancNo": "05111",
+   "name": "항만법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "6474",
+   "efYd": "19950706",
+   "ancYd": "19950105",
+   "ancNo": "04925",
+   "name": "항만법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "6473",
+   "efYd": "19931106",
+   "ancYd": "19930805",
+   "ancNo": "04574",
+   "name": "항만법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "55239",
+   "efYd": "19921215",
+   "ancYd": "19911214",
+   "ancNo": "04429",
+   "name": "항만법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "6472",
+   "efYd": "19920701",
+   "ancYd": "19911214",
+   "ancNo": "04419",
+   "name": "항만법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "6471",
+   "efYd": "19910609",
+   "ancYd": "19910308",
+   "ancNo": "04358",
+   "name": "항만법",
+   "kind": "전부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "6470",
+   "efYd": "19910114",
+   "ancYd": "19900113",
+   "ancNo": "04216",
+   "name": "항만법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "6469",
+   "efYd": "19771216",
+   "ancYd": "19771216",
+   "ancNo": "03011",
+   "name": "항만법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "6468",
+   "efYd": "19760131",
+   "ancYd": "19751231",
+   "ancNo": "02874",
+   "name": "항만법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "6467",
+   "efYd": "19750404",
+   "ancYd": "19750404",
+   "ancNo": "02758",
+   "name": "항만법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "6466",
+   "efYd": "19670430",
+   "ancYd": "19670330",
+   "ancNo": "01941",
+   "name": "항만법",
+   "kind": "제정",
+   "status": "past"
+  }
+ ]
+}

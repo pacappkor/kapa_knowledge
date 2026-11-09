@@ -1,0 +1,125 @@
+# SPDX-License-Identifier: GPL-3.0-only
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  offline-checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      # Inline stdlib only: do not execute/import any proposed repository code.
+      - name: Prepare trusted credential scanner
+        id: scanner
+        env:
+          CI_EVENT: ${{ github.event_name }}
+          CI_PR_BASE: ${{ github.event.pull_request.base.sha }}
+          CI_PR_BASE_REF: ${{ github.event.pull_request.base.ref }}
+          CI_PUSH_SHA: ${{ github.sha }}
+          CI_DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+        run: |
+          python -I -B - <<'PY'
+          import os
+          from pathlib import Path
+          import re
+          import subprocess
+          import tempfile
+
+          env = {k: v for k, v in os.environ.items()
+                 if not k.upper().startswith('GIT_') and k.upper() not in {'LAW_OC', 'LAW_OC_FILE'}}
+          env.update(GIT_ALLOW_PROTOCOL='', GIT_NO_LAZY_FETCH='1', GIT_TERMINAL_PROMPT='0')
+          def git(*args):
+              return subprocess.run(
+                  ['git', '-c', 'core.fsmonitor=false', '-c', 'core.untrackedCache=false',
+                   '-c', 'protocol.allow=never', '--no-replace-objects', *args],
+                  check=True, capture_output=True, env=env).stdout
+
+          event = os.environ['CI_EVENT']
+          if event == 'pull_request':
+              if (os.environ.get('CI_PR_BASE_REF') != 'main'
+                      or os.environ['CI_PR_BASE_REF'] != os.environ.get('CI_DEFAULT_BRANCH')):
+                  raise SystemExit('Credential scan PR base must be the accepted default branch (main)')
+              revision = os.environ['CI_PR_BASE']
+          elif event == 'push':
+              revision = os.environ['CI_PUSH_SHA']
+          elif event == 'workflow_dispatch':
+              ref = 'refs/remotes/origin/' + os.environ['CI_DEFAULT_BRANCH']
+              revision = git('rev-parse', '--verify', '--end-of-options', ref + '^{commit}').decode().strip()
+          else:
+              raise SystemExit('Unsupported scanner event')
+          if not re.fullmatch('[0-9a-f]{40}', revision):
+              raise SystemExit('Trusted scanner requires an immutable commit')
+          # Resolve as a commit before using fixed paths; never fall back to PR files.
+          git('cat-file', '-e', revision + '^{commit}')
+          blobs = {}
+          for name in ('secret_scan.py', 'credentials.py', 'git_read.py'):
+              path = 'tools/' + name
+              entry = git('ls-tree', revision, '--', path).decode().strip()
+              metadata, separator, actual_path = entry.partition('\t')
+              fields = metadata.split()
+              if (not separator or actual_path != path or len(fields) != 3
+                      or fields[0] not in {'100644', '100755'} or fields[1] != 'blob'):
+                  raise SystemExit('Trusted scanner input must be a regular blob')
+              blobs[name] = git('cat-file', '-p', revision + ':' + path)
+          temporary = Path(os.environ['RUNNER_TEMP']).resolve()
+          if temporary.is_relative_to(Path.cwd().resolve()):
+              raise SystemExit('Trusted scanner must be outside the PR worktree')
+          directory = Path(tempfile.mkdtemp(prefix='trusted-law-scan-', dir=temporary))
+          for name, data in blobs.items():
+              (directory / name).write_bytes(data)
+          with open(os.environ['GITHUB_OUTPUT'], 'a', encoding='utf-8') as output:
+              output.write('directory=' + str(directory) + '\n')
+          PY
+      # First repository-code execution is the extracted trusted scanner.
+      # Workflow edits themselves still require trusted authors/review; see README.
+      # Fork PRs without secrets fail closed; never fall back to a credential file.
+      - name: Scan actual LAW_OC value
+        env:
+          TRUSTED_SCANNER: ${{ steps.scanner.outputs.directory }}
+          LAW_OC: ${{ secrets.LAW_OC }}
+        run: python -I -B "$TRUSTED_SCANNER/secret_scan.py" --require --worktree
+      - name: Reject tracked symlinks and gitlinks
+        run: python -I -B tools/validate.py --check-links
+      - name: Select checks from changed paths
+        id: changes
+        env:
+          CI_EVENT: ${{ github.event_name }}
+          CI_BASE: ${{ github.event.pull_request.base.sha }}
+          CI_BEFORE: ${{ github.event.before }}
+        run: python -I -B .github/ci/ci_changes.py
+      - name: Validate repository and pinned law metadata
+        if: steps.changes.outputs.validate == 'true'
+        run: python -I -B tools/validate.py
+      - name: Check documentation snapshot without rewriting it
+        if: steps.changes.outputs.validate == 'true'
+        run: python -I -B .github/ci/ci_docs.py
+      - name: Run stock unittest discovery with layout and completion checks
+        if: steps.changes.outputs.tests == 'true'
+        run: python -I -B .github/ci/ci_tests_supervise.py
+      - name: Check whole working tree including ignored files
+        run: python -I -B .github/ci/ci_integrity.py
+      - name: Check diff whitespace
+        env:
+          BASE_SHA: ${{ steps.changes.outputs.whitespace_base }}
+        run: bash .github/ci/ci_whitespace.sh "$BASE_SHA"

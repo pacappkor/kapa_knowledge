@@ -1,0 +1,322 @@
+{
+ "lsId": "001701",
+ "name": "주식회사 등의 외부감사에 관한 법률",
+ "fetched": "2026-11-08",
+ "versions": [
+  {
+   "lsiSeq": "270309",
+   "efYd": "20250401",
+   "ancYd": "20250401",
+   "ancNo": "20896",
+   "name": "주식회사 등의 외부감사에 관한 법률",
+   "kind": "일부개정",
+   "status": "current"
+  },
+  {
+   "lsiSeq": "258793",
+   "efYd": "20240116",
+   "ancYd": "20240116",
+   "ancNo": "20055",
+   "name": "주식회사 등의 외부감사에 관한 법률",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "248931",
+   "efYd": "20230922",
+   "ancYd": "20230321",
+   "ancNo": "19264",
+   "name": "주식회사 등의 외부감사에 관한 법률",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "247869",
+   "efYd": "20230117",
+   "ancYd": "20230117",
+   "ancNo": "19217",
+   "name": "주식회사 등의 외부감사에 관한 법률",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "218059",
+   "efYd": "20210520",
+   "ancYd": "20200519",
+   "ancNo": "17298",
+   "name": "주식회사 등의 외부감사에 관한 법률",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "202834",
+   "efYd": "20181101",
+   "ancYd": "20180320",
+   "ancNo": "15514",
+   "name": "주식회사 등의 외부감사에 관한 법률",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "199077",
+   "efYd": "20181101",
+   "ancYd": "20171128",
+   "ancNo": "15040",
+   "name": "주식회사 등의 외부감사에 관한 법률",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "198542",
+   "efYd": "20181101",
+   "ancYd": "20171031",
+   "ancNo": "15022",
+   "name": "주식회사 등의 외부감사에 관한 법률",
+   "kind": "전부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "183697",
+   "efYd": "20161201",
+   "ancYd": "20160529",
+   "ancNo": "14242",
+   "name": "주식회사의 외부감사에 관한 법률",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "173577",
+   "efYd": "20160801",
+   "ancYd": "20150731",
+   "ancNo": "13453",
+   "name": "주식회사의 외부감사에 관한 법률",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "154293",
+   "efYd": "20141129",
+   "ancYd": "20140528",
+   "ancNo": "12715",
+   "name": "주식회사의 외부감사에 관한 법률",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "148467",
+   "efYd": "20140701",
+   "ancYd": "20131230",
+   "ancNo": "12148",
+   "name": "주식회사의 외부감사에 관한 법률",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "148467",
+   "efYd": "20131230",
+   "ancYd": "20131230",
+   "ancNo": "12148",
+   "name": "주식회사의 외부감사에 관한 법률",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "140589",
+   "efYd": "20130829",
+   "ancYd": "20130528",
+   "ancNo": "11845",
+   "name": "주식회사의 외부감사에 관한 법률",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "91522",
+   "efYd": "20120101",
+   "ancYd": "20090203",
+   "ancNo": "09408",
+   "name": "주식회사의 외부감사에 관한 법률",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "105222",
+   "efYd": "20101118",
+   "ancYd": "20100517",
+   "ancNo": "10303",
+   "name": "주식회사의 외부감사에 관한 법률",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "91522",
+   "efYd": "20100101",
+   "ancYd": "20090203",
+   "ancNo": "09408",
+   "name": "주식회사의 외부감사에 관한 법률",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "80142",
+   "efYd": "20090204",
+   "ancYd": "20070803",
+   "ancNo": "08635",
+   "name": "주식회사의 외부감사에 관한 법률",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "91522",
+   "efYd": "20090203",
+   "ancYd": "20090203",
+   "ancNo": "09408",
+   "name": "주식회사의 외부감사에 관한 법률",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "85963",
+   "efYd": "20080321",
+   "ancYd": "20080321",
+   "ancNo": "08984",
+   "name": "주식회사의 외부감사에 관한 법률",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "84317",
+   "efYd": "20080229",
+   "ancYd": "20080229",
+   "ancNo": "08863",
+   "name": "주식회사의 외부감사에 관한 법률",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "77735",
+   "efYd": "20070930",
+   "ancYd": "20070329",
+   "ancNo": "08314",
+   "name": "주식회사의 외부감사에 관한 법률",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "68752",
+   "efYd": "20050630",
+   "ancYd": "20050531",
+   "ancNo": "07524",
+   "name": "주식회사의 외부감사에 관한 법률",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "58715",
+   "efYd": "20040401",
+   "ancYd": "20031211",
+   "ancNo": "06991",
+   "name": "주식회사의외부감사에관한법률",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "59358",
+   "efYd": "20010401",
+   "ancYd": "20010328",
+   "ancNo": "06427",
+   "name": "주식회사의외부감사에관한법률",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "59474",
+   "efYd": "20000401",
+   "ancYd": "20000112",
+   "ancNo": "06108",
+   "name": "주식회사의외부감사에관한법률",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "59474",
+   "efYd": "20000112",
+   "ancYd": "20000112",
+   "ancNo": "06108",
+   "name": "주식회사의외부감사에관한법률",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "59361",
+   "efYd": "19980401",
+   "ancYd": "19980224",
+   "ancNo": "05522",
+   "name": "주식회사의외부감사에관한법률",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "59362",
+   "efYd": "19980401",
+   "ancYd": "19980108",
+   "ancNo": "05497",
+   "name": "주식회사의외부감사에관한법률",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "59360",
+   "efYd": "19970101",
+   "ancYd": "19961230",
+   "ancNo": "05196",
+   "name": "주식회사의외부감사에관한법률",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "59475",
+   "efYd": "19940101",
+   "ancYd": "19931231",
+   "ancNo": "04680",
+   "name": "주식회사의외부감사에관한법률",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "59472",
+   "efYd": "19900101",
+   "ancYd": "19891230",
+   "ancNo": "04168",
+   "name": "주식회사의외부감사에관한법률",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "59473",
+   "efYd": "19840901",
+   "ancYd": "19840410",
+   "ancNo": "03724",
+   "name": "주식회사의외부감사에관한법률",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "59471",
+   "efYd": "19840301",
+   "ancYd": "19831231",
+   "ancNo": "03690",
+   "name": "주식회사의외부감사에관한법률",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "59476",
+   "efYd": "19810101",
+   "ancYd": "19801231",
+   "ancNo": "03297",
+   "name": "주식회사의외부감사에관한법률",
+   "kind": "제정",
+   "status": "predecessor"
+  }
+ ]
+}

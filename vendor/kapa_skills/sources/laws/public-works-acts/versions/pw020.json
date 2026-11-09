@@ -1,0 +1,178 @@
+{
+ "lsId": "000303",
+ "name": "한국석유공사법",
+ "fetched": "2026-11-08",
+ "versions": [
+  {
+   "lsiSeq": "276629",
+   "efYd": "20251001",
+   "ancYd": "20251001",
+   "ancNo": "21065",
+   "name": "한국석유공사법",
+   "kind": "타법개정",
+   "status": "current"
+  },
+  {
+   "lsiSeq": "258045",
+   "efYd": "20240710",
+   "ancYd": "20240109",
+   "ancNo": "19957",
+   "name": "한국석유공사법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "210351",
+   "efYd": "20200828",
+   "ancYd": "20190827",
+   "ancNo": "16568",
+   "name": "한국석유공사법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "203188",
+   "efYd": "20181018",
+   "ancYd": "20180417",
+   "ancNo": "15578",
+   "name": "한국석유공사법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "192517",
+   "efYd": "20170922",
+   "ancYd": "20170321",
+   "ancNo": "14677",
+   "name": "한국석유공사법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "149352",
+   "efYd": "20140101",
+   "ancYd": "20140101",
+   "ancNo": "12154",
+   "name": "한국석유공사법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "137006",
+   "efYd": "20130323",
+   "ancYd": "20130323",
+   "ancNo": "11690",
+   "name": "한국석유공사법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "130701",
+   "efYd": "20121211",
+   "ancYd": "20121211",
+   "ancNo": "11541",
+   "name": "한국석유공사법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "93480",
+   "efYd": "20090521",
+   "ancYd": "20090521",
+   "ancNo": "09681",
+   "name": "한국석유공사법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "90189",
+   "efYd": "20081219",
+   "ancYd": "20081219",
+   "ancNo": "09162",
+   "name": "한국석유공사법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "83620",
+   "efYd": "20080229",
+   "ancYd": "20080229",
+   "ancNo": "08852",
+   "name": "한국석유공사법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "80004",
+   "efYd": "20070803",
+   "ancYd": "20070803",
+   "ancNo": "08607",
+   "name": "한국석유공사법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "52159",
+   "efYd": "20030101",
+   "ancYd": "20020204",
+   "ancNo": "06656",
+   "name": "한국석유공사법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "182",
+   "efYd": "19990101",
+   "ancYd": "19981231",
+   "ancNo": "05622",
+   "name": "한국석유공사법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "181",
+   "efYd": "19980101",
+   "ancYd": "19971213",
+   "ancNo": "05454",
+   "name": "한국석유개발공사법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "180",
+   "efYd": "19950101",
+   "ancYd": "19940324",
+   "ancNo": "04756",
+   "name": "한국석유개발공사법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "179",
+   "efYd": "19930306",
+   "ancYd": "19930306",
+   "ancNo": "04541",
+   "name": "한국석유개발공사법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "178",
+   "efYd": "19860512",
+   "ancYd": "19860512",
+   "ancNo": "03837",
+   "name": "한국석유개발공사법",
+   "kind": "전부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "177",
+   "efYd": "19781205",
+   "ancYd": "19781205",
+   "ancNo": "03132",
+   "name": "한국석유개발공사법",
+   "kind": "제정",
+   "status": "predecessor"
+  }
+ ]
+}

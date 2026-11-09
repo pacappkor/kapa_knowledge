@@ -1,0 +1,466 @@
+{
+ "lsId": "000262",
+ "name": "지하수법",
+ "fetched": "2026-11-08",
+ "versions": [
+  {
+   "lsiSeq": "276791",
+   "efYd": "20260926",
+   "ancYd": "20251001",
+   "ancNo": "21065",
+   "name": "지하수법",
+   "kind": "타법개정",
+   "status": "current"
+  },
+  {
+   "lsiSeq": "270175",
+   "efYd": "20260926",
+   "ancYd": "20250325",
+   "ancNo": "20857",
+   "name": "지하수법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "276791",
+   "efYd": "20251001",
+   "ancYd": "20251001",
+   "ancNo": "21065",
+   "name": "지하수법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "259943",
+   "efYd": "20250807",
+   "ancYd": "20240206",
+   "ancNo": "20231",
+   "name": "지하수법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "259263",
+   "efYd": "20250124",
+   "ancYd": "20240123",
+   "ancNo": "20120",
+   "name": "지하수법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "267593",
+   "efYd": "20250101",
+   "ancYd": "20241231",
+   "ancNo": "20626",
+   "name": "지하수법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "247277",
+   "efYd": "20230704",
+   "ancYd": "20230103",
+   "ancNo": "19170",
+   "name": "지하수법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "228133",
+   "efYd": "20220106",
+   "ancYd": "20210105",
+   "ancNo": "17850",
+   "name": "지하수법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "225471",
+   "efYd": "20220101",
+   "ancYd": "20201231",
+   "ancNo": "17814",
+   "name": "지하수법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "223605",
+   "efYd": "20201208",
+   "ancYd": "20201208",
+   "ancNo": "17618",
+   "name": "지하수법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "218233",
+   "efYd": "20200526",
+   "ancYd": "20200526",
+   "ancNo": "17326",
+   "name": "지하수법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "215863",
+   "efYd": "20200324",
+   "ancYd": "20200324",
+   "ancNo": "17091",
+   "name": "지하수법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "203719",
+   "efYd": "20180822",
+   "ancYd": "20180608",
+   "ancNo": "15624",
+   "name": "지하수법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "202313",
+   "efYd": "20180822",
+   "ancYd": "20180221",
+   "ancNo": "15403",
+   "name": "지하수법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "203719",
+   "efYd": "20180608",
+   "ancYd": "20180608",
+   "ancNo": "15624",
+   "name": "지하수법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "191110",
+   "efYd": "20180118",
+   "ancYd": "20170117",
+   "ancNo": "14532",
+   "name": "지하수법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "195242",
+   "efYd": "20170726",
+   "ancYd": "20170726",
+   "ancNo": "14839",
+   "name": "지하수법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "193431",
+   "efYd": "20170418",
+   "ancYd": "20170418",
+   "ancNo": "14801",
+   "name": "지하수법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "188602",
+   "efYd": "20170328",
+   "ancYd": "20161227",
+   "ancNo": "14476",
+   "name": "지하수법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "172323",
+   "efYd": "20151223",
+   "ancYd": "20150622",
+   "ancNo": "13383",
+   "name": "지하수법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "166554",
+   "efYd": "20150106",
+   "ancYd": "20150106",
+   "ancNo": "12990",
+   "name": "지하수법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "140944",
+   "efYd": "20150101",
+   "ancYd": "20130604",
+   "ancNo": "11862",
+   "name": "지하수법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "162584",
+   "efYd": "20141119",
+   "ancYd": "20141119",
+   "ancNo": "12844",
+   "name": "지하수법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "142640",
+   "efYd": "20140807",
+   "ancYd": "20130806",
+   "ancNo": "11998",
+   "name": "지하수법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "140282",
+   "efYd": "20131123",
+   "ancYd": "20130522",
+   "ancNo": "11803",
+   "name": "지하수법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "137206",
+   "efYd": "20130323",
+   "ancYd": "20130323",
+   "ancNo": "11690",
+   "name": "지하수법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "122003",
+   "efYd": "20120718",
+   "ancYd": "20120117",
+   "ancNo": "11192",
+   "name": "지하수법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "112453",
+   "efYd": "20120415",
+   "ancYd": "20110414",
+   "ancNo": "10599",
+   "name": "지하수법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "113571",
+   "efYd": "20111201",
+   "ancYd": "20110530",
+   "ancNo": "10763",
+   "name": "지하수법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "113571",
+   "efYd": "20110831",
+   "ancYd": "20110530",
+   "ancNo": "10763",
+   "name": "지하수법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "113571",
+   "efYd": "20110530",
+   "ancYd": "20110530",
+   "ancNo": "10763",
+   "name": "지하수법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "103788",
+   "efYd": "20110323",
+   "ancYd": "20100322",
+   "ancNo": "10154",
+   "name": "지하수법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "104016",
+   "efYd": "20110101",
+   "ancYd": "20100331",
+   "ancNo": "10219",
+   "name": "지하수법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "93843",
+   "efYd": "20091128",
+   "ancYd": "20090527",
+   "ancNo": "09717",
+   "name": "지하수법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "86394",
+   "efYd": "20080629",
+   "ancYd": "20080328",
+   "ancNo": "09058",
+   "name": "지하수법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "84720",
+   "efYd": "20080229",
+   "ancYd": "20080229",
+   "ancNo": "08852",
+   "name": "지하수법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "79025",
+   "efYd": "20071118",
+   "ancYd": "20070517",
+   "ancNo": "08466",
+   "name": "지하수법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "75612",
+   "efYd": "20070928",
+   "ancYd": "20060927",
+   "ancNo": "08014",
+   "name": "지하수법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "78565",
+   "efYd": "20070411",
+   "ancYd": "20070411",
+   "ancNo": "08370",
+   "name": "지하수법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "73197",
+   "efYd": "20060701",
+   "ancYd": "20060221",
+   "ancNo": "07849",
+   "name": "지하수법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "67748",
+   "efYd": "20060401",
+   "ancYd": "20050331",
+   "ancNo": "07459",
+   "name": "지하수법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "73430",
+   "efYd": "20060324",
+   "ancYd": "20060324",
+   "ancNo": "07924",
+   "name": "지하수법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "68850",
+   "efYd": "20051201",
+   "ancYd": "20050531",
+   "ancNo": "07569",
+   "name": "지하수법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "62061",
+   "efYd": "20030101",
+   "ancYd": "20020204",
+   "ancNo": "06655",
+   "name": "지하수법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "62060",
+   "efYd": "20030101",
+   "ancYd": "20020204",
+   "ancNo": "06656",
+   "name": "지하수법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "62059",
+   "efYd": "20011117",
+   "ancYd": "20010116",
+   "ancNo": "06368",
+   "name": "지하수법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "61374",
+   "efYd": "19990331",
+   "ancYd": "19990331",
+   "ancNo": "05955",
+   "name": "지하수법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "62170",
+   "efYd": "19980101",
+   "ancYd": "19971213",
+   "ancNo": "05453",
+   "name": "지하수법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "62055",
+   "efYd": "19970714",
+   "ancYd": "19970113",
+   "ancNo": "05286",
+   "name": "지하수법",
+   "kind": "전부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "62063",
+   "efYd": "19950501",
+   "ancYd": "19950105",
+   "ancNo": "04908",
+   "name": "지하수법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "62160",
+   "efYd": "19940611",
+   "ancYd": "19931210",
+   "ancNo": "04599",
+   "name": "지하수법",
+   "kind": "제정",
+   "status": "past"
+  }
+ ]
+}

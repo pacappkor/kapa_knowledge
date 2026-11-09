@@ -1,0 +1,1015 @@
+{
+ "lsId": "009595",
+ "name": "공공주택 특별법",
+ "fetched": "2026-11-08",
+ "versions": [
+  {
+   "lsiSeq": "289289",
+   "efYd": "20270309",
+   "ancYd": "20260908",
+   "ancNo": "21895",
+   "name": "공공주택 특별법",
+   "kind": "일부개정",
+   "status": "scheduled"
+  },
+  {
+   "lsiSeq": "289289",
+   "efYd": "20260908",
+   "ancYd": "20260908",
+   "ancNo": "21895",
+   "name": "공공주택 특별법",
+   "kind": "일부개정",
+   "status": "current"
+  },
+  {
+   "lsiSeq": "276937",
+   "efYd": "20260102",
+   "ancYd": "20251001",
+   "ancNo": "21065",
+   "name": "공공주택 특별법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "280067",
+   "efYd": "20251202",
+   "ancYd": "20251202",
+   "ancNo": "21165",
+   "name": "공공주택 특별법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "276937",
+   "efYd": "20251001",
+   "ancYd": "20251001",
+   "ancNo": "21065",
+   "name": "공공주택 특별법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "268887",
+   "efYd": "20250801",
+   "ancYd": "20250131",
+   "ancNo": "20754",
+   "name": "공공주택 특별법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "268887",
+   "efYd": "20250131",
+   "ancYd": "20250131",
+   "ancNo": "20754",
+   "name": "공공주택 특별법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "265489",
+   "efYd": "20240920",
+   "ancYd": "20240920",
+   "ancNo": "20451",
+   "name": "공공주택 특별법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "259885",
+   "efYd": "20240807",
+   "ancYd": "20240206",
+   "ancNo": "20234",
+   "name": "공공주택 특별법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "255467",
+   "efYd": "20240425",
+   "ancYd": "20231024",
+   "ancNo": "19763",
+   "name": "공공주택 특별법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "255467",
+   "efYd": "20240125",
+   "ancYd": "20231024",
+   "ancNo": "19763",
+   "name": "공공주택 특별법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "255467",
+   "efYd": "20231024",
+   "ancYd": "20231024",
+   "ancNo": "19763",
+   "name": "공공주택 특별법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "250055",
+   "efYd": "20230719",
+   "ancYd": "20230418",
+   "ancNo": "19369",
+   "name": "공공주택 특별법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "246657",
+   "efYd": "20230628",
+   "ancYd": "20221227",
+   "ancNo": "19117",
+   "name": "공공주택 특별법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "250055",
+   "efYd": "20230418",
+   "ancYd": "20230418",
+   "ancNo": "19369",
+   "name": "공공주택 특별법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "245345",
+   "efYd": "20221115",
+   "ancYd": "20221115",
+   "ancNo": "19048",
+   "name": "공공주택 특별법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "240079",
+   "efYd": "20220804",
+   "ancYd": "20220203",
+   "ancNo": "18827",
+   "name": "공공주택 특별법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "234139",
+   "efYd": "20220721",
+   "ancYd": "20210720",
+   "ancNo": "18310",
+   "name": "공공주택 특별법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "239343",
+   "efYd": "20220111",
+   "ancYd": "20220111",
+   "ancNo": "18750",
+   "name": "공공주택 특별법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "225509",
+   "efYd": "20220101",
+   "ancYd": "20201231",
+   "ancNo": "17814",
+   "name": "공공주택 특별법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "232205",
+   "efYd": "20211119",
+   "ancYd": "20210518",
+   "ancNo": "18183",
+   "name": "공공주택 특별법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "236305",
+   "efYd": "20211019",
+   "ancYd": "20211019",
+   "ancNo": "18509",
+   "name": "공공주택 특별법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "234113",
+   "efYd": "20210921",
+   "ancYd": "20210720",
+   "ancNo": "18311",
+   "name": "공공주택 특별법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "232205",
+   "efYd": "20210819",
+   "ancYd": "20210518",
+   "ancNo": "18183",
+   "name": "공공주택 특별법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "230785",
+   "efYd": "20210702",
+   "ancYd": "20210401",
+   "ancNo": "17986",
+   "name": "공공주택 특별법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "224637",
+   "efYd": "20210623",
+   "ancYd": "20201222",
+   "ancNo": "17734",
+   "name": "공공주택 특별법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "232205",
+   "efYd": "20210518",
+   "ancYd": "20210518",
+   "ancNo": "18183",
+   "name": "공공주택 특별법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "230785",
+   "efYd": "20210401",
+   "ancYd": "20210401",
+   "ancNo": "17986",
+   "name": "공공주택 특별법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "216221",
+   "efYd": "20210401",
+   "ancYd": "20200331",
+   "ancNo": "17171",
+   "name": "공공주택 특별법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "224637",
+   "efYd": "20210323",
+   "ancYd": "20201222",
+   "ancNo": "17734",
+   "name": "공공주택 특별법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "220973",
+   "efYd": "20210219",
+   "ancYd": "20200818",
+   "ancNo": "17486",
+   "name": "공공주택 특별법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "224637",
+   "efYd": "20201222",
+   "ancYd": "20201222",
+   "ancNo": "17734",
+   "name": "공공주택 특별법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "220961",
+   "efYd": "20201019",
+   "ancYd": "20200818",
+   "ancNo": "17481",
+   "name": "공공주택 특별법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "213575",
+   "efYd": "20200730",
+   "ancYd": "20200129",
+   "ancNo": "16902",
+   "name": "공공주택 특별법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "219215",
+   "efYd": "20200609",
+   "ancYd": "20200609",
+   "ancNo": "17453",
+   "name": "공공주택 특별법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "211589",
+   "efYd": "20200527",
+   "ancYd": "20191126",
+   "ancNo": "16628",
+   "name": "공공주택 특별법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "210187",
+   "efYd": "20200221",
+   "ancYd": "20190820",
+   "ancNo": "16488",
+   "name": "공공주택 특별법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "208584",
+   "efYd": "20191101",
+   "ancYd": "20190430",
+   "ancNo": "16417",
+   "name": "공공주택 특별법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "206354",
+   "efYd": "20190701",
+   "ancYd": "20181231",
+   "ancNo": "16137",
+   "name": "공공주택 특별법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "208584",
+   "efYd": "20190430",
+   "ancYd": "20190430",
+   "ancNo": "16417",
+   "name": "공공주택 특별법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "202663",
+   "efYd": "20190314",
+   "ancYd": "20180313",
+   "ancNo": "15460",
+   "name": "공공주택 특별법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "198232",
+   "efYd": "20181025",
+   "ancYd": "20171024",
+   "ancNo": "14912",
+   "name": "공공주택 특별법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "202796",
+   "efYd": "20180921",
+   "ancYd": "20180320",
+   "ancNo": "15522",
+   "name": "공공주택 특별법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "198270",
+   "efYd": "20180425",
+   "ancYd": "20171024",
+   "ancNo": "14938",
+   "name": "공공주택 특별법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "196500",
+   "efYd": "20180210",
+   "ancYd": "20170809",
+   "ancNo": "14851",
+   "name": "공공주택 특별법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "191629",
+   "efYd": "20180209",
+   "ancYd": "20170208",
+   "ancNo": "14567",
+   "name": "공공주택 특별법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "191050",
+   "efYd": "20180118",
+   "ancYd": "20170117",
+   "ancNo": "14532",
+   "name": "공공주택 특별법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "198270",
+   "efYd": "20171024",
+   "ancYd": "20171024",
+   "ancNo": "14938",
+   "name": "공공주택 특별법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "196500",
+   "efYd": "20170809",
+   "ancYd": "20170809",
+   "ancNo": "14851",
+   "name": "공공주택 특별법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "188098",
+   "efYd": "20170603",
+   "ancYd": "20161202",
+   "ancNo": "14333",
+   "name": "공공주택 특별법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "179614",
+   "efYd": "20170120",
+   "ancYd": "20160119",
+   "ancNo": "13797",
+   "name": "공공주택 특별법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "188630",
+   "efYd": "20161227",
+   "ancYd": "20161227",
+   "ancNo": "14480",
+   "name": "공공주택 특별법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "188098",
+   "efYd": "20161202",
+   "ancYd": "20161202",
+   "ancNo": "14333",
+   "name": "공공주택 특별법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "179676",
+   "efYd": "20160812",
+   "ancYd": "20160119",
+   "ancNo": "13805",
+   "name": "공공주택 특별법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "173236",
+   "efYd": "20160125",
+   "ancYd": "20150724",
+   "ancNo": "13433",
+   "name": "공공주택 특별법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "174462",
+   "efYd": "20151229",
+   "ancYd": "20150828",
+   "ancNo": "13498",
+   "name": "공공주택 특별법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "174462",
+   "efYd": "20150828",
+   "ancYd": "20150828",
+   "ancNo": "13498",
+   "name": "공공주택건설 등에 관한 특별법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "173832",
+   "efYd": "20150811",
+   "ancYd": "20150811",
+   "ancNo": "13473",
+   "name": "공공주택건설 등에 관한 특별법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "166526",
+   "efYd": "20150701",
+   "ancYd": "20150106",
+   "ancNo": "12989",
+   "name": "공공주택건설 등에 관한 특별법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "155011",
+   "efYd": "20150604",
+   "ancYd": "20140603",
+   "ancNo": "12738",
+   "name": "공공주택건설 등에 관한 특별법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "167380",
+   "efYd": "20150421",
+   "ancYd": "20150120",
+   "ancNo": "13050",
+   "name": "공공주택건설 등에 관한 특별법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "166377",
+   "efYd": "20150401",
+   "ancYd": "20141231",
+   "ancNo": "12959",
+   "name": "공공주택건설 등에 관한 특별법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "167380",
+   "efYd": "20150120",
+   "ancYd": "20150120",
+   "ancNo": "13050",
+   "name": "공공주택건설 등에 관한 특별법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "166504",
+   "efYd": "20150106",
+   "ancYd": "20150106",
+   "ancNo": "12971",
+   "name": "공공주택건설 등에 관한 특별법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "149990",
+   "efYd": "20140715",
+   "ancYd": "20140114",
+   "ancNo": "12248",
+   "name": "공공주택건설 등에 관한 특별법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "142055",
+   "efYd": "20140117",
+   "ancYd": "20130716",
+   "ancNo": "11926",
+   "name": "공공주택건설 등에 관한 특별법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "150074",
+   "efYd": "20140114",
+   "ancYd": "20140114",
+   "ancNo": "12251",
+   "name": "공공주택건설 등에 관한 특별법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "137163",
+   "efYd": "20130323",
+   "ancYd": "20130323",
+   "ancNo": "11690",
+   "name": "보금자리주택건설 등에 관한 특별법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "121998",
+   "efYd": "20120801",
+   "ancYd": "20120117",
+   "ancNo": "11187",
+   "name": "보금자리주택건설 등에 관한 특별법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "115054",
+   "efYd": "20120722",
+   "ancYd": "20110721",
+   "ancNo": "10892",
+   "name": "보금자리주택건설 등에 관한 특별법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "112424",
+   "efYd": "20120415",
+   "ancYd": "20110414",
+   "ancNo": "10599",
+   "name": "보금자리주택건설 등에 관한 특별법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "105512",
+   "efYd": "20110601",
+   "ancYd": "20100531",
+   "ancNo": "10335",
+   "name": "보금자리주택건설 등에 관한 특별법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "113582",
+   "efYd": "20110530",
+   "ancYd": "20110530",
+   "ancNo": "10764",
+   "name": "보금자리주택건설 등에 관한 특별법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "113206",
+   "efYd": "20110519",
+   "ancYd": "20110519",
+   "ancNo": "10667",
+   "name": "보금자리주택건설 등에 관한 특별법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "102305",
+   "efYd": "20110128",
+   "ancYd": "20100127",
+   "ancNo": "09982",
+   "name": "보금자리주택건설 등에 관한 특별법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "105449",
+   "efYd": "20101201",
+   "ancYd": "20100531",
+   "ancNo": "10331",
+   "name": "보금자리주택건설 등에 관한 특별법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "105193",
+   "efYd": "20101118",
+   "ancYd": "20100517",
+   "ancNo": "10303",
+   "name": "보금자리주택건설 등에 관한 특별법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "104494",
+   "efYd": "20101016",
+   "ancYd": "20100415",
+   "ancNo": "10272",
+   "name": "보금자리주택건설 등에 관한 특별법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "94481",
+   "efYd": "20100701",
+   "ancYd": "20090609",
+   "ancNo": "09770",
+   "name": "보금자리주택건설 등에 관한 특별법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "104182",
+   "efYd": "20100405",
+   "ancYd": "20100405",
+   "ancNo": "10238",
+   "name": "보금자리주택건설 등에 관한 특별법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "92087",
+   "efYd": "20100326",
+   "ancYd": "20090325",
+   "ancNo": "09552",
+   "name": "보금자리주택건설 등에 관한 특별법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "94478",
+   "efYd": "20100310",
+   "ancYd": "20090609",
+   "ancNo": "09763",
+   "name": "보금자리주택건설 등에 관한 특별법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "94495",
+   "efYd": "20091210",
+   "ancYd": "20090609",
+   "ancNo": "09774",
+   "name": "보금자리주택건설 등에 관한 특별법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "94477",
+   "efYd": "20091210",
+   "ancYd": "20090609",
+   "ancNo": "09758",
+   "name": "보금자리주택건설 등에 관한 특별법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "92031",
+   "efYd": "20090421",
+   "ancYd": "20090320",
+   "ancNo": "09511",
+   "name": "보금자리주택건설 등에 관한 특별법",
+   "kind": "전부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "86560",
+   "efYd": "20090101",
+   "ancYd": "20080328",
+   "ancNo": "09071",
+   "name": "국민임대주택건설 등에 관한 특별조치법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "86559",
+   "efYd": "20080629",
+   "ancYd": "20080328",
+   "ancNo": "09045",
+   "name": "국민임대주택건설 등에 관한 특별조치법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "82309",
+   "efYd": "20080628",
+   "ancYd": "20071227",
+   "ancNo": "08820",
+   "name": "국민임대주택건설 등에 관한 특별조치법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "82308",
+   "efYd": "20080628",
+   "ancYd": "20071227",
+   "ancNo": "08819",
+   "name": "국민임대주택건설 등에 관한 특별조치법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "86142",
+   "efYd": "20080412",
+   "ancYd": "20080321",
+   "ancNo": "08970",
+   "name": "국민임대주택건설 등에 관한 특별조치법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "77889",
+   "efYd": "20080407",
+   "ancYd": "20070406",
+   "ancNo": "08338",
+   "name": "국민임대주택건설 등에 관한 특별조치법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "86367",
+   "efYd": "20080321",
+   "ancYd": "20080321",
+   "ancNo": "08976",
+   "name": "국민임대주택건설 등에 관한 특별조치법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "86362",
+   "efYd": "20080321",
+   "ancYd": "20080321",
+   "ancNo": "08975",
+   "name": "국민임대주택건설 등에 관한 특별조치법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "86198",
+   "efYd": "20080321",
+   "ancYd": "20080321",
+   "ancNo": "08974",
+   "name": "국민임대주택건설 등에 관한 특별조치법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "83939",
+   "efYd": "20080229",
+   "ancYd": "20080229",
+   "ancNo": "08852",
+   "name": "국민임대주택건설 등에 관한 특별조치법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "80970",
+   "efYd": "20080118",
+   "ancYd": "20071017",
+   "ancNo": "08660",
+   "name": "국민임대주택건설 등에 관한 특별조치법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "79072",
+   "efYd": "20071118",
+   "ancYd": "20070517",
+   "ancNo": "08466",
+   "name": "국민임대주택건설 등에 관한 특별조치법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "75651",
+   "efYd": "20070928",
+   "ancYd": "20060927",
+   "ancNo": "08014",
+   "name": "국민임대주택건설 등에 관한 특별조치법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "78811",
+   "efYd": "20070427",
+   "ancYd": "20070427",
+   "ancNo": "08404",
+   "name": "국민임대주택건설 등에 관한 특별조치법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "77200",
+   "efYd": "20070420",
+   "ancYd": "20070119",
+   "ancNo": "08251",
+   "name": "국민임대주택건설 등에 관한 특별조치법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "78542",
+   "efYd": "20070411",
+   "ancYd": "20070411",
+   "ancNo": "08371",
+   "name": "국민임대주택건설 등에 관한 특별조치법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "78541",
+   "efYd": "20070411",
+   "ancYd": "20070411",
+   "ancNo": "08370",
+   "name": "국민임대주택건설 등에 관한 특별조치법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "78540",
+   "efYd": "20070411",
+   "ancYd": "20070411",
+   "ancNo": "08369",
+   "name": "국민임대주택건설 등에 관한 특별조치법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "78539",
+   "efYd": "20070411",
+   "ancYd": "20070411",
+   "ancNo": "08355",
+   "name": "국민임대주택건설 등에 관한 특별조치법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "78367",
+   "efYd": "20070411",
+   "ancYd": "20070411",
+   "ancNo": "08352",
+   "name": "국민임대주택건설 등에 관한 특별조치법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "78226",
+   "efYd": "20070411",
+   "ancYd": "20070411",
+   "ancNo": "08351",
+   "name": "국민임대주택건설 등에 관한 특별조치법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "71149",
+   "efYd": "20060805",
+   "ancYd": "20050804",
+   "ancNo": "07678",
+   "name": "국민임대주택건설등에관한특별조치법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "72097",
+   "efYd": "20060608",
+   "ancYd": "20051207",
+   "ancNo": "07715",
+   "name": "국민임대주택건설 등에 관한 특별조치법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "67806",
+   "efYd": "20060401",
+   "ancYd": "20050331",
+   "ancNo": "07459",
+   "name": "국민임대주택건설등에관한특별조치법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "70289",
+   "efYd": "20060122",
+   "ancYd": "20050721",
+   "ancNo": "07604",
+   "name": "국민임대주택건설등에관한특별조치법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "72096",
+   "efYd": "20051207",
+   "ancYd": "20051207",
+   "ancNo": "07708",
+   "name": "국민임대주택건설 등에 관한 특별조치법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "59605",
+   "efYd": "20040701",
+   "ancYd": "20031231",
+   "ancNo": "07051",
+   "name": "국민임대주택건설등에관한특별조치법",
+   "kind": "제정",
+   "status": "predecessor"
+  }
+ ]
+}

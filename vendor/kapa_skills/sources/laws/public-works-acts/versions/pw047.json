@@ -1,0 +1,601 @@
+{
+ "lsId": "002024",
+ "name": "도시개발법",
+ "fetched": "2026-11-08",
+ "versions": [
+  {
+   "lsiSeq": "284059",
+   "efYd": "20260701",
+   "ancYd": "20260305",
+   "ancNo": "21447",
+   "name": "도시개발법",
+   "kind": "타법개정",
+   "status": "current"
+  },
+  {
+   "lsiSeq": "276975",
+   "efYd": "20260102",
+   "ancYd": "20251001",
+   "ancNo": "21065",
+   "name": "도시개발법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "252729",
+   "efYd": "20231019",
+   "ancYd": "20230718",
+   "ancNo": "19561",
+   "name": "도시개발법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "246705",
+   "efYd": "20230628",
+   "ancYd": "20221227",
+   "ancNo": "19117",
+   "name": "도시개발법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "234153",
+   "efYd": "20220721",
+   "ancYd": "20210720",
+   "ancNo": "18310",
+   "name": "도시개발법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "238153",
+   "efYd": "20220622",
+   "ancYd": "20211221",
+   "ancNo": "18630",
+   "name": "도시개발법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "228525",
+   "efYd": "20220113",
+   "ancYd": "20210112",
+   "ancNo": "17893",
+   "name": "도시개발법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "230217",
+   "efYd": "20210617",
+   "ancYd": "20210316",
+   "ancNo": "17939",
+   "name": "도시개발법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "230717",
+   "efYd": "20210401",
+   "ancYd": "20210401",
+   "ancNo": "17987",
+   "name": "도시개발법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "210314",
+   "efYd": "20200828",
+   "ancYd": "20190827",
+   "ancNo": "16568",
+   "name": "도시개발법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "213603",
+   "efYd": "20200730",
+   "ancYd": "20200129",
+   "ancNo": "16902",
+   "name": "도시개발법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "217323",
+   "efYd": "20200708",
+   "ancYd": "20200407",
+   "ancNo": "17219",
+   "name": "도시개발법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "219253",
+   "efYd": "20200609",
+   "ancYd": "20200609",
+   "ancNo": "17453",
+   "name": "도시개발법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "193421",
+   "efYd": "20180419",
+   "ancYd": "20170418",
+   "ancNo": "14795",
+   "name": "도시개발법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "203211",
+   "efYd": "20180417",
+   "ancYd": "20180417",
+   "ancNo": "15600",
+   "name": "도시개발법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "191634",
+   "efYd": "20180209",
+   "ancYd": "20170208",
+   "ancNo": "14567",
+   "name": "도시개발법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "195228",
+   "efYd": "20170726",
+   "ancYd": "20170726",
+   "ancNo": "14839",
+   "name": "도시개발법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "188647",
+   "efYd": "20161227",
+   "ancYd": "20161227",
+   "ancNo": "14480",
+   "name": "도시개발법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "179537",
+   "efYd": "20160901",
+   "ancYd": "20160119",
+   "ancNo": "13782",
+   "name": "도시개발법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "179686",
+   "efYd": "20160812",
+   "ancYd": "20160119",
+   "ancNo": "13805",
+   "name": "도시개발법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "173922",
+   "efYd": "20160212",
+   "ancYd": "20150811",
+   "ancNo": "13479",
+   "name": "도시개발법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "174477",
+   "efYd": "20151229",
+   "ancYd": "20150828",
+   "ancNo": "13499",
+   "name": "도시개발법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "174464",
+   "efYd": "20151229",
+   "ancYd": "20150828",
+   "ancNo": "13498",
+   "name": "도시개발법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "166531",
+   "efYd": "20150701",
+   "ancYd": "20150106",
+   "ancNo": "12989",
+   "name": "도시개발법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "155022",
+   "efYd": "20150604",
+   "ancYd": "20140603",
+   "ancNo": "12738",
+   "name": "도시개발법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "162562",
+   "efYd": "20141119",
+   "ancYd": "20141119",
+   "ancNo": "12844",
+   "name": "도시개발법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "149985",
+   "efYd": "20140715",
+   "ancYd": "20140114",
+   "ancNo": "12248",
+   "name": "도시개발법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "140237",
+   "efYd": "20140523",
+   "ancYd": "20130522",
+   "ancNo": "11794",
+   "name": "도시개발법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "154126",
+   "efYd": "20140521",
+   "ancYd": "20140521",
+   "ancNo": "12641",
+   "name": "도시개발법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "150089",
+   "efYd": "20140114",
+   "ancYd": "20140114",
+   "ancNo": "12251",
+   "name": "도시개발법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "133325",
+   "efYd": "20130923",
+   "ancYd": "20130322",
+   "ancNo": "11650",
+   "name": "도시개발법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "142041",
+   "efYd": "20130716",
+   "ancYd": "20130716",
+   "ancNo": "11923",
+   "name": "도시개발법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "137149",
+   "efYd": "20130323",
+   "ancYd": "20130323",
+   "ancNo": "11690",
+   "name": "도시개발법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "121997",
+   "efYd": "20120718",
+   "ancYd": "20120117",
+   "ancNo": "11186",
+   "name": "도시개발법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "112380",
+   "efYd": "20120415",
+   "ancYd": "20110414",
+   "ancNo": "10599",
+   "name": "도시개발법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "117423",
+   "efYd": "20120401",
+   "ancYd": "20110930",
+   "ancNo": "11068",
+   "name": "도시개발법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "112295",
+   "efYd": "20111013",
+   "ancYd": "20110412",
+   "ancNo": "10580",
+   "name": "도시개발법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "104081",
+   "efYd": "20110101",
+   "ancYd": "20100331",
+   "ancNo": "10221",
+   "name": "도시개발법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "104038",
+   "efYd": "20110101",
+   "ancYd": "20100331",
+   "ancNo": "10220",
+   "name": "도시개발법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "105441",
+   "efYd": "20101201",
+   "ancYd": "20100531",
+   "ancNo": "10331",
+   "name": "도시개발법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "104491",
+   "efYd": "20101016",
+   "ancYd": "20100415",
+   "ancNo": "10272",
+   "name": "도시개발법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "97954",
+   "efYd": "20100630",
+   "ancYd": "20091229",
+   "ancNo": "09862",
+   "name": "도시개발법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "94548",
+   "efYd": "20091210",
+   "ancYd": "20090609",
+   "ancNo": "09774",
+   "name": "도시개발법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "94527",
+   "efYd": "20091210",
+   "ancYd": "20090609",
+   "ancNo": "09758",
+   "name": "도시개발법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "91400",
+   "efYd": "20090731",
+   "ancYd": "20090130",
+   "ancNo": "09401",
+   "name": "도시개발법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "86681",
+   "efYd": "20080629",
+   "ancYd": "20080328",
+   "ancNo": "09044",
+   "name": "도시개발법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "85980",
+   "efYd": "20080412",
+   "ancYd": "20080321",
+   "ancNo": "08970",
+   "name": "도시개발법",
+   "kind": "전부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "78347",
+   "efYd": "20080407",
+   "ancYd": "20070406",
+   "ancNo": "08338",
+   "name": "도시개발법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "83396",
+   "efYd": "20080229",
+   "ancYd": "20080229",
+   "ancNo": "08852",
+   "name": "도시개발법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "80070",
+   "efYd": "20080204",
+   "ancYd": "20070803",
+   "ancNo": "08616",
+   "name": "도시개발법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "77984",
+   "efYd": "20071012",
+   "ancYd": "20070411",
+   "ancNo": "08376",
+   "name": "도시개발법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "78346",
+   "efYd": "20071007",
+   "ancYd": "20070406",
+   "ancNo": "08337",
+   "name": "도시개발법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "77252",
+   "efYd": "20070727",
+   "ancYd": "20070126",
+   "ancNo": "08283",
+   "name": "도시개발법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "71129",
+   "efYd": "20060805",
+   "ancYd": "20050804",
+   "ancNo": "07678",
+   "name": "도시개발법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "72072",
+   "efYd": "20060608",
+   "ancYd": "20051207",
+   "ancNo": "07715",
+   "name": "도시개발법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "67621",
+   "efYd": "20060401",
+   "ancYd": "20050331",
+   "ancNo": "07428",
+   "name": "도시개발법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "70234",
+   "efYd": "20060122",
+   "ancYd": "20050721",
+   "ancNo": "07604",
+   "name": "도시개발법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "66513",
+   "efYd": "20050114",
+   "ancYd": "20050114",
+   "ancNo": "07335",
+   "name": "도시개발법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "59892",
+   "efYd": "20031130",
+   "ancYd": "20030529",
+   "ancNo": "06916",
+   "name": "도시개발법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "59889",
+   "efYd": "20031001",
+   "ancYd": "20021230",
+   "ancNo": "06841",
+   "name": "도시개발법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "59890",
+   "efYd": "20030701",
+   "ancYd": "20021230",
+   "ancNo": "06842",
+   "name": "도시개발법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "51691",
+   "efYd": "20030701",
+   "ancYd": "20021230",
+   "ancNo": "06853",
+   "name": "도시개발법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "7968",
+   "efYd": "20030101",
+   "ancYd": "20020204",
+   "ancNo": "06656",
+   "name": "도시개발법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "7967",
+   "efYd": "20030101",
+   "ancYd": "20020204",
+   "ancNo": "06655",
+   "name": "도시개발법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "7969",
+   "efYd": "20010701",
+   "ancYd": "20010129",
+   "ancNo": "06406",
+   "name": "도시개발법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "7847",
+   "efYd": "20000701",
+   "ancYd": "20000128",
+   "ancNo": "06242",
+   "name": "도시개발법",
+   "kind": "제정",
+   "status": "past"
+  }
+ ]
+}

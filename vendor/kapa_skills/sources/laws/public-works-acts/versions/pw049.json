@@ -1,0 +1,619 @@
+{
+ "lsId": "001751",
+ "name": "도시철도법",
+ "fetched": "2026-11-08",
+ "versions": [
+  {
+   "lsiSeq": "258315",
+   "efYd": "20240109",
+   "ancYd": "20240109",
+   "ancNo": "19987",
+   "name": "도시철도법",
+   "kind": "타법개정",
+   "status": "current"
+  },
+  {
+   "lsiSeq": "258117",
+   "efYd": "20240109",
+   "ancYd": "20240109",
+   "ancNo": "19975",
+   "name": "도시철도법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "246713",
+   "efYd": "20230628",
+   "ancYd": "20221227",
+   "ancNo": "19117",
+   "name": "도시철도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "237015",
+   "efYd": "20221201",
+   "ancYd": "20211130",
+   "ancNo": "18522",
+   "name": "도시철도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "243097",
+   "efYd": "20220911",
+   "ancYd": "20220610",
+   "ancNo": "18943",
+   "name": "도시철도법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "228661",
+   "efYd": "20210713",
+   "ancYd": "20210112",
+   "ancNo": "17899",
+   "name": "도시철도법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "216245",
+   "efYd": "20210401",
+   "ancYd": "20200331",
+   "ancNo": "17171",
+   "name": "도시철도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "219179",
+   "efYd": "20200910",
+   "ancYd": "20200609",
+   "ancNo": "17450",
+   "name": "도시철도법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "206364",
+   "efYd": "20190701",
+   "ancYd": "20181231",
+   "ancNo": "16146",
+   "name": "도시철도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "205837",
+   "efYd": "20190319",
+   "ancYd": "20181218",
+   "ancNo": "15996",
+   "name": "도시철도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "191070",
+   "efYd": "20180118",
+   "ancYd": "20170117",
+   "ancNo": "14532",
+   "name": "도시철도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "200233",
+   "efYd": "20171226",
+   "ancYd": "20171226",
+   "ancNo": "15318",
+   "name": "도시철도법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "188104",
+   "efYd": "20171203",
+   "ancYd": "20161202",
+   "ancNo": "14339",
+   "name": "도시철도법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "195232",
+   "efYd": "20170726",
+   "ancYd": "20170726",
+   "ancNo": "14839",
+   "name": "도시철도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "188567",
+   "efYd": "20170328",
+   "ancYd": "20161227",
+   "ancNo": "14476",
+   "name": "도시철도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "179056",
+   "efYd": "20160707",
+   "ancYd": "20160106",
+   "ancNo": "13726",
+   "name": "도시철도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "178198",
+   "efYd": "20160630",
+   "ancYd": "20151229",
+   "ancNo": "13688",
+   "name": "도시철도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "181856",
+   "efYd": "20160322",
+   "ancYd": "20160322",
+   "ancNo": "14090",
+   "name": "도시철도법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "168048",
+   "efYd": "20150203",
+   "ancYd": "20150203",
+   "ancNo": "13183",
+   "name": "도시철도법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "154106",
+   "efYd": "20141122",
+   "ancYd": "20140521",
+   "ancNo": "12643",
+   "name": "도시철도법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "162512",
+   "efYd": "20141119",
+   "ancYd": "20141119",
+   "ancNo": "12844",
+   "name": "도시철도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "150004",
+   "efYd": "20140715",
+   "ancYd": "20140114",
+   "ancNo": "12248",
+   "name": "도시철도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "149600",
+   "efYd": "20140708",
+   "ancYd": "20140107",
+   "ancNo": "12216",
+   "name": "도시철도법",
+   "kind": "전부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "130880",
+   "efYd": "20140319",
+   "ancYd": "20121218",
+   "ancNo": "11591",
+   "name": "도시철도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "137139",
+   "efYd": "20130323",
+   "ancYd": "20130323",
+   "ancNo": "11690",
+   "name": "도시철도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "112422",
+   "efYd": "20120415",
+   "ancYd": "20110414",
+   "ancNo": "10599",
+   "name": "도시철도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "115833",
+   "efYd": "20120205",
+   "ancYd": "20110804",
+   "ancNo": "11037",
+   "name": "도시철도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "112296",
+   "efYd": "20111013",
+   "ancYd": "20110412",
+   "ancNo": "10580",
+   "name": "도시철도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "105442",
+   "efYd": "20101201",
+   "ancYd": "20100531",
+   "ancNo": "10331",
+   "name": "도시철도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "104463",
+   "efYd": "20101016",
+   "ancYd": "20100415",
+   "ancNo": "10266",
+   "name": "도시철도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "94620",
+   "efYd": "20091210",
+   "ancYd": "20090609",
+   "ancNo": "09772",
+   "name": "도시철도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "92826",
+   "efYd": "20091023",
+   "ancYd": "20090422",
+   "ancNo": "09636",
+   "name": "도시철도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "91424",
+   "efYd": "20090731",
+   "ancYd": "20090130",
+   "ancNo": "09401",
+   "name": "도시철도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "92411",
+   "efYd": "20090702",
+   "ancYd": "20090401",
+   "ancNo": "09607",
+   "name": "도시철도법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "86677",
+   "efYd": "20090101",
+   "ancYd": "20080328",
+   "ancNo": "09071",
+   "name": "도시철도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "79137",
+   "efYd": "20080526",
+   "ancYd": "20070525",
+   "ancNo": "08486",
+   "name": "도시철도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "77844",
+   "efYd": "20080407",
+   "ancYd": "20070406",
+   "ancNo": "08338",
+   "name": "도시철도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "86035",
+   "efYd": "20080321",
+   "ancYd": "20080321",
+   "ancNo": "08976",
+   "name": "도시철도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "83391",
+   "efYd": "20080229",
+   "ancYd": "20080229",
+   "ancNo": "08852",
+   "name": "도시철도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "79727",
+   "efYd": "20071014",
+   "ancYd": "20070713",
+   "ancNo": "08509",
+   "name": "도시철도법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "75622",
+   "efYd": "20070928",
+   "ancYd": "20060927",
+   "ancNo": "08014",
+   "name": "도시철도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "78308",
+   "efYd": "20070411",
+   "ancYd": "20070411",
+   "ancNo": "08370",
+   "name": "도시철도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "78307",
+   "efYd": "20070411",
+   "ancYd": "20070411",
+   "ancNo": "08352",
+   "name": "도시철도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "71059",
+   "efYd": "20060805",
+   "ancYd": "20050804",
+   "ancNo": "07678",
+   "name": "도시철도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "72065",
+   "efYd": "20051207",
+   "ancYd": "20051207",
+   "ancNo": "07713",
+   "name": "도시철도법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "66295",
+   "efYd": "20050701",
+   "ancYd": "20041231",
+   "ancNo": "07303",
+   "name": "도시철도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "62627",
+   "efYd": "20050101",
+   "ancYd": "20041022",
+   "ancNo": "07245",
+   "name": "도시철도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "57033",
+   "efYd": "20040530",
+   "ancYd": "20030529",
+   "ancNo": "06893",
+   "name": "도시철도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "58552",
+   "efYd": "20031231",
+   "ancYd": "20031231",
+   "ancNo": "07053",
+   "name": "도시철도법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "55538",
+   "efYd": "20031001",
+   "ancYd": "20021230",
+   "ancNo": "06841",
+   "name": "도시철도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "57034",
+   "efYd": "20030529",
+   "ancYd": "20030529",
+   "ancNo": "06917",
+   "name": "도시철도법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "9806",
+   "efYd": "20030101",
+   "ancYd": "20020204",
+   "ancNo": "06656",
+   "name": "도시철도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "9807",
+   "efYd": "20020727",
+   "ancYd": "20020126",
+   "ancNo": "06642",
+   "name": "도시철도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "9809",
+   "efYd": "19990809",
+   "ancYd": "19990208",
+   "ancNo": "05893",
+   "name": "도시철도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "9808",
+   "efYd": "19990415",
+   "ancYd": "19990415",
+   "ancNo": "05967",
+   "name": "도시철도법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "19687",
+   "efYd": "19980101",
+   "ancYd": "19971213",
+   "ancNo": "05454",
+   "name": "도시철도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "19686",
+   "efYd": "19980101",
+   "ancYd": "19971213",
+   "ancNo": "05453",
+   "name": "도시철도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "19688",
+   "efYd": "19960630",
+   "ancYd": "19951229",
+   "ancNo": "05112",
+   "name": "도시철도법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "19689",
+   "efYd": "19950706",
+   "ancYd": "19950105",
+   "ancNo": "04924",
+   "name": "도시철도법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "19690",
+   "efYd": "19940206",
+   "ancYd": "19930805",
+   "ancNo": "04578",
+   "name": "도시철도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "19691",
+   "efYd": "19930609",
+   "ancYd": "19921208",
+   "ancNo": "04533",
+   "name": "도시철도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "19809",
+   "efYd": "19921215",
+   "ancYd": "19911214",
+   "ancNo": "04429",
+   "name": "도시철도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "19810",
+   "efYd": "19920701",
+   "ancYd": "19911214",
+   "ancNo": "04419",
+   "name": "도시철도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "19692",
+   "efYd": "19920615",
+   "ancYd": "19911214",
+   "ancNo": "04434",
+   "name": "도시철도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "7078",
+   "efYd": "19910708",
+   "ancYd": "19910531",
+   "ancNo": "04371",
+   "name": "도시철도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "7077",
+   "efYd": "19901231",
+   "ancYd": "19901231",
+   "ancNo": "04308",
+   "name": "도시철도법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "7076",
+   "efYd": "19860512",
+   "ancYd": "19860512",
+   "ancNo": "03846",
+   "name": "지하철도의건설및운영에관한법률",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "55634",
+   "efYd": "19790417",
+   "ancYd": "19790417",
+   "ancNo": "03167",
+   "name": "지하철도건설촉진법",
+   "kind": "제정",
+   "status": "predecessor"
+  }
+ ]
+}

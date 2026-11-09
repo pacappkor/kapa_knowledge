@@ -1,0 +1,430 @@
+{
+ "lsId": "000798",
+ "name": "저작권법",
+ "fetched": "2026-11-08",
+ "versions": [
+  {
+   "lsiSeq": "291259",
+   "efYd": "20270421",
+   "ancYd": "20261020",
+   "ancNo": "22092",
+   "name": "저작권법",
+   "kind": "일부개정",
+   "status": "scheduled"
+  },
+  {
+   "lsiSeq": "285693",
+   "efYd": "20270101",
+   "ancYd": "20260428",
+   "ancNo": "21595",
+   "name": "저작권법",
+   "kind": "일부개정",
+   "status": "scheduled"
+  },
+  {
+   "lsiSeq": "285693",
+   "efYd": "20261029",
+   "ancYd": "20260428",
+   "ancNo": "21595",
+   "name": "저작권법",
+   "kind": "일부개정",
+   "status": "current"
+  },
+  {
+   "lsiSeq": "283335",
+   "efYd": "20260811",
+   "ancYd": "20260210",
+   "ancNo": "21336",
+   "name": "저작권법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "283335",
+   "efYd": "20260511",
+   "ancYd": "20260210",
+   "ancNo": "21336",
+   "name": "저작권법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "270165",
+   "efYd": "20250926",
+   "ancYd": "20250325",
+   "ancNo": "20841",
+   "name": "저작권법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "260839",
+   "efYd": "20240828",
+   "ancYd": "20240227",
+   "ancNo": "20358",
+   "name": "저작권법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "253619",
+   "efYd": "20240209",
+   "ancYd": "20230808",
+   "ancNo": "19597",
+   "name": "저작권법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "251105",
+   "efYd": "20231117",
+   "ancYd": "20230516",
+   "ancNo": "19410",
+   "name": "저작권법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "253595",
+   "efYd": "20230808",
+   "ancYd": "20230808",
+   "ancNo": "19592",
+   "name": "저작권법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "237389",
+   "efYd": "20221208",
+   "ancYd": "20211207",
+   "ancNo": "18547",
+   "name": "저작권법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "223493",
+   "efYd": "20210609",
+   "ancYd": "20201208",
+   "ancNo": "17588",
+   "name": "저작권법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "232183",
+   "efYd": "20210518",
+   "ancYd": "20210518",
+   "ancNo": "18162",
+   "name": "저작권법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "223517",
+   "efYd": "20201208",
+   "ancYd": "20201208",
+   "ancNo": "17592",
+   "name": "저작권법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "213873",
+   "efYd": "20200805",
+   "ancYd": "20200204",
+   "ancNo": "16933",
+   "name": "저작권법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "211523",
+   "efYd": "20200527",
+   "ancYd": "20191126",
+   "ancNo": "16600",
+   "name": "저작권법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "204802",
+   "efYd": "20190417",
+   "ancYd": "20181016",
+   "ancNo": "15823",
+   "name": "저작권법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "204802",
+   "efYd": "20181016",
+   "ancYd": "20181016",
+   "ancNo": "15823",
+   "name": "저작권법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "192474",
+   "efYd": "20170321",
+   "ancYd": "20170321",
+   "ancNo": "14634",
+   "name": "저작권법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "188405",
+   "efYd": "20161220",
+   "ancYd": "20161220",
+   "ancNo": "14432",
+   "name": "저작권법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "181846",
+   "efYd": "20160923",
+   "ancYd": "20160322",
+   "ancNo": "14083",
+   "name": "저작권법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "180753",
+   "efYd": "20160804",
+   "ancYd": "20160203",
+   "ancNo": "13978",
+   "name": "저작권법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "148848",
+   "efYd": "20140701",
+   "ancYd": "20131230",
+   "ancNo": "12137",
+   "name": "저작권법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "142029",
+   "efYd": "20131017",
+   "ancYd": "20130716",
+   "ancNo": "11903",
+   "name": "저작권법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "119104",
+   "efYd": "20130801",
+   "ancYd": "20111202",
+   "ancNo": "11110",
+   "name": "저작권법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "114443",
+   "efYd": "20130701",
+   "ancYd": "20110630",
+   "ancNo": "10807",
+   "name": "저작권법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "119104",
+   "efYd": "20120315",
+   "ancYd": "20111202",
+   "ancNo": "11110",
+   "name": "저작권법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "114443",
+   "efYd": "20110701",
+   "ancYd": "20110630",
+   "ancNo": "10807",
+   "name": "저작권법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "95723",
+   "efYd": "20100201",
+   "ancYd": "20090731",
+   "ancNo": "09785",
+   "name": "저작권법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "92099",
+   "efYd": "20090926",
+   "ancYd": "20090325",
+   "ancNo": "09529",
+   "name": "저작권법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "92767",
+   "efYd": "20090723",
+   "ancYd": "20090422",
+   "ancNo": "09625",
+   "name": "저작권법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "84551",
+   "efYd": "20080229",
+   "ancYd": "20080229",
+   "ancNo": "08852",
+   "name": "저작권법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "76469",
+   "efYd": "20070629",
+   "ancYd": "20061228",
+   "ancNo": "08101",
+   "name": "저작권법",
+   "kind": "전부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "75775",
+   "efYd": "20070405",
+   "ancYd": "20061004",
+   "ancNo": "08029",
+   "name": "저작권법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "60201",
+   "efYd": "20050117",
+   "ancYd": "20041016",
+   "ancNo": "07233",
+   "name": "저작권법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "34475",
+   "efYd": "20030701",
+   "ancYd": "20030527",
+   "ancNo": "06881",
+   "name": "저작권법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "34476",
+   "efYd": "20000701",
+   "ancYd": "20000112",
+   "ancNo": "06134",
+   "name": "저작권법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "57987",
+   "efYd": "19980101",
+   "ancYd": "19971213",
+   "ancNo": "05453",
+   "name": "저작권법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "57809",
+   "efYd": "19960701",
+   "ancYd": "19951206",
+   "ancNo": "05015",
+   "name": "저작권법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "57993",
+   "efYd": "19940725",
+   "ancYd": "19940324",
+   "ancNo": "04746",
+   "name": "저작권법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "57807",
+   "efYd": "19940701",
+   "ancYd": "19940107",
+   "ancNo": "04717",
+   "name": "저작권법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "57988",
+   "efYd": "19930306",
+   "ancYd": "19930306",
+   "ancNo": "04541",
+   "name": "저작권법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "57989",
+   "efYd": "19910409",
+   "ancYd": "19910308",
+   "ancNo": "04352",
+   "name": "저작권법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "57992",
+   "efYd": "19901227",
+   "ancYd": "19901227",
+   "ancNo": "04268",
+   "name": "저작권법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "57991",
+   "efYd": "19900103",
+   "ancYd": "19891230",
+   "ancNo": "04183",
+   "name": "저작권법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "57808",
+   "efYd": "19870701",
+   "ancYd": "19861231",
+   "ancNo": "03916",
+   "name": "저작권법",
+   "kind": "전부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "29306",
+   "efYd": "19570128",
+   "ancYd": "19570128",
+   "ancNo": "00432",
+   "name": "저작권법",
+   "kind": "제정",
+   "status": "past"
+  }
+ ]
+}

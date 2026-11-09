@@ -1,0 +1,439 @@
+{
+ "lsId": "001655",
+ "name": "주민등록법",
+ "fetched": "2026-11-08",
+ "versions": [
+  {
+   "lsiSeq": "268555",
+   "efYd": "20250722",
+   "ancYd": "20250121",
+   "ancNo": "20677",
+   "name": "주민등록법",
+   "kind": "타법개정",
+   "status": "current"
+  },
+  {
+   "lsiSeq": "257201",
+   "efYd": "20241227",
+   "ancYd": "20231226",
+   "ancNo": "19841",
+   "name": "주민등록법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "257201",
+   "efYd": "20240627",
+   "ancYd": "20231226",
+   "ancNo": "19841",
+   "name": "주민등록법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "253961",
+   "efYd": "20240217",
+   "ancYd": "20230816",
+   "ancNo": "19632",
+   "name": "주민등록법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "257201",
+   "efYd": "20231226",
+   "ancYd": "20231226",
+   "ancNo": "19841",
+   "name": "주민등록법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "248515",
+   "efYd": "20230605",
+   "ancYd": "20230304",
+   "ancNo": "19228",
+   "name": "주민등록법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "239309",
+   "efYd": "20230112",
+   "ancYd": "20220111",
+   "ancNo": "18746",
+   "name": "주민등록법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "239309",
+   "efYd": "20220712",
+   "ancYd": "20220111",
+   "ancNo": "18746",
+   "name": "주민등록법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "234023",
+   "efYd": "20220121",
+   "ancYd": "20210720",
+   "ancNo": "18304",
+   "name": "주민등록법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "239309",
+   "efYd": "20220111",
+   "ancYd": "20220111",
+   "ancNo": "18746",
+   "name": "주민등록법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "219025",
+   "efYd": "20201210",
+   "ancYd": "20200609",
+   "ancNo": "17385",
+   "name": "주민등록법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "218923",
+   "efYd": "20201210",
+   "ancYd": "20200609",
+   "ancNo": "17354",
+   "name": "주민등록법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "211785",
+   "efYd": "20201204",
+   "ancYd": "20191203",
+   "ancNo": "16662",
+   "name": "주민등록법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "213865",
+   "efYd": "20200805",
+   "ancYd": "20200204",
+   "ancNo": "16930",
+   "name": "주민등록법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "219025",
+   "efYd": "20200609",
+   "ancYd": "20200609",
+   "ancNo": "17385",
+   "name": "주민등록법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "188045",
+   "efYd": "20171203",
+   "ancYd": "20161202",
+   "ancNo": "14286",
+   "name": "주민등록법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "195096",
+   "efYd": "20170726",
+   "ancYd": "20170726",
+   "ancNo": "14839",
+   "name": "주민등록법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "188045",
+   "efYd": "20170603",
+   "ancYd": "20161202",
+   "ancNo": "14286",
+   "name": "주민등록법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "183582",
+   "efYd": "20170530",
+   "ancYd": "20160529",
+   "ancNo": "14191",
+   "name": "주민등록법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "188045",
+   "efYd": "20161202",
+   "ancYd": "20161202",
+   "ancNo": "14286",
+   "name": "주민등록법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "183582",
+   "efYd": "20161130",
+   "ancYd": "20160529",
+   "ancNo": "14191",
+   "name": "주민등록법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "183582",
+   "efYd": "20160529",
+   "ancYd": "20160529",
+   "ancNo": "14191",
+   "name": "주민등록법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "162194",
+   "efYd": "20150122",
+   "ancYd": "20141119",
+   "ancNo": "12844",
+   "name": "주민등록법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "150370",
+   "efYd": "20150122",
+   "ancYd": "20140121",
+   "ancNo": "12279",
+   "name": "주민등록법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "162194",
+   "efYd": "20141119",
+   "ancYd": "20141119",
+   "ancNo": "12844",
+   "name": "주민등록법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "153987",
+   "efYd": "20140520",
+   "ancYd": "20140520",
+   "ancNo": "12600",
+   "name": "주민등록법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "136769",
+   "efYd": "20130323",
+   "ancYd": "20130323",
+   "ancNo": "11690",
+   "name": "주민등록법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "113535",
+   "efYd": "20110831",
+   "ancYd": "20110530",
+   "ancNo": "10733",
+   "name": "주민등록법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "92420",
+   "efYd": "20091002",
+   "ancYd": "20090401",
+   "ancNo": "09574",
+   "name": "주민등록법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "90390",
+   "efYd": "20081226",
+   "ancYd": "20081226",
+   "ancNo": "09210",
+   "name": "주민등록법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "84181",
+   "efYd": "20080229",
+   "ancYd": "20080229",
+   "ancNo": "08852",
+   "name": "주민등록법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "79046",
+   "efYd": "20080101",
+   "ancYd": "20070517",
+   "ancNo": "08435",
+   "name": "주민등록법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "78885",
+   "efYd": "20070511",
+   "ancYd": "20070511",
+   "ancNo": "08422",
+   "name": "주민등록법",
+   "kind": "전부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "73411",
+   "efYd": "20060925",
+   "ancYd": "20060324",
+   "ancNo": "07900",
+   "name": "주민등록법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "53639",
+   "efYd": "20040322",
+   "ancYd": "20040322",
+   "ancNo": "07201",
+   "name": "주민등록법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "59953",
+   "efYd": "20010427",
+   "ancYd": "20010126",
+   "ancNo": "06385",
+   "name": "주민등록법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "59954",
+   "efYd": "20001001",
+   "ancYd": "19990907",
+   "ancNo": "06024",
+   "name": "주민등록법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "29308",
+   "efYd": "19990701",
+   "ancYd": "19990524",
+   "ancNo": "05987",
+   "name": "주민등록법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "7214",
+   "efYd": "19981201",
+   "ancYd": "19971217",
+   "ancNo": "05459",
+   "name": "주민등록법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "7213",
+   "efYd": "19940701",
+   "ancYd": "19931227",
+   "ancNo": "04608",
+   "name": "주민등록법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "7215",
+   "efYd": "19910301",
+   "ancYd": "19910114",
+   "ancNo": "04314",
+   "name": "주민등록법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "60395",
+   "efYd": "19890131",
+   "ancYd": "19881231",
+   "ancNo": "04041",
+   "name": "주민등록법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "60393",
+   "efYd": "19810131",
+   "ancYd": "19801231",
+   "ancNo": "03330",
+   "name": "주민등록법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "29312",
+   "efYd": "19780901",
+   "ancYd": "19771231",
+   "ancNo": "03041",
+   "name": "주민등록법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "7216",
+   "efYd": "19750825",
+   "ancYd": "19750725",
+   "ancNo": "02777",
+   "name": "주민등록법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "57551",
+   "efYd": "19700201",
+   "ancYd": "19700101",
+   "ancNo": "02150",
+   "name": "주민등록법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "29309",
+   "efYd": "19680830",
+   "ancYd": "19680529",
+   "ancNo": "02016",
+   "name": "주민등록법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "58542",
+   "efYd": "19620620",
+   "ancYd": "19620510",
+   "ancNo": "01067",
+   "name": "주민등록법",
+   "kind": "제정",
+   "status": "past"
+  }
+ ]
+}

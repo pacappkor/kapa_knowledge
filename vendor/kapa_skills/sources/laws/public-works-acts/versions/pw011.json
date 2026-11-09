@@ -1,0 +1,385 @@
+{
+ "lsId": "001861",
+ "name": "석탄산업법",
+ "fetched": "2026-11-08",
+ "versions": [
+  {
+   "lsiSeq": "276537",
+   "efYd": "20251001",
+   "ancYd": "20251001",
+   "ancNo": "21065",
+   "name": "석탄산업법",
+   "kind": "타법개정",
+   "status": "current"
+  },
+  {
+   "lsiSeq": "238047",
+   "efYd": "20220622",
+   "ancYd": "20211221",
+   "ancNo": "18601",
+   "name": "석탄산업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "230111",
+   "efYd": "20210910",
+   "ancYd": "20210309",
+   "ancNo": "17919",
+   "name": "석탄산업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "215779",
+   "efYd": "20200324",
+   "ancYd": "20200324",
+   "ancNo": "17091",
+   "name": "석탄산업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "212221",
+   "efYd": "20200311",
+   "ancYd": "20191210",
+   "ancNo": "16800",
+   "name": "석탄산업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "188577",
+   "efYd": "20170328",
+   "ancYd": "20161227",
+   "ancNo": "14476",
+   "name": "석탄산업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "180350",
+   "efYd": "20160728",
+   "ancYd": "20160127",
+   "ancNo": "13849",
+   "name": "석탄산업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "155050",
+   "efYd": "20150604",
+   "ancYd": "20140603",
+   "ancNo": "12738",
+   "name": "석탄산업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "142625",
+   "efYd": "20140807",
+   "ancYd": "20130806",
+   "ancNo": "11998",
+   "name": "석탄산업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "150402",
+   "efYd": "20140121",
+   "ancYd": "20140121",
+   "ancNo": "12295",
+   "name": "석탄산업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "149349",
+   "efYd": "20140101",
+   "ancYd": "20140101",
+   "ancNo": "12154",
+   "name": "석탄산업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "136958",
+   "efYd": "20130323",
+   "ancYd": "20130323",
+   "ancNo": "11690",
+   "name": "석탄산업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "112388",
+   "efYd": "20110414",
+   "ancYd": "20110414",
+   "ancNo": "10593",
+   "name": "석탄산업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "102308",
+   "efYd": "20110128",
+   "ancYd": "20100127",
+   "ancNo": "09982",
+   "name": "석탄산업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "103990",
+   "efYd": "20110101",
+   "ancYd": "20100331",
+   "ancNo": "10219",
+   "name": "석탄산업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "105656",
+   "efYd": "20100705",
+   "ancYd": "20100604",
+   "ancNo": "10339",
+   "name": "석탄산업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "94613",
+   "efYd": "20091210",
+   "ancYd": "20090609",
+   "ancNo": "09774",
+   "name": "석탄산업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "91399",
+   "efYd": "20090731",
+   "ancYd": "20090130",
+   "ancNo": "09401",
+   "name": "석탄산업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "91983",
+   "efYd": "20090318",
+   "ancYd": "20090318",
+   "ancNo": "09507",
+   "name": "석탄산업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "90383",
+   "efYd": "20081226",
+   "ancYd": "20081226",
+   "ancNo": "09232",
+   "name": "석탄산업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "90370",
+   "efYd": "20081226",
+   "ancYd": "20081226",
+   "ancNo": "09182",
+   "name": "석탄산업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "86550",
+   "efYd": "20080629",
+   "ancYd": "20080328",
+   "ancNo": "09010",
+   "name": "석탄산업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "83394",
+   "efYd": "20080229",
+   "ancYd": "20080229",
+   "ancNo": "08852",
+   "name": "석탄산업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "78769",
+   "efYd": "20070427",
+   "ancYd": "20070427",
+   "ancNo": "08400",
+   "name": "석탄산업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "78337",
+   "efYd": "20070411",
+   "ancYd": "20070411",
+   "ancNo": "08372",
+   "name": "석탄산업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "78135",
+   "efYd": "20070411",
+   "ancYd": "20070411",
+   "ancNo": "08355",
+   "name": "석탄산업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "68824",
+   "efYd": "20060601",
+   "ancYd": "20050531",
+   "ancNo": "07552",
+   "name": "석탄산업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "67617",
+   "efYd": "20060401",
+   "ancYd": "20050331",
+   "ancNo": "07428",
+   "name": "석탄산업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "72208",
+   "efYd": "20051223",
+   "ancYd": "20051223",
+   "ancNo": "07746",
+   "name": "석탄산업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "52190",
+   "efYd": "20030101",
+   "ancYd": "20020204",
+   "ancNo": "06656",
+   "name": "석탄산업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "51898",
+   "efYd": "20030101",
+   "ancYd": "20020204",
+   "ancNo": "06654",
+   "name": "석탄산업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "53834",
+   "efYd": "20020701",
+   "ancYd": "20020126",
+   "ancNo": "06627",
+   "name": "석탄산업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "52270",
+   "efYd": "20011231",
+   "ancYd": "20011231",
+   "ancNo": "06577",
+   "name": "석탄산업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "7848",
+   "efYd": "19990809",
+   "ancYd": "19990208",
+   "ancNo": "05822",
+   "name": "석탄산업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "7726",
+   "efYd": "19980101",
+   "ancYd": "19971213",
+   "ancNo": "05454",
+   "name": "석탄산업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "7725",
+   "efYd": "19980101",
+   "ancYd": "19971213",
+   "ancNo": "05453",
+   "name": "석탄산업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "7724",
+   "efYd": "19950406",
+   "ancYd": "19950105",
+   "ancNo": "04861",
+   "name": "석탄산업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "7723",
+   "efYd": "19950101",
+   "ancYd": "19940324",
+   "ancNo": "04754",
+   "name": "석탄산업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "7722",
+   "efYd": "19930306",
+   "ancYd": "19930306",
+   "ancNo": "04541",
+   "name": "석탄산업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "7721",
+   "efYd": "19910114",
+   "ancYd": "19910114",
+   "ancNo": "04324",
+   "name": "석탄산업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "7720",
+   "efYd": "19890101",
+   "ancYd": "19881226",
+   "ancNo": "04030",
+   "name": "석탄산업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "7719",
+   "efYd": "19861231",
+   "ancYd": "19860108",
+   "ancNo": "03807",
+   "name": "석탄산업법",
+   "kind": "제정",
+   "status": "past"
+  }
+ ]
+}

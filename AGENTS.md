@@ -9,6 +9,8 @@
 
 ## 작성과 운영
 
+- CI credential 검사 PR base는 기본 브랜치 main만 허용한다. trigger 필터와 런타임 base ref == main == default branch 확인을 함께 적용하고 immutable base SHA·blob 접근 전에 거부한다. main의 신뢰된 리뷰가 전제이며 실제 branch protection 설정을 가정하지 않는다.
+
 - 법령과 실무기준 원문은 kapa_skills가 단일 출처다. 여기에는 복제하지 않고 계약 ID로 연결한다.
 - `sources/`와 GENERATED 블록은 생성물이다. 손으로 고치지 않는다. 사람이 쓴 요약·분석은 경계 밖에 둔다.
 - 자동 진행 상태와 근거 있는 참조 상태를 섞지 않는다. 상세는 [SCHEMA](docs/SCHEMA.md).
@@ -22,4 +24,5 @@
 - production 자식 프로세스는 캡처된 literal git의 plumbing ls-files·ls-tree·rev-parse·cat-file(-e·-t·-s·-p·--batch)만 허용한다. show·diff·log·status와 textconv·외부 diff·filter 옵션은 거부한다. 모든 운영 Git 호출은 git_read.run_git 하나를 거쳐 fsmonitor·untrackedCache를 명시적으로 끄며 LAW_OC·LAW_OC_FILE과 모든 GIT_* 변수를 제거한 환경 사본 및 출력 캡처로 실행한다. helper 밖의 직접 자식 실행은 거부한다. 이벤트 루프의 subprocess_exec·subprocess_shell을 포함한 다른 프로세스 API와 명령은 기본 거부하며 추적 symlink·gitlink도 갱신 전에 거부한다. fixture 쓰기 면제는 실제 unittest discovery 대상이면서 production import 경로에서 도달하지 않는 시험 모듈에만 적용하고 production의 test_ 이름 모듈 import는 거부한다.
 - 모든 문서·시험의 도구 실행은 `-I -B`를 함께 사용하여 import 전부터 바이트코드 캐시 쓰기를 막는다. 비격리 실행에서는 `PYTHONDONTWRITEBYTECODE=1`도 동등하지만 `-I`는 환경변수를 무시하므로 이 절차에서는 명시적 `-B`를 생략하지 않는다.
 - 토큰·OC 키는 출력·로그·커밋하지 않는다. URL의 OC는 `***`로 가린다.
-- credential 검사는 LAW_OC 환경변수의 실제 값과 README에 문서화한 인코딩을 비교한다. 로컬은 셸에서 LAW_OC를 설정하고, CI 전용 필수 검사는 GitHub secret LAW_OC를 사용한다(별도 CI PR 예정). 값·검색 바이트는 출력하지 않는다. 난독화·암호화는 범위 밖이며 비공개·PR 검토를 유지한다.
+- credential 검사는 LAW_OC 환경변수의 실제 값과 README에 문서화한 인코딩을 비교한다. 로컬은 셸에서 LAW_OC를 설정한다. CI 준비는 PR 코드를 실행하지 않는 인라인 표준 라이브러리로 trusted base의 scanner·credentials·git_read 일반 blob만 작업 트리 밖으로 추출하며 첫 저장소 코드 실행 단계에서 이 scanner에만 GitHub secret LAW_OC를 전달한다. PR 작업 트리의 추적·미추적 비무시 파일 전체를 필수 검사한다. 값·검색 바이트는 출력하지 않는다. workflow YAML 자체를 바꿀 수 있는 same-repo 작성자까지 격리하지는 않으며 workflow 권한·리뷰가 신뢰 경계다. 난독화·암호화는 범위 밖이며 비공개·PR 검토를 유지한다.
+- `.github/ci/`는 운영 tools에서 import하지 않는 CI 전용 감독 영역이다. Git diff·상태 검사·Actions 출력 파일·시험 자식 실행은 이곳에서만 조정하며 tools의 안전 쓰기·공용 Git helper 제한은 그대로 유지한다. vendor에는 deps.lock의 commit·SHA-256으로 고정한 색인·과거 판본 메타데이터만 두고 법령 본문은 복제하지 않는다.

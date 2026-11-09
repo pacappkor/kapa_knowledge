@@ -1,0 +1,214 @@
+{
+ "lsId": "001827",
+ "name": "부동산 가격공시에 관한 법률",
+ "fetched": "2026-11-08",
+ "versions": [
+  {
+   "lsiSeq": "219361",
+   "efYd": "20201210",
+   "ancYd": "20200609",
+   "ancNo": "17459",
+   "name": "부동산 가격공시에 관한 법률",
+   "kind": "타법개정",
+   "status": "current"
+  },
+  {
+   "lsiSeq": "217385",
+   "efYd": "20201008",
+   "ancYd": "20200407",
+   "ancNo": "17233",
+   "name": "부동산 가격공시에 관한 법률",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "217333",
+   "efYd": "20200708",
+   "ancYd": "20200407",
+   "ancNo": "17219",
+   "name": "부동산 가격공시에 관한 법률",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "219269",
+   "efYd": "20200609",
+   "ancYd": "20200609",
+   "ancNo": "17453",
+   "name": "부동산 가격공시에 관한 법률",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "217385",
+   "efYd": "20200407",
+   "ancYd": "20200407",
+   "ancNo": "17233",
+   "name": "부동산 가격공시에 관한 법률",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "195234",
+   "efYd": "20170726",
+   "ancYd": "20170726",
+   "ancNo": "14839",
+   "name": "부동산 가격공시에 관한 법률",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "179576",
+   "efYd": "20160901",
+   "ancYd": "20160119",
+   "ancNo": "13796",
+   "name": "부동산 가격공시에 관한 법률",
+   "kind": "전부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "179665",
+   "efYd": "20160812",
+   "ancYd": "20160119",
+   "ancNo": "13805",
+   "name": "부동산 가격공시 및 감정평가에 관한 법률",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "142661",
+   "efYd": "20140207",
+   "ancYd": "20130806",
+   "ancNo": "12018",
+   "name": "부동산 가격공시 및 감정평가에 관한 법률",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "137156",
+   "efYd": "20130323",
+   "ancYd": "20130323",
+   "ancNo": "11690",
+   "name": "부동산 가격공시 및 감정평가에 관한 법률",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "103420",
+   "efYd": "20100317",
+   "ancYd": "20100317",
+   "ancNo": "10136",
+   "name": "부동산 가격공시 및 감정평가에 관한 법률",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "86523",
+   "efYd": "20080328",
+   "ancYd": "20080328",
+   "ancNo": "09055",
+   "name": "부동산 가격공시 및 감정평가에 관한 법률",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "83599",
+   "efYd": "20080229",
+   "ancYd": "20080229",
+   "ancNo": "08852",
+   "name": "부동산 가격공시 및 감정평가에 관한 법률",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "78716",
+   "efYd": "20070728",
+   "ancYd": "20070427",
+   "ancNo": "08409",
+   "name": "부동산 가격공시 및 감정평가에 관한 법률",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "67614",
+   "efYd": "20060401",
+   "ancYd": "20050331",
+   "ancNo": "07428",
+   "name": "부동산가격공시및감정평가에관한법률",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "72069",
+   "efYd": "20060308",
+   "ancYd": "20051207",
+   "ancNo": "07707",
+   "name": "부동산가격공시및감정평가에관한법률",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "66404",
+   "efYd": "20050114",
+   "ancYd": "20050114",
+   "ancNo": "07335",
+   "name": "부동산가격공시및감정평가에관한법률",
+   "kind": "전부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "61520",
+   "efYd": "20030101",
+   "ancYd": "20020204",
+   "ancNo": "06655",
+   "name": "지가공시및토지등의평가에관한법률",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "2043",
+   "efYd": "20000429",
+   "ancYd": "20000128",
+   "ancNo": "06237",
+   "name": "지가공시및토지등의평가에관한법률",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "215",
+   "efYd": "19990331",
+   "ancYd": "19990331",
+   "ancNo": "05954",
+   "name": "지가공시및토지등의평가에관한법률",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "214",
+   "efYd": "19980101",
+   "ancYd": "19971213",
+   "ancNo": "05453",
+   "name": "지가공시및토지등의평가에관한법률",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "61096",
+   "efYd": "19960630",
+   "ancYd": "19951229",
+   "ancNo": "05108",
+   "name": "지가공시및토지등의평가에관한법률",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "61098",
+   "efYd": "19890701",
+   "ancYd": "19890401",
+   "ancNo": "04120",
+   "name": "지가공시및토지등의평가에관한법률",
+   "kind": "제정",
+   "status": "predecessor"
+  }
+ ]
+}

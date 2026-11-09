@@ -1,0 +1,331 @@
+{
+ "lsId": "000994",
+ "name": "온천법",
+ "fetched": "2026-11-08",
+ "versions": [
+  {
+   "lsiSeq": "245249",
+   "efYd": "20230516",
+   "ancYd": "20221115",
+   "ancNo": "19028",
+   "name": "온천법",
+   "kind": "일부개정",
+   "status": "current"
+  },
+  {
+   "lsiSeq": "234177",
+   "efYd": "20220721",
+   "ancYd": "20210720",
+   "ancNo": "18310",
+   "name": "온천법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "231671",
+   "efYd": "20211021",
+   "ancYd": "20210420",
+   "ancNo": "18088",
+   "name": "온천법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "224563",
+   "efYd": "20210623",
+   "ancYd": "20201222",
+   "ancNo": "17697",
+   "name": "온천법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "216291",
+   "efYd": "20210401",
+   "ancYd": "20200331",
+   "ancNo": "17171",
+   "name": "온천법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "193423",
+   "efYd": "20180419",
+   "ancYd": "20170418",
+   "ancNo": "14795",
+   "name": "온천법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "195089",
+   "efYd": "20170726",
+   "ancYd": "20170726",
+   "ancNo": "14839",
+   "name": "온천법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "188664",
+   "efYd": "20161227",
+   "ancYd": "20161227",
+   "ancNo": "14480",
+   "name": "온천법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "188043",
+   "efYd": "20161202",
+   "ancYd": "20161202",
+   "ancNo": "14284",
+   "name": "온천법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "179713",
+   "efYd": "20160812",
+   "ancYd": "20160119",
+   "ancNo": "13805",
+   "name": "온천법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "172968",
+   "efYd": "20151021",
+   "ancYd": "20150720",
+   "ancNo": "13401",
+   "name": "온천법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "172968",
+   "efYd": "20150720",
+   "ancYd": "20150720",
+   "ancNo": "13401",
+   "name": "온천법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "155056",
+   "efYd": "20150604",
+   "ancYd": "20140603",
+   "ancNo": "12738",
+   "name": "온천법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "154993",
+   "efYd": "20150101",
+   "ancYd": "20140603",
+   "ancNo": "12737",
+   "name": "온천법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "162223",
+   "efYd": "20141119",
+   "ancYd": "20141119",
+   "ancNo": "12844",
+   "name": "온천법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "161103",
+   "efYd": "20141015",
+   "ancYd": "20141015",
+   "ancNo": "12797",
+   "name": "온천법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "150021",
+   "efYd": "20140715",
+   "ancYd": "20140114",
+   "ancNo": "12248",
+   "name": "온천법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "142010",
+   "efYd": "20130716",
+   "ancYd": "20130716",
+   "ancNo": "11896",
+   "name": "온천법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "136764",
+   "efYd": "20130323",
+   "ancYd": "20130323",
+   "ancNo": "11690",
+   "name": "온천법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "115034",
+   "efYd": "20120722",
+   "ancYd": "20110721",
+   "ancNo": "10892",
+   "name": "온천법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "113534",
+   "efYd": "20110831",
+   "ancYd": "20110530",
+   "ancNo": "10732",
+   "name": "온천법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "102469",
+   "efYd": "20100805",
+   "ancYd": "20100204",
+   "ancNo": "10005",
+   "name": "온천법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "90416",
+   "efYd": "20081226",
+   "ancYd": "20081226",
+   "ancNo": "09202",
+   "name": "온천법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "84018",
+   "efYd": "20080229",
+   "ancYd": "20080229",
+   "ancNo": "08852",
+   "name": "온천법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "78188",
+   "efYd": "20071007",
+   "ancYd": "20070406",
+   "ancNo": "08337",
+   "name": "온천법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "78267",
+   "efYd": "20070411",
+   "ancYd": "20070411",
+   "ancNo": "08343",
+   "name": "온천법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "73261",
+   "efYd": "20060701",
+   "ancYd": "20060303",
+   "ancNo": "07856",
+   "name": "온천법",
+   "kind": "전부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "57239",
+   "efYd": "20030701",
+   "ancYd": "20021230",
+   "ancNo": "06842",
+   "name": "온천법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "57237",
+   "efYd": "20010427",
+   "ancYd": "20010126",
+   "ancNo": "06390",
+   "name": "온천법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "55018",
+   "efYd": "20000413",
+   "ancYd": "20000112",
+   "ancNo": "06119",
+   "name": "온천법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "55021",
+   "efYd": "19990118",
+   "ancYd": "19990118",
+   "ancNo": "05627",
+   "name": "온천법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "55022",
+   "efYd": "19980101",
+   "ancYd": "19971213",
+   "ancNo": "05453",
+   "name": "온천법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "55023",
+   "efYd": "19970714",
+   "ancYd": "19970113",
+   "ancNo": "05286",
+   "name": "온천법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "57240",
+   "efYd": "19960701",
+   "ancYd": "19951230",
+   "ancNo": "05121",
+   "name": "온천법",
+   "kind": "전부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "57241",
+   "efYd": "19870701",
+   "ancYd": "19861231",
+   "ancNo": "03910",
+   "name": "온천법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "57242",
+   "efYd": "19810601",
+   "ancYd": "19810302",
+   "ancNo": "03377",
+   "name": "온천법",
+   "kind": "제정",
+   "status": "past"
+  }
+ ]
+}

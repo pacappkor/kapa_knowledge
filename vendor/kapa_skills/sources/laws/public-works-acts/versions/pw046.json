@@ -1,0 +1,817 @@
+{
+ "lsId": "001821",
+ "name": "도로법",
+ "fetched": "2026-11-08",
+ "versions": [
+  {
+   "lsiSeq": "289791",
+   "efYd": "20270323",
+   "ancYd": "20260922",
+   "ancNo": "21965",
+   "name": "도로법",
+   "kind": "일부개정",
+   "status": "scheduled"
+  },
+  {
+   "lsiSeq": "284465",
+   "efYd": "20260918",
+   "ancYd": "20260317",
+   "ancNo": "21480",
+   "name": "도로법",
+   "kind": "일부개정",
+   "status": "current"
+  },
+  {
+   "lsiSeq": "280119",
+   "efYd": "20260603",
+   "ancYd": "20251202",
+   "ancNo": "21172",
+   "name": "도로법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "286547",
+   "efYd": "20260602",
+   "ancYd": "20260602",
+   "ancNo": "21738",
+   "name": "도로법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "276971",
+   "efYd": "20260102",
+   "ancYd": "20251001",
+   "ancNo": "21065",
+   "name": "도로법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "276971",
+   "efYd": "20251001",
+   "ancYd": "20251001",
+   "ancNo": "21065",
+   "name": "도로법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "268841",
+   "efYd": "20250801",
+   "ancYd": "20250131",
+   "ancNo": "20758",
+   "name": "도로법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "260417",
+   "efYd": "20250214",
+   "ancYd": "20240213",
+   "ancNo": "20294",
+   "name": "도로법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "255471",
+   "efYd": "20241025",
+   "ancYd": "20231024",
+   "ancNo": "19766",
+   "name": "도로법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "258135",
+   "efYd": "20240710",
+   "ancYd": "20240109",
+   "ancNo": "19973",
+   "name": "도로법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "253379",
+   "efYd": "20240517",
+   "ancYd": "20230808",
+   "ancNo": "19587",
+   "name": "도로법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "258821",
+   "efYd": "20240417",
+   "ancYd": "20240116",
+   "ancNo": "20041",
+   "name": "도로법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "258313",
+   "efYd": "20240109",
+   "ancYd": "20240109",
+   "ancNo": "19987",
+   "name": "도로법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "250045",
+   "efYd": "20231019",
+   "ancYd": "20230418",
+   "ancNo": "19379",
+   "name": "도로법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "253995",
+   "efYd": "20230816",
+   "ancYd": "20230816",
+   "ancNo": "19677",
+   "name": "도로법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "246703",
+   "efYd": "20230628",
+   "ancYd": "20221227",
+   "ancNo": "19117",
+   "name": "도로법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "245325",
+   "efYd": "20230516",
+   "ancYd": "20221115",
+   "ancNo": "19051",
+   "name": "도로법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "243081",
+   "efYd": "20221211",
+   "ancYd": "20220610",
+   "ancNo": "18940",
+   "name": "도로법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "237415",
+   "efYd": "20220308",
+   "ancYd": "20211207",
+   "ancNo": "18555",
+   "name": "도로법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "228523",
+   "efYd": "20220113",
+   "ancYd": "20210112",
+   "ancNo": "17893",
+   "name": "도로법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "225505",
+   "efYd": "20220101",
+   "ancYd": "20201231",
+   "ancNo": "17814",
+   "name": "도로법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "213921",
+   "efYd": "20210205",
+   "ancYd": "20200204",
+   "ancNo": "16954",
+   "name": "도로법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "224481",
+   "efYd": "20210101",
+   "ancYd": "20201222",
+   "ancNo": "17689",
+   "name": "도로법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "213787",
+   "efYd": "20200805",
+   "ancYd": "20200204",
+   "ancNo": "16912",
+   "name": "도로법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "213599",
+   "efYd": "20200730",
+   "ancYd": "20200129",
+   "ancNo": "16902",
+   "name": "도로법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "219249",
+   "efYd": "20200609",
+   "ancYd": "20200609",
+   "ancNo": "17453",
+   "name": "도로법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "205842",
+   "efYd": "20190619",
+   "ancYd": "20181218",
+   "ancNo": "15997",
+   "name": "도로법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "205836",
+   "efYd": "20190319",
+   "ancYd": "20181218",
+   "ancNo": "15996",
+   "name": "도로법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "202655",
+   "efYd": "20180914",
+   "ancYd": "20180313",
+   "ancNo": "15455",
+   "name": "도로법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "199158",
+   "efYd": "20180529",
+   "ancYd": "20171128",
+   "ancNo": "15115",
+   "name": "도로법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "199158",
+   "efYd": "20171128",
+   "ancYd": "20171128",
+   "ancNo": "15115",
+   "name": "도로법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "191137",
+   "efYd": "20170718",
+   "ancYd": "20170117",
+   "ancNo": "14539",
+   "name": "도로법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "188103",
+   "efYd": "20161202",
+   "ancYd": "20161202",
+   "ancNo": "14338",
+   "name": "도로법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "179585",
+   "efYd": "20160901",
+   "ancYd": "20160119",
+   "ancNo": "13796",
+   "name": "도로법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "179685",
+   "efYd": "20160812",
+   "ancYd": "20160119",
+   "ancNo": "13805",
+   "name": "도로법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "179551",
+   "efYd": "20160720",
+   "ancYd": "20160119",
+   "ancNo": "13791",
+   "name": "도로법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "173864",
+   "efYd": "20160212",
+   "ancYd": "20150811",
+   "ancNo": "13478",
+   "name": "도로법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "173248",
+   "efYd": "20160125",
+   "ancYd": "20150724",
+   "ancNo": "13426",
+   "name": "도로법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "173864",
+   "efYd": "20151112",
+   "ancYd": "20150811",
+   "ancNo": "13478",
+   "name": "도로법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "166510",
+   "efYd": "20150707",
+   "ancYd": "20150106",
+   "ancNo": "12976",
+   "name": "도로법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "167695",
+   "efYd": "20150528",
+   "ancYd": "20150128",
+   "ancNo": "13086",
+   "name": "도로법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "154105",
+   "efYd": "20150101",
+   "ancYd": "20140521",
+   "ancNo": "12639",
+   "name": "도로법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "154105",
+   "efYd": "20140715",
+   "ancYd": "20140521",
+   "ancNo": "12639",
+   "name": "도로법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "150700",
+   "efYd": "20140715",
+   "ancYd": "20140128",
+   "ancNo": "12345",
+   "name": "도로법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "149950",
+   "efYd": "20140715",
+   "ancYd": "20140114",
+   "ancNo": "12248",
+   "name": "도로법",
+   "kind": "전부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "137136",
+   "efYd": "20130323",
+   "ancYd": "20130323",
+   "ancNo": "11690",
+   "name": "도로법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "125900",
+   "efYd": "20121202",
+   "ancYd": "20120601",
+   "ancNo": "11471",
+   "name": "도로법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "125900",
+   "efYd": "20120701",
+   "ancYd": "20120601",
+   "ancNo": "11471",
+   "name": "도로법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "112310",
+   "efYd": "20111013",
+   "ancYd": "20110412",
+   "ancNo": "10580",
+   "name": "도로법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "102462",
+   "efYd": "20110205",
+   "ancYd": "20100204",
+   "ancNo": "10001",
+   "name": "도로법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "105439",
+   "efYd": "20101201",
+   "ancYd": "20100531",
+   "ancNo": "10331",
+   "name": "도로법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "104490",
+   "efYd": "20101016",
+   "ancYd": "20100415",
+   "ancNo": "10272",
+   "name": "도로법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "103795",
+   "efYd": "20100923",
+   "ancYd": "20100322",
+   "ancNo": "10156",
+   "name": "도로법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "94552",
+   "efYd": "20100310",
+   "ancYd": "20090609",
+   "ancNo": "09763",
+   "name": "도로법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "93823",
+   "efYd": "20090527",
+   "ancYd": "20090527",
+   "ancNo": "09730",
+   "name": "도로법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "85968",
+   "efYd": "20080321",
+   "ancYd": "20080321",
+   "ancNo": "08976",
+   "name": "도로법",
+   "kind": "전부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "83320",
+   "efYd": "20080229",
+   "ancYd": "20080229",
+   "ancNo": "08852",
+   "name": "도로법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "77246",
+   "efYd": "20070727",
+   "ancYd": "20070126",
+   "ancNo": "08283",
+   "name": "도로법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "76433",
+   "efYd": "20070329",
+   "ancYd": "20061228",
+   "ancNo": "08124",
+   "name": "도로법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "71064",
+   "efYd": "20060805",
+   "ancYd": "20050804",
+   "ancNo": "07678",
+   "name": "도로법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "73180",
+   "efYd": "20060701",
+   "ancYd": "20060221",
+   "ancNo": "07849",
+   "name": "도로법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "72066",
+   "efYd": "20060608",
+   "ancYd": "20051207",
+   "ancNo": "07715",
+   "name": "도로법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "72469",
+   "efYd": "20051230",
+   "ancYd": "20051230",
+   "ancNo": "07832",
+   "name": "도로법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "67793",
+   "efYd": "20051001",
+   "ancYd": "20050331",
+   "ancNo": "07476",
+   "name": "도로법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "66656",
+   "efYd": "20050127",
+   "ancYd": "20050127",
+   "ancNo": "07386",
+   "name": "도로법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "66510",
+   "efYd": "20050114",
+   "ancYd": "20050114",
+   "ancNo": "07335",
+   "name": "도로법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "60118",
+   "efYd": "20040721",
+   "ancYd": "20040120",
+   "ancNo": "07103",
+   "name": "도로법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "57069",
+   "efYd": "20031001",
+   "ancYd": "20021230",
+   "ancNo": "06841",
+   "name": "도로법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "52180",
+   "efYd": "20030101",
+   "ancYd": "20020204",
+   "ancNo": "06656",
+   "name": "도로법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "34472",
+   "efYd": "20030101",
+   "ancYd": "20020204",
+   "ancNo": "06655",
+   "name": "도로법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "8912",
+   "efYd": "19990809",
+   "ancYd": "19990208",
+   "ancNo": "05914",
+   "name": "도로법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "8911",
+   "efYd": "19990809",
+   "ancYd": "19990208",
+   "ancNo": "05911",
+   "name": "도로법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "8910",
+   "efYd": "19990809",
+   "ancYd": "19990208",
+   "ancNo": "05894",
+   "name": "도로법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "8909",
+   "efYd": "19980101",
+   "ancYd": "19971213",
+   "ancNo": "05454",
+   "name": "도로법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "8908",
+   "efYd": "19980101",
+   "ancYd": "19971213",
+   "ancNo": "05453",
+   "name": "도로법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "8907",
+   "efYd": "19951206",
+   "ancYd": "19951206",
+   "ancNo": "05025",
+   "name": "도로법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "8906",
+   "efYd": "19950105",
+   "ancYd": "19950105",
+   "ancNo": "04920",
+   "name": "도로법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "8905",
+   "efYd": "19950101",
+   "ancYd": "19941222",
+   "ancNo": "04796",
+   "name": "도로법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "8904",
+   "efYd": "19940101",
+   "ancYd": "19930611",
+   "ancNo": "04561",
+   "name": "도로법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "8903",
+   "efYd": "19930601",
+   "ancYd": "19930310",
+   "ancNo": "04545",
+   "name": "도로법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "8902",
+   "efYd": "19910731",
+   "ancYd": "19910531",
+   "ancNo": "04369",
+   "name": "도로법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "8901",
+   "efYd": "19900714",
+   "ancYd": "19900113",
+   "ancNo": "04206",
+   "name": "도로법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "8900",
+   "efYd": "19900101",
+   "ancYd": "19891230",
+   "ancNo": "04175",
+   "name": "도로법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "8784",
+   "efYd": "19770301",
+   "ancYd": "19761231",
+   "ancNo": "02989",
+   "name": "도로법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "8783",
+   "efYd": "19770101",
+   "ancYd": "19761231",
+   "ancNo": "02945",
+   "name": "도로법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "8782",
+   "efYd": "19700910",
+   "ancYd": "19700810",
+   "ancNo": "02232",
+   "name": "도로법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "8781",
+   "efYd": "19681221",
+   "ancYd": "19681221",
+   "ancNo": "02057",
+   "name": "도로법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "8780",
+   "efYd": "19660803",
+   "ancYd": "19660803",
+   "ancNo": "01823",
+   "name": "도로법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "8779",
+   "efYd": "19630226",
+   "ancYd": "19630226",
+   "ancNo": "01281",
+   "name": "도로법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "8778",
+   "efYd": "19620101",
+   "ancYd": "19611227",
+   "ancNo": "00871",
+   "name": "도로법",
+   "kind": "제정",
+   "status": "past"
+  }
+ ]
+}

@@ -1,0 +1,727 @@
+{
+ "lsId": "001815",
+ "name": "하수도법",
+ "fetched": "2026-11-08",
+ "versions": [
+  {
+   "lsiSeq": "276803",
+   "efYd": "20251001",
+   "ancYd": "20251001",
+   "ancNo": "21065",
+   "name": "하수도법",
+   "kind": "타법개정",
+   "status": "current"
+  },
+  {
+   "lsiSeq": "253499",
+   "efYd": "20240517",
+   "ancYd": "20230808",
+   "ancNo": "19590",
+   "name": "하수도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "249011",
+   "efYd": "20240517",
+   "ancYd": "20230321",
+   "ancNo": "19251",
+   "name": "하수도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "259569",
+   "efYd": "20240130",
+   "ancYd": "20240130",
+   "ancNo": "20172",
+   "name": "하수도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "246847",
+   "efYd": "20230628",
+   "ancYd": "20221227",
+   "ancNo": "19127",
+   "name": "하수도법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "246847",
+   "efYd": "20221227",
+   "ancYd": "20221227",
+   "ancNo": "19127",
+   "name": "하수도법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "243015",
+   "efYd": "20221211",
+   "ancYd": "20220610",
+   "ancNo": "18914",
+   "name": "하수도법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "234191",
+   "efYd": "20220721",
+   "ancYd": "20210720",
+   "ancNo": "18310",
+   "name": "하수도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "233097",
+   "efYd": "20220616",
+   "ancYd": "20210615",
+   "ancNo": "18284",
+   "name": "하수도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "228139",
+   "efYd": "20220106",
+   "ancYd": "20210105",
+   "ancNo": "17852",
+   "name": "하수도법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "228139",
+   "efYd": "20210706",
+   "ancYd": "20210105",
+   "ancNo": "17852",
+   "name": "하수도법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "228139",
+   "efYd": "20210105",
+   "ancYd": "20210105",
+   "ancNo": "17852",
+   "name": "하수도법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "218241",
+   "efYd": "20200526",
+   "ancYd": "20200526",
+   "ancNo": "17326",
+   "name": "하수도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "215875",
+   "efYd": "20200324",
+   "ancYd": "20200324",
+   "ancNo": "17091",
+   "name": "하수도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "204830",
+   "efYd": "20181016",
+   "ancYd": "20181016",
+   "ancNo": "15843",
+   "name": "하수도법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "191116",
+   "efYd": "20180118",
+   "ancYd": "20170117",
+   "ancNo": "14532",
+   "name": "하수도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "195208",
+   "efYd": "20170726",
+   "ancYd": "20170726",
+   "ancNo": "14839",
+   "name": "하수도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "180440",
+   "efYd": "20170128",
+   "ancYd": "20160127",
+   "ancNo": "13879",
+   "name": "하수도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "180454",
+   "efYd": "20160728",
+   "ancYd": "20160127",
+   "ancNo": "13888",
+   "name": "하수도법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "155068",
+   "efYd": "20150604",
+   "ancYd": "20140603",
+   "ancNo": "12738",
+   "name": "하수도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "168021",
+   "efYd": "20150203",
+   "ancYd": "20150203",
+   "ancNo": "13171",
+   "name": "하수도법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "162523",
+   "efYd": "20141119",
+   "ancYd": "20141119",
+   "ancNo": "12844",
+   "name": "하수도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "142644",
+   "efYd": "20140807",
+   "ancYd": "20130806",
+   "ancNo": "11998",
+   "name": "하수도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "142034",
+   "efYd": "20140717",
+   "ancYd": "20130716",
+   "ancNo": "11915",
+   "name": "하수도법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "150058",
+   "efYd": "20140715",
+   "ancYd": "20140114",
+   "ancNo": "12248",
+   "name": "하수도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "152019",
+   "efYd": "20140318",
+   "ancYd": "20140318",
+   "ancNo": "12466",
+   "name": "하수도법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "142034",
+   "efYd": "20130716",
+   "ancYd": "20130716",
+   "ancNo": "11915",
+   "name": "하수도법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "137078",
+   "efYd": "20130323",
+   "ancYd": "20130323",
+   "ancNo": "11690",
+   "name": "하수도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "122678",
+   "efYd": "20130202",
+   "ancYd": "20120201",
+   "ancNo": "11264",
+   "name": "하수도법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "115088",
+   "efYd": "20120722",
+   "ancYd": "20110721",
+   "ancNo": "10893",
+   "name": "하수도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "118674",
+   "efYd": "20120515",
+   "ancYd": "20111114",
+   "ancNo": "11084",
+   "name": "하수도법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "112457",
+   "efYd": "20120415",
+   "ancYd": "20110414",
+   "ancNo": "10599",
+   "name": "하수도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "111962",
+   "efYd": "20120406",
+   "ancYd": "20110405",
+   "ancNo": "10552",
+   "name": "하수도법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "118674",
+   "efYd": "20111114",
+   "ancYd": "20111114",
+   "ancNo": "11084",
+   "name": "하수도법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "112761",
+   "efYd": "20111029",
+   "ancYd": "20110428",
+   "ancNo": "10615",
+   "name": "하수도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "111962",
+   "efYd": "20111006",
+   "ancYd": "20110405",
+   "ancNo": "10552",
+   "name": "하수도법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "105897",
+   "efYd": "20110609",
+   "ancYd": "20100608",
+   "ancNo": "10359",
+   "name": "하수도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "105515",
+   "efYd": "20110601",
+   "ancYd": "20100531",
+   "ancNo": "10335",
+   "name": "하수도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "104538",
+   "efYd": "20101016",
+   "ancYd": "20100415",
+   "ancNo": "10272",
+   "name": "하수도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "94640",
+   "efYd": "20100310",
+   "ancYd": "20090609",
+   "ancNo": "09763",
+   "name": "하수도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "94647",
+   "efYd": "20091210",
+   "ancYd": "20090609",
+   "ancNo": "09774",
+   "name": "하수도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "91676",
+   "efYd": "20090807",
+   "ancYd": "20090206",
+   "ancNo": "09432",
+   "name": "하수도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "91428",
+   "efYd": "20090731",
+   "ancYd": "20090130",
+   "ancNo": "09401",
+   "name": "하수도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "91145",
+   "efYd": "20090708",
+   "ancYd": "20090107",
+   "ancNo": "09334",
+   "name": "하수도법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "86475",
+   "efYd": "20080628",
+   "ancYd": "20080321",
+   "ancNo": "08976",
+   "name": "하수도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "86474",
+   "efYd": "20080628",
+   "ancYd": "20080321",
+   "ancNo": "08957",
+   "name": "하수도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "82182",
+   "efYd": "20080628",
+   "ancYd": "20071227",
+   "ancNo": "08820",
+   "name": "하수도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "82181",
+   "efYd": "20080628",
+   "ancYd": "20071227",
+   "ancNo": "08819",
+   "name": "하수도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "78458",
+   "efYd": "20080412",
+   "ancYd": "20070411",
+   "ancNo": "08371",
+   "name": "하수도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "78457",
+   "efYd": "20080412",
+   "ancYd": "20070411",
+   "ancNo": "08352",
+   "name": "하수도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "86475",
+   "efYd": "20080407",
+   "ancYd": "20080321",
+   "ancNo": "08976",
+   "name": "하수도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "86474",
+   "efYd": "20080407",
+   "ancYd": "20080321",
+   "ancNo": "08957",
+   "name": "하수도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "77848",
+   "efYd": "20080407",
+   "ancYd": "20070406",
+   "ancNo": "08338",
+   "name": "하수도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "86475",
+   "efYd": "20080321",
+   "ancYd": "20080321",
+   "ancNo": "08976",
+   "name": "하수도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "86474",
+   "efYd": "20080321",
+   "ancYd": "20080321",
+   "ancNo": "08957",
+   "name": "하수도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "84033",
+   "efYd": "20080229",
+   "ancYd": "20080229",
+   "ancNo": "08852",
+   "name": "하수도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "78458",
+   "efYd": "20070928",
+   "ancYd": "20070411",
+   "ancNo": "08371",
+   "name": "하수도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "75661",
+   "efYd": "20070928",
+   "ancYd": "20060927",
+   "ancNo": "08014",
+   "name": "하수도법",
+   "kind": "전부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "78458",
+   "efYd": "20070411",
+   "ancYd": "20070411",
+   "ancNo": "08371",
+   "name": "하수도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "78457",
+   "efYd": "20070411",
+   "ancYd": "20070411",
+   "ancNo": "08352",
+   "name": "하수도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "71062",
+   "efYd": "20060805",
+   "ancYd": "20050804",
+   "ancNo": "07678",
+   "name": "하수도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "67790",
+   "efYd": "20051001",
+   "ancYd": "20050331",
+   "ancNo": "07460",
+   "name": "하수도법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "57702",
+   "efYd": "20031001",
+   "ancYd": "20021230",
+   "ancNo": "06841",
+   "name": "하수도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "52178",
+   "efYd": "20030101",
+   "ancYd": "20020204",
+   "ancNo": "06656",
+   "name": "하수도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "52687",
+   "efYd": "20010929",
+   "ancYd": "20010328",
+   "ancNo": "06451",
+   "name": "하수도법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "50936",
+   "efYd": "19990809",
+   "ancYd": "19990208",
+   "ancNo": "05893",
+   "name": "하수도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "50935",
+   "efYd": "19990809",
+   "ancYd": "19990208",
+   "ancNo": "05911",
+   "name": "하수도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "50934",
+   "efYd": "19990809",
+   "ancYd": "19990208",
+   "ancNo": "05914",
+   "name": "하수도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "8754",
+   "efYd": "19990809",
+   "ancYd": "19990208",
+   "ancNo": "05868",
+   "name": "하수도법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "8753",
+   "efYd": "19990809",
+   "ancYd": "19990208",
+   "ancNo": "05864",
+   "name": "하수도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "8752",
+   "efYd": "19980101",
+   "ancYd": "19971213",
+   "ancNo": "05454",
+   "name": "하수도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "8751",
+   "efYd": "19980101",
+   "ancYd": "19971213",
+   "ancNo": "05453",
+   "name": "하수도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "8750",
+   "efYd": "19970908",
+   "ancYd": "19970307",
+   "ancNo": "05300",
+   "name": "하수도법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "8749",
+   "efYd": "19940803",
+   "ancYd": "19940803",
+   "ancNo": "04782",
+   "name": "하수도법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "8748",
+   "efYd": "19940311",
+   "ancYd": "19931210",
+   "ancNo": "04598",
+   "name": "하수도법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "8747",
+   "efYd": "19900103",
+   "ancYd": "19891230",
+   "ancNo": "04183",
+   "name": "하수도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "8746",
+   "efYd": "19830201",
+   "ancYd": "19821231",
+   "ancNo": "03647",
+   "name": "하수도법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "8745",
+   "efYd": "19800101",
+   "ancYd": "19791228",
+   "ancNo": "03213",
+   "name": "하수도법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "55808",
+   "efYd": "19730208",
+   "ancYd": "19730208",
+   "ancNo": "02513",
+   "name": "하수도법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "8744",
+   "efYd": "19660803",
+   "ancYd": "19660803",
+   "ancNo": "01825",
+   "name": "하수도법",
+   "kind": "제정",
+   "status": "past"
+  }
+ ]
+}

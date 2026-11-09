@@ -1,0 +1,250 @@
+{
+ "lsId": "000068",
+ "name": "선박법",
+ "fetched": "2026-11-08",
+ "versions": [
+  {
+   "lsiSeq": "243141",
+   "efYd": "20230611",
+   "ancYd": "20220610",
+   "ancNo": "18957",
+   "name": "선박법",
+   "kind": "타법개정",
+   "status": "current"
+  },
+  {
+   "lsiSeq": "206381",
+   "efYd": "20190701",
+   "ancYd": "20181231",
+   "ancNo": "16160",
+   "name": "선박법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "206369",
+   "efYd": "20190701",
+   "ancYd": "20181231",
+   "ancNo": "16151",
+   "name": "선박법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "206369",
+   "efYd": "20181231",
+   "ancYd": "20181231",
+   "ancNo": "16151",
+   "name": "선박법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "188578",
+   "efYd": "20170328",
+   "ancYd": "20161227",
+   "ancNo": "14476",
+   "name": "선박법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "169520",
+   "efYd": "20150327",
+   "ancYd": "20150327",
+   "ancNo": "13266",
+   "name": "선박법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "152363",
+   "efYd": "20140925",
+   "ancYd": "20140324",
+   "ancNo": "12537",
+   "name": "선박법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "137160",
+   "efYd": "20130323",
+   "ancYd": "20130323",
+   "ancNo": "11690",
+   "name": "선박법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "114024",
+   "efYd": "20110615",
+   "ancYd": "20110615",
+   "ancNo": "10799",
+   "name": "선박법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "103991",
+   "efYd": "20110101",
+   "ancYd": "20100331",
+   "ancNo": "10219",
+   "name": "선박법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "97982",
+   "efYd": "20100630",
+   "ancYd": "20091229",
+   "ancNo": "09870",
+   "name": "선박법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "97982",
+   "efYd": "20091229",
+   "ancYd": "20091229",
+   "ancNo": "09870",
+   "name": "선박법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "80036",
+   "efYd": "20080701",
+   "ancYd": "20070803",
+   "ancNo": "08621",
+   "name": "선박법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "86542",
+   "efYd": "20080328",
+   "ancYd": "20080328",
+   "ancNo": "09007",
+   "name": "선박법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "83467",
+   "efYd": "20080229",
+   "ancYd": "20080229",
+   "ancNo": "08852",
+   "name": "선박법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "80036",
+   "efYd": "20080204",
+   "ancYd": "20070803",
+   "ancNo": "08621",
+   "name": "선박법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "76626",
+   "efYd": "20071104",
+   "ancYd": "20070103",
+   "ancNo": "08221",
+   "name": "선박법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "80036",
+   "efYd": "20070803",
+   "ancYd": "20070803",
+   "ancNo": "08621",
+   "name": "선박법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "21089",
+   "efYd": "19991016",
+   "ancYd": "19990415",
+   "ancNo": "05972",
+   "name": "선박법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "21090",
+   "efYd": "19990806",
+   "ancYd": "19990205",
+   "ancNo": "05809",
+   "name": "선박법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "19022",
+   "efYd": "19980101",
+   "ancYd": "19971213",
+   "ancNo": "05454",
+   "name": "선박법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "19023",
+   "efYd": "19821231",
+   "ancYd": "19821231",
+   "ancNo": "03641",
+   "name": "선박법",
+   "kind": "전부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "1190",
+   "efYd": "19781205",
+   "ancYd": "19781205",
+   "ancNo": "03148",
+   "name": "선박법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "1189",
+   "efYd": "19771216",
+   "ancYd": "19771216",
+   "ancNo": "03011",
+   "name": "선박법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "1188",
+   "efYd": "19760131",
+   "ancYd": "19751231",
+   "ancNo": "02886",
+   "name": "선박법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "1187",
+   "efYd": "19620813",
+   "ancYd": "19620813",
+   "ancNo": "01124",
+   "name": "선박법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "1186",
+   "efYd": "19600201",
+   "ancYd": "19600201",
+   "ancNo": "00544",
+   "name": "선박법",
+   "kind": "제정",
+   "status": "past"
+  }
+ ]
+}

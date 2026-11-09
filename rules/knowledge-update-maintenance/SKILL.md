@@ -78,6 +78,8 @@ API 보조 검색은 lawapi의 search(target, query, page, display, **kw), 상�
 
 ## 5. 검증
 
+CI credential 검사 PR의 허용 base는 기본 브랜치 main뿐이다. pull_request branches 필터와 인라인 준비의 base ref == main == repository default branch 검사를 함께 적용하고, 일치 확인 뒤에만 이벤트의 immutable base SHA와 scanner blob을 읽는다. 비기본 브랜치에 있는 regular scanner도 신뢰하지 않는다. main은 신뢰된 리뷰로 관리한다는 운영 전제이며 실제 branch protection 설정이 있다고 가정하지 않는다. 기본 브랜치 변경은 이 허용 정책과 workflow를 함께 검토해야 한다.
+
 기존 자료의 원문 링크 문법 이스케이프 이관은 저장 JSON으로 오프라인 재생성한다. 문서 경로를 인수로 받으며 원문 메타데이터·해시를 대조한 뒤 GENERATED 블록 전체를 교체한다. 네트워크·상태 변경·발견 경로 추가·관계 재생성은 하지 않는다. 예시는 파일럿의 원문 인용 번호 문서다.
 
 ```sh
@@ -119,15 +121,30 @@ credential 검사는 위 수집기의 파일 fallback과 달리 셸 환경변수
 
 유효한 실제 LAW_OC로 성공하면 문서화한 인코딩의 그 키가 검사 파일에 없음을 보장한다. 다른 키·문자열 조립·escape·난독화·암호화·미문서 인코딩은 범위 밖이며 비공개·PR 검토가 전제다. 값·파생 검색 바이트·일치 내용은 출력하지 않는다. 일치는 종료 1, 실행 오류·잘못된 값은 종료 2다. 미설정·빈 값은 기본 안내와 종료 0이며 필수 모드는 종료 2다. 일반 검증기는 LAW_OC가 있으면 의존성 등 다른 계약을 읽기 전에 worktree 모드로 추적·미추적 비무시 파일을 검사하고 같은 집합만 순회한다. 별도로 여는 의존성 색인·지정 snapshot·참조 파일도 파싱 전에 바이트를 검사하고 무시 파일과 로컬 링크 대상은 읽지 않는다. 노출이나 검사 오류가 있으면 중단하며 진단에 문서화한 키 인코딩이 있으면 percent·hex 대소문자와 base64 공백 정규화 변형까지 포함하여 진단 전체를 가린다. 명백한 quoted literal 대입의 참고 경고는 검증을 실패시키지 않는다.
 
-GitHub 저장소 secret LAW_OC는 등록되어 있다. CI는 아래 전용 단계에서만 secret을 환경변수 LAW_OC로 노출하여 필수 검사를 실행한다. 다른 단계나 job 전체에는 전달하지 않고 echo하지 않는다. GitHub 로그 마스킹도 적용되지만 도구 자체도 키·검색 바이트를 출력하지 않는다. 다음은 별도 CI PR에 넣을 단계 예시이며 이 PR에서는 workflow 파일을 만들지 않는다.
+GitHub 저장소 secret LAW_OC는 등록되어 있다. CI는 전용 단계에서만 secret을 환경변수 LAW_OC로 노출하여 필수 검사를 실행한다. 다른 단계나 job 전체에는 전달하지 않고 echo하지 않는다. GitHub 로그 마스킹도 적용되지만 도구 자체도 키·검색 바이트를 출력하지 않는다. checkout·Python 준비 뒤에는 workflow 인라인 표준 라이브러리만 실행하여 PR base SHA(main push는 해당 SHA, 수동 실행은 기본 브랜치 ref를 commit으로 고정)의 tools/secret_scan.py·credentials.py·git_read.py 일반 blob 세 개를 작업 트리 밖의 새 runner 임시 디렉터리에 추출한다. PR 코드나 helper를 실행·import하지 않고 누락·비정규 객체에는 실패한다. 첫 저장소 코드 실행은 이 trusted scanner이며 경로와 무관하게 실행한다. cwd는 PR checkout이고 추적·미추적 비무시 파일 전체를 --require·--worktree로 검사한다. fork PR 등 secret이 없는 실행은 필수 모드에서 실패한다.
 
-전용 단계의 환경변수 LAW_OC에 GitHub secret LAW_OC를 연결하고 다음 정규 명령을 실행한다. 단계 이름은 Scan actual LAW_OC value로 둔다.
+전용 단계의 환경변수 LAW_OC에 GitHub secret LAW_OC를 연결한다. 단계 이름은 Scan actual LAW_OC value로 두고 workflow의 TRUSTED_SCANNER 디렉터리에 추출한 scanner를 격리 실행한다. 아래는 로컬 검사 정규 명령이며 CI에서는 PR 작업 트리의 tools 스크립트를 실행하지 않는다. same-repo PR은 workflow YAML 자체도 제안할 수 있으므로 trusted base scanner만으로 악성 workflow 변경까지 막지는 못한다. workflow 작성 권한·PR 리뷰가 잔여 신뢰 경계이며, 별도 environment 승인·secret 설정이나 PR에서 수정할 수 없는 실행 출처는 이번 변경에 포함하지 않는다.
 
 ```sh
-python -I -B tools/secret_scan.py --require
+python -I -B tools/validate.py --check-links || exit 1
+python -I -B tools/secret_scan.py --require --worktree || exit 1
 ```
 
-오류가 0이어야 한다. 형제 저장소·잠금 commit이 없으면 검증 불가다. 개발 WORKTREE 경고를 실제 SHA 고정으로 해소한 뒤 PR을 낸다. 링크·출처 해시·검토·관계와 읽기/갱신 분리를 함께 확인한다.
+오류가 0이어야 한다. 형제 체크아웃이 없으면 deps.lock에 고정한 vendor 메타데이터로 검증한다. 형제 저장소가 있지만 잠금 객체가 없으면 실패하며 vendor로 숨기지 않는다. 개발 WORKTREE는 형제 체크아웃에서만 허용하는 경고 상태이고 PR에서는 실제 SHA로 고정한다. 링크·출처 해시·검토·관계와 읽기/갱신 분리를 함께 확인한다.
+
+### 의존성 메타데이터의 명시적 갱신
+
+kapa_skills의 승인된 새 commit을 deps.lock의 commit에 먼저 고정한다. 로컬 형제 체크아웃 또는 KK_SKILLS_ROOT가 그 객체를 보유해야 한다. vendor_skills 도구는 작업 사본이 아니라 그 commit의 Git 객체에서 docs/law-index.json과 색인이 지정한 sources/laws 아래 versions 메타데이터만 읽는다. 법령 본문·다른 저장소 코드는 복제하지 않으며 네트워크 접근은 없다. 아래 명령은 공용 안전 쓰기로 vendor 원본 바이트와 deps.lock의 vendor.commit·파일별 SHA-256을 함께 갱신한다.
+
+```sh
+python -I -B tools/validate.py --check-links || exit 1
+python -I -B tools/secret_scan.py --require --worktree || exit 1
+python -I -B tools/vendor_skills.py
+```
+
+형제 위치가 다르면 KK_SKILLS_ROOT를 셸에 별도로 설정하거나 도구의 --skills-root 인수로 지정한다. 새 색인에서 사라진 메타데이터 파일은 PR에서 확인하고 Git으로 명시적으로 삭제한다. 도구는 임의 파일 삭제를 하지 않으며 시험은 vendor 파일 집합과 잠금 목록의 일치도 확인한다. 같은 PR에서 deps.lock의 upstream commit·vendor commit·모든 해시 및 vendor diff를 함께 검토한다. commit만 바꾸고 vendor를 갱신하지 않거나 원본 바이트가 해시와 다르면 fallback은 실패한다. CI는 vendor를 다시 생성하거나 자동 승인하지 않고 검증만 한다. 형제 체크아웃 없이도 과거 applied_version을 검증하도록 versions 메타데이터까지 포함한다.
+
+위 표준 unittest 명령은 저장소 루트에서 실행한다. CI 전용 .github/ci/ci_tests_supervise.py는 같은 명령에 -v만 추가하여 별도 프로세스로 실행하고, .github/ci/ci_layout_check.py의 패키지 구조 검사와 stderr 완료 요약 검사를 더한다. 감독기는 운영 tools의 subprocess 예외가 아니라 별도 CI 진입점이며 운영 코드에서 import하지 않는다.
 
 ## 6. 기록과 반영
 

@@ -1,0 +1,1465 @@
+{
+ "lsId": "001823",
+ "name": "건축법",
+ "fetched": "2026-11-08",
+ "versions": [
+  {
+   "lsiSeq": "288701",
+   "efYd": "20280812",
+   "ancYd": "20260811",
+   "ancNo": "21880",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "scheduled"
+  },
+  {
+   "lsiSeq": "289327",
+   "efYd": "20270909",
+   "ancYd": "20260908",
+   "ancNo": "21901",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "scheduled"
+  },
+  {
+   "lsiSeq": "288701",
+   "efYd": "20270812",
+   "ancYd": "20260811",
+   "ancNo": "21880",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "scheduled"
+  },
+  {
+   "lsiSeq": "288701",
+   "efYd": "20270212",
+   "ancYd": "20260811",
+   "ancNo": "21880",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "scheduled"
+  },
+  {
+   "lsiSeq": "288701",
+   "efYd": "20261112",
+   "ancYd": "20260811",
+   "ancNo": "21880",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "scheduled"
+  },
+  {
+   "lsiSeq": "273437",
+   "efYd": "20260227",
+   "ancYd": "20250826",
+   "ancNo": "21035",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "current"
+  },
+  {
+   "lsiSeq": "276925",
+   "efYd": "20251001",
+   "ancYd": "20251001",
+   "ancNo": "21065",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "261475",
+   "efYd": "20240627",
+   "ancYd": "20240326",
+   "ancNo": "20424",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "259629",
+   "efYd": "20240517",
+   "ancYd": "20240206",
+   "ancNo": "20194",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "253415",
+   "efYd": "20240517",
+   "ancYd": "20230808",
+   "ancNo": "19590",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "250957",
+   "efYd": "20240517",
+   "ancYd": "20230516",
+   "ancNo": "19409",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "248949",
+   "efYd": "20240517",
+   "ancYd": "20230321",
+   "ancNo": "19251",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "258773",
+   "efYd": "20240417",
+   "ancYd": "20240116",
+   "ancNo": "20037",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "257377",
+   "efYd": "20240327",
+   "ancYd": "20231226",
+   "ancNo": "19846",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "243077",
+   "efYd": "20230611",
+   "ancYd": "20220610",
+   "ancNo": "18935",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "245335",
+   "efYd": "20230516",
+   "ancYd": "20221115",
+   "ancNo": "19045",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "236303",
+   "efYd": "20220420",
+   "ancYd": "20211019",
+   "ancNo": "18508",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "239991",
+   "efYd": "20220203",
+   "ancYd": "20220203",
+   "ancNo": "18825",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "224635",
+   "efYd": "20220101",
+   "ancYd": "20201222",
+   "ancNo": "17733",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "230219",
+   "efYd": "20211223",
+   "ancYd": "20210316",
+   "ancNo": "17940",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "224635",
+   "efYd": "20211223",
+   "ancYd": "20201222",
+   "ancNo": "17733",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "234491",
+   "efYd": "20211111",
+   "ancYd": "20210810",
+   "ancNo": "18383",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "234319",
+   "efYd": "20211028",
+   "ancYd": "20210727",
+   "ancNo": "18340",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "234321",
+   "efYd": "20210727",
+   "ancYd": "20210727",
+   "ancNo": "18341",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "224635",
+   "efYd": "20210623",
+   "ancYd": "20201222",
+   "ancNo": "17733",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "230171",
+   "efYd": "20210617",
+   "ancYd": "20210316",
+   "ancNo": "17939",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "223555",
+   "efYd": "20210609",
+   "ancYd": "20201208",
+   "ancNo": "17606",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "216215",
+   "efYd": "20210401",
+   "ancYd": "20200331",
+   "ancNo": "17171",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "217363",
+   "efYd": "20210108",
+   "ancYd": "20200407",
+   "ancNo": "17223",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "219161",
+   "efYd": "20201210",
+   "ancYd": "20200609",
+   "ancNo": "17447",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "217363",
+   "efYd": "20201008",
+   "ancYd": "20200407",
+   "ancNo": "17223",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "204202",
+   "efYd": "20200815",
+   "ancYd": "20180814",
+   "ancNo": "15721",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "217309",
+   "efYd": "20200708",
+   "ancYd": "20200407",
+   "ancNo": "17219",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "219205",
+   "efYd": "20200609",
+   "ancYd": "20200609",
+   "ancNo": "17453",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "211489",
+   "efYd": "20200527",
+   "ancYd": "20191126",
+   "ancNo": "16596",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "208577",
+   "efYd": "20200501",
+   "ancYd": "20190430",
+   "ancNo": "16416",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "208473",
+   "efYd": "20200424",
+   "ancYd": "20190423",
+   "ancNo": "16380",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "215701",
+   "efYd": "20200324",
+   "ancYd": "20200324",
+   "ancNo": "17091",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "208566",
+   "efYd": "20191101",
+   "ancYd": "20190430",
+   "ancNo": "16415",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "208473",
+   "efYd": "20191024",
+   "ancYd": "20190423",
+   "ancNo": "16380",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "210184",
+   "efYd": "20190820",
+   "ancYd": "20190820",
+   "ancNo": "16485",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "208473",
+   "efYd": "20190423",
+   "ancYd": "20190423",
+   "ancNo": "16380",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "202875",
+   "efYd": "20190328",
+   "ancYd": "20180327",
+   "ancNo": "15526",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "204202",
+   "efYd": "20190215",
+   "ancYd": "20180814",
+   "ancNo": "15721",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "205830",
+   "efYd": "20190119",
+   "ancYd": "20181218",
+   "ancNo": "15992",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "203205",
+   "efYd": "20181018",
+   "ancYd": "20180417",
+   "ancNo": "15594",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "198267",
+   "efYd": "20180901",
+   "ancYd": "20171024",
+   "ancNo": "14935",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "200203",
+   "efYd": "20180627",
+   "ancYd": "20171226",
+   "ancNo": "15307",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "198267",
+   "efYd": "20180425",
+   "ancYd": "20171024",
+   "ancNo": "14935",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "193418",
+   "efYd": "20180419",
+   "ancYd": "20170418",
+   "ancNo": "14795",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "193412",
+   "efYd": "20180419",
+   "ancYd": "20170418",
+   "ancNo": "14792",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "191628",
+   "efYd": "20180209",
+   "ancYd": "20170208",
+   "ancNo": "14567",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "191148",
+   "efYd": "20180118",
+   "ancYd": "20170117",
+   "ancNo": "14545",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "191048",
+   "efYd": "20180118",
+   "ancYd": "20170117",
+   "ancNo": "14532",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "193412",
+   "efYd": "20171019",
+   "ancYd": "20170418",
+   "ancNo": "14792",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "191133",
+   "efYd": "20170718",
+   "ancYd": "20170117",
+   "ancNo": "14535",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "180796",
+   "efYd": "20170204",
+   "ancYd": "20160203",
+   "ancNo": "14016",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "180796",
+   "efYd": "20170120",
+   "ancYd": "20160203",
+   "ancNo": "14016",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "179559",
+   "efYd": "20170120",
+   "ancYd": "20160119",
+   "ancNo": "13785",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "177675",
+   "efYd": "20161223",
+   "ancYd": "20151222",
+   "ancNo": "13601",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "179548",
+   "efYd": "20160901",
+   "ancYd": "20160119",
+   "ancNo": "13782",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "179673",
+   "efYd": "20160812",
+   "ancYd": "20160119",
+   "ancNo": "13805",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "173856",
+   "efYd": "20160812",
+   "ancYd": "20150811",
+   "ancNo": "13474",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "180796",
+   "efYd": "20160804",
+   "ancYd": "20160203",
+   "ancNo": "14016",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "179559",
+   "efYd": "20160720",
+   "ancYd": "20160119",
+   "ancNo": "13785",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "171025",
+   "efYd": "20160519",
+   "ancYd": "20150518",
+   "ancNo": "13325",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "173852",
+   "efYd": "20160212",
+   "ancYd": "20150811",
+   "ancNo": "13471",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "173831",
+   "efYd": "20160212",
+   "ancYd": "20150811",
+   "ancNo": "13470",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "173276",
+   "efYd": "20160125",
+   "ancYd": "20150724",
+   "ancNo": "13433",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "166501",
+   "efYd": "20151007",
+   "ancYd": "20150106",
+   "ancNo": "12968",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "166501",
+   "efYd": "20150707",
+   "ancYd": "20150106",
+   "ancNo": "12968",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "166524",
+   "efYd": "20150701",
+   "ancYd": "20150106",
+   "ancNo": "12989",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "154997",
+   "efYd": "20150604",
+   "ancYd": "20140603",
+   "ancNo": "12738",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "171025",
+   "efYd": "20150518",
+   "ancYd": "20150518",
+   "ancNo": "13325",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "166501",
+   "efYd": "20150106",
+   "ancYd": "20150106",
+   "ancNo": "12968",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "154977",
+   "efYd": "20150101",
+   "ancYd": "20140603",
+   "ancNo": "12737",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "154274",
+   "efYd": "20141129",
+   "ancYd": "20140528",
+   "ancNo": "12701",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "149934",
+   "efYd": "20141015",
+   "ancYd": "20140114",
+   "ancNo": "12246",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "142592",
+   "efYd": "20140807",
+   "ancYd": "20130806",
+   "ancNo": "11998",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "149963",
+   "efYd": "20140715",
+   "ancYd": "20140114",
+   "ancNo": "12248",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "149934",
+   "efYd": "20140715",
+   "ancYd": "20140114",
+   "ancNo": "12246",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "154274",
+   "efYd": "20140528",
+   "ancYd": "20140528",
+   "ancNo": "12701",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "140235",
+   "efYd": "20140523",
+   "ancYd": "20130522",
+   "ancNo": "11794",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "142052",
+   "efYd": "20140117",
+   "ancYd": "20130716",
+   "ancNo": "11921",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "149934",
+   "efYd": "20140114",
+   "ancYd": "20140114",
+   "ancNo": "12246",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "140073",
+   "efYd": "20130510",
+   "ancYd": "20130510",
+   "ancNo": "11763",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "129324",
+   "efYd": "20130423",
+   "ancYd": "20121022",
+   "ancNo": "11495",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "137101",
+   "efYd": "20130323",
+   "ancYd": "20130323",
+   "ancNo": "11690",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "123395",
+   "efYd": "20130223",
+   "ancYd": "20120222",
+   "ancNo": "11365",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "130890",
+   "efYd": "20121218",
+   "ancYd": "20121218",
+   "ancNo": "11599",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "115000",
+   "efYd": "20120722",
+   "ancYd": "20110721",
+   "ancNo": "10892",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "121993",
+   "efYd": "20120718",
+   "ancYd": "20120117",
+   "ancNo": "11182",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "121993",
+   "efYd": "20120418",
+   "ancYd": "20120117",
+   "ancNo": "11182",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "112372",
+   "efYd": "20120415",
+   "ancYd": "20110414",
+   "ancNo": "10599",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "117016",
+   "efYd": "20120317",
+   "ancYd": "20110916",
+   "ancNo": "11057",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "115830",
+   "efYd": "20120205",
+   "ancYd": "20110804",
+   "ancNo": "11037",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "113557",
+   "efYd": "20111201",
+   "ancYd": "20110530",
+   "ancNo": "10755",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "113508",
+   "efYd": "20110530",
+   "ancYd": "20110530",
+   "ancNo": "10764",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "97949",
+   "efYd": "20101230",
+   "ancYd": "20091229",
+   "ancNo": "09858",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "105418",
+   "efYd": "20101201",
+   "ancYd": "20100531",
+   "ancNo": "10331",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "94281",
+   "efYd": "20100701",
+   "ancYd": "20090609",
+   "ancNo": "09770",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "94283",
+   "efYd": "20091210",
+   "ancYd": "20090609",
+   "ancNo": "09774",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "92292",
+   "efYd": "20091002",
+   "ancYd": "20090401",
+   "ancNo": "09594",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "91704",
+   "efYd": "20090807",
+   "ancYd": "20090206",
+   "ancNo": "09437",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "91397",
+   "efYd": "20090301",
+   "ancYd": "20090130",
+   "ancNo": "09384",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "86547",
+   "efYd": "20090101",
+   "ancYd": "20080328",
+   "ancNo": "09071",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "86546",
+   "efYd": "20080629",
+   "ancYd": "20080328",
+   "ancNo": "09049",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "87334",
+   "efYd": "20080605",
+   "ancYd": "20080605",
+   "ancNo": "09103",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "85972",
+   "efYd": "20080321",
+   "ancYd": "20080321",
+   "ancNo": "08974",
+   "name": "건축법",
+   "kind": "전부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "83863",
+   "efYd": "20080229",
+   "ancYd": "20080229",
+   "ancNo": "08852",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "80916",
+   "efYd": "20080118",
+   "ancYd": "20071017",
+   "ancNo": "08662",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "78230",
+   "efYd": "20071007",
+   "ancYd": "20070406",
+   "ancNo": "08337",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "75630",
+   "efYd": "20070928",
+   "ancYd": "20060927",
+   "ancNo": "08014",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "76698",
+   "efYd": "20070704",
+   "ancYd": "20070103",
+   "ancNo": "08219",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "72068",
+   "efYd": "20060608",
+   "ancYd": "20051207",
+   "ancNo": "07715",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "71990",
+   "efYd": "20060509",
+   "ancYd": "20051108",
+   "ancNo": "07696",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "68759",
+   "efYd": "20050526",
+   "ancYd": "20050526",
+   "ancNo": "07511",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "58465",
+   "efYd": "20031130",
+   "ancYd": "20030529",
+   "ancNo": "06916",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "3368",
+   "efYd": "20031001",
+   "ancYd": "20021230",
+   "ancNo": "06841",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "58566",
+   "efYd": "20030828",
+   "ancYd": "20030527",
+   "ancNo": "06889",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "3370",
+   "efYd": "20030701",
+   "ancYd": "20021230",
+   "ancNo": "06852",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "3369",
+   "efYd": "20030701",
+   "ancYd": "20021230",
+   "ancNo": "06842",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "3367",
+   "efYd": "20030227",
+   "ancYd": "20020826",
+   "ancNo": "06733",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "60363",
+   "efYd": "20030101",
+   "ancYd": "20020204",
+   "ancNo": "06655",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "60366",
+   "efYd": "20010717",
+   "ancYd": "20010116",
+   "ancNo": "06370",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "3366",
+   "efYd": "20000701",
+   "ancYd": "20000128",
+   "ancNo": "06247",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "60371",
+   "efYd": "19990809",
+   "ancYd": "19990208",
+   "ancNo": "05864",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "60370",
+   "efYd": "19990809",
+   "ancYd": "19990208",
+   "ancNo": "05868",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "60368",
+   "efYd": "19990809",
+   "ancYd": "19990208",
+   "ancNo": "05827",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "60367",
+   "efYd": "19990701",
+   "ancYd": "19990121",
+   "ancNo": "05656",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "60369",
+   "efYd": "19990509",
+   "ancYd": "19990208",
+   "ancNo": "05895",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "60374",
+   "efYd": "19980301",
+   "ancYd": "19970828",
+   "ancNo": "05395",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "60365",
+   "efYd": "19980101",
+   "ancYd": "19971213",
+   "ancNo": "05454",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "60364",
+   "efYd": "19980101",
+   "ancYd": "19971213",
+   "ancNo": "05453",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "60373",
+   "efYd": "19980101",
+   "ancYd": "19970828",
+   "ancNo": "05386",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "60372",
+   "efYd": "19971213",
+   "ancYd": "19971213",
+   "ancNo": "05450",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "3372",
+   "efYd": "19970701",
+   "ancYd": "19961230",
+   "ancNo": "05230",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "56234",
+   "efYd": "19961231",
+   "ancYd": "19961231",
+   "ancNo": "05240",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "56239",
+   "efYd": "19960630",
+   "ancYd": "19951229",
+   "ancNo": "05116",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "56236",
+   "efYd": "19960630",
+   "ancYd": "19951229",
+   "ancNo": "05111",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "56235",
+   "efYd": "19960106",
+   "ancYd": "19950105",
+   "ancNo": "04919",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "56237",
+   "efYd": "19960101",
+   "ancYd": "19951229",
+   "ancNo": "05109",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "56238",
+   "efYd": "19951230",
+   "ancYd": "19951230",
+   "ancNo": "05139",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "60377",
+   "efYd": "19950623",
+   "ancYd": "19941222",
+   "ancNo": "04816",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "60376",
+   "efYd": "19940101",
+   "ancYd": "19930805",
+   "ancNo": "04572",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "3371",
+   "efYd": "19920601",
+   "ancYd": "19910531",
+   "ancNo": "04381",
+   "name": "건축법",
+   "kind": "전부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "60375",
+   "efYd": "19910909",
+   "ancYd": "19910308",
+   "ancNo": "04364",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "56240",
+   "efYd": "19870401",
+   "ancYd": "19861231",
+   "ancNo": "03904",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "56241",
+   "efYd": "19861231",
+   "ancYd": "19861231",
+   "ancNo": "03899",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "3250",
+   "efYd": "19841231",
+   "ancYd": "19841231",
+   "ancNo": "03766",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "3247",
+   "efYd": "19830701",
+   "ancYd": "19821231",
+   "ancNo": "03644",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "3246",
+   "efYd": "19830201",
+   "ancYd": "19821231",
+   "ancNo": "03642",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "3245",
+   "efYd": "19820701",
+   "ancYd": "19820403",
+   "ancNo": "03558",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "3252",
+   "efYd": "19800405",
+   "ancYd": "19800104",
+   "ancNo": "03251",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "3256",
+   "efYd": "19790518",
+   "ancYd": "19790417",
+   "ancNo": "03165",
+   "name": "건축법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "3255",
+   "efYd": "19771231",
+   "ancYd": "19771231",
+   "ancNo": "03073",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "56350",
+   "efYd": "19760201",
+   "ancYd": "19751231",
+   "ancNo": "02852",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "3254",
+   "efYd": "19730701",
+   "ancYd": "19721230",
+   "ancNo": "02434",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "3244",
+   "efYd": "19700302",
+   "ancYd": "19700101",
+   "ancNo": "02188",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "3253",
+   "efYd": "19670430",
+   "ancYd": "19670330",
+   "ancNo": "01942",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "3248",
+   "efYd": "19630709",
+   "ancYd": "19630608",
+   "ancNo": "01356",
+   "name": "건축법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "3251",
+   "efYd": "19620120",
+   "ancYd": "19620120",
+   "ancNo": "00984",
+   "name": "건축법",
+   "kind": "제정",
+   "status": "past"
+  }
+ ]
+}

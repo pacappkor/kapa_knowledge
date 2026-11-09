@@ -11,8 +11,7 @@ import sys
 from html import unescape
 from urllib.parse import unquote, urlsplit, parse_qs
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from common import ROOT, frontmatter, load_index, canonical, sha, relation, readjson as strict_json, source_date, court_slug, check_tracked_links, run_cli
-from git_read import run_git
+from common import ROOT, frontmatter, load_index, canonical, sha, relation, readjson as strict_json, source_date, court_slug, check_tracked_links, run_cli, dependency_bytes
 import secret_scan
 from markdown_context import body, prose as markdown_prose, has_command, command_line
 
@@ -381,16 +380,18 @@ def validate(root=ROOT):
             err(f'{safe_path}: LAW_OC exposure ({encodings[0]})')
             secret_exposure = True
             raise secret_scan.ScanError('Credential-bearing input was not parsed.')
+    def read_input_bytes(path):
+        if path.is_relative_to(root):
+            rel = path.relative_to(root).as_posix()
+            if (selected is not None and rel not in selected
+                    or path.is_symlink() or not path.resolve().is_relative_to(root.resolve())):
+                raise ValueError('Input outside validation file selection; not read.')
+        data = path.read_bytes()
+        inspect_input(path, data)
+        return data
     def readtext(path):
         try:
-            if path.is_relative_to(root):
-                rel = path.relative_to(root).as_posix()
-                if (selected is not None and rel not in selected
-                        or path.is_symlink() or not path.resolve().is_relative_to(root.resolve())):
-                    raise ValueError('Input outside validation file selection; not read.')
-            data = path.read_bytes()
-            inspect_input(path, data)
-            return data.decode('utf-8').replace('\r\n', '\n').replace('\r', '\n')
+            return read_input_bytes(path).decode('utf-8').replace('\r\n', '\n').replace('\r', '\n')
         except secret_scan.ScanError:
             return ''  # inspect_input already recorded a safe exposure error.
         except (UnicodeError, OSError):
@@ -409,8 +410,8 @@ def validate(root=ROOT):
         return text
     index, sibling, commit = {}, None, None
     try:
-        index, sibling, commit = (load_index(root, read_text=readtext, inspect_bytes=inspect_input)
-                                  if secret_needles else load_index(root))
+        index, sibling, commit = load_index(root, read_text=readtext, inspect_bytes=inspect_input,
+                                            read_bytes=read_input_bytes)
         if commit == 'WORKTREE': warnings.append('deps.lock: WORKTREE 개발 상태; PR 전에 실제 SHA 고정 필요')
     except Exception as exc: err(str(exc))
     if secret_exposure:
@@ -759,8 +760,8 @@ def validate(root=ROOT):
                         except Exception: pass
                     elif not ok and sibling and commit!='WORKTREE' and law.get('versions_file'):
                         try:
-                            raw=run_git(sibling, ['cat-file', '-p', commit+':'+law['versions_file']]).stdout
-                            inspect_input(sibling / law['versions_file'], raw)
+                            raw=dependency_bytes(root, sibling, commit, law['versions_file'],
+                                                 inspect_bytes=inspect_input, read_bytes=read_input_bytes)
                             ok=any(str(v['lsiSeq'])==seq for v in strict_json(raw)['versions'])
                         except Exception: pass
                 if not ok: err('검증 불가: 색인/판본에 참조 없음 '+ident)

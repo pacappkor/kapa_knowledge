@@ -1,0 +1,754 @@
+{
+ "lsId": "001854",
+ "name": "전기사업법",
+ "fetched": "2026-11-08",
+ "versions": [
+  {
+   "lsiSeq": "289751",
+   "efYd": "20270316",
+   "ancYd": "20260915",
+   "ancNo": "21944",
+   "name": "전기사업법",
+   "kind": "일부개정",
+   "status": "scheduled"
+  },
+  {
+   "lsiSeq": "289751",
+   "efYd": "20270101",
+   "ancYd": "20260915",
+   "ancNo": "21944",
+   "name": "전기사업법",
+   "kind": "일부개정",
+   "status": "scheduled"
+  },
+  {
+   "lsiSeq": "289751",
+   "efYd": "20261216",
+   "ancYd": "20260915",
+   "ancNo": "21944",
+   "name": "전기사업법",
+   "kind": "일부개정",
+   "status": "scheduled"
+  },
+  {
+   "lsiSeq": "284383",
+   "efYd": "20260918",
+   "ancYd": "20260317",
+   "ancNo": "21467",
+   "name": "전기사업법",
+   "kind": "타법개정",
+   "status": "current"
+  },
+  {
+   "lsiSeq": "284319",
+   "efYd": "20260918",
+   "ancYd": "20260317",
+   "ancNo": "21462",
+   "name": "전기사업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "289751",
+   "efYd": "20260915",
+   "ancYd": "20260915",
+   "ancNo": "21944",
+   "name": "전기사업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "283981",
+   "efYd": "20260310",
+   "ancYd": "20260310",
+   "ancNo": "21438",
+   "name": "전기사업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "276585",
+   "efYd": "20260102",
+   "ancYd": "20251001",
+   "ancNo": "21065",
+   "name": "전기사업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "276585",
+   "efYd": "20251001",
+   "ancYd": "20251001",
+   "ancNo": "21065",
+   "name": "전기사업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "259673",
+   "efYd": "20240807",
+   "ancYd": "20240206",
+   "ancNo": "20206",
+   "name": "전기사업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "255805",
+   "efYd": "20240614",
+   "ancYd": "20231031",
+   "ancNo": "19813",
+   "name": "전기사업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "251573",
+   "efYd": "20240614",
+   "ancYd": "20230613",
+   "ancNo": "19439",
+   "name": "전기사업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "255805",
+   "efYd": "20240501",
+   "ancYd": "20231031",
+   "ancNo": "19813",
+   "name": "전기사업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "246779",
+   "efYd": "20230628",
+   "ancYd": "20221227",
+   "ancNo": "19117",
+   "name": "전기사업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "244989",
+   "efYd": "20221018",
+   "ancYd": "20221018",
+   "ancNo": "19003",
+   "name": "전기사업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "234185",
+   "efYd": "20220721",
+   "ancYd": "20210720",
+   "ancNo": "18310",
+   "name": "전기사업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "233095",
+   "efYd": "20220616",
+   "ancYd": "20210615",
+   "ancNo": "18284",
+   "name": "전기사업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "235603",
+   "efYd": "20220325",
+   "ancYd": "20210924",
+   "ancNo": "18469",
+   "name": "전기사업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "225093",
+   "efYd": "20211230",
+   "ancYd": "20201229",
+   "ancNo": "17799",
+   "name": "전기사업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "231685",
+   "efYd": "20211021",
+   "ancYd": "20210420",
+   "ancNo": "18097",
+   "name": "전기사업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "236297",
+   "efYd": "20211019",
+   "ancYd": "20211019",
+   "ancNo": "18504",
+   "name": "전기사업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "232909",
+   "efYd": "20210615",
+   "ancYd": "20210615",
+   "ancNo": "18280",
+   "name": "전기사업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "222495",
+   "efYd": "20210421",
+   "ancYd": "20201020",
+   "ancNo": "17535",
+   "name": "전기사업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "216297",
+   "efYd": "20210401",
+   "ancYd": "20200331",
+   "ancNo": "17171",
+   "name": "전기사업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "214361",
+   "efYd": "20210101",
+   "ancYd": "20200218",
+   "ancNo": "17007",
+   "name": "전기사업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "218761",
+   "efYd": "20201210",
+   "ancYd": "20200609",
+   "ancNo": "17344",
+   "name": "전기사업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "216205",
+   "efYd": "20201001",
+   "ancYd": "20200331",
+   "ancNo": "17170",
+   "name": "전기사업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "210343",
+   "efYd": "20200828",
+   "ancYd": "20190827",
+   "ancNo": "16568",
+   "name": "전기사업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "213897",
+   "efYd": "20200805",
+   "ancYd": "20200204",
+   "ancNo": "16945",
+   "name": "전기사업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "210179",
+   "efYd": "20200221",
+   "ancYd": "20190820",
+   "ancNo": "16480",
+   "name": "전기사업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "208457",
+   "efYd": "20191024",
+   "ancYd": "20190423",
+   "ancNo": "16364",
+   "name": "전기사업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "208457",
+   "efYd": "20190724",
+   "ancYd": "20190423",
+   "ancNo": "16364",
+   "name": "전기사업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "203740",
+   "efYd": "20181213",
+   "ancYd": "20180612",
+   "ancNo": "15644",
+   "name": "전기사업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "192512",
+   "efYd": "20170622",
+   "ancYd": "20170321",
+   "ancNo": "14672",
+   "name": "전기사업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "180380",
+   "efYd": "20160728",
+   "ancYd": "20160127",
+   "ancNo": "13858",
+   "name": "전기사업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "172223",
+   "efYd": "20151223",
+   "ancYd": "20150622",
+   "ancNo": "13340",
+   "name": "전기사업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "171011",
+   "efYd": "20151119",
+   "ancYd": "20150518",
+   "ancNo": "13313",
+   "name": "전기사업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "171011",
+   "efYd": "20150819",
+   "ancYd": "20150518",
+   "ancNo": "13313",
+   "name": "전기사업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "160137",
+   "efYd": "20150116",
+   "ancYd": "20141015",
+   "ancNo": "12816",
+   "name": "전기사업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "154034",
+   "efYd": "20141121",
+   "ancYd": "20140520",
+   "ancNo": "12612",
+   "name": "전기사업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "150714",
+   "efYd": "20140729",
+   "ancYd": "20140128",
+   "ancNo": "12357",
+   "name": "전기사업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "150447",
+   "efYd": "20140722",
+   "ancYd": "20140121",
+   "ancNo": "12329",
+   "name": "전기사업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "142386",
+   "efYd": "20140131",
+   "ancYd": "20130730",
+   "ancNo": "11968",
+   "name": "전기사업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "149350",
+   "efYd": "20140101",
+   "ancYd": "20140101",
+   "ancNo": "12154",
+   "name": "전기사업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "142381",
+   "efYd": "20131031",
+   "ancYd": "20130730",
+   "ancNo": "11965",
+   "name": "전기사업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "136993",
+   "efYd": "20130323",
+   "ancYd": "20130323",
+   "ancNo": "11690",
+   "name": "전기사업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "104362",
+   "efYd": "20120101",
+   "ancYd": "20100412",
+   "ancNo": "10253",
+   "name": "전기사업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "113889",
+   "efYd": "20111208",
+   "ancYd": "20110607",
+   "ancNo": "10789",
+   "name": "전기사업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "115227",
+   "efYd": "20111026",
+   "ancYd": "20110725",
+   "ancNo": "10912",
+   "name": "전기사업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "112323",
+   "efYd": "20111013",
+   "ancYd": "20110412",
+   "ancNo": "10580",
+   "name": "전기사업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "111563",
+   "efYd": "20111001",
+   "ancYd": "20110330",
+   "ancNo": "10500",
+   "name": "전기사업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "102455",
+   "efYd": "20110205",
+   "ancYd": "20100204",
+   "ancNo": "10000",
+   "name": "전기사업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "93526",
+   "efYd": "20091122",
+   "ancYd": "20090521",
+   "ancNo": "09680",
+   "name": "전기사업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "86582",
+   "efYd": "20090101",
+   "ancYd": "20080328",
+   "ancNo": "09016",
+   "name": "전기사업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "90367",
+   "efYd": "20081226",
+   "ancYd": "20081226",
+   "ancNo": "09244",
+   "name": "전기사업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "86583",
+   "efYd": "20080328",
+   "ancYd": "20080328",
+   "ancNo": "09017",
+   "name": "전기사업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "84329",
+   "efYd": "20080229",
+   "ancYd": "20080229",
+   "ancNo": "08852",
+   "name": "전기사업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "76644",
+   "efYd": "20070704",
+   "ancYd": "20070103",
+   "ancNo": "08194",
+   "name": "전기사업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "78134",
+   "efYd": "20070411",
+   "ancYd": "20070411",
+   "ancNo": "08346",
+   "name": "전기사업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "76518",
+   "efYd": "20070101",
+   "ancYd": "20061230",
+   "ancNo": "08135",
+   "name": "전기사업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "73845",
+   "efYd": "20061029",
+   "ancYd": "20060428",
+   "ancNo": "07943",
+   "name": "전기사업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "72206",
+   "efYd": "20051223",
+   "ancYd": "20051223",
+   "ancNo": "07744",
+   "name": "전기사업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "68763",
+   "efYd": "20050827",
+   "ancYd": "20050526",
+   "ancNo": "07508",
+   "name": "전기사업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "66285",
+   "efYd": "20050701",
+   "ancYd": "20041231",
+   "ancNo": "07284",
+   "name": "전기사업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "60332",
+   "efYd": "20040701",
+   "ancYd": "20031230",
+   "ancNo": "07017",
+   "name": "전기사업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "59566",
+   "efYd": "20040601",
+   "ancYd": "20040311",
+   "ancNo": "07188",
+   "name": "전기사업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "51938",
+   "efYd": "20030101",
+   "ancYd": "20020204",
+   "ancNo": "06656",
+   "name": "전기사업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "51937",
+   "efYd": "20020727",
+   "ancYd": "20020126",
+   "ancNo": "06637",
+   "name": "전기사업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "35334",
+   "efYd": "20010224",
+   "ancYd": "20001223",
+   "ancNo": "06283",
+   "name": "전기사업법",
+   "kind": "전부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "7555",
+   "efYd": "20000308",
+   "ancYd": "19990907",
+   "ancNo": "06021",
+   "name": "전기사업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "7554",
+   "efYd": "19990809",
+   "ancYd": "19990208",
+   "ancNo": "05830",
+   "name": "전기사업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "7553",
+   "efYd": "19980101",
+   "ancYd": "19971213",
+   "ancNo": "05453",
+   "name": "전기사업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "7552",
+   "efYd": "19970701",
+   "ancYd": "19961230",
+   "ancNo": "05212",
+   "name": "전기사업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "7551",
+   "efYd": "19960701",
+   "ancYd": "19951230",
+   "ancNo": "05132",
+   "name": "전기사업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "7550",
+   "efYd": "19930306",
+   "ancYd": "19930306",
+   "ancNo": "04541",
+   "name": "전기사업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "7549",
+   "efYd": "19920615",
+   "ancYd": "19911214",
+   "ancNo": "04425",
+   "name": "전기사업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "7548",
+   "efYd": "19900414",
+   "ancYd": "19900113",
+   "ancNo": "04214",
+   "name": "전기사업법",
+   "kind": "전부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "7547",
+   "efYd": "19811231",
+   "ancYd": "19811231",
+   "ancNo": "03500",
+   "name": "전기사업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "7545",
+   "efYd": "19811231",
+   "ancYd": "19801231",
+   "ancNo": "03304",
+   "name": "전기사업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "7546",
+   "efYd": "19810514",
+   "ancYd": "19810413",
+   "ancNo": "03441",
+   "name": "전기사업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "7544",
+   "efYd": "19771216",
+   "ancYd": "19771216",
+   "ancNo": "03011",
+   "name": "전기사업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "7543",
+   "efYd": "19731101",
+   "ancYd": "19730208",
+   "ancNo": "02509",
+   "name": "전기사업법",
+   "kind": "폐지제정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "7542",
+   "efYd": "19620101",
+   "ancYd": "19611231",
+   "ancNo": "00953",
+   "name": "전기사업법",
+   "kind": "제정",
+   "status": "past"
+  }
+ ]
+}

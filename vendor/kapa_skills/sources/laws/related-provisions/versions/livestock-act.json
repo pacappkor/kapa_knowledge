@@ -1,0 +1,583 @@
+{
+ "lsId": "001509",
+ "name": "축산법",
+ "fetched": "2026-11-08",
+ "versions": [
+  {
+   "lsiSeq": "285205",
+   "efYd": "20270401",
+   "ancYd": "20260331",
+   "ancNo": "21509",
+   "name": "축산법",
+   "kind": "일부개정",
+   "status": "scheduled"
+  },
+  {
+   "lsiSeq": "289591",
+   "efYd": "20260915",
+   "ancYd": "20260915",
+   "ancNo": "21923",
+   "name": "축산법",
+   "kind": "타법개정",
+   "status": "current"
+  },
+  {
+   "lsiSeq": "272915",
+   "efYd": "20260723",
+   "ancYd": "20250722",
+   "ancNo": "21003",
+   "name": "축산법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "272911",
+   "efYd": "20260723",
+   "ancYd": "20250722",
+   "ancNo": "21002",
+   "name": "축산법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "272865",
+   "efYd": "20260123",
+   "ancYd": "20250722",
+   "ancNo": "20998",
+   "name": "축산법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "267377",
+   "efYd": "20241220",
+   "ancYd": "20241220",
+   "ancNo": "20581",
+   "name": "축산법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "234901",
+   "efYd": "20230101",
+   "ancYd": "20210817",
+   "ancNo": "18445",
+   "name": "축산법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "232891",
+   "efYd": "20220616",
+   "ancYd": "20210615",
+   "ancNo": "18266",
+   "name": "축산법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "237139",
+   "efYd": "20220601",
+   "ancYd": "20211130",
+   "ancNo": "18536",
+   "name": "축산법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "215901",
+   "efYd": "20210325",
+   "ancYd": "20200324",
+   "ancNo": "17099",
+   "name": "축산법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "218169",
+   "efYd": "20201127",
+   "ancYd": "20200526",
+   "ancNo": "17324",
+   "name": "축산법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "215901",
+   "efYd": "20200828",
+   "ancYd": "20200324",
+   "ancNo": "17099",
+   "name": "축산법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "215901",
+   "efYd": "20200625",
+   "ancYd": "20200324",
+   "ancNo": "17099",
+   "name": "축산법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "215901",
+   "efYd": "20200324",
+   "ancYd": "20200324",
+   "ancNo": "17099",
+   "name": "축산법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "215871",
+   "efYd": "20200324",
+   "ancYd": "20200324",
+   "ancNo": "17091",
+   "name": "축산법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "210273",
+   "efYd": "20200228",
+   "ancYd": "20190827",
+   "ancNo": "16550",
+   "name": "축산법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "206338",
+   "efYd": "20200101",
+   "ancYd": "20181231",
+   "ancNo": "16126",
+   "name": "축산법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "210273",
+   "efYd": "20190827",
+   "ancYd": "20190827",
+   "ancNo": "16550",
+   "name": "축산법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "188068",
+   "efYd": "20171203",
+   "ancYd": "20161202",
+   "ancNo": "14304",
+   "name": "축산법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "192494",
+   "efYd": "20170922",
+   "ancYd": "20170321",
+   "ancNo": "14654",
+   "name": "축산법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "188696",
+   "efYd": "20170101",
+   "ancYd": "20161227",
+   "ancNo": "14481",
+   "name": "축산법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "172313",
+   "efYd": "20151223",
+   "ancYd": "20150622",
+   "ancNo": "13383",
+   "name": "축산법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "168001",
+   "efYd": "20150203",
+   "ancYd": "20150203",
+   "ancNo": "13145",
+   "name": "축산법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "152102",
+   "efYd": "20140318",
+   "ancYd": "20140318",
+   "ancNo": "12436",
+   "name": "축산법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "136905",
+   "efYd": "20130323",
+   "ancYd": "20130323",
+   "ancNo": "11690",
+   "name": "축산법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "123390",
+   "efYd": "20130223",
+   "ancYd": "20120222",
+   "ancNo": "11359",
+   "name": "축산법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "115744",
+   "efYd": "20110804",
+   "ancYd": "20110804",
+   "ancNo": "11005",
+   "name": "축산법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "105323",
+   "efYd": "20101126",
+   "ancYd": "20100525",
+   "ancNo": "10310",
+   "name": "축산법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "102127",
+   "efYd": "20100125",
+   "ancYd": "20100125",
+   "ancNo": "09952",
+   "name": "축산법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "93829",
+   "efYd": "20091128",
+   "ancYd": "20090527",
+   "ancNo": "09717",
+   "name": "축산법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "93184",
+   "efYd": "20090809",
+   "ancYd": "20090508",
+   "ancNo": "09666",
+   "name": "축산법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "84558",
+   "efYd": "20080229",
+   "ancYd": "20080229",
+   "ancNo": "08852",
+   "name": "축산법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "79972",
+   "efYd": "20070803",
+   "ancYd": "20070803",
+   "ancNo": "08598",
+   "name": "축산법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "78010",
+   "efYd": "20070629",
+   "ancYd": "20070411",
+   "ancNo": "08354",
+   "name": "축산법",
+   "kind": "전부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "78010",
+   "efYd": "20070411",
+   "ancYd": "20070411",
+   "ancNo": "08354",
+   "name": "축산법",
+   "kind": "전부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "75576",
+   "efYd": "20070328",
+   "ancYd": "20060927",
+   "ancNo": "07995",
+   "name": "축산법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "76687",
+   "efYd": "20070103",
+   "ancYd": "20070103",
+   "ancNo": "08182",
+   "name": "축산법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "452",
+   "efYd": "20031227",
+   "ancYd": "20021226",
+   "ancNo": "06821",
+   "name": "축산법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "62445",
+   "efYd": "20021114",
+   "ancYd": "20020513",
+   "ancNo": "06699",
+   "name": "축산법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "447",
+   "efYd": "20010427",
+   "ancYd": "20010126",
+   "ancNo": "06381",
+   "name": "축산법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "51650",
+   "efYd": "20010101",
+   "ancYd": "20001229",
+   "ancNo": "06305",
+   "name": "축산법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "51654",
+   "efYd": "20000701",
+   "ancYd": "19990907",
+   "ancNo": "06018",
+   "name": "축산법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "51651",
+   "efYd": "20000101",
+   "ancYd": "19991231",
+   "ancNo": "06101",
+   "name": "축산법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "4979",
+   "efYd": "19990730",
+   "ancYd": "19990129",
+   "ancNo": "05720",
+   "name": "축산법",
+   "kind": "전부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "55811",
+   "efYd": "19990205",
+   "ancYd": "19990205",
+   "ancNo": "05815",
+   "name": "축산법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "6337",
+   "efYd": "19980614",
+   "ancYd": "19971213",
+   "ancNo": "05443",
+   "name": "축산법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "6336",
+   "efYd": "19980101",
+   "ancYd": "19971213",
+   "ancNo": "05453",
+   "name": "축산법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "6335",
+   "efYd": "19960808",
+   "ancYd": "19960808",
+   "ancNo": "05153",
+   "name": "축산법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "6334",
+   "efYd": "19950701",
+   "ancYd": "19941231",
+   "ancNo": "04843",
+   "name": "축산법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "6333",
+   "efYd": "19930912",
+   "ancYd": "19930611",
+   "ancNo": "04557",
+   "name": "축산법",
+   "kind": "전부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "6332",
+   "efYd": "19930306",
+   "ancYd": "19930306",
+   "ancNo": "04541",
+   "name": "축산법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "6330",
+   "efYd": "19920101",
+   "ancYd": "19901227",
+   "ancNo": "04268",
+   "name": "축산법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "6331",
+   "efYd": "19911201",
+   "ancYd": "19910531",
+   "ancNo": "04378",
+   "name": "축산법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "6329",
+   "efYd": "19900801",
+   "ancYd": "19900801",
+   "ancNo": "04251",
+   "name": "축산법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "6328",
+   "efYd": "19890331",
+   "ancYd": "19890331",
+   "ancNo": "04108",
+   "name": "축산법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "6327",
+   "efYd": "19880701",
+   "ancYd": "19871204",
+   "ancNo": "03995",
+   "name": "축산법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "6326",
+   "efYd": "19850701",
+   "ancYd": "19841231",
+   "ancNo": "03763",
+   "name": "축산법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "55385",
+   "efYd": "19850203",
+   "ancYd": "19840802",
+   "ancNo": "03738",
+   "name": "축산법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "6325",
+   "efYd": "19830101",
+   "ancYd": "19821231",
+   "ancNo": "03603",
+   "name": "축산법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "6324",
+   "efYd": "19810307",
+   "ancYd": "19810307",
+   "ancNo": "03382",
+   "name": "축산법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "6323",
+   "efYd": "19780218",
+   "ancYd": "19771219",
+   "ancNo": "03024",
+   "name": "축산법",
+   "kind": "전부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "6322",
+   "efYd": "19770323",
+   "ancYd": "19761222",
+   "ancNo": "02910",
+   "name": "축산법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "6321",
+   "efYd": "19680521",
+   "ancYd": "19680521",
+   "ancNo": "02008",
+   "name": "축산법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "6320",
+   "efYd": "19631224",
+   "ancYd": "19630626",
+   "ancNo": "01363",
+   "name": "축산법",
+   "kind": "제정",
+   "status": "past"
+  }
+ ]
+}

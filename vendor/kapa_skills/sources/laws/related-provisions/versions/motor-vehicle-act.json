@@ -1,0 +1,1339 @@
+{
+ "lsId": "001747",
+ "name": "자동차관리법",
+ "fetched": "2026-11-08",
+ "versions": [
+  {
+   "lsiSeq": "283767",
+   "efYd": "20270701",
+   "ancYd": "20260227",
+   "ancNo": "21412",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "scheduled"
+  },
+  {
+   "lsiSeq": "286989",
+   "efYd": "20261217",
+   "ancYd": "20260616",
+   "ancNo": "21817",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "scheduled"
+  },
+  {
+   "lsiSeq": "280137",
+   "efYd": "20261203",
+   "ancYd": "20251202",
+   "ancNo": "21182",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "scheduled"
+  },
+  {
+   "lsiSeq": "290737",
+   "efYd": "20261002",
+   "ancYd": "20260804",
+   "ancNo": "21857",
+   "name": "자동차관리법",
+   "kind": "타법개정",
+   "status": "current"
+  },
+  {
+   "lsiSeq": "286989",
+   "efYd": "20260616",
+   "ancYd": "20260616",
+   "ancNo": "21817",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "280137",
+   "efYd": "20260603",
+   "ancYd": "20251202",
+   "ancNo": "21182",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "266643",
+   "efYd": "20251204",
+   "ancYd": "20241203",
+   "ancNo": "20554",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "277015",
+   "efYd": "20251001",
+   "ancYd": "20251001",
+   "ancNo": "21065",
+   "name": "자동차관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "260419",
+   "efYd": "20250814",
+   "ancYd": "20240213",
+   "ancNo": "20298",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "261151",
+   "efYd": "20250320",
+   "ancYd": "20240319",
+   "ancNo": "20391",
+   "name": "자동차관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "259585",
+   "efYd": "20250315",
+   "ancYd": "20240130",
+   "ancNo": "20176",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "258123",
+   "efYd": "20250315",
+   "ancYd": "20240109",
+   "ancNo": "19980",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "254863",
+   "efYd": "20250315",
+   "ancYd": "20230914",
+   "ancNo": "19724",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "260605",
+   "efYd": "20250221",
+   "ancYd": "20240220",
+   "ancNo": "20339",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "259585",
+   "efYd": "20250217",
+   "ancYd": "20240130",
+   "ancNo": "20176",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "254117",
+   "efYd": "20250217",
+   "ancYd": "20230816",
+   "ancNo": "19685",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "260419",
+   "efYd": "20250214",
+   "ancYd": "20240213",
+   "ancNo": "20298",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "260419",
+   "efYd": "20250131",
+   "ancYd": "20240213",
+   "ancNo": "20298",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "259585",
+   "efYd": "20250131",
+   "ancYd": "20240130",
+   "ancNo": "20176",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "258123",
+   "efYd": "20250110",
+   "ancYd": "20240109",
+   "ancNo": "19980",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "260419",
+   "efYd": "20240814",
+   "ancYd": "20240213",
+   "ancNo": "20298",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "259585",
+   "efYd": "20240731",
+   "ancYd": "20240130",
+   "ancNo": "20176",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "258827",
+   "efYd": "20240717",
+   "ancYd": "20240116",
+   "ancNo": "20045",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "258123",
+   "efYd": "20240710",
+   "ancYd": "20240109",
+   "ancNo": "19980",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "260605",
+   "efYd": "20240521",
+   "ancYd": "20240220",
+   "ancNo": "20339",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "260419",
+   "efYd": "20240514",
+   "ancYd": "20240213",
+   "ancNo": "20298",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "260605",
+   "efYd": "20240220",
+   "ancYd": "20240220",
+   "ancNo": "20339",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "254117",
+   "efYd": "20240217",
+   "ancYd": "20230816",
+   "ancNo": "19685",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "258321",
+   "efYd": "20240109",
+   "ancYd": "20240109",
+   "ancNo": "19987",
+   "name": "자동차관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "249351",
+   "efYd": "20230929",
+   "ancYd": "20230328",
+   "ancNo": "19315",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "249351",
+   "efYd": "20230629",
+   "ancYd": "20230328",
+   "ancNo": "19315",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "245365",
+   "efYd": "20230611",
+   "ancYd": "20221115",
+   "ancNo": "19054",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "243089",
+   "efYd": "20230611",
+   "ancYd": "20220610",
+   "ancNo": "18949",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "243089",
+   "efYd": "20221211",
+   "ancYd": "20220610",
+   "ancNo": "18949",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "237059",
+   "efYd": "20221201",
+   "ancYd": "20211130",
+   "ancNo": "18522",
+   "name": "자동차관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "239285",
+   "efYd": "20220712",
+   "ancYd": "20220111",
+   "ancNo": "18744",
+   "name": "자동차관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "243089",
+   "efYd": "20220711",
+   "ancYd": "20220610",
+   "ancNo": "18949",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "243089",
+   "efYd": "20220610",
+   "ancYd": "20220610",
+   "ancNo": "18949",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "237363",
+   "efYd": "20220608",
+   "ancYd": "20211207",
+   "ancNo": "18559",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "231439",
+   "efYd": "20220414",
+   "ancYd": "20210413",
+   "ancNo": "18051",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "231439",
+   "efYd": "20211014",
+   "ancYd": "20210413",
+   "ancNo": "18051",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "231439",
+   "efYd": "20210714",
+   "ancYd": "20210413",
+   "ancNo": "18051",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "222531",
+   "efYd": "20210421",
+   "ancYd": "20201020",
+   "ancNo": "17553",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "231439",
+   "efYd": "20210413",
+   "ancYd": "20210413",
+   "ancNo": "18051",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "216295",
+   "efYd": "20210401",
+   "ancYd": "20200331",
+   "ancNo": "17171",
+   "name": "자동차관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "219297",
+   "efYd": "20210205",
+   "ancYd": "20200609",
+   "ancNo": "17453",
+   "name": "자동차관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "213907",
+   "efYd": "20210205",
+   "ancYd": "20200204",
+   "ancNo": "16950",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "222531",
+   "efYd": "20210121",
+   "ancYd": "20201020",
+   "ancNo": "17553",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "224347",
+   "efYd": "20210101",
+   "ancYd": "20201222",
+   "ancNo": "17653",
+   "name": "자동차관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "217389",
+   "efYd": "20200708",
+   "ancYd": "20200407",
+   "ancNo": "17235",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "219297",
+   "efYd": "20200609",
+   "ancYd": "20200609",
+   "ancNo": "17453",
+   "name": "자동차관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "211603",
+   "efYd": "20200527",
+   "ancYd": "20191126",
+   "ancNo": "16634",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "208232",
+   "efYd": "20200403",
+   "ancYd": "20190402",
+   "ancNo": "16305",
+   "name": "자동차관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "215839",
+   "efYd": "20200324",
+   "ancYd": "20200324",
+   "ancNo": "17091",
+   "name": "자동차관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "210293",
+   "efYd": "20200228",
+   "ancYd": "20190827",
+   "ancNo": "16564",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "211699",
+   "efYd": "20191126",
+   "ancYd": "20191126",
+   "ancNo": "16652",
+   "name": "자동차관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "202312",
+   "efYd": "20190222",
+   "ancYd": "20180221",
+   "ancNo": "15402",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "204217",
+   "efYd": "20190215",
+   "ancYd": "20180814",
+   "ancNo": "15736",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "206304",
+   "efYd": "20190101",
+   "ancYd": "20181231",
+   "ancNo": "16101",
+   "name": "자동차관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "198295",
+   "efYd": "20190101",
+   "ancYd": "20171024",
+   "ancNo": "14950",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "198275",
+   "efYd": "20190101",
+   "ancYd": "20171024",
+   "ancNo": "14939",
+   "name": "자동차관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "203778",
+   "efYd": "20181213",
+   "ancYd": "20180612",
+   "ancNo": "15681",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "198295",
+   "efYd": "20181025",
+   "ancYd": "20171024",
+   "ancNo": "14950",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "200236",
+   "efYd": "20180627",
+   "ancYd": "20171226",
+   "ancNo": "15321",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "198295",
+   "efYd": "20180425",
+   "ancYd": "20171024",
+   "ancNo": "14950",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "191162",
+   "efYd": "20180118",
+   "ancYd": "20170117",
+   "ancNo": "14546",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "191098",
+   "efYd": "20180118",
+   "ancYd": "20170117",
+   "ancNo": "14532",
+   "name": "자동차관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "198275",
+   "efYd": "20180101",
+   "ancYd": "20171024",
+   "ancNo": "14939",
+   "name": "자동차관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "196513",
+   "efYd": "20170809",
+   "ancYd": "20170809",
+   "ancNo": "14864",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "191162",
+   "efYd": "20170718",
+   "ancYd": "20170117",
+   "ancNo": "14546",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "191162",
+   "efYd": "20170418",
+   "ancYd": "20170117",
+   "ancNo": "14546",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "188593",
+   "efYd": "20170328",
+   "ancYd": "20161227",
+   "ancNo": "14476",
+   "name": "자동차관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "180141",
+   "efYd": "20170129",
+   "ancYd": "20160128",
+   "ancNo": "13933",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "178197",
+   "efYd": "20161230",
+   "ancYd": "20151229",
+   "ancNo": "13686",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "173870",
+   "efYd": "20160812",
+   "ancYd": "20150811",
+   "ancNo": "13486",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "180141",
+   "efYd": "20160729",
+   "ancYd": "20160128",
+   "ancNo": "13933",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "178197",
+   "efYd": "20160630",
+   "ancYd": "20151229",
+   "ancNo": "13686",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "173870",
+   "efYd": "20160212",
+   "ancYd": "20150811",
+   "ancNo": "13486",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "180141",
+   "efYd": "20160128",
+   "ancYd": "20160128",
+   "ancNo": "13933",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "166520",
+   "efYd": "20160107",
+   "ancYd": "20150106",
+   "ancNo": "12986",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "178197",
+   "efYd": "20151229",
+   "ancYd": "20151229",
+   "ancNo": "13686",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "130876",
+   "efYd": "20151219",
+   "ancYd": "20121218",
+   "ancNo": "11588",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "173870",
+   "efYd": "20151112",
+   "ancYd": "20150811",
+   "ancNo": "13486",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "166520",
+   "efYd": "20151007",
+   "ancYd": "20150106",
+   "ancNo": "12986",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "173870",
+   "efYd": "20150811",
+   "ancYd": "20150811",
+   "ancNo": "13486",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "167726",
+   "efYd": "20150729",
+   "ancYd": "20150128",
+   "ancNo": "13089",
+   "name": "자동차관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "166520",
+   "efYd": "20150707",
+   "ancYd": "20150106",
+   "ancNo": "12986",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "152020",
+   "efYd": "20150319",
+   "ancYd": "20140318",
+   "ancNo": "12472",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "149572",
+   "efYd": "20150108",
+   "ancYd": "20140107",
+   "ancNo": "12217",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "166520",
+   "efYd": "20150106",
+   "ancYd": "20150106",
+   "ancNo": "12986",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "142618",
+   "efYd": "20140807",
+   "ancYd": "20130806",
+   "ancNo": "11998",
+   "name": "자동차관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "148465",
+   "efYd": "20140701",
+   "ancYd": "20131230",
+   "ancNo": "12146",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "142056",
+   "efYd": "20140117",
+   "ancYd": "20130716",
+   "ancNo": "11929",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "130876",
+   "efYd": "20131219",
+   "ancYd": "20121218",
+   "ancNo": "11588",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "130876",
+   "efYd": "20130901",
+   "ancYd": "20121218",
+   "ancNo": "11588",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "130876",
+   "efYd": "20130619",
+   "ancYd": "20121218",
+   "ancNo": "11588",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "125533",
+   "efYd": "20130524",
+   "ancYd": "20120523",
+   "ancNo": "11449",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "137180",
+   "efYd": "20130323",
+   "ancYd": "20130323",
+   "ancNo": "11690",
+   "name": "자동차관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "130876",
+   "efYd": "20121218",
+   "ancYd": "20121218",
+   "ancNo": "11588",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "125533",
+   "efYd": "20121124",
+   "ancYd": "20120523",
+   "ancNo": "11449",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "125533",
+   "efYd": "20120523",
+   "ancYd": "20120523",
+   "ancNo": "11449",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "122001",
+   "efYd": "20120117",
+   "ancYd": "20120117",
+   "ancNo": "11190",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "113456",
+   "efYd": "20120101",
+   "ancYd": "20110524",
+   "ancNo": "10721",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "113456",
+   "efYd": "20111125",
+   "ancYd": "20110524",
+   "ancNo": "10721",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "104006",
+   "efYd": "20110101",
+   "ancYd": "20100331",
+   "ancNo": "10219",
+   "name": "자동차관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "94588",
+   "efYd": "20100701",
+   "ancYd": "20090609",
+   "ancNo": "09770",
+   "name": "자동차관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "97959",
+   "efYd": "20100330",
+   "ancYd": "20091229",
+   "ancNo": "09867",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "97959",
+   "efYd": "20100207",
+   "ancYd": "20091229",
+   "ancNo": "09867",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "91689",
+   "efYd": "20100207",
+   "ancYd": "20090206",
+   "ancNo": "09449",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "91689",
+   "efYd": "20090329",
+   "ancYd": "20090206",
+   "ancNo": "09449",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "91946",
+   "efYd": "20090329",
+   "ancYd": "20080613",
+   "ancNo": "09109",
+   "name": "자동차관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "86650",
+   "efYd": "20090329",
+   "ancYd": "20080328",
+   "ancNo": "09066",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "91946",
+   "efYd": "20080914",
+   "ancYd": "20080613",
+   "ancNo": "09109",
+   "name": "자동차관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "91946",
+   "efYd": "20080714",
+   "ancYd": "20080613",
+   "ancNo": "09109",
+   "name": "자동차관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "86492",
+   "efYd": "20080714",
+   "ancYd": "20080321",
+   "ancNo": "08980",
+   "name": "자동차관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "87335",
+   "efYd": "20080605",
+   "ancYd": "20080605",
+   "ancNo": "09105",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "86504",
+   "efYd": "20080321",
+   "ancYd": "20080321",
+   "ancNo": "08979",
+   "name": "자동차관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "84416",
+   "efYd": "20080229",
+   "ancYd": "20080229",
+   "ancNo": "08852",
+   "name": "자동차관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "80955",
+   "efYd": "20080118",
+   "ancYd": "20071017",
+   "ancNo": "08658",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "77099",
+   "efYd": "20070720",
+   "ancYd": "20070119",
+   "ancNo": "08254",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "79340",
+   "efYd": "20070427",
+   "ancYd": "20070427",
+   "ancNo": "08404",
+   "name": "자동차관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "79339",
+   "efYd": "20070411",
+   "ancYd": "20070411",
+   "ancNo": "08369",
+   "name": "자동차관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "79338",
+   "efYd": "20070411",
+   "ancYd": "20070411",
+   "ancNo": "08358",
+   "name": "자동차관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "77099",
+   "efYd": "20070220",
+   "ancYd": "20070119",
+   "ancNo": "08254",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "67672",
+   "efYd": "20060401",
+   "ancYd": "20050331",
+   "ancNo": "07428",
+   "name": "자동차관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "67673",
+   "efYd": "20050701",
+   "ancYd": "20050331",
+   "ancNo": "07471",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "60116",
+   "efYd": "20040421",
+   "ancYd": "20040120",
+   "ancNo": "07100",
+   "name": "자동차관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "50570",
+   "efYd": "20030101",
+   "ancYd": "20020826",
+   "ancNo": "06730",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "51629",
+   "efYd": "20020701",
+   "ancYd": "20020126",
+   "ancNo": "06627",
+   "name": "자동차관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "51628",
+   "efYd": "20010701",
+   "ancYd": "20010407",
+   "ancNo": "06470",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "8469",
+   "efYd": "19991016",
+   "ancYd": "19990415",
+   "ancNo": "05968",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "4530",
+   "efYd": "19990730",
+   "ancYd": "19990129",
+   "ancNo": "05729",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "4529",
+   "efYd": "19980101",
+   "ancYd": "19971213",
+   "ancNo": "05453",
+   "name": "자동차관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "4415",
+   "efYd": "19970908",
+   "ancYd": "19970307",
+   "ancNo": "05303",
+   "name": "자동차관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "4528",
+   "efYd": "19961030",
+   "ancYd": "19951229",
+   "ancNo": "05104",
+   "name": "자동차관리법",
+   "kind": "전부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "6953",
+   "efYd": "19960701",
+   "ancYd": "19951229",
+   "ancNo": "05094",
+   "name": "자동차관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "6952",
+   "efYd": "19920701",
+   "ancYd": "19911231",
+   "ancNo": "04489",
+   "name": "자동차관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "6951",
+   "efYd": "19910731",
+   "ancYd": "19910531",
+   "ancNo": "04369",
+   "name": "자동차관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "6950",
+   "efYd": "19870701",
+   "ancYd": "19861231",
+   "ancNo": "03912",
+   "name": "자동차관리법",
+   "kind": "전부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "6949",
+   "efYd": "19851001",
+   "ancYd": "19841215",
+   "ancNo": "03755",
+   "name": "도로운송차량법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "6948",
+   "efYd": "19830701",
+   "ancYd": "19821231",
+   "ancNo": "03604",
+   "name": "도로운송차량법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "6947",
+   "efYd": "19810501",
+   "ancYd": "19801231",
+   "ancNo": "03307",
+   "name": "도로운송차량법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "6946",
+   "efYd": "19780107",
+   "ancYd": "19771231",
+   "ancNo": "03082",
+   "name": "도로운송차량법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "6945",
+   "efYd": "19751231",
+   "ancYd": "19751231",
+   "ancNo": "02865",
+   "name": "도로운송차량법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "6944",
+   "efYd": "19730115",
+   "ancYd": "19730115",
+   "ancNo": "02442",
+   "name": "도로운송차량법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "6943",
+   "efYd": "19710118",
+   "ancYd": "19710118",
+   "ancNo": "02286",
+   "name": "도로운송차량법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "6942",
+   "efYd": "19670116",
+   "ancYd": "19670116",
+   "ancNo": "01883",
+   "name": "도로운송차량법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "54532",
+   "efYd": "19620110",
+   "ancYd": "19620110",
+   "ancNo": "00962",
+   "name": "도로운송차량법",
+   "kind": "제정",
+   "status": "predecessor"
+  }
+ ]
+}

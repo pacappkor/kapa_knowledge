@@ -1,0 +1,241 @@
+{
+ "lsId": "012522",
+ "name": "공항시설법",
+ "fetched": "2026-11-08",
+ "versions": [
+  {
+   "lsiSeq": "289515",
+   "efYd": "20270309",
+   "ancYd": "20260908",
+   "ancNo": "21896",
+   "name": "공항시설법",
+   "kind": "일부개정",
+   "status": "scheduled"
+  },
+  {
+   "lsiSeq": "286979",
+   "efYd": "20261217",
+   "ancYd": "20260616",
+   "ancNo": "21811",
+   "name": "공항시설법",
+   "kind": "일부개정",
+   "status": "scheduled"
+  },
+  {
+   "lsiSeq": "289515",
+   "efYd": "20261209",
+   "ancYd": "20260908",
+   "ancNo": "21896",
+   "name": "공항시설법",
+   "kind": "일부개정",
+   "status": "scheduled"
+  },
+  {
+   "lsiSeq": "273399",
+   "efYd": "20260227",
+   "ancYd": "20250826",
+   "ancNo": "21037",
+   "name": "공항시설법",
+   "kind": "일부개정",
+   "status": "current"
+  },
+  {
+   "lsiSeq": "276945",
+   "efYd": "20260102",
+   "ancYd": "20251001",
+   "ancNo": "21065",
+   "name": "공항시설법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "273399",
+   "efYd": "20250826",
+   "ancYd": "20250826",
+   "ancNo": "21037",
+   "name": "공항시설법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "268755",
+   "efYd": "20250801",
+   "ancYd": "20250131",
+   "ancNo": "20755",
+   "name": "공항시설법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "260415",
+   "efYd": "20240814",
+   "ancYd": "20240213",
+   "ancNo": "20291",
+   "name": "공항시설법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "258203",
+   "efYd": "20240710",
+   "ancYd": "20240109",
+   "ancNo": "19986",
+   "name": "공항시설법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "258307",
+   "efYd": "20240109",
+   "ancYd": "20240109",
+   "ancNo": "19987",
+   "name": "공항시설법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "250061",
+   "efYd": "20231019",
+   "ancYd": "20230418",
+   "ancNo": "19373",
+   "name": "공항시설법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "246663",
+   "efYd": "20230628",
+   "ancYd": "20221227",
+   "ancNo": "19117",
+   "name": "공항시설법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "243049",
+   "efYd": "20221211",
+   "ancYd": "20220610",
+   "ancNo": "18938",
+   "name": "공항시설법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "236989",
+   "efYd": "20221201",
+   "ancYd": "20211130",
+   "ancNo": "18522",
+   "name": "공항시설법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "237411",
+   "efYd": "20211207",
+   "ancYd": "20211207",
+   "ancNo": "18553",
+   "name": "공항시설법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "224465",
+   "efYd": "20210101",
+   "ancYd": "20201222",
+   "ancNo": "17689",
+   "name": "공항시설법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "223563",
+   "efYd": "20201208",
+   "ancYd": "20201208",
+   "ancNo": "17610",
+   "name": "공항시설법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "213581",
+   "efYd": "20200730",
+   "ancYd": "20200129",
+   "ancNo": "16902",
+   "name": "공항시설법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "205833",
+   "efYd": "20190119",
+   "ancYd": "20181218",
+   "ancNo": "15995",
+   "name": "공항시설법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "202309",
+   "efYd": "20180822",
+   "ancYd": "20180221",
+   "ancNo": "15399",
+   "name": "공항시설법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "200225",
+   "efYd": "20180627",
+   "ancYd": "20171226",
+   "ancNo": "15310",
+   "name": "공항시설법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "198522",
+   "efYd": "20180501",
+   "ancYd": "20171031",
+   "ancNo": "15009",
+   "name": "공항시설법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "196504",
+   "efYd": "20180210",
+   "ancYd": "20170809",
+   "ancNo": "14855",
+   "name": "공항시설법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "191051",
+   "efYd": "20180118",
+   "ancYd": "20170117",
+   "ancNo": "14532",
+   "name": "공항시설법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "188108",
+   "efYd": "20170330",
+   "ancYd": "20161202",
+   "ancNo": "14342",
+   "name": "공항시설법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "182176",
+   "efYd": "20170330",
+   "ancYd": "20160329",
+   "ancNo": "14113",
+   "name": "공항시설법",
+   "kind": "제정",
+   "status": "past"
+  }
+ ]
+}

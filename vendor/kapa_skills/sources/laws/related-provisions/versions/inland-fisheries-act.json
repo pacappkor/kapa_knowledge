@@ -1,0 +1,340 @@
+{
+ "lsId": "000385",
+ "name": "내수면어업법",
+ "fetched": "2026-11-08",
+ "versions": [
+  {
+   "lsiSeq": "259909",
+   "efYd": "20250807",
+   "ancYd": "20240206",
+   "ancNo": "20231",
+   "name": "내수면어업법",
+   "kind": "타법개정",
+   "status": "current"
+  },
+  {
+   "lsiSeq": "239391",
+   "efYd": "20230112",
+   "ancYd": "20220111",
+   "ancNo": "18755",
+   "name": "내수면어업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "233075",
+   "efYd": "20220616",
+   "ancYd": "20210615",
+   "ancNo": "18284",
+   "name": "내수면어업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "210307",
+   "efYd": "20200828",
+   "ancYd": "20190827",
+   "ancNo": "16568",
+   "name": "내수면어업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "214447",
+   "efYd": "20200819",
+   "ancYd": "20200218",
+   "ancNo": "17023",
+   "name": "내수면어업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "214447",
+   "efYd": "20200218",
+   "ancYd": "20200218",
+   "ancNo": "17023",
+   "name": "내수면어업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "206606",
+   "efYd": "20190709",
+   "ancYd": "20190108",
+   "ancNo": "16212",
+   "name": "내수면어업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "192573",
+   "efYd": "20170422",
+   "ancYd": "20170321",
+   "ancNo": "14727",
+   "name": "내수면어업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "188641",
+   "efYd": "20161227",
+   "ancYd": "20161227",
+   "ancNo": "14480",
+   "name": "내수면어업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "183674",
+   "efYd": "20160529",
+   "ancYd": "20160529",
+   "ancNo": "14241",
+   "name": "내수면어업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "168049",
+   "efYd": "20150504",
+   "ancYd": "20150203",
+   "ancNo": "13184",
+   "name": "내수면어업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "133298",
+   "efYd": "20130923",
+   "ancYd": "20130322",
+   "ancNo": "11643",
+   "name": "내수면어업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "136835",
+   "efYd": "20130323",
+   "ancYd": "20130323",
+   "ancNo": "11690",
+   "name": "내수면어업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "125519",
+   "efYd": "20121124",
+   "ancYd": "20120523",
+   "ancNo": "11427",
+   "name": "내수면어업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "110998",
+   "efYd": "20120910",
+   "ancYd": "20110309",
+   "ancNo": "10458",
+   "name": "내수면어업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "105148",
+   "efYd": "20101016",
+   "ancYd": "20100517",
+   "ancNo": "10293",
+   "name": "내수면어업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "105148",
+   "efYd": "20100618",
+   "ancYd": "20100517",
+   "ancNo": "10293",
+   "name": "내수면어업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "92800",
+   "efYd": "20100423",
+   "ancYd": "20090422",
+   "ancNo": "09627",
+   "name": "내수면어업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "92762",
+   "efYd": "20100423",
+   "ancYd": "20090422",
+   "ancNo": "09626",
+   "name": "내수면어업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "94604",
+   "efYd": "20091210",
+   "ancYd": "20090609",
+   "ancNo": "09758",
+   "name": "내수면어업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "93809",
+   "efYd": "20090828",
+   "ancYd": "20090527",
+   "ancNo": "09724",
+   "name": "내수면어업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "93197",
+   "efYd": "20090809",
+   "ancYd": "20090508",
+   "ancNo": "09662",
+   "name": "내수면어업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "77833",
+   "efYd": "20080407",
+   "ancYd": "20070406",
+   "ancNo": "08338",
+   "name": "내수면어업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "83621",
+   "efYd": "20080229",
+   "ancYd": "20080229",
+   "ancNo": "08852",
+   "name": "내수면어업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "80021",
+   "efYd": "20080204",
+   "ancYd": "20070803",
+   "ancNo": "08619",
+   "name": "내수면어업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "78570",
+   "efYd": "20070411",
+   "ancYd": "20070411",
+   "ancNo": "08377",
+   "name": "내수면어업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "78252",
+   "efYd": "20070411",
+   "ancYd": "20070411",
+   "ancNo": "08351",
+   "name": "내수면어업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "67754",
+   "efYd": "20051001",
+   "ancYd": "20050331",
+   "ancNo": "07477",
+   "name": "내수면어업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "1427",
+   "efYd": "20000729",
+   "ancYd": "20000128",
+   "ancNo": "06255",
+   "name": "내수면어업법",
+   "kind": "전부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "1426",
+   "efYd": "20000308",
+   "ancYd": "19990907",
+   "ancNo": "06021",
+   "name": "내수면어업개발촉진법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "1425",
+   "efYd": "19990809",
+   "ancYd": "19990208",
+   "ancNo": "05914",
+   "name": "내수면어업개발촉진법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "1424",
+   "efYd": "19990809",
+   "ancYd": "19990208",
+   "ancNo": "05893",
+   "name": "내수면어업개발촉진법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "1423",
+   "efYd": "19990208",
+   "ancYd": "19990208",
+   "ancNo": "05920",
+   "name": "내수면어업개발촉진법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "1422",
+   "efYd": "19980101",
+   "ancYd": "19971213",
+   "ancNo": "05454",
+   "name": "내수면어업개발촉진법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "1421",
+   "efYd": "19960808",
+   "ancYd": "19960808",
+   "ancNo": "05153",
+   "name": "내수면어업개발촉진법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "1420",
+   "efYd": "19910202",
+   "ancYd": "19900801",
+   "ancNo": "04252",
+   "name": "내수면어업개발촉진법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "1419",
+   "efYd": "19760701",
+   "ancYd": "19751231",
+   "ancNo": "02835",
+   "name": "내수면어업개발촉진법",
+   "kind": "제정",
+   "status": "predecessor"
+  }
+ ]
+}

@@ -1,0 +1,358 @@
+{
+ "lsId": "001706",
+ "name": "민법",
+ "fetched": "2026-11-08",
+ "versions": [
+  {
+   "lsiSeq": "284415",
+   "efYd": "20260317",
+   "ancYd": "20260317",
+   "ancNo": "21454",
+   "name": "민법",
+   "kind": "일부개정",
+   "status": "current"
+  },
+  {
+   "lsiSeq": "265307",
+   "efYd": "20260101",
+   "ancYd": "20240920",
+   "ancNo": "20432",
+   "name": "민법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "265307",
+   "efYd": "20250131",
+   "ancYd": "20240920",
+   "ancNo": "20432",
+   "name": "민법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "251069",
+   "efYd": "20240517",
+   "ancYd": "20230516",
+   "ancNo": "19409",
+   "name": "민법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "246569",
+   "efYd": "20230628",
+   "ancYd": "20221227",
+   "ancNo": "19098",
+   "name": "민법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "245913",
+   "efYd": "20221213",
+   "ancYd": "20221213",
+   "ancNo": "19069",
+   "name": "민법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "228813",
+   "efYd": "20210126",
+   "ancYd": "20210126",
+   "ancNo": "17905",
+   "name": "민법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "222427",
+   "efYd": "20201020",
+   "ancYd": "20201020",
+   "ancNo": "17503",
+   "name": "민법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "198475",
+   "efYd": "20180201",
+   "ancYd": "20171031",
+   "ancNo": "14965",
+   "name": "민법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "188036",
+   "efYd": "20170603",
+   "ancYd": "20161202",
+   "ancNo": "14278",
+   "name": "민법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "188377",
+   "efYd": "20161220",
+   "ancYd": "20161220",
+   "ancNo": "14409",
+   "name": "민법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "167985",
+   "efYd": "20160204",
+   "ancYd": "20150203",
+   "ancNo": "13125",
+   "name": "민법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "178964",
+   "efYd": "20160106",
+   "ancYd": "20160106",
+   "ancNo": "13710",
+   "name": "민법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "160862",
+   "efYd": "20151016",
+   "ancYd": "20141015",
+   "ancNo": "12777",
+   "name": "민법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "167952",
+   "efYd": "20150701",
+   "ancYd": "20150203",
+   "ancNo": "13124",
+   "name": "민법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "165484",
+   "efYd": "20141230",
+   "ancYd": "20141230",
+   "ancNo": "12881",
+   "name": "민법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "138748",
+   "efYd": "20130701",
+   "ancYd": "20130405",
+   "ancNo": "11728",
+   "name": "민법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "122983",
+   "efYd": "20130701",
+   "ancYd": "20120210",
+   "ancNo": "11300",
+   "name": "민법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "113180",
+   "efYd": "20130701",
+   "ancYd": "20110519",
+   "ancNo": "10645",
+   "name": "민법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "110914",
+   "efYd": "20130701",
+   "ancYd": "20110307",
+   "ancNo": "10429",
+   "name": "민법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "122983",
+   "efYd": "20120210",
+   "ancYd": "20120210",
+   "ancNo": "11300",
+   "name": "민법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "93194",
+   "efYd": "20090809",
+   "ancYd": "20090508",
+   "ancNo": "09650",
+   "name": "민법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "79107",
+   "efYd": "20080101",
+   "ancYd": "20070517",
+   "ancNo": "08435",
+   "name": "민법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "81988",
+   "efYd": "20071221",
+   "ancYd": "20071221",
+   "ancNo": "08720",
+   "name": "민법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "67271",
+   "efYd": "20060401",
+   "ancYd": "20050331",
+   "ancNo": "07428",
+   "name": "민법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "72266",
+   "efYd": "20051229",
+   "ancYd": "20051229",
+   "ancNo": "07765",
+   "name": "민법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "67272",
+   "efYd": "20050331",
+   "ancYd": "20050331",
+   "ancNo": "07427",
+   "name": "민법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "60400",
+   "efYd": "20020701",
+   "ancYd": "20011229",
+   "ancNo": "06544",
+   "name": "민법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "58429",
+   "efYd": "20020114",
+   "ancYd": "20020114",
+   "ancNo": "06591",
+   "name": "민법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "58442",
+   "efYd": "19980614",
+   "ancYd": "19971213",
+   "ancNo": "05431",
+   "name": "민법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "60398",
+   "efYd": "19980101",
+   "ancYd": "19971213",
+   "ancNo": "05454",
+   "name": "민법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "58430",
+   "efYd": "19910101",
+   "ancYd": "19900113",
+   "ancNo": "04199",
+   "name": "민법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "58433",
+   "efYd": "19840901",
+   "ancYd": "19840410",
+   "ancNo": "03723",
+   "name": "민법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "58436",
+   "efYd": "19790101",
+   "ancYd": "19771231",
+   "ancNo": "03051",
+   "name": "민법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "58437",
+   "efYd": "19700618",
+   "ancYd": "19700618",
+   "ancNo": "02200",
+   "name": "민법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "58432",
+   "efYd": "19650101",
+   "ancYd": "19641231",
+   "ancNo": "01668",
+   "name": "민법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "58434",
+   "efYd": "19630301",
+   "ancYd": "19621229",
+   "ancNo": "01237",
+   "name": "민법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "58435",
+   "efYd": "19630101",
+   "ancYd": "19621231",
+   "ancNo": "01250",
+   "name": "민법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "58431",
+   "efYd": "19600101",
+   "ancYd": "19580222",
+   "ancNo": "00471",
+   "name": "민법",
+   "kind": "제정",
+   "status": "past"
+  }
+ ]
+}

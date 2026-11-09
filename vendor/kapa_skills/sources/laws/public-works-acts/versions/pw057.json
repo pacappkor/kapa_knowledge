@@ -1,0 +1,286 @@
+{
+ "lsId": "000398",
+ "name": "사방사업법",
+ "fetched": "2026-11-08",
+ "versions": [
+  {
+   "lsiSeq": "268865",
+   "efYd": "20260201",
+   "ancYd": "20250131",
+   "ancNo": "20751",
+   "name": "사방사업법",
+   "kind": "타법개정",
+   "status": "current"
+  },
+  {
+   "lsiSeq": "246731",
+   "efYd": "20230628",
+   "ancYd": "20221227",
+   "ancNo": "19117",
+   "name": "사방사업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "231409",
+   "efYd": "20211014",
+   "ancYd": "20210413",
+   "ancNo": "18022",
+   "name": "사방사업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "214425",
+   "efYd": "20200218",
+   "ancYd": "20200218",
+   "ancNo": "17012",
+   "name": "사방사업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "199119",
+   "efYd": "20181129",
+   "ancYd": "20171128",
+   "ancNo": "15080",
+   "name": "사방사업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "188739",
+   "efYd": "20170128",
+   "ancYd": "20161227",
+   "ancNo": "14517",
+   "name": "사방사업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "188739",
+   "efYd": "20161227",
+   "ancYd": "20161227",
+   "ancNo": "14517",
+   "name": "사방사업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "167957",
+   "efYd": "20150804",
+   "ancYd": "20150203",
+   "ancNo": "13137",
+   "name": "사방사업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "142983",
+   "efYd": "20140214",
+   "ancYd": "20130813",
+   "ancNo": "12052",
+   "name": "사방사업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "136911",
+   "efYd": "20130323",
+   "ancYd": "20130323",
+   "ancNo": "11690",
+   "name": "사방사업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "114782",
+   "efYd": "20120115",
+   "ancYd": "20110714",
+   "ancNo": "10844",
+   "name": "사방사업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "105450",
+   "efYd": "20101201",
+   "ancYd": "20100531",
+   "ancNo": "10331",
+   "name": "사방사업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "90438",
+   "efYd": "20090327",
+   "ancYd": "20081226",
+   "ancNo": "09176",
+   "name": "사방사업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "83306",
+   "efYd": "20080229",
+   "ancYd": "20080229",
+   "ancNo": "08852",
+   "name": "사방사업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "79965",
+   "efYd": "20080204",
+   "ancYd": "20070803",
+   "ancNo": "08592",
+   "name": "사방사업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "77233",
+   "efYd": "20070727",
+   "ancYd": "20070126",
+   "ancNo": "08283",
+   "name": "사방사업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "76465",
+   "efYd": "20070329",
+   "ancYd": "20061228",
+   "ancNo": "08104",
+   "name": "사방사업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "71078",
+   "efYd": "20060805",
+   "ancYd": "20050804",
+   "ancNo": "07678",
+   "name": "사방사업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "57676",
+   "efYd": "20031001",
+   "ancYd": "20021230",
+   "ancNo": "06841",
+   "name": "사방사업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "34150",
+   "efYd": "20020125",
+   "ancYd": "20010724",
+   "ancNo": "06489",
+   "name": "사방사업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "34151",
+   "efYd": "20000501",
+   "ancYd": "20000121",
+   "ancNo": "06187",
+   "name": "사방사업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "34152",
+   "efYd": "19990205",
+   "ancYd": "19990205",
+   "ancNo": "05766",
+   "name": "사방사업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "34153",
+   "efYd": "19980101",
+   "ancYd": "19971213",
+   "ancNo": "05454",
+   "name": "사방사업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "34154",
+   "efYd": "19960808",
+   "ancYd": "19960808",
+   "ancNo": "05153",
+   "name": "사방사업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "57516",
+   "efYd": "19960101",
+   "ancYd": "19951229",
+   "ancNo": "05079",
+   "name": "사방사업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "57517",
+   "efYd": "19950623",
+   "ancYd": "19941222",
+   "ancNo": "04816",
+   "name": "사방사업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "57518",
+   "efYd": "19940925",
+   "ancYd": "19940324",
+   "ancNo": "04748",
+   "name": "사방사업법",
+   "kind": "전부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "1708",
+   "efYd": "19900714",
+   "ancYd": "19900113",
+   "ancNo": "04206",
+   "name": "사방사업법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "1707",
+   "efYd": "19680521",
+   "ancYd": "19680521",
+   "ancNo": "02006",
+   "name": "사방사업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "1706",
+   "efYd": "19630209",
+   "ancYd": "19630209",
+   "ancNo": "01269",
+   "name": "사방사업법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "1705",
+   "efYd": "19620115",
+   "ancYd": "19620115",
+   "ancNo": "00977",
+   "name": "사방사업법",
+   "kind": "제정",
+   "status": "past"
+  }
+ ]
+}

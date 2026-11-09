@@ -4,6 +4,13 @@ Keep a Changelog와 유의적 버전을 따른다. [버전 규칙](docs/RELEASIN
 
 ## [Unreleased]
 
+- PR6 4512191338: credential 검사 PR base를 기본 브랜치 main으로 제한한다. trigger 필터와 blob 접근 전 런타임 ref 확인을 함께 적용해 악성 scanner가 있는 비기본 base를 거부한다. main의 신뢰된 리뷰를 전제로 하며 branch protection 설정 자체를 보장하지 않는다.
+
+- PR6 4511991421: 실제 LAW_OC를 받는 CI scanner와 두 의존모듈을 trusted base의 Git 객체에서 작업 트리 밖으로 추출한다. 준비는 인라인 표준 라이브러리만 실행하고 PR 코드는 import하지 않는다. PR 전체 worktree 필수 검사는 유지하며, workflow YAML 자체를 바꿀 수 있는 same-repo 작성자의 잔여 신뢰 경계는 문서화했다.
+
+- 기본 CI: 단일 Ubuntu·Python 3.12 작업에서 첫 저장소 코드 실행 단계의 필수 LAW_OC 검사, 추적 링크 거부, 경로별 검증·표준 unittest 감독, 무시 파일 포함 작업 트리 불변성과 diff 공백을 확인한다. secret은 전용 단계에만 전달하며 fork의 secret 부재는 실패한다. 예약 실행·외부 자료 수집은 없다.
+- deps.lock의 kapa_skills commit에서 색인과 과거 판본 메타데이터만 vendor하고 원본별 SHA-256·vendor commit을 고정했다. 형제 checkout 부재 시 해시 검증 후 사용하며 불일치·누락은 실패한다. 명시적 갱신 도구와 회귀 시험·문서 snapshot을 함께 추가했고 법령 본문·수집 자료·게시 상태는 바꾸지 않았다.
+
 - PR 1 추가 검토 4510448438: GIT_ALLOW_PROTOCOL 에 이름을 두면 같은 이름의 git-remote-<name> helper 가 허용될 수 있으므로 빈 값으로 고정해 어떤 transport·remote helper 도 허용하지 않는다. PATH 에 둔 합성 remote helper 를 promisor URL 로 지정한 저장소에서 보호된 읽기가 helper 를 실행하지 않음을 회귀 시험으로 확인한다.
 - PR 1 추가 검토 4510368675: protocol.allow 는 protocol.<name>.allow 설정에 덮이므로, 자식 Git 환경에 실제 프로토콜을 하나도 허용하지 않는 GIT_ALLOW_PROTOCOL 을 고정해 저장소·사용자 설정과 무관하게 모든 transport 를 거부한다. 저장소 로컬 protocol.file.allow=always·protocol.ext.allow=always 를 둔 partial clone 회귀 시험을 추가했다.
 - PR 1 추가 검토 4510295690: GIT_NO_LAZY_FETCH 를 모르는 이전 Git 에서도 지연 fetch 가 실행되지 않도록 공용 Git helper 에 protocol.allow=never 를 고정했다. partial clone 의 누락 객체를 환경변수 없이 읽어도 실패하고 객체가 받아지지 않음을 실제 저장소 회귀 시험으로 확인한다.

@@ -1,0 +1,781 @@
+{
+ "lsId": "000166",
+ "name": "물환경보전법",
+ "fetched": "2026-11-08",
+ "versions": [
+  {
+   "lsiSeq": "283441",
+   "efYd": "20270220",
+   "ancYd": "20260219",
+   "ancNo": "21368",
+   "name": "물환경보전법",
+   "kind": "일부개정",
+   "status": "scheduled"
+  },
+  {
+   "lsiSeq": "283441",
+   "efYd": "20260219",
+   "ancYd": "20260219",
+   "ancNo": "21368",
+   "name": "물환경보전법",
+   "kind": "일부개정",
+   "status": "current"
+  },
+  {
+   "lsiSeq": "276739",
+   "efYd": "20251001",
+   "ancYd": "20251001",
+   "ancNo": "21065",
+   "name": "물환경보전법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "260819",
+   "efYd": "20250828",
+   "ancYd": "20240227",
+   "ancNo": "20357",
+   "name": "물환경보전법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "259915",
+   "efYd": "20250807",
+   "ancYd": "20240206",
+   "ancNo": "20231",
+   "name": "물환경보전법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "259261",
+   "efYd": "20250124",
+   "ancYd": "20240123",
+   "ancNo": "20116",
+   "name": "물환경보전법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "259547",
+   "efYd": "20240130",
+   "ancYd": "20240130",
+   "ancNo": "20172",
+   "name": "물환경보전법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "235595",
+   "efYd": "20220325",
+   "ancYd": "20210924",
+   "ancNo": "18469",
+   "name": "물환경보전법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "228535",
+   "efYd": "20220113",
+   "ancYd": "20210112",
+   "ancNo": "17893",
+   "name": "물환경보전법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "225477",
+   "efYd": "20220101",
+   "ancYd": "20201231",
+   "ancNo": "17814",
+   "name": "물환경보전법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "231465",
+   "efYd": "20211014",
+   "ancYd": "20210413",
+   "ancNo": "18030",
+   "name": "물환경보전법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "231465",
+   "efYd": "20210413",
+   "ancYd": "20210413",
+   "ancNo": "18030",
+   "name": "물환경보전법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "214369",
+   "efYd": "20210101",
+   "ancYd": "20200218",
+   "ancNo": "17007",
+   "name": "물환경보전법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "211535",
+   "efYd": "20201127",
+   "ancYd": "20191126",
+   "ancNo": "16605",
+   "name": "물환경보전법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "204817",
+   "efYd": "20201017",
+   "ancYd": "20181016",
+   "ancNo": "15832",
+   "name": "물환경보전법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "210331",
+   "efYd": "20200828",
+   "ancYd": "20190827",
+   "ancNo": "16568",
+   "name": "물환경보전법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "218199",
+   "efYd": "20200526",
+   "ancYd": "20200526",
+   "ancNo": "17326",
+   "name": "물환경보전법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "211535",
+   "efYd": "20200101",
+   "ancYd": "20191126",
+   "ancNo": "16605",
+   "name": "물환경보전법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "211535",
+   "efYd": "20191126",
+   "ancYd": "20191126",
+   "ancNo": "16605",
+   "name": "물환경보전법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "204817",
+   "efYd": "20191017",
+   "ancYd": "20181016",
+   "ancNo": "15832",
+   "name": "물환경보전법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "199540",
+   "efYd": "20180613",
+   "ancYd": "20171212",
+   "ancNo": "15194",
+   "name": "물환경보전법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "191041",
+   "efYd": "20180118",
+   "ancYd": "20170117",
+   "ancNo": "14532",
+   "name": "물환경보전법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "188706",
+   "efYd": "20170628",
+   "ancYd": "20161227",
+   "ancNo": "14490",
+   "name": "수질 및 수생태계 보전에 관한 법률",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "188583",
+   "efYd": "20170328",
+   "ancYd": "20161227",
+   "ancNo": "14476",
+   "name": "수질 및 수생태계 보전에 관한 법률",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "180434",
+   "efYd": "20170128",
+   "ancYd": "20160127",
+   "ancNo": "13879",
+   "name": "수질 및 수생태계 보전에 관한 법률",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "176703",
+   "efYd": "20160602",
+   "ancYd": "20151201",
+   "ancNo": "13530",
+   "name": "수질 및 수생태계 보전에 관한 법률",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "180434",
+   "efYd": "20160127",
+   "ancYd": "20160127",
+   "ancNo": "13879",
+   "name": "수질 및 수생태계 보전에 관한 법률",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "152312",
+   "efYd": "20150325",
+   "ancYd": "20140324",
+   "ancNo": "12519",
+   "name": "수질 및 수생태계 보전에 관한 법률",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "140962",
+   "efYd": "20150101",
+   "ancYd": "20130604",
+   "ancNo": "11862",
+   "name": "수질 및 수생태계 보전에 관한 법률",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "152312",
+   "efYd": "20140925",
+   "ancYd": "20140324",
+   "ancNo": "12519",
+   "name": "수질 및 수생태계 보전에 관한 법률",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "142395",
+   "efYd": "20140731",
+   "ancYd": "20130730",
+   "ancNo": "11979",
+   "name": "수질 및 수생태계 보전에 관한 법률",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "150015",
+   "efYd": "20140715",
+   "ancYd": "20140114",
+   "ancNo": "12248",
+   "name": "수질 및 수생태계 보전에 관한 법률",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "152312",
+   "efYd": "20140324",
+   "ancYd": "20140324",
+   "ancNo": "12519",
+   "name": "수질 및 수생태계 보전에 관한 법률",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "142395",
+   "efYd": "20140131",
+   "ancYd": "20130730",
+   "ancNo": "11979",
+   "name": "수질 및 수생태계 보전에 관한 법률",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "133346",
+   "efYd": "20140101",
+   "ancYd": "20130322",
+   "ancNo": "11670",
+   "name": "수질 및 수생태계 보전에 관한 법률",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "142044",
+   "efYd": "20130716",
+   "ancYd": "20130716",
+   "ancNo": "11915",
+   "name": "수질 및 수생태계 보전에 관한 법률",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "137059",
+   "efYd": "20130323",
+   "ancYd": "20130323",
+   "ancNo": "11690",
+   "name": "수질 및 수생태계 보전에 관한 법률",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "133346",
+   "efYd": "20130322",
+   "ancYd": "20130322",
+   "ancNo": "11670",
+   "name": "수질 및 수생태계 보전에 관한 법률",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "122607",
+   "efYd": "20120802",
+   "ancYd": "20120201",
+   "ancNo": "11258",
+   "name": "수질 및 수생태계 보전에 관한 법률",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "115060",
+   "efYd": "20120722",
+   "ancYd": "20110721",
+   "ancNo": "10893",
+   "name": "수질 및 수생태계 보전에 관한 법률",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "112428",
+   "efYd": "20120415",
+   "ancYd": "20110414",
+   "ancNo": "10599",
+   "name": "수질 및 수생태계 보전에 관한 법률",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "112787",
+   "efYd": "20111029",
+   "ancYd": "20110428",
+   "ancNo": "10616",
+   "name": "수질 및 수생태계 보전에 관한 법률",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "112766",
+   "efYd": "20111029",
+   "ancYd": "20110428",
+   "ancNo": "10615",
+   "name": "수질 및 수생태계 보전에 관한 법률",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "115215",
+   "efYd": "20111026",
+   "ancYd": "20110725",
+   "ancNo": "10911",
+   "name": "수질 및 수생태계 보전에 관한 법률",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "115787",
+   "efYd": "20110804",
+   "ancYd": "20110804",
+   "ancNo": "11020",
+   "name": "수질 및 수생태계 보전에 관한 법률",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "103996",
+   "efYd": "20110101",
+   "ancYd": "20100331",
+   "ancNo": "10219",
+   "name": "수질 및 수생태계 보전에 관한 법률",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "104505",
+   "efYd": "20101016",
+   "ancYd": "20100415",
+   "ancNo": "10272",
+   "name": "수질 및 수생태계 보전에 관한 법률",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "94535",
+   "efYd": "20100701",
+   "ancYd": "20090609",
+   "ancNo": "09770",
+   "name": "수질 및 수생태계 보전에 관한 법률",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "103783",
+   "efYd": "20100623",
+   "ancYd": "20100322",
+   "ancNo": "10152",
+   "name": "수질 및 수생태계 보전에 관한 법률",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "91591",
+   "efYd": "20100101",
+   "ancYd": "20090206",
+   "ancNo": "09433",
+   "name": "수질 및 수생태계 보전에 관한 법률",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "93608",
+   "efYd": "20090521",
+   "ancYd": "20090521",
+   "ancNo": "09697",
+   "name": "수질 및 수생태계 보전에 관한 법률",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "77829",
+   "efYd": "20080407",
+   "ancYd": "20070406",
+   "ancNo": "08338",
+   "name": "수질환경보전법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "85920",
+   "efYd": "20080321",
+   "ancYd": "20080321",
+   "ancNo": "08976",
+   "name": "수질 및 수생태계 보전에 관한 법률",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "83473",
+   "efYd": "20080229",
+   "ancYd": "20080229",
+   "ancNo": "08852",
+   "name": "수질 및 수생태계 보전에 관한 법률",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "77157",
+   "efYd": "20080120",
+   "ancYd": "20070119",
+   "ancNo": "08260",
+   "name": "수질환경보전법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "79019",
+   "efYd": "20071118",
+   "ancYd": "20070517",
+   "ancNo": "08466",
+   "name": "수질 및 수생태계 보전에 관한 법률",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "75804",
+   "efYd": "20071005",
+   "ancYd": "20061004",
+   "ancNo": "08038",
+   "name": "수질환경보전법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "76672",
+   "efYd": "20070704",
+   "ancYd": "20070103",
+   "ancNo": "08209",
+   "name": "수질환경보전법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "78184",
+   "efYd": "20070411",
+   "ancYd": "20070411",
+   "ancNo": "08370",
+   "name": "수질환경보전법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "67643",
+   "efYd": "20060401",
+   "ancYd": "20050331",
+   "ancNo": "07428",
+   "name": "수질환경보전법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "67196",
+   "efYd": "20060401",
+   "ancYd": "20050331",
+   "ancNo": "07459",
+   "name": "수질환경보전법",
+   "kind": "전부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "66243",
+   "efYd": "20060101",
+   "ancYd": "20041231",
+   "ancNo": "07292",
+   "name": "수질환경보전법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "53420",
+   "efYd": "20050423",
+   "ancYd": "20041022",
+   "ancNo": "07240",
+   "name": "수질환경보전법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "59544",
+   "efYd": "20040810",
+   "ancYd": "20040209",
+   "ancNo": "07168",
+   "name": "수질환경보전법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "59764",
+   "efYd": "20031130",
+   "ancYd": "20030529",
+   "ancNo": "06913",
+   "name": "수질환경보전법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "59637",
+   "efYd": "20030627",
+   "ancYd": "20021226",
+   "ancNo": "06829",
+   "name": "수질환경보전법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "59639",
+   "efYd": "20030101",
+   "ancYd": "20020204",
+   "ancNo": "06654",
+   "name": "수질환경보전법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "59638",
+   "efYd": "20020701",
+   "ancYd": "20020126",
+   "ancNo": "06627",
+   "name": "수질환경보전법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "59641",
+   "efYd": "20010929",
+   "ancYd": "20010328",
+   "ancNo": "06451",
+   "name": "수질환경보전법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "59635",
+   "efYd": "20001022",
+   "ancYd": "20000121",
+   "ancNo": "06199",
+   "name": "수질환경보전법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "59636",
+   "efYd": "20000804",
+   "ancYd": "20000203",
+   "ancNo": "06262",
+   "name": "수질환경보전법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "59644",
+   "efYd": "19990809",
+   "ancYd": "19990208",
+   "ancNo": "05893",
+   "name": "수질환경보전법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "59643",
+   "efYd": "19990809",
+   "ancYd": "19990208",
+   "ancNo": "05870",
+   "name": "수질환경보전법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "59642",
+   "efYd": "19990809",
+   "ancYd": "19990208",
+   "ancNo": "05914",
+   "name": "수질환경보전법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "59634",
+   "efYd": "19980301",
+   "ancYd": "19970828",
+   "ancNo": "05390",
+   "name": "수질환경보전법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "59633",
+   "efYd": "19980301",
+   "ancYd": "19970828",
+   "ancNo": "05389",
+   "name": "수질환경보전법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "4141",
+   "efYd": "19980101",
+   "ancYd": "19971213",
+   "ancNo": "05453",
+   "name": "수질환경보전법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "4140",
+   "efYd": "19980101",
+   "ancYd": "19971213",
+   "ancNo": "05454",
+   "name": "수질환경보전법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "59763",
+   "efYd": "19960701",
+   "ancYd": "19951229",
+   "ancNo": "05095",
+   "name": "수질환경보전법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "59762",
+   "efYd": "19960205",
+   "ancYd": "19950804",
+   "ancNo": "04970",
+   "name": "수질환경보전법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "59648",
+   "efYd": "19950101",
+   "ancYd": "19940105",
+   "ancNo": "04714",
+   "name": "수질환경보전법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "59761",
+   "efYd": "19940803",
+   "ancYd": "19940803",
+   "ancNo": "04782",
+   "name": "수질환경보전법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "59640",
+   "efYd": "19940628",
+   "ancYd": "19931227",
+   "ancNo": "04653",
+   "name": "수질환경보전법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "59646",
+   "efYd": "19930609",
+   "ancYd": "19921208",
+   "ancNo": "04536",
+   "name": "수질환경보전법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "59645",
+   "efYd": "19910531",
+   "ancYd": "19910531",
+   "ancNo": "04388",
+   "name": "수질환경보전법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "59647",
+   "efYd": "19910202",
+   "ancYd": "19900801",
+   "ancNo": "04260",
+   "name": "수질환경보전법",
+   "kind": "제정",
+   "status": "predecessor"
+  }
+ ]
+}

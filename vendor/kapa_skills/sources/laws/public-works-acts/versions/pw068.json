@@ -1,0 +1,421 @@
+{
+ "lsId": "009943",
+ "name": "어촌ㆍ어항법",
+ "fetched": "2026-11-08",
+ "versions": [
+  {
+   "lsiSeq": "285483",
+   "efYd": "20270422",
+   "ancYd": "20260421",
+   "ancNo": "21571",
+   "name": "어촌ㆍ어항법",
+   "kind": "일부개정",
+   "status": "scheduled"
+  },
+  {
+   "lsiSeq": "284087",
+   "efYd": "20260701",
+   "ancYd": "20260305",
+   "ancNo": "21447",
+   "name": "어촌ㆍ어항법",
+   "kind": "타법개정",
+   "status": "current"
+  },
+  {
+   "lsiSeq": "285483",
+   "efYd": "20260421",
+   "ancYd": "20260421",
+   "ancNo": "21571",
+   "name": "어촌ㆍ어항법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "228571",
+   "efYd": "20220113",
+   "ancYd": "20210112",
+   "ancNo": "17893",
+   "name": "어촌ㆍ어항법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "224667",
+   "efYd": "20210623",
+   "ancYd": "20201222",
+   "ancNo": "17749",
+   "name": "어촌ㆍ어항법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "216279",
+   "efYd": "20210401",
+   "ancYd": "20200331",
+   "ancNo": "17171",
+   "name": "어촌ㆍ어항법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "214399",
+   "efYd": "20210101",
+   "ancYd": "20200218",
+   "ancNo": "17007",
+   "name": "어촌ㆍ어항법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "215919",
+   "efYd": "20200925",
+   "ancYd": "20200324",
+   "ancNo": "17107",
+   "name": "어촌ㆍ어항법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "210337",
+   "efYd": "20200828",
+   "ancYd": "20190827",
+   "ancNo": "16568",
+   "name": "어촌ㆍ어항법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "215919",
+   "efYd": "20200324",
+   "ancYd": "20200324",
+   "ancNo": "17107",
+   "name": "어촌ㆍ어항법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "210361",
+   "efYd": "20200228",
+   "ancYd": "20190827",
+   "ancNo": "16570",
+   "name": "어촌ㆍ어항법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "205661",
+   "efYd": "20190612",
+   "ancYd": "20181211",
+   "ancNo": "15917",
+   "name": "어촌ㆍ어항법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "206740",
+   "efYd": "20190115",
+   "ancYd": "20190115",
+   "ancNo": "16284",
+   "name": "어촌ㆍ어항법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "205661",
+   "efYd": "20190112",
+   "ancYd": "20181211",
+   "ancNo": "15917",
+   "name": "어촌ㆍ어항법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "203216",
+   "efYd": "20181018",
+   "ancYd": "20180417",
+   "ancNo": "15605",
+   "name": "어촌ㆍ어항법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "199176",
+   "efYd": "20180529",
+   "ancYd": "20171128",
+   "ancNo": "15133",
+   "name": "어촌ㆍ어항법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "183704",
+   "efYd": "20161130",
+   "ancYd": "20160529",
+   "ancNo": "14244",
+   "name": "어촌·어항법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "172355",
+   "efYd": "20160623",
+   "ancYd": "20150622",
+   "ancNo": "13385",
+   "name": "어촌·어항법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "183704",
+   "efYd": "20160529",
+   "ancYd": "20160529",
+   "ancNo": "14244",
+   "name": "어촌·어항법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "172326",
+   "efYd": "20151223",
+   "ancYd": "20150622",
+   "ancNo": "13383",
+   "name": "어촌·어항법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "160162",
+   "efYd": "20150116",
+   "ancYd": "20141015",
+   "ancNo": "12827",
+   "name": "어촌·어항법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "152369",
+   "efYd": "20140925",
+   "ancYd": "20140324",
+   "ancNo": "12543",
+   "name": "어촌·어항법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "150025",
+   "efYd": "20140715",
+   "ancYd": "20140114",
+   "ancNo": "12248",
+   "name": "어촌·어항법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "129315",
+   "efYd": "20130423",
+   "ancYd": "20121022",
+   "ancNo": "11503",
+   "name": "어촌ㆍ어항법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "136891",
+   "efYd": "20130323",
+   "ancYd": "20130323",
+   "ancNo": "11690",
+   "name": "어촌·어항법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "125545",
+   "efYd": "20121124",
+   "ancYd": "20120523",
+   "ancNo": "11432",
+   "name": "어촌·어항법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "114756",
+   "efYd": "20110714",
+   "ancYd": "20110714",
+   "ancNo": "10848",
+   "name": "어촌·어항법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "105465",
+   "efYd": "20101201",
+   "ancYd": "20100531",
+   "ancNo": "10331",
+   "name": "어촌·어항법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "104511",
+   "efYd": "20101016",
+   "ancYd": "20100415",
+   "ancNo": "10272",
+   "name": "어촌·어항법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "103408",
+   "efYd": "20100618",
+   "ancYd": "20100317",
+   "ancNo": "10124",
+   "name": "어촌·어항법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "92790",
+   "efYd": "20100423",
+   "ancYd": "20090422",
+   "ancNo": "09626",
+   "name": "어촌·어항법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "94568",
+   "efYd": "20100310",
+   "ancYd": "20090609",
+   "ancNo": "09763",
+   "name": "어촌·어항법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "91452",
+   "efYd": "20090731",
+   "ancYd": "20090130",
+   "ancNo": "09401",
+   "name": "어촌·어항법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "90488",
+   "efYd": "20090630",
+   "ancYd": "20081229",
+   "ancNo": "09276",
+   "name": "어촌·어항법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "81870",
+   "efYd": "20080922",
+   "ancYd": "20071221",
+   "ancNo": "08733",
+   "name": "어촌·어항법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "82259",
+   "efYd": "20080628",
+   "ancYd": "20071227",
+   "ancNo": "08820",
+   "name": "어촌·어항법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "82258",
+   "efYd": "20080628",
+   "ancYd": "20071227",
+   "ancNo": "08819",
+   "name": "어촌·어항법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "77895",
+   "efYd": "20080407",
+   "ancYd": "20070406",
+   "ancNo": "08338",
+   "name": "어촌·어항법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "86200",
+   "efYd": "20080321",
+   "ancYd": "20080321",
+   "ancNo": "08976",
+   "name": "어촌·어항법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "86098",
+   "efYd": "20080321",
+   "ancYd": "20080321",
+   "ancNo": "08974",
+   "name": "어촌·어항법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "84105",
+   "efYd": "20080229",
+   "ancYd": "20080229",
+   "ancNo": "08852",
+   "name": "어촌·어항법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "81871",
+   "efYd": "20071221",
+   "ancYd": "20071221",
+   "ancNo": "08791",
+   "name": "어촌·어항법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "78508",
+   "efYd": "20070411",
+   "ancYd": "20070411",
+   "ancNo": "08377",
+   "name": "어촌·어항법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "78377",
+   "efYd": "20070411",
+   "ancYd": "20070411",
+   "ancNo": "08370",
+   "name": "어촌·어항법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "78203",
+   "efYd": "20070411",
+   "ancYd": "20070411",
+   "ancNo": "08352",
+   "name": "어촌·어항법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "68406",
+   "efYd": "20051201",
+   "ancYd": "20050531",
+   "ancNo": "07571",
+   "name": "어촌·어항법",
+   "kind": "제정",
+   "status": "predecessor"
+  }
+ ]
+}

@@ -1,0 +1,556 @@
+{
+ "lsId": "000239",
+ "name": "건설기계관리법",
+ "fetched": "2026-11-08",
+ "versions": [
+  {
+   "lsiSeq": "283763",
+   "efYd": "20270228",
+   "ancYd": "20260227",
+   "ancNo": "21408",
+   "name": "건설기계관리법",
+   "kind": "일부개정",
+   "status": "scheduled"
+  },
+  {
+   "lsiSeq": "283763",
+   "efYd": "20260828",
+   "ancYd": "20260227",
+   "ancNo": "21408",
+   "name": "건설기계관리법",
+   "kind": "일부개정",
+   "status": "current"
+  },
+  {
+   "lsiSeq": "283763",
+   "efYd": "20260528",
+   "ancYd": "20260227",
+   "ancNo": "21408",
+   "name": "건설기계관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "283763",
+   "efYd": "20260227",
+   "ancYd": "20260227",
+   "ancNo": "21408",
+   "name": "건설기계관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "250011",
+   "efYd": "20231019",
+   "ancYd": "20230418",
+   "ancNo": "19365",
+   "name": "건설기계관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "250011",
+   "efYd": "20230418",
+   "ancYd": "20230418",
+   "ancNo": "19365",
+   "name": "건설기계관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "239987",
+   "efYd": "20220804",
+   "ancYd": "20220203",
+   "ancNo": "18822",
+   "name": "건설기계관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "239987",
+   "efYd": "20220203",
+   "ancYd": "20220203",
+   "ancNo": "18822",
+   "name": "건설기계관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "210182",
+   "efYd": "20210821",
+   "ancYd": "20190820",
+   "ancNo": "16483",
+   "name": "건설기계관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "217357",
+   "efYd": "20201008",
+   "ancYd": "20200407",
+   "ancNo": "17220",
+   "name": "건설기계관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "219195",
+   "efYd": "20200609",
+   "ancYd": "20200609",
+   "ancNo": "17453",
+   "name": "건설기계관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "215693",
+   "efYd": "20200324",
+   "ancYd": "20200324",
+   "ancNo": "17091",
+   "name": "건설기계관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "210182",
+   "efYd": "20200221",
+   "ancYd": "20190820",
+   "ancNo": "16483",
+   "name": "건설기계관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "204508",
+   "efYd": "20190919",
+   "ancYd": "20180918",
+   "ancNo": "15778",
+   "name": "건설기계관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "204508",
+   "efYd": "20190319",
+   "ancYd": "20180918",
+   "ancNo": "15778",
+   "name": "건설기계관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "206351",
+   "efYd": "20181231",
+   "ancYd": "20181231",
+   "ancNo": "16134",
+   "name": "건설기계관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "196496",
+   "efYd": "20180118",
+   "ancYd": "20170809",
+   "ancNo": "14847",
+   "name": "건설기계관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "192547",
+   "efYd": "20180118",
+   "ancYd": "20170321",
+   "ancNo": "14707",
+   "name": "건설기계관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "191132",
+   "efYd": "20180118",
+   "ancYd": "20170117",
+   "ancNo": "14534",
+   "name": "건설기계관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "196496",
+   "efYd": "20170809",
+   "ancYd": "20170809",
+   "ancNo": "14847",
+   "name": "건설기계관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "192547",
+   "efYd": "20170422",
+   "ancYd": "20170321",
+   "ancNo": "14707",
+   "name": "건설기계관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "188556",
+   "efYd": "20170328",
+   "ancYd": "20161227",
+   "ancNo": "14476",
+   "name": "건설기계관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "173829",
+   "efYd": "20160812",
+   "ancYd": "20150811",
+   "ancNo": "13468",
+   "name": "건설기계관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "179558",
+   "efYd": "20160720",
+   "ancYd": "20160119",
+   "ancNo": "13784",
+   "name": "건설기계관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "179558",
+   "efYd": "20160119",
+   "ancYd": "20160119",
+   "ancNo": "13784",
+   "name": "건설기계관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "173829",
+   "efYd": "20150811",
+   "ancYd": "20150811",
+   "ancNo": "13468",
+   "name": "건설기계관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "166499",
+   "efYd": "20150106",
+   "ancYd": "20150106",
+   "ancNo": "12966",
+   "name": "건설기계관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "150732",
+   "efYd": "20140729",
+   "ancYd": "20140128",
+   "ancNo": "12373",
+   "name": "건설기계관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "142050",
+   "efYd": "20130716",
+   "ancYd": "20130716",
+   "ancNo": "11919",
+   "name": "건설기계관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "137112",
+   "efYd": "20130323",
+   "ancYd": "20130323",
+   "ancNo": "11690",
+   "name": "건설기계관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "117015",
+   "efYd": "20130317",
+   "ancYd": "20110916",
+   "ancNo": "11055",
+   "name": "건설기계관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "123391",
+   "efYd": "20130223",
+   "ancYd": "20120222",
+   "ancNo": "11361",
+   "name": "건설기계관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "123391",
+   "efYd": "20120523",
+   "ancYd": "20120222",
+   "ancNo": "11361",
+   "name": "건설기계관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "123391",
+   "efYd": "20120222",
+   "ancYd": "20120222",
+   "ancNo": "11361",
+   "name": "건설기계관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "117015",
+   "efYd": "20111217",
+   "ancYd": "20110916",
+   "ancNo": "11055",
+   "name": "건설기계관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "94576",
+   "efYd": "20100701",
+   "ancYd": "20090609",
+   "ancNo": "09770",
+   "name": "건설기계관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "97957",
+   "efYd": "20100630",
+   "ancYd": "20091229",
+   "ancNo": "09850",
+   "name": "건설기계관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "97957",
+   "efYd": "20091229",
+   "ancYd": "20091229",
+   "ancNo": "09850",
+   "name": "건설기계관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "90427",
+   "efYd": "20090627",
+   "ancYd": "20081226",
+   "ancNo": "09188",
+   "name": "건설기계관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "85935",
+   "efYd": "20080714",
+   "ancYd": "20080321",
+   "ancNo": "08980",
+   "name": "건설기계관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "83530",
+   "efYd": "20080229",
+   "ancYd": "20080229",
+   "ancNo": "08852",
+   "name": "건설기계관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "77830",
+   "efYd": "20070707",
+   "ancYd": "20070406",
+   "ancNo": "08336",
+   "name": "건설기계관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "78755",
+   "efYd": "20070427",
+   "ancYd": "20070427",
+   "ancNo": "08404",
+   "name": "건설기계관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "78067",
+   "efYd": "20070411",
+   "ancYd": "20070411",
+   "ancNo": "08369",
+   "name": "건설기계관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "68723",
+   "efYd": "20060601",
+   "ancYd": "20050531",
+   "ancNo": "07545",
+   "name": "건설기계관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "55998",
+   "efYd": "20010717",
+   "ancYd": "20010116",
+   "ancNo": "06363",
+   "name": "건설기계관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "50197",
+   "efYd": "20000629",
+   "ancYd": "19991228",
+   "ancNo": "06069",
+   "name": "건설기계관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "50193",
+   "efYd": "19990730",
+   "ancYd": "19990129",
+   "ancNo": "05728",
+   "name": "건설기계관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "50191",
+   "efYd": "19990208",
+   "ancYd": "19990208",
+   "ancNo": "05905",
+   "name": "건설기계관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "5084",
+   "efYd": "19980101",
+   "ancYd": "19971213",
+   "ancNo": "05454",
+   "name": "건설기계관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "5083",
+   "efYd": "19980101",
+   "ancYd": "19971213",
+   "ancNo": "05453",
+   "name": "건설기계관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "5085",
+   "efYd": "19970908",
+   "ancYd": "19970307",
+   "ancNo": "05303",
+   "name": "건설기계관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "5086",
+   "efYd": "19940101",
+   "ancYd": "19930611",
+   "ancNo": "04561",
+   "name": "건설기계관리법",
+   "kind": "전부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "1534",
+   "efYd": "19930701",
+   "ancYd": "19921208",
+   "ancNo": "04518",
+   "name": "중기관리법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "1533",
+   "efYd": "19870701",
+   "ancYd": "19861231",
+   "ancNo": "03912",
+   "name": "중기관리법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "1532",
+   "efYd": "19850205",
+   "ancYd": "19840804",
+   "ancNo": "03744",
+   "name": "중기관리법",
+   "kind": "타법개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "1529",
+   "efYd": "19840701",
+   "ancYd": "19831231",
+   "ancNo": "03710",
+   "name": "중기관리법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "1536",
+   "efYd": "19820318",
+   "ancYd": "19811217",
+   "ancNo": "03462",
+   "name": "중기관리법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "1530",
+   "efYd": "19751027",
+   "ancYd": "19750726",
+   "ancNo": "02785",
+   "name": "중기관리법",
+   "kind": "전부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "1535",
+   "efYd": "19730208",
+   "ancYd": "19730208",
+   "ancNo": "02511",
+   "name": "중기관리법",
+   "kind": "일부개정",
+   "status": "predecessor"
+  },
+  {
+   "lsiSeq": "1531",
+   "efYd": "19670101",
+   "ancYd": "19661223",
+   "ancNo": "01854",
+   "name": "중기관리법",
+   "kind": "제정",
+   "status": "predecessor"
+  }
+ ]
+}

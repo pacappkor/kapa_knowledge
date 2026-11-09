@@ -1,0 +1,700 @@
+{
+ "lsId": "001836",
+ "name": "하천법",
+ "fetched": "2026-11-08",
+ "versions": [
+  {
+   "lsiSeq": "284435",
+   "efYd": "20270318",
+   "ancYd": "20260317",
+   "ancNo": "21471",
+   "name": "하천법",
+   "kind": "일부개정",
+   "status": "scheduled"
+  },
+  {
+   "lsiSeq": "284435",
+   "efYd": "20260918",
+   "ancYd": "20260317",
+   "ancNo": "21471",
+   "name": "하천법",
+   "kind": "일부개정",
+   "status": "current"
+  },
+  {
+   "lsiSeq": "276805",
+   "efYd": "20251001",
+   "ancYd": "20251001",
+   "ancNo": "21065",
+   "name": "하천법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "254825",
+   "efYd": "20240915",
+   "ancYd": "20230914",
+   "ancNo": "19702",
+   "name": "하천법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "260595",
+   "efYd": "20240821",
+   "ancYd": "20240220",
+   "ancNo": "20333",
+   "name": "하천법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "253501",
+   "efYd": "20240517",
+   "ancYd": "20230808",
+   "ancNo": "19590",
+   "name": "하천법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "259571",
+   "efYd": "20240130",
+   "ancYd": "20240130",
+   "ancNo": "20172",
+   "name": "하천법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "253991",
+   "efYd": "20230816",
+   "ancYd": "20230816",
+   "ancNo": "19667",
+   "name": "하천법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "247279",
+   "efYd": "20230704",
+   "ancYd": "20230103",
+   "ancNo": "19171",
+   "name": "하천법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "246811",
+   "efYd": "20230628",
+   "ancYd": "20221227",
+   "ancNo": "19117",
+   "name": "하천법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "242967",
+   "efYd": "20230611",
+   "ancYd": "20220610",
+   "ancNo": "18915",
+   "name": "하천법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "234283",
+   "efYd": "20220128",
+   "ancYd": "20210727",
+   "ancNo": "18352",
+   "name": "하천법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "225469",
+   "efYd": "20220101",
+   "ancYd": "20201231",
+   "ancNo": "17814",
+   "name": "하천법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "224633",
+   "efYd": "20210123",
+   "ancYd": "20201222",
+   "ancNo": "17732",
+   "name": "하천법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "219327",
+   "efYd": "20200609",
+   "ancYd": "20200609",
+   "ancNo": "17453",
+   "name": "하천법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "218243",
+   "efYd": "20200526",
+   "ancYd": "20200526",
+   "ancNo": "17326",
+   "name": "하천법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "206055",
+   "efYd": "20191225",
+   "ancYd": "20181224",
+   "ancNo": "16057",
+   "name": "하천법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "202315",
+   "efYd": "20190222",
+   "ancYd": "20180221",
+   "ancNo": "15405",
+   "name": "하천법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "204223",
+   "efYd": "20190215",
+   "ancYd": "20180814",
+   "ancNo": "15742",
+   "name": "하천법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "203696",
+   "efYd": "20180822",
+   "ancYd": "20180608",
+   "ancNo": "15624",
+   "name": "하천법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "202315",
+   "efYd": "20180822",
+   "ancYd": "20180221",
+   "ancNo": "15405",
+   "name": "하천법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "204223",
+   "efYd": "20180814",
+   "ancYd": "20180814",
+   "ancNo": "15742",
+   "name": "하천법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "203782",
+   "efYd": "20180612",
+   "ancYd": "20180612",
+   "ancNo": "15684",
+   "name": "하천법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "203696",
+   "efYd": "20180608",
+   "ancYd": "20180608",
+   "ancNo": "15624",
+   "name": "하천법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "202315",
+   "efYd": "20180221",
+   "ancYd": "20180221",
+   "ancNo": "15405",
+   "name": "하천법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "192567",
+   "efYd": "20170922",
+   "ancYd": "20170321",
+   "ancNo": "14722",
+   "name": "하천법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "191145",
+   "efYd": "20170718",
+   "ancYd": "20170117",
+   "ancNo": "14544",
+   "name": "하천법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "192567",
+   "efYd": "20170321",
+   "ancYd": "20170321",
+   "ancNo": "14722",
+   "name": "하천법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "179594",
+   "efYd": "20160901",
+   "ancYd": "20160119",
+   "ancNo": "13796",
+   "name": "하천법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "179730",
+   "efYd": "20160720",
+   "ancYd": "20160119",
+   "ancNo": "13808",
+   "name": "하천법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "178190",
+   "efYd": "20160630",
+   "ancYd": "20151229",
+   "ancNo": "13689",
+   "name": "하천법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "173874",
+   "efYd": "20150811",
+   "ancYd": "20150811",
+   "ancNo": "13493",
+   "name": "하천법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "167692",
+   "efYd": "20150729",
+   "ancYd": "20150128",
+   "ancNo": "13084",
+   "name": "하천법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "166558",
+   "efYd": "20150106",
+   "ancYd": "20150106",
+   "ancNo": "12994",
+   "name": "하천법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "150059",
+   "efYd": "20140715",
+   "ancYd": "20140114",
+   "ancNo": "12248",
+   "name": "하천법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "142057",
+   "efYd": "20140117",
+   "ancYd": "20130716",
+   "ancNo": "11931",
+   "name": "하천법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "137211",
+   "efYd": "20130323",
+   "ancYd": "20130323",
+   "ancNo": "11690",
+   "name": "하천법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "122005",
+   "efYd": "20120701",
+   "ancYd": "20120117",
+   "ancNo": "11194",
+   "name": "하천법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "122005",
+   "efYd": "20120418",
+   "ancYd": "20120117",
+   "ancNo": "11194",
+   "name": "하천법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "112463",
+   "efYd": "20120415",
+   "ancYd": "20110414",
+   "ancNo": "10599",
+   "name": "하천법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "105496",
+   "efYd": "20101201",
+   "ancYd": "20100531",
+   "ancNo": "10331",
+   "name": "하천법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "104539",
+   "efYd": "20101016",
+   "ancYd": "20100415",
+   "ancNo": "10272",
+   "name": "하천법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "94670",
+   "efYd": "20100310",
+   "ancYd": "20090609",
+   "ancNo": "09763",
+   "name": "하천법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "94654",
+   "efYd": "20091210",
+   "ancYd": "20090609",
+   "ancNo": "09758",
+   "name": "하천법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "92298",
+   "efYd": "20090401",
+   "ancYd": "20090401",
+   "ancNo": "09605",
+   "name": "하천법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "90572",
+   "efYd": "20081231",
+   "ancYd": "20081231",
+   "ancNo": "09313",
+   "name": "하천법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "81997",
+   "efYd": "20080922",
+   "ancYd": "20071221",
+   "ancNo": "08733",
+   "name": "하천법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "82186",
+   "efYd": "20080628",
+   "ancYd": "20071227",
+   "ancNo": "08820",
+   "name": "하천법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "86255",
+   "efYd": "20080407",
+   "ancYd": "20080321",
+   "ancNo": "08976",
+   "name": "하천법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "86254",
+   "efYd": "20080407",
+   "ancYd": "20080321",
+   "ancNo": "08974",
+   "name": "하천법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "77850",
+   "efYd": "20080407",
+   "ancYd": "20070406",
+   "ancNo": "08338",
+   "name": "하천법",
+   "kind": "전부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "84034",
+   "efYd": "20080229",
+   "ancYd": "20080229",
+   "ancNo": "08852",
+   "name": "하천법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "75631",
+   "efYd": "20070928",
+   "ancYd": "20060927",
+   "ancNo": "08014",
+   "name": "하천법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "77247",
+   "efYd": "20070727",
+   "ancYd": "20070126",
+   "ancNo": "08283",
+   "name": "하천법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "78464",
+   "efYd": "20070411",
+   "ancYd": "20070411",
+   "ancNo": "08370",
+   "name": "하천법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "78463",
+   "efYd": "20070411",
+   "ancYd": "20070411",
+   "ancNo": "08355",
+   "name": "하천법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "78462",
+   "efYd": "20070411",
+   "ancYd": "20070411",
+   "ancNo": "08352",
+   "name": "하천법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "78461",
+   "efYd": "20070411",
+   "ancYd": "20070411",
+   "ancNo": "08351",
+   "name": "하천법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "71114",
+   "efYd": "20060805",
+   "ancYd": "20050804",
+   "ancNo": "07678",
+   "name": "하천법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "72401",
+   "efYd": "20060701",
+   "ancYd": "20051229",
+   "ancNo": "07796",
+   "name": "하천법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "70285",
+   "efYd": "20050713",
+   "ancYd": "20050713",
+   "ancNo": "07592",
+   "name": "하천법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "52043",
+   "efYd": "20040721",
+   "ancYd": "20040120",
+   "ancNo": "07101",
+   "name": "하천법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "62443",
+   "efYd": "20031001",
+   "ancYd": "20021230",
+   "ancNo": "06841",
+   "name": "하천법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "62450",
+   "efYd": "20030101",
+   "ancYd": "20020204",
+   "ancNo": "06655",
+   "name": "하천법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "62449",
+   "efYd": "20030101",
+   "ancYd": "20020204",
+   "ancNo": "06656",
+   "name": "하천법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "93320",
+   "efYd": "20021211",
+   "ancYd": "20021211",
+   "ancNo": "06773",
+   "name": "하천법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "448",
+   "efYd": "20010717",
+   "ancYd": "20010116",
+   "ancNo": "06367",
+   "name": "하천법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "4975",
+   "efYd": "19990809",
+   "ancYd": "19990208",
+   "ancNo": "05893",
+   "name": "하천법",
+   "kind": "전부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "9220",
+   "efYd": "19980101",
+   "ancYd": "19971213",
+   "ancNo": "05454",
+   "name": "하천법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "9219",
+   "efYd": "19980101",
+   "ancYd": "19971213",
+   "ancNo": "05453",
+   "name": "하천법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "9218",
+   "efYd": "19940101",
+   "ancYd": "19930611",
+   "ancNo": "04561",
+   "name": "하천법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "9217",
+   "efYd": "19891230",
+   "ancYd": "19891230",
+   "ancNo": "04161",
+   "name": "하천법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "9216",
+   "efYd": "19841231",
+   "ancYd": "19841231",
+   "ancNo": "03782",
+   "name": "하천법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "9215",
+   "efYd": "19810501",
+   "ancYd": "19810331",
+   "ancNo": "03406",
+   "name": "하천법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "9214",
+   "efYd": "19710720",
+   "ancYd": "19710119",
+   "ancNo": "02292",
+   "name": "하천법",
+   "kind": "전부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "9213",
+   "efYd": "19631205",
+   "ancYd": "19631205",
+   "ancNo": "01475",
+   "name": "하천법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "9212",
+   "efYd": "19620101",
+   "ancYd": "19611230",
+   "ancNo": "00892",
+   "name": "하천법",
+   "kind": "제정",
+   "status": "past"
+  }
+ ]
+}

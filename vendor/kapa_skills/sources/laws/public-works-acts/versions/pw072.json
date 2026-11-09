@@ -1,0 +1,385 @@
+{
+ "lsId": "001994",
+ "name": "연안관리법",
+ "fetched": "2026-11-08",
+ "versions": [
+  {
+   "lsiSeq": "289951",
+   "efYd": "20270923",
+   "ancYd": "20260922",
+   "ancNo": "21982",
+   "name": "연안관리법",
+   "kind": "일부개정",
+   "status": "scheduled"
+  },
+  {
+   "lsiSeq": "277079",
+   "efYd": "20251001",
+   "ancYd": "20251001",
+   "ancNo": "21065",
+   "name": "연안관리법",
+   "kind": "타법개정",
+   "status": "current"
+  },
+  {
+   "lsiSeq": "246763",
+   "efYd": "20230628",
+   "ancYd": "20221227",
+   "ancNo": "19117",
+   "name": "연안관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "250993",
+   "efYd": "20230516",
+   "ancYd": "20230516",
+   "ancNo": "19415",
+   "name": "연안관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "237055",
+   "efYd": "20221201",
+   "ancYd": "20211130",
+   "ancNo": "18522",
+   "name": "연안관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "216289",
+   "efYd": "20210401",
+   "ancYd": "20200331",
+   "ancNo": "17171",
+   "name": "연안관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "214573",
+   "efYd": "20210219",
+   "ancYd": "20200218",
+   "ancNo": "17063",
+   "name": "연안관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "214529",
+   "efYd": "20210219",
+   "ancYd": "20200218",
+   "ancNo": "17048",
+   "name": "연안관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "210338",
+   "efYd": "20200828",
+   "ancYd": "20190827",
+   "ancNo": "16568",
+   "name": "연안관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "214529",
+   "efYd": "20200218",
+   "ancYd": "20200218",
+   "ancNo": "17048",
+   "name": "연안관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "203226",
+   "efYd": "20190418",
+   "ancYd": "20180417",
+   "ancNo": "15607",
+   "name": "연안관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "206741",
+   "efYd": "20190416",
+   "ancYd": "20190115",
+   "ancNo": "16285",
+   "name": "연안관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "193439",
+   "efYd": "20171019",
+   "ancYd": "20170418",
+   "ancNo": "14804",
+   "name": "연안관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "192593",
+   "efYd": "20170922",
+   "ancYd": "20170321",
+   "ancNo": "14746",
+   "name": "연안관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "192586",
+   "efYd": "20170422",
+   "ancYd": "20170321",
+   "ancNo": "14740",
+   "name": "연안관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "188662",
+   "efYd": "20161227",
+   "ancYd": "20161227",
+   "ancNo": "14480",
+   "name": "연안관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "155029",
+   "efYd": "20150604",
+   "ancYd": "20140603",
+   "ancNo": "12738",
+   "name": "연안관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "142997",
+   "efYd": "20140814",
+   "ancYd": "20130813",
+   "ancNo": "12089",
+   "name": "연안관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "150028",
+   "efYd": "20140715",
+   "ancYd": "20140114",
+   "ancNo": "12248",
+   "name": "연안관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "142997",
+   "efYd": "20130813",
+   "ancYd": "20130813",
+   "ancNo": "12089",
+   "name": "연안관리법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "137176",
+   "efYd": "20130323",
+   "ancYd": "20130323",
+   "ancNo": "11690",
+   "name": "연안관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "115788",
+   "efYd": "20110804",
+   "ancYd": "20110804",
+   "ancNo": "11020",
+   "name": "연안관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "105466",
+   "efYd": "20101201",
+   "ancYd": "20100531",
+   "ancNo": "10331",
+   "name": "연안관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "104512",
+   "efYd": "20101016",
+   "ancYd": "20100415",
+   "ancNo": "10272",
+   "name": "연안관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "92061",
+   "efYd": "20100326",
+   "ancYd": "20090325",
+   "ancNo": "09552",
+   "name": "연안관리법",
+   "kind": "전부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "94972",
+   "efYd": "20091210",
+   "ancYd": "20090609",
+   "ancNo": "09773",
+   "name": "연안관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "94971",
+   "efYd": "20091210",
+   "ancYd": "20090609",
+   "ancNo": "09758",
+   "name": "연안관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "82193",
+   "efYd": "20080628",
+   "ancYd": "20071227",
+   "ancNo": "08820",
+   "name": "연안관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "86464",
+   "efYd": "20080321",
+   "ancYd": "20080321",
+   "ancNo": "08976",
+   "name": "연안관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "84039",
+   "efYd": "20080229",
+   "ancYd": "20080229",
+   "ancNo": "08852",
+   "name": "연안관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "80069",
+   "efYd": "20080204",
+   "ancYd": "20070803",
+   "ancNo": "08616",
+   "name": "연안관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "78511",
+   "efYd": "20070411",
+   "ancYd": "20070411",
+   "ancNo": "08377",
+   "name": "연안관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "78345",
+   "efYd": "20070411",
+   "ancYd": "20070411",
+   "ancNo": "08352",
+   "name": "연안관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "78192",
+   "efYd": "20070411",
+   "ancYd": "20070411",
+   "ancNo": "08351",
+   "name": "연안관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "71116",
+   "efYd": "20060805",
+   "ancYd": "20050804",
+   "ancNo": "07678",
+   "name": "연안관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "68829",
+   "efYd": "20051201",
+   "ancYd": "20050531",
+   "ancNo": "07571",
+   "name": "연안관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "59414",
+   "efYd": "20050210",
+   "ancYd": "20040209",
+   "ancNo": "07167",
+   "name": "연안관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "57008",
+   "efYd": "20040530",
+   "ancYd": "20030529",
+   "ancNo": "06893",
+   "name": "연안관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "55839",
+   "efYd": "20031001",
+   "ancYd": "20021230",
+   "ancNo": "06841",
+   "name": "연안관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "55840",
+   "efYd": "20030701",
+   "ancYd": "20021230",
+   "ancNo": "06846",
+   "name": "연안관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "57297",
+   "efYd": "20030101",
+   "ancYd": "20020204",
+   "ancNo": "06656",
+   "name": "연안관리법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "57298",
+   "efYd": "19990809",
+   "ancYd": "19990208",
+   "ancNo": "05913",
+   "name": "연안관리법",
+   "kind": "제정",
+   "status": "past"
+  }
+ ]
+}

@@ -1,0 +1,700 @@
+{
+ "lsId": "000479",
+ "name": "농지법",
+ "fetched": "2026-11-08",
+ "versions": [
+  {
+   "lsiSeq": "286901",
+   "efYd": "20280617",
+   "ancYd": "20260616",
+   "ancNo": "21798",
+   "name": "농지법",
+   "kind": "일부개정",
+   "status": "scheduled"
+  },
+  {
+   "lsiSeq": "286901",
+   "efYd": "20261217",
+   "ancYd": "20260616",
+   "ancNo": "21798",
+   "name": "농지법",
+   "kind": "일부개정",
+   "status": "scheduled"
+  },
+  {
+   "lsiSeq": "284301",
+   "efYd": "20260918",
+   "ancYd": "20260317",
+   "ancNo": "21462",
+   "name": "농지법",
+   "kind": "타법개정",
+   "status": "current"
+  },
+  {
+   "lsiSeq": "289585",
+   "efYd": "20260915",
+   "ancYd": "20260915",
+   "ancNo": "21923",
+   "name": "농지법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "286901",
+   "efYd": "20260828",
+   "ancYd": "20260616",
+   "ancNo": "21798",
+   "name": "농지법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "283751",
+   "efYd": "20260828",
+   "ancYd": "20260227",
+   "ancNo": "21402",
+   "name": "농지법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "286901",
+   "efYd": "20260616",
+   "ancYd": "20260616",
+   "ancNo": "21798",
+   "name": "농지법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "259079",
+   "efYd": "20250124",
+   "ancYd": "20240123",
+   "ancNo": "20083",
+   "name": "농지법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "257797",
+   "efYd": "20250103",
+   "ancYd": "20240102",
+   "ancNo": "19877",
+   "name": "농지법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "257797",
+   "efYd": "20240703",
+   "ancYd": "20240102",
+   "ancNo": "19877",
+   "name": "농지법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "253377",
+   "efYd": "20240517",
+   "ancYd": "20230808",
+   "ancNo": "19587",
+   "name": "농지법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "251055",
+   "efYd": "20240517",
+   "ancYd": "20230516",
+   "ancNo": "19409",
+   "name": "농지법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "253979",
+   "efYd": "20240217",
+   "ancYd": "20230816",
+   "ancNo": "19639",
+   "name": "농지법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "257797",
+   "efYd": "20240102",
+   "ancYd": "20240102",
+   "ancNo": "19877",
+   "name": "농지법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "253979",
+   "efYd": "20230816",
+   "ancYd": "20230816",
+   "ancNo": "19639",
+   "name": "농지법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "234697",
+   "efYd": "20220818",
+   "ancYd": "20210817",
+   "ancNo": "18401",
+   "name": "농지법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "234697",
+   "efYd": "20220518",
+   "ancYd": "20210817",
+   "ancNo": "18401",
+   "name": "농지법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "231407",
+   "efYd": "20211014",
+   "ancYd": "20210413",
+   "ancNo": "18021",
+   "name": "농지법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "234697",
+   "efYd": "20210817",
+   "ancYd": "20210817",
+   "ancNo": "18401",
+   "name": "농지법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "214155",
+   "efYd": "20200812",
+   "ancYd": "20200211",
+   "ancNo": "16975",
+   "name": "농지법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "217321",
+   "efYd": "20200708",
+   "ancYd": "20200407",
+   "ancNo": "17219",
+   "name": "농지법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "215727",
+   "efYd": "20200324",
+   "ancYd": "20200324",
+   "ancNo": "17091",
+   "name": "농지법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "214155",
+   "efYd": "20200211",
+   "ancYd": "20200211",
+   "ancNo": "16975",
+   "name": "농지법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "211667",
+   "efYd": "20191126",
+   "ancYd": "20191126",
+   "ancNo": "16652",
+   "name": "농지법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "206072",
+   "efYd": "20190701",
+   "ancYd": "20181224",
+   "ancNo": "16073",
+   "name": "농지법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "198495",
+   "efYd": "20180501",
+   "ancYd": "20171031",
+   "ancNo": "14985",
+   "name": "농지법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "191066",
+   "efYd": "20180118",
+   "ancYd": "20170117",
+   "ancNo": "14532",
+   "name": "농지법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "183684",
+   "efYd": "20161201",
+   "ancYd": "20160529",
+   "ancNo": "14242",
+   "name": "농지법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "179564",
+   "efYd": "20160901",
+   "ancYd": "20160119",
+   "ancNo": "13796",
+   "name": "농지법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "179536",
+   "efYd": "20160901",
+   "ancYd": "20160119",
+   "ancNo": "13782",
+   "name": "농지법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "183613",
+   "efYd": "20160529",
+   "ancYd": "20160529",
+   "ancNo": "14209",
+   "name": "농지법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "172970",
+   "efYd": "20160121",
+   "ancYd": "20150720",
+   "ancNo": "13405",
+   "name": "농지법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "167367",
+   "efYd": "20160121",
+   "ancYd": "20150120",
+   "ancNo": "13022",
+   "name": "농지법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "172306",
+   "efYd": "20151223",
+   "ancYd": "20150622",
+   "ancNo": "13383",
+   "name": "농지법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "167367",
+   "efYd": "20150120",
+   "ancYd": "20150120",
+   "ancNo": "13022",
+   "name": "농지법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "160136",
+   "efYd": "20150116",
+   "ancYd": "20141015",
+   "ancNo": "12812",
+   "name": "농지법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "142577",
+   "efYd": "20140807",
+   "ancYd": "20130806",
+   "ancNo": "11998",
+   "name": "농지법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "137280",
+   "efYd": "20130323",
+   "ancYd": "20130323",
+   "ancNo": "11694",
+   "name": "농지법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "136863",
+   "efYd": "20130323",
+   "ancYd": "20130323",
+   "ancNo": "11690",
+   "name": "농지법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "130895",
+   "efYd": "20121218",
+   "ancYd": "20121218",
+   "ancNo": "11599",
+   "name": "농지법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "121982",
+   "efYd": "20120718",
+   "ancYd": "20120117",
+   "ancNo": "11171",
+   "name": "농지법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "112404",
+   "efYd": "20120415",
+   "ancYd": "20110414",
+   "ancNo": "10599",
+   "name": "농지법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "111691",
+   "efYd": "20120302",
+   "ancYd": "20110331",
+   "ancNo": "10522",
+   "name": "농지법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "112292",
+   "efYd": "20111013",
+   "ancYd": "20110412",
+   "ancNo": "10580",
+   "name": "농지법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "113232",
+   "efYd": "20110519",
+   "ancYd": "20110519",
+   "ancNo": "10682",
+   "name": "농지법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "105185",
+   "efYd": "20101118",
+   "ancYd": "20100517",
+   "ancNo": "10303",
+   "name": "농지법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "94589",
+   "efYd": "20091210",
+   "ancYd": "20090609",
+   "ancNo": "09758",
+   "name": "농지법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "93849",
+   "efYd": "20091128",
+   "ancYd": "20090527",
+   "ancNo": "09721",
+   "name": "농지법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "93782",
+   "efYd": "20091128",
+   "ancYd": "20090527",
+   "ancNo": "09717",
+   "name": "농지법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "92401",
+   "efYd": "20091002",
+   "ancYd": "20090401",
+   "ancNo": "09620",
+   "name": "농지법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "90492",
+   "efYd": "20090630",
+   "ancYd": "20081229",
+   "ancNo": "09276",
+   "name": "농지법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "81956",
+   "efYd": "20080622",
+   "ancYd": "20071221",
+   "ancNo": "08749",
+   "name": "농지법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "84549",
+   "efYd": "20080229",
+   "ancYd": "20080229",
+   "ancNo": "08852",
+   "name": "농지법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "79027",
+   "efYd": "20071118",
+   "ancYd": "20070517",
+   "ancNo": "08466",
+   "name": "농지법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "77975",
+   "efYd": "20070411",
+   "ancYd": "20070411",
+   "ancNo": "08352",
+   "name": "농지법",
+   "kind": "전부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "72280",
+   "efYd": "20060430",
+   "ancYd": "20051229",
+   "ancNo": "07775",
+   "name": "농지법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "67757",
+   "efYd": "20060401",
+   "ancYd": "20050331",
+   "ancNo": "07459",
+   "name": "농지법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "70272",
+   "efYd": "20060122",
+   "ancYd": "20050721",
+   "ancNo": "07604",
+   "name": "농지법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "66498",
+   "efYd": "20050114",
+   "ancYd": "20050114",
+   "ancNo": "07335",
+   "name": "농지법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "61717",
+   "efYd": "20031001",
+   "ancYd": "20021230",
+   "ancNo": "06841",
+   "name": "농지법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "56869",
+   "efYd": "20030101",
+   "ancYd": "20021218",
+   "ancNo": "06793",
+   "name": "농지법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "51929",
+   "efYd": "20030101",
+   "ancYd": "20020204",
+   "ancNo": "06656",
+   "name": "농지법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "51928",
+   "efYd": "20020401",
+   "ancYd": "20020114",
+   "ancNo": "06597",
+   "name": "농지법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "53781",
+   "efYd": "20000701",
+   "ancYd": "20000128",
+   "ancNo": "06241",
+   "name": "농지법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "53782",
+   "efYd": "20000121",
+   "ancYd": "20000121",
+   "ancNo": "06188",
+   "name": "농지법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "691",
+   "efYd": "20000101",
+   "ancYd": "19990205",
+   "ancNo": "05759",
+   "name": "농지법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "690",
+   "efYd": "20000101",
+   "ancYd": "19990205",
+   "ancNo": "05758",
+   "name": "농지법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "693",
+   "efYd": "19991231",
+   "ancYd": "19991231",
+   "ancNo": "06073",
+   "name": "농지법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "692",
+   "efYd": "19990331",
+   "ancYd": "19990331",
+   "ancNo": "05948",
+   "name": "농지법",
+   "kind": "일부개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "689",
+   "efYd": "19980916",
+   "ancYd": "19980916",
+   "ancNo": "05555",
+   "name": "농지법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "688",
+   "efYd": "19980101",
+   "ancYd": "19971213",
+   "ancNo": "05454",
+   "name": "농지법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "687",
+   "efYd": "19980101",
+   "ancYd": "19971213",
+   "ancNo": "05453",
+   "name": "농지법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "686",
+   "efYd": "19971123",
+   "ancYd": "19970822",
+   "ancNo": "05371",
+   "name": "농지법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "685",
+   "efYd": "19970714",
+   "ancYd": "19970113",
+   "ancNo": "05279",
+   "name": "농지법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "684",
+   "efYd": "19960808",
+   "ancYd": "19960808",
+   "ancNo": "05153",
+   "name": "농지법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "55220",
+   "efYd": "19960630",
+   "ancYd": "19951229",
+   "ancNo": "05108",
+   "name": "농지법",
+   "kind": "타법개정",
+   "status": "past"
+  },
+  {
+   "lsiSeq": "683",
+   "efYd": "19960101",
+   "ancYd": "19941222",
+   "ancNo": "04817",
+   "name": "농지법",
+   "kind": "제정",
+   "status": "past"
+  }
+ ]
+}
