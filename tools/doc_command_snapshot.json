@@ -21,8 +21,8 @@
   },
   {
     "file": "docs/SCHEMA.md",
-    "sha256": "5295ff06e6800c6e8d8512102680d62e15d5a312e087c9c629e2f8956598f3b4",
-    "size": 35930
+    "sha256": "5dba3bfdb7e341ea85a9d6ecd1af253b99c0d6fb84da13d087385a475b21bfd7",
+    "size": 41882
   },
   {
     "file": "rules/knowledge-reading-rules/SKILL.md",
@@ -31,7 +31,7 @@
   },
   {
     "file": "rules/knowledge-update-maintenance/SKILL.md",
-    "sha256": "f536acd63ca9167ff1f88e2f7752ff337342b4e0a899b643487c59874bd16b09",
-    "size": 25554
+    "sha256": "5e975688698e00394a6c1c801867b6da35aee2adc292cdd3a59b6a9e1d2dd068",
+    "size": 26210
   }
 ]

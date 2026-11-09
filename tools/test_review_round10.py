@@ -330,7 +330,7 @@ class RoundTenRegressions(unittest.TestCase):
         self.assertEqual(found, {'update_doc_snapshot.py', 'build_review_manifest.py', 'collect_article.py', 'fetch_case.py',
                                  'fetch_interp.py', 'migrate_issue_sections.py', 'migrate_source_fields.py',
                                  'migrate_review_digest.py', 'restore_source_court.py', 'rerender_source.py', 'validate.py',
-                                 'vendor_skills.py'})
+                                 'vendor_skills.py', 'build_material_catalog.py'})
 
     def test_4509085821_each_write_workflow_checks_credentials_after_links(self):
         root = common.CODE_ROOT

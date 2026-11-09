@@ -132,6 +132,16 @@ python -I -B tools/secret_scan.py --require --worktree || exit 1
 
 오류가 0이어야 한다. 형제 체크아웃이 없으면 deps.lock에 고정한 vendor 메타데이터로 검증한다. 형제 저장소가 있지만 잠금 객체가 없으면 실패하며 vendor로 숨기지 않는다. 개발 WORKTREE는 형제 체크아웃에서만 허용하는 경고 상태이고 PR에서는 실제 SHA로 고정한다. 링크·출처 해시·검토·관계와 읽기/갱신 분리를 함께 확인한다.
 
+### 저장 조사에서 보류 카탈로그 생성
+
+과거 판본·FAQ·회신 동일성 주장은 저장된 파일럿 조사에서만 가져온다. 카탈로그는 정식 해석 수록이나 검토 승인이 아니다. 출처 바이트가 바뀌면 해시와 생성 결과가 달라져 검증이 실패한다. 변경된 출처와 결과를 함께 검토하고 명시적으로 재생성한다. 이 명령은 네트워크·OC 없이 기존 잠금 메타데이터만 사용한다.
+
+```sh
+python -I -B tools/validate.py --check-links || exit 1
+python -I -B tools/secret_scan.py --require --worktree || exit 1
+python -I -B tools/build_material_catalog.py
+```
+
 ### 의존성 메타데이터의 명시적 갱신
 
 kapa_skills의 승인된 새 commit을 deps.lock의 commit에 먼저 고정한다. 로컬 형제 체크아웃 또는 KK_SKILLS_ROOT가 그 객체를 보유해야 한다. vendor_skills 도구는 작업 사본이 아니라 그 commit의 Git 객체에서 docs/law-index.json과 색인이 지정한 sources/laws 아래 versions 메타데이터만 읽는다. 법령 본문·다른 저장소 코드는 복제하지 않으며 네트워크 접근은 없다. 아래 명령은 공용 안전 쓰기로 vendor 원본 바이트와 deps.lock의 vendor.commit·파일별 SHA-256을 함께 갱신한다.

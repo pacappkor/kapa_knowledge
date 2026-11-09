@@ -14,6 +14,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from common import ROOT, frontmatter, load_index, canonical, sha, relation, readjson as strict_json, source_date, court_slug, check_tracked_links, run_cli, dependency_bytes
 import secret_scan
 from markdown_context import body, prose as markdown_prose, has_command, command_line
+from material_contracts import (CATALOG, EVIDENCE, CATALOG_INPUTS, IDENTITY_DOCUMENTS,
+                                build_catalog, version_reference)
 
 PROGRESS = {'candidate', 'source-verified', 'relations-reviewed', 'published'}
 STATUS = {'unreviewed', 'current-usable', 'recheck-amendment', 'recheck-relation', 'overruled-confirmed', 'superseded-confirmed', 'historical-only', 'indeterminate'}
@@ -419,6 +421,15 @@ def validate(root=ROOT):
     literal_warning = False
     docs, reviews, rels = {}, [], []
     source_relation_sets = {}
+    material_records = []
+    selected_names = {path.relative_to(root).as_posix() for path in validation_paths}
+    def require_material_catalog():
+        missing = CATALOG_INPUTS - selected_names
+        if missing:
+            err('catalogs/materials.json: affected material requires its held material catalog and inputs: '
+                + ', '.join(sorted(missing)))
+    if CATALOG_INPUTS & selected_names:
+        require_material_catalog()
     command_checks, canonical_sources = [], set()
     for path in validation_paths:
         if '.git' in path.parts or '__pycache__' in path.parts or path.is_symlink() or not path.is_file(): continue
@@ -439,6 +450,20 @@ def validate(root=ROOT):
         if path.suffix == '.json' or path.name == 'deps.lock':
             try:
                 saved = readjson(path)
+                if rel == CATALOG:
+                    def catalog_read(name):
+                        from common import check_output_path
+                        check_output_path(root / name, root=root, require_exists=True)
+                        return read_input_bytes(root / name)
+                    def catalog_versions(name):
+                        return dependency_bytes(root, sibling, commit, name,
+                                                inspect_bytes=inspect_input, read_bytes=read_input_bytes)
+                    if commit == 'WORKTREE':
+                        raise ValueError('Material catalog requires a pinned dependency commit.')
+                    expected = build_catalog(catalog_read, index, commit, catalog_versions)
+                    material_records = expected['records']
+                    if saved != expected:
+                        err('catalogs/materials.json: derived catalog mismatch; identity/provenance/hold changed')
                 if rel.startswith('runs/'):
                     if (not run_valid(saved, supplemental=rel.startswith('runs/pilot/'))
                             or not run_path_valid(Path(rel), saved)):
@@ -743,6 +768,17 @@ def validate(root=ROOT):
                          and re.fullmatch(PATTERN, r[key]) and r[key] in docs and r[key] != ident
                          and (status != 'overruled-confirmed' or nonempty(r.get('change_quote')))]
                 if not valid: err(ident+': 대체/변경 자료 ID 유형·존재·근거 확인 불가')
+    if IDENTITY_DOCUMENTS & docs.keys():
+        require_material_catalog()
+    # This guard survives deletion of both research and generated catalog.
+    for ident in IDENTITY_DOCUMENTS & docs.keys():
+        if docs[ident][0].get('progress') == 'published':
+            err('identity hold: unresolved source identity prevents publication ' + ident)
+    for held in material_records:
+        if held['kind'] == 'identity-hold':
+            ident = held['existing_document_id']
+            if ident not in docs:
+                err('identity hold: existing document missing ' + ident)
     def reference(ident):
         if not isinstance(ident, str) or not re.fullmatch(PATTERN,ident): err('참조 ID 형식 오류: '+str(ident));return
         if ident.startswith(('case/','interp/','issue/')):
@@ -752,18 +788,15 @@ def validate(root=ROOT):
                 if '#a' in ident: ok=ident in index.get('articles',{})
                 elif '@' not in ident: ok=ident[4:] in index.get('laws',{})
                 else:
-                    lid,seq=ident[4:].split('@')
-                    law=index.get('laws',{}).get(lid,{})
-                    ok=str(law.get('current',{}).get('lsiSeq'))==seq
-                    if not ok and sibling and commit=='WORKTREE' and law.get('versions_file'):
-                        try: ok=any(str(v['lsiSeq'])==seq for v in readjson(sibling/law['versions_file'])['versions'])
-                        except Exception: pass
-                    elif not ok and sibling and commit!='WORKTREE' and law.get('versions_file'):
-                        try:
-                            raw=dependency_bytes(root, sibling, commit, law['versions_file'],
-                                                 inspect_bytes=inspect_input, read_bytes=read_input_bytes)
-                            ok=any(str(v['lsiSeq'])==seq for v in strict_json(raw)['versions'])
-                        except Exception: pass
+                    def read_versions(name):
+                        if commit == 'WORKTREE':
+                            return read_input_bytes(sibling / name)
+                        return dependency_bytes(root, sibling, commit, name,
+                                                inspect_bytes=inspect_input, read_bytes=read_input_bytes)
+                    try:
+                        ok = version_reference(ident, index, read_versions)['catalog_status'] != 'unavailable'
+                    except Exception:
+                        ok = False
                 if not ok: err('검증 불가: 색인/판본에 참조 없음 '+ident)
             elif ident.startswith('apps@') and ident not in index.get('standards',{}): err('실무기준 참조 없음: '+ident)
             elif ident.startswith('skill/'):

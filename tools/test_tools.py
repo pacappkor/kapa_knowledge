@@ -839,16 +839,19 @@ class Tests(unittest.TestCase):
             for value in ('current',True,'law/009471@261727#a25','law/009471@999999'):
                 fm['applied_version']=value;write_doc(p,fm,body)
                 self.assertTrue(validate.validate(root)[0])
-            index={'schema':1,'laws':{'009471':{'name':'테스트법','current':{'lsiSeq':'261727'},'versions_file':'versions.json'}},'articles':{},'standards':{}}
-            (root/'versions.json').write_text(json.dumps({'versions':[{'lsiSeq':'123'}]}),encoding='utf-8')
+            versions_file='sources/laws/test/versions/act.json'
+            index={'schema':1,'laws':{'009471':{'name':'테스트법','current':{'lsiSeq':'261727'},'versions_file':versions_file}},'articles':{},'standards':{}}
+            version_payload={'lsId':'009471','versions':[{'lsiSeq':'123'}]}
+            (root/versions_file).parent.mkdir(parents=True)
+            (root/versions_file).write_text(json.dumps(version_payload),encoding='utf-8')
             with patch.object(validate,'load_index',return_value=(index,root,'WORKTREE')):
                 for value in ('unknown','law/009471@261727','law/009471@123'):
                     fm['applied_version']=value;write_doc(p,fm,body);self.assertEqual(validate.validate(root)[0],[])
             with patch.object(validate,'load_index',return_value=(index,root,'a'*40)), patch.object(validate.subprocess,'run') as run:
-                run.return_value.stdout=json.dumps({'versions':[{'lsiSeq':'123'}]}).encode()
+                run.return_value.stdout=json.dumps(version_payload).encode()
                 fm['applied_version']='law/009471@123';write_doc(p,fm,body)
                 self.assertEqual(validate.validate(root)[0],[])
-                self.assertIn('a'*40+':versions.json',run.call_args.args[0])
+                self.assertIn('a'*40+':'+versions_file,run.call_args.args[0])
             fm.update(applied_version='unknown',reference_status='overruled-confirmed',source_sha256=fm['source_sha256'],last_reviewed='2026-01-01T00:00:00Z');write_doc(p,fm,body)
             folder=root/'reviews/2026';folder.mkdir(parents=True)
             row=dict(id='review-1',target=fm['id'],reviewer_model='model',reviewed_at=fm['last_reviewed'],evidence={'source':'https://example.test','quote':'quote'},decision='accept',reference_status='overruled-confirmed',source_sha256=fm['source_sha256'],overruling_id='case/대법원/missing',change_quote='changed')

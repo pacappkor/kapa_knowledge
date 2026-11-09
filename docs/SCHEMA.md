@@ -19,6 +19,31 @@ UTF-8, LF. 일반 계약 검증은 UTF-8 디코딩 실패와 NUL 문자를 오�
 
 법령·판본·조문·실무기준·스킬은 deps.lock의 kapa_skills commit에서 검증한다. WORKTREE이면 형제 체크아웃 작업 파일을 읽고 경고한다. 그 외에는 형제 체크아웃의 해당 SHA에서 `docs/law-index.json`을 읽는다. 저장소·SHA·색인이 없으면 `검증 불가` 오류다. 현재 조문만 있는 색인에 없는 과거 조문은 추정 통과하지 않는다. 해당 판본 원문을 별도로 확인하고 의존 색인 범위를 해결해야 한다.
 
+### 과거 판본과 보류 자료 카탈로그
+
+`catalogs/materials.json`은 schema 1의 `unpublished-evidence` 생성물이다. 저장 조사 기록에서 오프라인 재생성하며 검증기는 입력 파일의 실제 바이트 해시와 생성 결과 전체를 비교한다. 검토 기록이나 게시 문서를 대신하지 않는다. `dependency_commit`은 deps.lock과 같아야 하며 WORKTREE 생성은 거부한다. 원본·GENERATED·기존 검토는 수정하지 않는다.
+
+`historical_versions`의 ID는 기존 판본 계약을 따른다. `catalog_status`는 `verified-version-list`, `verified-current-index`, `unavailable` 중 하나다. 잠금 색인의 `versions_file`을 공용 dependency reader로 읽고 법령 ID와 일련번호를 대조한다. vendor fallback은 기존 commit·SHA-256 검증을 유지한다. `metadata_sha256`은 메타데이터 원본 바이트 해시이며 같은 일련번호에 여러 시행일이 있으면 `entries`에 모두 보존한다. 판본 목록 확인은 조문 존재·본문·사건 적용·경과조치 확인이 아니다. `article_text_status`는 unavailable, `applicability_status`는 unverified다.
+
+미확인은 `unavailable_reason`에 `law-id-absent-from-pinned-index`, `versions-file-absent-from-pinned-index`, `sequence-absent-from-pinned-version-list`로 구분한다. 현재 잠금에서 공특법 계열 001826·002258·006297의 38개 판본 주장은 첫 사유로 보류한다. 토지수용법 시기 009295의 연혁 10개는 기존 목록에서 확인된다. 새 전신법 계보를 만들지 않는다. `historical_case_annotations`는 8건 판례의 조문명·출처·주장 판본·적용 기준일·기준일 근거를 보존한다. 연구 목록과 유일하게 연결되는 판본만 `asserted_version_id`에 적으며 확인 상태를 올리지 않는다. `article_id`는 null이고 `publication_hold`는 true다. 미확인 재결일·판본 충돌은 `historical_gaps`에 남긴다. 법령 본문은 가져오지 않는다.
+
+`records`에는 서로 다른 두 종류만 둔다.
+
+| kind | ID | 계약 |
+|---|---|---|
+| faq | `faq/molit/lawgo/<숫자 source_id>` | 행정 FAQ, 정식 해석 아님 |
+| identity-hold | `identity-hold/molit/<공문번호>` | 출처 간 행정상 동일성 미확정 |
+
+FAQ의 `material_type`은 administrative-faq, `case_no`는 빈 문자열, progress는 candidate, reference_status는 unreviewed, publication_hold는 true다. source_id와 source_identifiers.lawgo는 같고 source_identifiers.epUnionSn은 국민신문고 레코드 ID다. 어느 것도 안건번호로 사용하지 않는다. source_url은 해당 law.go.kr 상세, upstream_url은 기록된 국민신문고 링크다. asserted_replied와 title은 저장 조사상의 출처 주장이다. source_envelope_status는 unavailable로서 완전한 수집 원본 봉투가 없음을 표시한다. reply_sha256은 저장 조사 full_reply 문자열의 UTF-8 바이트 해시이며 정규 source_sha256이나 원시 네트워크 응답 해시가 아니다. 원문을 복제하거나 정식 해석 문서로 수록하지 않는다.
+
+동일성 보류의 identity_status는 unresolved다. assertions는 source_id·asserted_replied·source_url·upstream_url·citation·title·reply_sha256을 각각 보존한다. existing_document_id는 기존 해석 문서 연결이며 동등성·별개 발행·대체 관계를 뜻하지 않는다. 같은 본문이나 다른 연도만으로 합치거나 새 해석 ID를 부여하지 않는다. 기존 검토 상태는 보존하되 보류 문서의 published 진행은 거부한다. 원 회신문 또는 기관 정정이 확보되기 전 동일성은 확정하지 않는다.
+
+모든 records는 evidence_file·evidence_sha256·evidence_item·evidence_basis와 전 필드 provenance를 가진다. evidence_basis는 stored-pilot-research이며 새 원문 확인을 주장하지 않는다. evidence_file은 records에서 `runs/pilot/held-items-research.json`, 과거 판본·사건 주석에서 `runs/pilot/predecessor-versions-research.json`이다. evidence_sha256은 전체 파일 바이트 해시다. limitations는 원 회신문 미확보·국토교통부 FAQ 목록 접근 실패·공식 안건번호 미확인 등 저장된 한계를 보존한다. 별도 ID들은 관계 끝점이나 정식 문서 참조 계약으로 승격하지 않는다. reader는 이 경로를 별도 허용 목록에 추가한 경우에 카탈로그 종류·knowledge revision·파일 해시·보류 사유를 함께 전달한다.
+
+카탈로그·두 입력 중 하나 또는 기존 동일성 보류 해석 문서가 있으면 세 파일을 모두 요구한다. 입력과 카탈로그를 함께 삭제해도 해당 문서의 published 금지는 유지된다. 영향을 받는 자료가 없는 일반 빈 저장소에는 이 요구를 적용하지 않는다. 동일성 assertion의 law.go.kr URL은 source_id와 같은 cgmExpcDatSeq의 정확한 상세 URL이어야 하고, LAIIS URL은 보존된 law.go.kr–nttNo 출처 쌍과 일치해야 한다. 호스트·경로·ID·추가 query·fragment가 다르면 거부한다.
+
+FAQ의 빈 case_no는 기계 생성이므로 machine이고 limitations는 저장 조사자의 판단을 복사하므로 analysis다. assertions 컨테이너는 기계가 구성한 목록이므로 machine이며 각 assertion 안에 전 필드 provenance를 별도로 둔다. 개별 날짜·인용·출처는 source, 계산한 reply_sha256은 machine이다. 네 가지 기존 provenance category만 사용한다. 역사 주석 생성 전에 연구 객체의 키·case_id·case_file과 실제 로컬 판례 frontmatter의 ID·법원·사건번호·판결일·출처를 대조한다. case_file은 cases 아래 법원·4자리 연도·파일명 구조의 정규 상대 경로여야 하며 공용 안전 읽기로 링크·reparse·누락 파일을 거부한다. 다른 판례로의 바꿔치기나 문서 없는 주석 생성은 허용하지 않는다.
+
 ## 두 상태 축
 
 `progress`: candidate → source-verified → relations-reviewed → published. 수집·검증 진행이며 자동 지정 가능하다. 참조 가능성 판정이 아니다.

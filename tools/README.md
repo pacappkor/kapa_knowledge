@@ -14,6 +14,8 @@
 | fetch_interp.py | expc ID 법제처 해석 상세 수집과 실행 기록 |
 | markdown_context.py | frontmatter·산문·코드 문맥 분리, 구조적 명령 모양 판별 |
 | validate.py | 필수 필드·중복·참조·원본 해시·검토·관계·링크·규칙 분리 검사 |
+| material_contracts.py | 과거 판본 목록 확인과 미게시 FAQ·동일성 보류 카탈로그의 순수 계약 |
+| build_material_catalog.py | 저장 조사에서 출처 해시·보류·판본 목록 메타데이터를 오프라인 생성 |
 | test_tools.py | 가짜 응답과 임시 fixture를 쓰는 오프라인 회귀 시험 |
 
 ## 환경
