@@ -1,0 +1,15 @@
+{
+  "document": "interpretations/moleg/2021/21-0150.md",
+  "finished": "2026-11-08T13:28:20.940662+00:00",
+  "query": "326371",
+  "relations": 0,
+  "source": "expc",
+  "started": "2026-11-08T13:28:20.542986+00:00",
+  "tracks": {
+    "expc": {
+      "count": 1,
+      "status": "success"
+    }
+  },
+  "unmapped": []
+}

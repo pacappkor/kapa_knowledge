@@ -1,0 +1,24 @@
+{
+  "finished": "2026-11-08T13:21:34.908702+00:00",
+  "pages": [
+    {
+      "LawSearch": {
+        "numOfRows": "0",
+        "page": "1",
+        "resultCode": "00",
+        "resultMsg": "success",
+        "section": "lawNm",
+        "target": "law",
+        "totalCnt": "0",
+        "키워드": "공공용지"
+      }
+    }
+  ],
+  "parameters": {
+    "nw": 2
+  },
+  "path": "P2",
+  "query": "공공용지",
+  "started": "2026-11-08T13:21:34.471054+00:00",
+  "status": "success"
+}

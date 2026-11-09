@@ -1,0 +1,15 @@
+{
+  "document": "cases/대법원/2014/2013두20219.md",
+  "finished": "2026-11-08T13:28:10.451529+00:00",
+  "query": "178721",
+  "relations": 1,
+  "source": "prec",
+  "started": "2026-11-08T13:28:10.025743+00:00",
+  "tracks": {
+    "prec": {
+      "count": 1,
+      "status": "success"
+    }
+  },
+  "unmapped": []
+}

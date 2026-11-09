@@ -1,0 +1,20 @@
+{
+  "document": "cases/부산지법 울산지원/1997/94가합9739.md",
+  "finished": "2026-11-08T13:22:07.802325+00:00",
+  "query": "120509",
+  "relations": 0,
+  "source": "prec",
+  "started": "2026-11-08T13:22:07.380071+00:00",
+  "tracks": {
+    "prec": {
+      "count": 1,
+      "status": "success"
+    }
+  },
+  "unmapped": [
+    {
+      "reason": "법령명/판본/조문 대응 불확실",
+      "text": " 도시계획법 제24조"
+    }
+  ]
+}

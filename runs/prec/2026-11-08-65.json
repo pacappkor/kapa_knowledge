@@ -1,0 +1,15 @@
+{
+  "document": "cases/서울고등법원/2013/2012누35322.md",
+  "finished": "2026-11-08T14:06:01.071656+00:00",
+  "query": "173527",
+  "relations": 0,
+  "source": "prec",
+  "started": "2026-11-08T14:06:00.700461+00:00",
+  "tracks": {
+    "prec": {
+      "count": 1,
+      "status": "success"
+    }
+  },
+  "unmapped": []
+}

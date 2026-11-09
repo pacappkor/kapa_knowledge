@@ -1,0 +1,20 @@
+{
+  "date": "2026-11-09",
+  "skeleton": "98c263f",
+  "validator": {
+    "documents": 39,
+    "errors": 0,
+    "warnings": 0
+  },
+  "tests_clean_skeleton_fixture": {
+    "tests": 43,
+    "errors": 0,
+    "failures": 0
+  },
+  "tests_populated_pilot": {
+    "status": "blocked",
+    "first_error": "test_agency_detail_and_fetch: existing cgmexpc source ID 23852 conflicts with test fixture",
+    "full_run": "stopped after observing multiple fixture-dependent errors; fail-fast reproduced first error"
+  },
+  "tools_changed": false
+}

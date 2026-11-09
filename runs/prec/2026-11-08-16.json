@@ -1,0 +1,15 @@
+{
+  "document": "cases/수원지방법원 평택지원/2019/2019가합11854.md",
+  "finished": "2026-11-08T13:18:23.624645+00:00",
+  "query": "220223",
+  "relations": 0,
+  "source": "prec",
+  "started": "2026-11-08T13:18:23.223437+00:00",
+  "tracks": {
+    "prec": {
+      "count": 1,
+      "status": "success"
+    }
+  },
+  "unmapped": []
+}

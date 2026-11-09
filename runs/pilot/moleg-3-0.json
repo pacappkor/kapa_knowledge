@@ -1,0 +1,10 @@
+{
+  "finished": "2026-11-08T13:11:35.110012+00:00",
+  "keyField": 3,
+  "note": "HTML fetched; result verification pending",
+  "path": "P6",
+  "query": "미지급용지",
+  "source_url": "https://www.moleg.go.kr/lawinfo/nwLwAnList.mo?mid=a10106020000&keyField=3&keyWord=%EB%AF%B8%EC%A7%80%EA%B8%89%EC%9A%A9%EC%A7%80",
+  "started": "2026-11-08T13:11:32.469149+00:00",
+  "status": "success"
+}

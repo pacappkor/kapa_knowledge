@@ -1,0 +1,10 @@
+{
+  "finished": "2026-11-08T13:11:40.853798+00:00",
+  "keyField": 5,
+  "note": "HTML fetched; result verification pending",
+  "path": "P6",
+  "query": "토지수용법",
+  "source_url": "https://www.moleg.go.kr/lawinfo/nwLwAnList.mo?mid=a10106020000&keyField=5&keyWord=%ED%86%A0%EC%A7%80%EC%88%98%EC%9A%A9%EB%B2%95",
+  "started": "2026-11-08T13:11:40.605328+00:00",
+  "status": "success"
+}

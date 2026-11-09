@@ -1,0 +1,10 @@
+{
+  "error": "DRF lawSearch.do target=ls: 응답 검증/통신 실패 (3회)",
+  "finished": "2026-11-08T13:10:29.801014+00:00",
+  "pages": [],
+  "path": "P2",
+  "query": "공공용지의취득및손실보상에관한특례법시행규칙",
+  "started": "2026-11-08T13:10:25.960141+00:00",
+  "status": "failure",
+  "target": "ls"
+}

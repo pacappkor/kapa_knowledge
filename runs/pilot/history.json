@@ -1,0 +1,445 @@
+{
+  "finished": "2026-11-08T13:17:11.254529+00:00",
+  "path": "P2",
+  "started": "2026-11-08T13:14:46.890219+00:00",
+  "tracks": {
+    "history": {
+      "count": 36,
+      "status": "failure"
+    }
+  },
+  "versions": [
+    {
+      "error": "DRF lawService.do target=law: 응답 검증/통신 실패 (3회)",
+      "version": {
+        "ancNo": "01322",
+        "ancYd": "20240409",
+        "efYd": "20240409",
+        "kind": "일부개정",
+        "lsiSeq": "261727",
+        "name": "공익사업을 위한 토지 등의 취득 및 보상에 관한 법률 시행규칙",
+        "status": "current"
+      }
+    },
+    {
+      "error": "DRF lawService.do target=law: 응답 검증/통신 실패 (3회)",
+      "version": {
+        "ancNo": "01203",
+        "ancYd": "20230417",
+        "efYd": "20230417",
+        "kind": "일부개정",
+        "lsiSeq": "250125",
+        "name": "공익사업을 위한 토지 등의 취득 및 보상에 관한 법률 시행규칙",
+        "status": "past"
+      }
+    },
+    {
+      "error": "DRF lawService.do target=law: 응답 검증/통신 실패 (3회)",
+      "version": {
+        "ancNo": "01099",
+        "ancYd": "20220121",
+        "efYd": "20220121",
+        "kind": "타법개정",
+        "lsiSeq": "239831",
+        "name": "공익사업을 위한 토지 등의 취득 및 보상에 관한 법률 시행규칙",
+        "status": "past"
+      }
+    },
+    {
+      "error": "DRF lawService.do target=law: 응답 검증/통신 실패 (3회)",
+      "version": {
+        "ancNo": "00882",
+        "ancYd": "20210827",
+        "efYd": "20210827",
+        "kind": "타법개정",
+        "lsiSeq": "235031",
+        "name": "공익사업을 위한 토지 등의 취득 및 보상에 관한 법률 시행규칙",
+        "status": "past"
+      }
+    },
+    {
+      "error": "DRF lawService.do target=law: 응답 검증/통신 실패 (3회)",
+      "version": {
+        "ancNo": "00788",
+        "ancYd": "20201211",
+        "efYd": "20201211",
+        "kind": "일부개정",
+        "lsiSeq": "224153",
+        "name": "공익사업을 위한 토지 등의 취득 및 보상에 관한 법률 시행규칙",
+        "status": "past"
+      }
+    },
+    {
+      "error": "DRF lawService.do target=law: 응답 검증/통신 실패 (3회)",
+      "version": {
+        "ancNo": "00633",
+        "ancYd": "20190701",
+        "efYd": "20190701",
+        "kind": "일부개정",
+        "lsiSeq": "209826",
+        "name": "공익사업을 위한 토지 등의 취득 및 보상에 관한 법률 시행규칙",
+        "status": "past"
+      }
+    },
+    {
+      "error": "DRF lawService.do target=law: 응답 검증/통신 실패 (3회)",
+      "version": {
+        "ancNo": "00429",
+        "ancYd": "20170620",
+        "efYd": "20170622",
+        "kind": "일부개정",
+        "lsiSeq": "194426",
+        "name": "공익사업을 위한 토지 등의 취득 및 보상에 관한 법률 시행규칙",
+        "status": "past"
+      }
+    },
+    {
+      "error": "DRF lawService.do target=law: 응답 검증/통신 실패 (3회)",
+      "version": {
+        "ancNo": "00382",
+        "ancYd": "20161230",
+        "efYd": "20161230",
+        "kind": "타법개정",
+        "lsiSeq": "190710",
+        "name": "공익사업을 위한 토지 등의 취득 및 보상에 관한 법률 시행규칙",
+        "status": "past"
+      }
+    },
+    {
+      "error": "DRF lawService.do target=law: 응답 검증/통신 실패 (3회)",
+      "version": {
+        "ancNo": "00357",
+        "ancYd": "20160831",
+        "efYd": "20160901",
+        "kind": "타법개정",
+        "lsiSeq": "186099",
+        "name": "공익사업을 위한 토지 등의 취득 및 보상에 관한 법률 시행규칙",
+        "status": "past"
+      }
+    },
+    {
+      "error": "DRF lawService.do target=law: 응답 검증/통신 실패 (3회)",
+      "version": {
+        "ancNo": "00316",
+        "ancYd": "20160614",
+        "efYd": "20160614",
+        "kind": "일부개정",
+        "lsiSeq": "183937",
+        "name": "공익사업을 위한 토지 등의 취득 및 보상에 관한 법률 시행규칙",
+        "status": "past"
+      }
+    },
+    {
+      "error": "DRF lawService.do target=law: 응답 검증/통신 실패 (3회)",
+      "version": {
+        "ancNo": "00272",
+        "ancYd": "20160106",
+        "efYd": "20160106",
+        "kind": "일부개정",
+        "lsiSeq": "179303",
+        "name": "공익사업을 위한 토지 등의 취득 및 보상에 관한 법률 시행규칙",
+        "status": "past"
+      }
+    },
+    {
+      "error": "DRF lawService.do target=law: 응답 검증/통신 실패 (3회)",
+      "version": {
+        "ancNo": "00197",
+        "ancYd": "20150428",
+        "efYd": "20150428",
+        "kind": "일부개정",
+        "lsiSeq": "170702",
+        "name": "공익사업을 위한 토지 등의 취득 및 보상에 관한 법률 시행규칙",
+        "status": "past"
+      }
+    },
+    {
+      "error": "DRF lawService.do target=law: 응답 검증/통신 실패 (3회)",
+      "version": {
+        "ancNo": "00169",
+        "ancYd": "20141231",
+        "efYd": "20150101",
+        "kind": "타법개정",
+        "lsiSeq": "166104",
+        "name": "공익사업을 위한 토지 등의 취득 및 보상에 관한 법률 시행규칙",
+        "status": "past"
+      }
+    },
+    {
+      "error": "DRF lawService.do target=law: 응답 검증/통신 실패 (3회)",
+      "version": {
+        "ancNo": "00131",
+        "ancYd": "20141022",
+        "efYd": "20141022",
+        "kind": "일부개정",
+        "lsiSeq": "161443",
+        "name": "공익사업을 위한 토지 등의 취득 및 보상에 관한 법률 시행규칙",
+        "status": "past"
+      }
+    },
+    {
+      "error": "DRF lawService.do target=law: 응답 검증/통신 실패 (3회)",
+      "version": {
+        "ancNo": "00120",
+        "ancYd": "20140807",
+        "efYd": "20140807",
+        "kind": "타법개정",
+        "lsiSeq": "158565",
+        "name": "공익사업을 위한 토지 등의 취득 및 보상에 관한 법률 시행규칙",
+        "status": "past"
+      }
+    },
+    {
+      "error": "DRF lawService.do target=law: 응답 검증/통신 실패 (3회)",
+      "version": {
+        "ancNo": "00005",
+        "ancYd": "20130425",
+        "efYd": "20130425",
+        "kind": "일부개정",
+        "lsiSeq": "139802",
+        "name": "공익사업을 위한 토지 등의 취득 및 보상에 관한 법률 시행규칙",
+        "status": "past"
+      }
+    },
+    {
+      "error": "DRF lawService.do target=law: 응답 검증/통신 실패 (3회)",
+      "version": {
+        "ancNo": "00001",
+        "ancYd": "20130323",
+        "efYd": "20130323",
+        "kind": "타법개정",
+        "lsiSeq": "137661",
+        "name": "공익사업을 위한 토지 등의 취득 및 보상에 관한 법률 시행규칙",
+        "status": "past"
+      }
+    },
+    {
+      "error": "DRF lawService.do target=law: 응답 검증/통신 실패 (3회)",
+      "version": {
+        "ancNo": "00456",
+        "ancYd": "20120413",
+        "efYd": "20120415",
+        "kind": "타법개정",
+        "lsiSeq": "124685",
+        "name": "공익사업을 위한 토지 등의 취득 및 보상에 관한 법률 시행규칙",
+        "status": "past"
+      }
+    },
+    {
+      "error": "DRF lawService.do target=law: 응답 검증/통신 실패 (3회)",
+      "version": {
+        "ancNo": "00427",
+        "ancYd": "20120102",
+        "efYd": "20120102",
+        "kind": "일부개정",
+        "lsiSeq": "120519",
+        "name": "공익사업을 위한 토지 등의 취득 및 보상에 관한 법률 시행규칙",
+        "status": "past"
+      }
+    },
+    {
+      "error": "DRF lawService.do target=law: 응답 검증/통신 실패 (3회)",
+      "version": {
+        "ancNo": "00180",
+        "ancYd": "20091113",
+        "efYd": "20091113",
+        "kind": "일부개정",
+        "lsiSeq": "97189",
+        "name": "공익사업을 위한 토지 등의 취득 및 보상에 관한 법률 시행규칙",
+        "status": "past"
+      }
+    },
+    {
+      "error": "DRF lawService.do target=law: 응답 검증/통신 실패 (3회)",
+      "version": {
+        "ancNo": "00007",
+        "ancYd": "20080418",
+        "efYd": "20080418",
+        "kind": "일부개정",
+        "lsiSeq": "86824",
+        "name": "공익사업을 위한 토지 등의 취득 및 보상에 관한 법률 시행규칙",
+        "status": "past"
+      }
+    },
+    {
+      "error": "DRF lawService.do target=law: 응답 검증/통신 실패 (3회)",
+      "version": {
+        "ancNo": "00004",
+        "ancYd": "20080314",
+        "efYd": "20080314",
+        "kind": "타법개정",
+        "lsiSeq": "86088",
+        "name": "공익사업을 위한 토지 등의 취득 및 보상에 관한 법률 시행규칙",
+        "status": "past"
+      }
+    },
+    {
+      "error": "DRF lawService.do target=law: 응답 검증/통신 실패 (3회)",
+      "version": {
+        "ancNo": "00422",
+        "ancYd": "20070927",
+        "efYd": "20070927",
+        "kind": "타법개정",
+        "lsiSeq": "80670",
+        "name": "공익사업을 위한 토지 등의 취득 및 보상에 관한 법률 시행규칙",
+        "status": "past"
+      }
+    },
+    {
+      "error": "DRF lawService.do target=law: 응답 검증/통신 실패 (3회)",
+      "version": {
+        "ancNo": "00556",
+        "ancYd": "20070412",
+        "efYd": "20070412",
+        "kind": "일부개정",
+        "lsiSeq": "80325",
+        "name": "공익사업을 위한 토지 등의 취득 및 보상에 관한 법률 시행규칙",
+        "status": "past"
+      }
+    },
+    {
+      "error": "DRF lawService.do target=law: 응답 검증/통신 실패 (3회)",
+      "version": {
+        "ancNo": "00551",
+        "ancYd": "20070319",
+        "efYd": "20070319",
+        "kind": "타법개정",
+        "lsiSeq": "77656",
+        "name": "공익사업을 위한 토지 등의 취득 및 보상에 관한 법률 시행규칙",
+        "status": "past"
+      }
+    },
+    {
+      "error": "DRF lawService.do target=law: 응답 검증/통신 실패 (3회)",
+      "version": {
+        "ancNo": "00504",
+        "ancYd": "20060317",
+        "efYd": "20060317",
+        "kind": "일부개정",
+        "lsiSeq": "73533",
+        "name": "공익사업을 위한 토지 등의 취득 및 보상에 관한 법률 시행규칙",
+        "status": "past"
+      }
+    },
+    {
+      "error": "DRF lawService.do target=law: 응답 검증/통신 실패 (3회)",
+      "version": {
+        "ancNo": "00424",
+        "ancYd": "20050205",
+        "efYd": "20050205",
+        "kind": "일부개정",
+        "lsiSeq": "66769",
+        "name": "공익사업을 위한 토지 등의 취득 및 보상에 관한 법률 시행규칙",
+        "status": "past"
+      }
+    },
+    {
+      "error": "DRF lawService.do target=law: 응답 검증/통신 실패 (3회)",
+      "version": {
+        "ancNo": "00411",
+        "ancYd": "20041129",
+        "efYd": "20041129",
+        "kind": "타법개정",
+        "lsiSeq": "65610",
+        "name": "공익사업을 위한 토지 등의 취득 및 보상에 관한 법률 시행규칙",
+        "status": "past"
+      }
+    },
+    {
+      "error": "DRF lawService.do target=law: 응답 검증/통신 실패 (3회)",
+      "version": {
+        "ancNo": "00344",
+        "ancYd": "20021231",
+        "efYd": "20030101",
+        "kind": "폐지제정",
+        "lsiSeq": "61594",
+        "name": "공익사업을 위한 토지 등의 취득 및 보상에 관한 법률 시행규칙",
+        "status": "past"
+      }
+    },
+    {
+      "error": "DRF lawService.do target=law: 응답 검증/통신 실패 (3회)",
+      "version": {
+        "ancNo": "00170",
+        "ancYd": "19990219",
+        "efYd": "19990219",
+        "kind": "일부개정",
+        "lsiSeq": "129814",
+        "name": "토지수용법시행규칙",
+        "status": "predecessor"
+      }
+    },
+    {
+      "error": "DRF lawService.do target=law: 응답 검증/통신 실패 (3회)",
+      "version": {
+        "ancNo": "00339",
+        "ancYd": "19821015",
+        "efYd": "19821015",
+        "kind": "일부개정",
+        "lsiSeq": "129815",
+        "name": "토지수용법시행규칙",
+        "status": "predecessor"
+      }
+    },
+    {
+      "error": "DRF lawService.do target=law: 응답 검증/통신 실패 (3회)",
+      "version": {
+        "ancNo": "00111",
+        "ancYd": "19711110",
+        "efYd": "19711110",
+        "kind": "일부개정",
+        "lsiSeq": "129816",
+        "name": "토지수용법시행규칙",
+        "status": "predecessor"
+      }
+    },
+    {
+      "error": "DRF lawService.do target=law: 응답 검증/통신 실패 (3회)",
+      "version": {
+        "ancNo": "00066",
+        "ancYd": "19690529",
+        "efYd": "19690529",
+        "kind": "전부개정",
+        "lsiSeq": "129832",
+        "name": "토지수용법시행규칙",
+        "status": "predecessor"
+      }
+    },
+    {
+      "error": "DRF lawService.do target=law: 응답 검증/통신 실패 (3회)",
+      "version": {
+        "ancNo": "00062",
+        "ancYd": "19690317",
+        "efYd": "19690317",
+        "kind": "일부개정",
+        "lsiSeq": "129817",
+        "name": "토지수용법시행규칙",
+        "status": "predecessor"
+      }
+    },
+    {
+      "error": "DRF lawService.do target=law: 응답 검증/통신 실패 (3회)",
+      "version": {
+        "ancNo": "00010",
+        "ancYd": "19631224",
+        "efYd": "19631224",
+        "kind": "일부개정",
+        "lsiSeq": "129818",
+        "name": "토지수용법시행규칙",
+        "status": "predecessor"
+      }
+    },
+    {
+      "error": "DRF lawService.do target=law: 응답 검증/통신 실패 (3회)",
+      "version": {
+        "ancNo": "00008",
+        "ancYd": "19620412",
+        "efYd": "19620412",
+        "kind": "제정",
+        "lsiSeq": "129833",
+        "name": "토지수용법시행규칙",
+        "status": "predecessor"
+      }
+    }
+  ]
+}

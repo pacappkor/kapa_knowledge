@@ -1,0 +1,24 @@
+{
+  "finished": "2026-11-08T13:21:35.968637+00:00",
+  "pages": [
+    {
+      "LawSearch": {
+        "numOfRows": "0",
+        "page": "1",
+        "resultCode": "00",
+        "resultMsg": "success",
+        "section": "lawNm",
+        "target": "law",
+        "totalCnt": "0",
+        "키워드": "공공용지의 취득 및 손실보상에 관한 특례법 시행규칙"
+      }
+    }
+  ],
+  "parameters": {
+    "nw": 2
+  },
+  "path": "P2",
+  "query": "공공용지의 취득 및 손실보상에 관한 특례법 시행규칙",
+  "started": "2026-11-08T13:21:35.414594+00:00",
+  "status": "success"
+}

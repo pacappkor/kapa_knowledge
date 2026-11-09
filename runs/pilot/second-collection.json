@@ -1,0 +1,325 @@
+{
+  "after": {
+    "case/광주고등법원/(전주)2017누1853": "cases\\광주고등법원\\2018\\(전주)2017누1853.md",
+    "case/대법원/2008두22129": "cases\\대법원\\2009\\2008두22129.md",
+    "case/대법원/2013두20219": "cases\\대법원\\2014\\2013두20219.md",
+    "case/대법원/2023다295442": "cases\\대법원\\2024\\2023다295442.md",
+    "case/대법원/92누17259": "cases\\대법원\\1993\\92누17259.md",
+    "case/대법원/92누2653": "cases\\대법원\\1993\\92누2653.md",
+    "case/대법원/92누4833": "cases\\대법원\\1992\\92누4833.md",
+    "case/대법원/94누14650": "cases\\대법원\\1995\\94누14650.md",
+    "case/대법원/98두13850": "cases\\대법원\\1999\\98두13850.md",
+    "case/대법원/98두6081": "cases\\대법원\\2000\\98두6081.md",
+    "case/대법원/98두7770": "cases\\대법원\\1999\\98두7770.md",
+    "case/부산고등법원/2019나51607": "cases\\부산고등법원\\2019\\2019나51607.md",
+    "case/서울고등법원/2011나81123": "cases\\서울고등법원\\2012\\2011나81123.md",
+    "case/서울고등법원/2011누21234": "cases\\서울고등법원\\2012\\2011누21234.md",
+    "case/서울고등법원/2012누35322": "cases\\서울고등법원\\2013\\2012누35322.md",
+    "case/서울고법/2001누9150": "cases\\서울고법\\2002\\2001누9150.md",
+    "case/서울고법/2010나47706": "cases\\서울고법\\2011\\2010나47706.md",
+    "case/수원지방법원 평택지원/2019가합11854": "cases\\수원지방법원 평택지원\\2019\\2019가합11854.md",
+    "case/수원지방법원/2012구합875": "cases\\수원지방법원\\2012\\2012구합875.md",
+    "case/수원지법/2009가합22429": "cases\\수원지법\\2010\\2009가합22429.md",
+    "case/울산지방법원/2018가합21858": "cases\\울산지방법원\\2019\\2018가합21858.md",
+    "interp/moleg/11-0073": "interpretations\\moleg\\2011\\11-0073.md",
+    "interp/moleg/16-0618": "interpretations\\moleg\\2017\\16-0618.md",
+    "interp/moleg/21-0150": "interpretations\\moleg\\2021\\21-0150.md",
+    "interp/moleg/26-0385": "interpretations\\moleg\\2026\\26-0385.md",
+    "interp/molit/토지정책과-1552": "interpretations\\molit\\2017\\토지정책과-1552.md",
+    "interp/molit/토지정책과-1554": "interpretations\\molit\\2017\\토지정책과-1554.md",
+    "interp/molit/토지정책과-1730": "interpretations\\molit\\2015\\토지정책과-1730.md",
+    "interp/molit/토지정책과-1948": "interpretations\\molit\\2014\\토지정책과-1948.md",
+    "interp/molit/토지정책과-3012": "interpretations\\molit\\2017\\토지정책과-3012.md",
+    "interp/molit/토지정책과-308": "interpretations\\molit\\2016\\토지정책과-308.md",
+    "interp/molit/토지정책과-318": "interpretations\\molit\\2017\\토지정책과-318.md",
+    "interp/molit/토지정책과-3609": "interpretations\\molit\\2017\\토지정책과-3609.md",
+    "interp/molit/토지정책과-3613": "interpretations\\molit\\2017\\토지정책과-3613.md",
+    "interp/molit/토지정책과-4348": "interpretations\\molit\\2014\\토지정책과-4348.md",
+    "interp/molit/토지정책과-5599": "interpretations\\molit\\2017\\토지정책과-5599.md",
+    "interp/molit/토지정책과-6383": "interpretations\\molit\\2016\\토지정책과-6383.md",
+    "interp/molit/토지정책과-7109": "interpretations\\molit\\2016\\토지정책과-7109.md"
+  },
+  "before": {
+    "case/광주고등법원/(전주)2017누1853": "cases\\광주고등법원\\2018\\(전주)2017누1853.md",
+    "case/대법원/2008두22129": "cases\\대법원\\2009\\2008두22129.md",
+    "case/대법원/2013두20219": "cases\\대법원\\2014\\2013두20219.md",
+    "case/대법원/2023다295442": "cases\\대법원\\2024\\2023다295442.md",
+    "case/대법원/92누17259": "cases\\대법원\\1993\\92누17259.md",
+    "case/대법원/92누2653": "cases\\대법원\\1993\\92누2653.md",
+    "case/대법원/92누4833": "cases\\대법원\\1992\\92누4833.md",
+    "case/대법원/94누14650": "cases\\대법원\\1995\\94누14650.md",
+    "case/대법원/98두13850": "cases\\대법원\\1999\\98두13850.md",
+    "case/대법원/98두6081": "cases\\대법원\\2000\\98두6081.md",
+    "case/대법원/98두7770": "cases\\대법원\\1999\\98두7770.md",
+    "case/부산고등법원/2019나51607": "cases\\부산고등법원\\2019\\2019나51607.md",
+    "case/서울고등법원/2011나81123": "cases\\서울고등법원\\2012\\2011나81123.md",
+    "case/서울고등법원/2011누21234": "cases\\서울고등법원\\2012\\2011누21234.md",
+    "case/서울고등법원/2012누35322": "cases\\서울고등법원\\2013\\2012누35322.md",
+    "case/서울고법/2001누9150": "cases\\서울고법\\2002\\2001누9150.md",
+    "case/서울고법/2010나47706": "cases\\서울고법\\2011\\2010나47706.md",
+    "case/수원지방법원 평택지원/2019가합11854": "cases\\수원지방법원 평택지원\\2019\\2019가합11854.md",
+    "case/수원지방법원/2012구합875": "cases\\수원지방법원\\2012\\2012구합875.md",
+    "case/수원지법/2009가합22429": "cases\\수원지법\\2010\\2009가합22429.md",
+    "case/울산지방법원/2018가합21858": "cases\\울산지방법원\\2019\\2018가합21858.md",
+    "interp/moleg/11-0073": "interpretations\\moleg\\2011\\11-0073.md",
+    "interp/moleg/16-0618": "interpretations\\moleg\\2017\\16-0618.md",
+    "interp/moleg/21-0150": "interpretations\\moleg\\2021\\21-0150.md",
+    "interp/moleg/26-0385": "interpretations\\moleg\\2026\\26-0385.md",
+    "interp/molit/토지정책과-1552": "interpretations\\molit\\2017\\토지정책과-1552.md",
+    "interp/molit/토지정책과-1554": "interpretations\\molit\\2017\\토지정책과-1554.md",
+    "interp/molit/토지정책과-1730": "interpretations\\molit\\2015\\토지정책과-1730.md",
+    "interp/molit/토지정책과-1948": "interpretations\\molit\\2014\\토지정책과-1948.md",
+    "interp/molit/토지정책과-3012": "interpretations\\molit\\2017\\토지정책과-3012.md",
+    "interp/molit/토지정책과-308": "interpretations\\molit\\2016\\토지정책과-308.md",
+    "interp/molit/토지정책과-318": "interpretations\\molit\\2017\\토지정책과-318.md",
+    "interp/molit/토지정책과-3609": "interpretations\\molit\\2017\\토지정책과-3609.md",
+    "interp/molit/토지정책과-3613": "interpretations\\molit\\2017\\토지정책과-3613.md",
+    "interp/molit/토지정책과-4348": "interpretations\\molit\\2014\\토지정책과-4348.md",
+    "interp/molit/토지정책과-5599": "interpretations\\molit\\2017\\토지정책과-5599.md",
+    "interp/molit/토지정책과-6383": "interpretations\\molit\\2016\\토지정책과-6383.md",
+    "interp/molit/토지정책과-7109": "interpretations\\molit\\2016\\토지정책과-7109.md"
+  },
+  "finished": "2026-11-08T14:06:17.643977+00:00",
+  "new_ids": [],
+  "path": "second-collection-idempotency",
+  "removed_ids": [],
+  "started": "2026-11-08T14:05:43.791860+00:00",
+  "tracks": [
+    {
+      "query": "law/009471@261727#a25",
+      "status": "success"
+    },
+    {
+      "query": "law/009295@289333#a70",
+      "status": "success"
+    },
+    {
+      "output": "{\"document\": \"cases/울산지방법원/2019/2018가합21858.md\", \"relations\": 0, \"unmapped\": []}\r\n",
+      "query": "214857",
+      "status": "success",
+      "target": "prec"
+    },
+    {
+      "output": "{\"document\": \"cases/수원지법/2010/2009가합22429.md\", \"relations\": 0, \"unmapped\": [{\"text\": \"민법 제252조\", \"reason\": \"법령명/판본/조문 대응 불확실\"}, {\"text\": \"국유재산법 제12조\", \"reason\": \"법령명/판본/조문 대응 불확실\"}, {\"text\": \"국유재산법 시행령 제7조\", \"reason\": \"법령명/판본/조문 대응 불확실\"}, {\"text\": \"민법 제252조\", \"reason\": \"법령명/판본/조문 대응 불확실\"}, {\"text\": \"국유재산법 제12조\", \"reason\": \"법령명/판본/조문 대응 불확실\"}, {\"text\": \"국유재산법 시행령 제7조\", \"reason\": \"법령명/판본/조문 대응 불확실\"}, {\"text\": \"민법 제245조\", \"reason\": \"법령명/판본/조문 대응 불확실\"}, {\"text\": \"민법 제252조\", \"reason\": \"법령명/판본/조문 대응 불확실\"}, {\"text\": \"국유재산법 제12조\", \"reason\": \"법령명/판본/조문 대응 불확실\"}, {\"text\": \"국유재산법 시행령 제7조\", \"reason\": \"법령명/판본/조문 대응 불확실\"}]}\r\n",
+      "query": "143909",
+      "status": "success",
+      "target": "prec"
+    },
+    {
+      "output": "{\"document\": \"cases/수원지방법원 평택지원/2019/2019가합11854.md\", \"relations\": 0, \"unmapped\": []}\r\n",
+      "query": "220223",
+      "status": "success",
+      "target": "prec"
+    },
+    {
+      "output": "{\"document\": \"cases/수원지방법원/2012/2012구합875.md\", \"relations\": 0, \"unmapped\": []}\r\n",
+      "query": "173513",
+      "status": "success",
+      "target": "prec"
+    },
+    {
+      "output": "{\"document\": \"cases/서울고법/2002/2001누9150.md\", \"relations\": 0, \"unmapped\": [{\"text\": \" 국방·군사시설사업에관한법률 제4조\", \"reason\": \"법령명/판본/조문 대응 불확실\"}, {\"text\": \" 제5조\", \"reason\": \"법령명/판본/조문 대응 불확실\"}, {\"text\": \" 제6조\", \"reason\": \"법령명/판본/조문 대응 불확실\"}, {\"text\": \"호 공익사업을위한토지등의취득및보상에관한법률 부칙 제2조\", \"reason\": \"법령명/판본/조문 대응 불확실\"}, {\"text\": \" 제14조\", \"reason\": \"법령명/판본/조문 대응 불확실\"}, {\"text\": \" 제16조\", \"reason\": \"법령명/판본/조문 대응 불확실\"}, {\"text\": \" 제75조\", \"reason\": \"법령명/판본/조문 대응 불확실\"}, {\"text\": \" 제75조의2\", \"reason\": \"법령명/판본/조문 대응 불확실\"}, {\"text\": \"호 공익사업을위한토지등의취득및보상에관한법률 부칙 제2조\", \"reason\": \"법령명/판본/조문 대응 불확실\"}, {\"text\": \" 제4조\", \"reason\": \"법령명/판본/조문 대응 불확실\"}, {\"text\": \" 제6조\", \"reason\": \"법령명/판본/조문 대응 불확실\"}]}\r\n",
+      "query": "192870",
+      "status": "success",
+      "target": "prec"
+    },
+    {
+      "output": "{\"document\": \"cases/서울고법/2011/2010나47706.md\", \"relations\": 0, \"unmapped\": [{\"text\": \"민법 제252조\", \"reason\": \"법령명/판본/조문 대응 불확실\"}, {\"text\": \"국유재산법 제12조\", \"reason\": \"법령명/판본/조문 대응 불확실\"}, {\"text\": \"국유재산법 시행령 제7조\", \"reason\": \"법령명/판본/조문 대응 불확실\"}, {\"text\": \"민법 제245조\", \"reason\": \"법령명/판본/조문 대응 불확실\"}, {\"text\": \"민법 제245조\", \"reason\": \"법령명/판본/조문 대응 불확실\"}, {\"text\": \"민법 제245조\", \"reason\": \"법령명/판본/조문 대응 불확실\"}]}\r\n",
+      "query": "192382",
+      "status": "success",
+      "target": "prec"
+    },
+    {
+      "output": "{\"document\": \"cases/서울고등법원/2012/2011나81123.md\", \"relations\": 0, \"unmapped\": []}\r\n",
+      "query": "171686",
+      "status": "success",
+      "target": "prec"
+    },
+    {
+      "output": "{\"document\": \"cases/서울고등법원/2012/2011누21234.md\", \"relations\": 0, \"unmapped\": []}\r\n",
+      "query": "176424",
+      "status": "success",
+      "target": "prec"
+    },
+    {
+      "output": "{\"document\": \"cases/서울고등법원/2013/2012누35322.md\", \"relations\": 0, \"unmapped\": []}\r\n",
+      "query": "173527",
+      "status": "success",
+      "target": "prec"
+    },
+    {
+      "output": "{\"document\": \"cases/부산고등법원/2019/2019나51607.md\", \"relations\": 0, \"unmapped\": []}\r\n",
+      "query": "213643",
+      "status": "success",
+      "target": "prec"
+    },
+    {
+      "output": "{\"document\": \"cases/대법원/1992/92누4833.md\", \"relations\": 0, \"unmapped\": [{\"text\": \"공공용지의취득및손실보상에관한특례법시행규칙 제6조\", \"reason\": \"법령명/판본/조문 대응 불확실\"}, {\"text\": \" 제4조\", \"reason\": \"법령명/판본/조문 대응 불확실\"}, {\"text\": \"공공용지의취득및손실보상에관한특례법시행령 제2조\", \"reason\": \"법령명/판본/조문 대응 불확실\"}]}\r\n",
+      "query": "123922",
+      "status": "success",
+      "target": "prec"
+    },
+    {
+      "output": "{\"document\": \"cases/대법원/1993/92누17259.md\", \"relations\": 0, \"unmapped\": [{\"text\": \"공공용지의취득및손실보상에관한특례법시행규칙 제6조\", \"reason\": \"법령명/판본/조문 대응 불확실\"}, {\"text\": \" 제6조의2\", \"reason\": \"법령명/판본/조문 대응 불확실\"}]}\r\n",
+      "query": "201930",
+      "status": "success",
+      "target": "prec"
+    },
+    {
+      "output": "{\"document\": \"cases/대법원/1993/92누2653.md\", \"relations\": 0, \"unmapped\": [{\"text\": \"         지가공시및토지등의평가에관한법률 제9조\", \"reason\": \"법령명/판본/조문 대응 불확실\"}, {\"text\": \"         공공용지의취득및손실보상에관한특례법시행규칙 제6조\", \"reason\": \"법령명/판본/조문 대응 불확실\"}]}\r\n",
+      "query": "200963",
+      "status": "success",
+      "target": "prec"
+    },
+    {
+      "output": "{\"document\": \"cases/대법원/1995/94누14650.md\", \"relations\": 0, \"unmapped\": [{\"text\": \"토지수용법 제57조의2\", \"reason\": \"법령명/판본/조문 대응 불확실\"}, {\"text\": \" 제6조\", \"reason\": \"법령명/판본/조문 대응 불확실\"}, {\"text\": \"         제6조의2\", \"reason\": \"법령명/판본/조문 대응 불확실\"}, {\"text\": \"         제6조의2\", \"reason\": \"법령명/판본/조문 대응 불확실\"}]}\r\n",
+      "query": "199258",
+      "status": "success",
+      "target": "prec"
+    },
+    {
+      "output": "{\"document\": \"cases/대법원/1999/98두13850.md\", \"relations\": 0, \"unmapped\": [{\"text\": \" 토지수용법 제46조\", \"reason\": \"법령명/판본/조문 대응 불확실\"}, {\"text\": \" 공공용지의취득및손실보상에관한특례법 제4조\", \"reason\": \"법령명/판본/조문 대응 불확실\"}, {\"text\": \" 공공용지의취득및손실보상에관한특례법시행령 제2조의10\", \"reason\": \"법령명/판본/조문 대응 불확실\"}, {\"text\": \" 제10조\", \"reason\": \"법령명/판본/조문 대응 불확실\"}, {\"text\": \" 공공용지의취득및손실보상에관한특례법시행규칙 제6조\", \"reason\": \"법령명/판본/조문 대응 불확실\"}, {\"text\": \" 토지수용법 제57조의2\", \"reason\": \"법령명/판본/조문 대응 불확실\"}]}\r\n",
+      "query": "117524",
+      "status": "success",
+      "target": "prec"
+    },
+    {
+      "output": "{\"document\": \"cases/대법원/1999/98두7770.md\", \"relations\": 0, \"unmapped\": [{\"text\": \" 토지수용법 제46조\", \"reason\": \"법령명/판본/조문 대응 불확실\"}, {\"text\": \" 공공용지의취득및손실보상에관한특례법 제4조\", \"reason\": \"법령명/판본/조문 대응 불확실\"}, {\"text\": \" 공공용지의취득및손실보상에관한특례법시행규칙 제6조\", \"reason\": \"법령명/판본/조문 대응 불확실\"}, {\"text\": \" 행정소송법 제19조\", \"reason\": \"법령명/판본/조문 대응 불확실\"}, {\"text\": \" 토지수용법 제46조\", \"reason\": \"법령명/판본/조문 대응 불확실\"}, {\"text\": \" 공공용지의취득및손실보상에관한특례법 제4조\", \"reason\": \"법령명/판본/조문 대응 불확실\"}, {\"text\": \" 공공용지의취득및손실보상에관한특례법시행규칙 제6조\", \"reason\": \"법령명/판본/조문 대응 불확실\"}, {\"text\": \" 행정소송법 제19조\", \"reason\": \"법령명/판본/조문 대응 불확실\"}]}\r\n",
+      "query": "192287",
+      "status": "success",
+      "target": "prec"
+    },
+    {
+      "output": "{\"document\": \"cases/대법원/2000/98두6081.md\", \"relations\": 1, \"unmapped\": [{\"text\": \" 토지수용법 제46조\", \"reason\": \"법령명/판본/조문 대응 불확실\"}, {\"text\": \" 공공용지의취득및손실보상에관한특례법시행규칙 제6조\", \"reason\": \"법령명/판본/조문 대응 불확실\"}, {\"text\": \" 토지수용법 제46조\", \"reason\": \"법령명/판본/조문 대응 불확실\"}, {\"text\": \" 제9조\", \"reason\": \"법령명/판본/조문 대응 불확실\"}, {\"text\": \" 제10조\", \"reason\": \"법령명/판본/조문 대응 불확실\"}, {\"text\": \" 제10조\", \"reason\": \"법령명/판본/조문 대응 불확실\"}, {\"text\": \" 제17조\", \"reason\": \"법령명/판본/조문 대응 불확실\"}, {\"text\": \" 제29조\", \"reason\": \"법령명/판본/조문 대응 불확실\"}, {\"text\": \" 제45조\", \"reason\": \"법령명/판본/조문 대응 불확실\"}]}\r\n",
+      "query": "229177",
+      "status": "success",
+      "target": "prec"
+    },
+    {
+      "output": "{\"document\": \"cases/대법원/2009/2008두22129.md\", \"relations\": 4, \"unmapped\": [{\"text\": \"부동산가격공시 및 감정평가에 관한 법률 제21조\", \"reason\": \"법령명/판본/조문 대응 불확실\"}, {\"text\": \"부동산가격공시 및 감정평가에 관한 법률 제21조\", \"reason\": \"법령명/판본/조문 대응 불확실\"}, {\"text\": \"행정소송법 제27조\", \"reason\": \"법령명/판본/조문 대응 불확실\"}]}\r\n",
+      "query": "136387",
+      "status": "success",
+      "target": "prec"
+    },
+    {
+      "output": "{\"document\": \"cases/대법원/2014/2013두20219.md\", \"relations\": 1, \"unmapped\": []}\r\n",
+      "query": "178721",
+      "status": "success",
+      "target": "prec"
+    },
+    {
+      "output": "{\"document\": \"cases/대법원/2024/2023다295442.md\", \"relations\": 1, \"unmapped\": [{\"text\": \" 헌법 제23조\", \"reason\": \"법령명/판본/조문 대응 불확실\"}, {\"text\": \" 민법 제2조\", \"reason\": \"법령명/판본/조문 대응 불확실\"}, {\"text\": \" 제211조\", \"reason\": \"법령명/판본/조문 대응 불확실\"}, {\"text\": \" 제741조\", \"reason\": \"법령명/판본/조문 대응 불확실\"}, {\"text\": \" 제750조\", \"reason\": \"법령명/판본/조문 대응 불확실\"}, {\"text\": \" 민사소송법 제288조\", \"reason\": \"법령명/판본/조문 대응 불확실\"}, {\"text\": \" 헌법 제23조\", \"reason\": \"법령명/판본/조문 대응 불확실\"}, {\"text\": \" 민법 제2조\", \"reason\": \"법령명/판본/조문 대응 불확실\"}, {\"text\": \" 제211조\", \"reason\": \"법령명/판본/조문 대응 불확실\"}, {\"text\": \" 제741조\", \"reason\": \"법령명/판본/조문 대응 불확실\"}]}\r\n",
+      "query": "239451",
+      "status": "success",
+      "target": "prec"
+    },
+    {
+      "output": "{\"document\": \"cases/광주고등법원/2018/(전주)2017누1853.md\", \"relations\": 0, \"unmapped\": []}\r\n",
+      "query": "206153",
+      "status": "success",
+      "target": "prec"
+    },
+    {
+      "output": "{\"document\": \"interpretations/molit/2014/토지정책과-1948.md\", \"relations\": 0, \"unmapped\": []}\r\n",
+      "query": "278712",
+      "status": "success",
+      "target": "molitCgmExpc"
+    },
+    {
+      "output": "{\"document\": \"interpretations/molit/2014/토지정책과-4348.md\", \"relations\": 0, \"unmapped\": []}\r\n",
+      "query": "48198",
+      "status": "success",
+      "target": "molitCgmExpc"
+    },
+    {
+      "output": "{\"document\": \"interpretations/molit/2015/토지정책과-1730.md\", \"relations\": 0, \"unmapped\": []}\r\n",
+      "query": "23932",
+      "status": "success",
+      "target": "molitCgmExpc"
+    },
+    {
+      "output": "{\"document\": \"interpretations/molit/2016/토지정책과-308.md\", \"relations\": 0, \"unmapped\": []}\r\n",
+      "query": "40696",
+      "status": "success",
+      "target": "molitCgmExpc"
+    },
+    {
+      "output": "{\"document\": \"interpretations/molit/2016/토지정책과-6383.md\", \"relations\": 0, \"unmapped\": []}\r\n",
+      "query": "48376",
+      "status": "success",
+      "target": "molitCgmExpc"
+    },
+    {
+      "output": "{\"document\": \"interpretations/molit/2016/토지정책과-7109.md\", \"relations\": 0, \"unmapped\": []}\r\n",
+      "query": "48580",
+      "status": "success",
+      "target": "molitCgmExpc"
+    },
+    {
+      "output": "{\"document\": \"interpretations/molit/2017/토지정책과-1552.md\", \"relations\": 0, \"unmapped\": []}\r\n",
+      "query": "47930",
+      "status": "success",
+      "target": "molitCgmExpc"
+    },
+    {
+      "output": "{\"document\": \"interpretations/molit/2017/토지정책과-1554.md\", \"relations\": 0, \"unmapped\": []}\r\n",
+      "query": "47926",
+      "status": "success",
+      "target": "molitCgmExpc"
+    },
+    {
+      "output": "{\"document\": \"interpretations/molit/2017/토지정책과-3012.md\", \"relations\": 0, \"unmapped\": []}\r\n",
+      "query": "24128",
+      "status": "success",
+      "target": "molitCgmExpc"
+    },
+    {
+      "output": "{\"document\": \"interpretations/molit/2017/토지정책과-318.md\", \"relations\": 0, \"unmapped\": []}\r\n",
+      "query": "48066",
+      "status": "success",
+      "target": "molitCgmExpc"
+    },
+    {
+      "output": "{\"document\": \"interpretations/molit/2017/토지정책과-3609.md\", \"relations\": 0, \"unmapped\": []}\r\n",
+      "query": "24066",
+      "status": "success",
+      "target": "molitCgmExpc"
+    },
+    {
+      "output": "{\"document\": \"interpretations/molit/2017/토지정책과-3613.md\", \"relations\": 0, \"unmapped\": []}\r\n",
+      "query": "24282",
+      "status": "success",
+      "target": "molitCgmExpc"
+    },
+    {
+      "output": "{\"document\": \"interpretations/molit/2017/토지정책과-5599.md\", \"relations\": 0, \"unmapped\": []}\r\n",
+      "query": "23852",
+      "status": "success",
+      "target": "molitCgmExpc"
+    },
+    {
+      "output": "{\"document\": \"interpretations/moleg/2011/11-0073.md\", \"relations\": 0, \"unmapped\": []}\r\n",
+      "query": "322545",
+      "status": "success",
+      "target": "expc"
+    },
+    {
+      "output": "{\"document\": \"interpretations/moleg/2017/16-0618.md\", \"relations\": 0, \"unmapped\": []}\r\n",
+      "query": "328733",
+      "status": "success",
+      "target": "expc"
+    },
+    {
+      "output": "{\"document\": \"interpretations/moleg/2021/21-0150.md\", \"relations\": 0, \"unmapped\": []}\r\n",
+      "query": "326371",
+      "status": "success",
+      "target": "expc"
+    },
+    {
+      "output": "{\"document\": \"interpretations/moleg/2026/26-0385.md\", \"relations\": 0, \"unmapped\": []}\r\n",
+      "query": "343741",
+      "status": "success",
+      "target": "expc"
+    }
+  ]
+}

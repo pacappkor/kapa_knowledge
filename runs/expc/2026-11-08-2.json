@@ -1,0 +1,15 @@
+{
+  "document": "interpretations/moleg/2017/16-0618.md",
+  "finished": "2026-11-08T13:18:25.274441+00:00",
+  "query": "328733",
+  "relations": 0,
+  "source": "expc",
+  "started": "2026-11-08T13:18:24.927855+00:00",
+  "tracks": {
+    "expc": {
+      "count": 1,
+      "status": "success"
+    }
+  },
+  "unmapped": []
+}

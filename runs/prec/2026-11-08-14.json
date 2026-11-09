@@ -1,0 +1,15 @@
+{
+  "document": "cases/부산고등법원/2019/2019나51607.md",
+  "finished": "2026-11-08T13:18:22.491933+00:00",
+  "query": "213643",
+  "relations": 0,
+  "source": "prec",
+  "started": "2026-11-08T13:18:22.087122+00:00",
+  "tracks": {
+    "prec": {
+      "count": 1,
+      "status": "success"
+    }
+  },
+  "unmapped": []
+}

@@ -1,0 +1,10 @@
+{
+  "error": "DRF lawSearch.do target=ls: 응답 검증/통신 실패 (3회)",
+  "finished": "2026-11-08T13:10:25.953704+00:00",
+  "pages": [],
+  "path": "P2",
+  "query": "토지수용법시행규칙",
+  "started": "2026-11-08T13:10:22.173046+00:00",
+  "status": "failure",
+  "target": "ls"
+}

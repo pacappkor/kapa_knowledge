@@ -1,0 +1,15 @@
+{
+  "document": "cases/울산지방법원/2019/2018가합21858.md",
+  "finished": "2026-11-08T13:27:59.041601+00:00",
+  "query": "214857",
+  "relations": 0,
+  "source": "prec",
+  "started": "2026-11-08T13:27:58.629233+00:00",
+  "tracks": {
+    "prec": {
+      "count": 1,
+      "status": "success"
+    }
+  },
+  "unmapped": []
+}

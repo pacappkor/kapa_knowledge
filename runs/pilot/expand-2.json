@@ -1,0 +1,19 @@
+{
+  "finished": "2026-11-08T13:10:22.171569+00:00",
+  "pages": [
+    {
+      "PrecSearch": {
+        "page": "1",
+        "section": "bdyText",
+        "target": "prec",
+        "totalCnt": "0",
+        "키워드": "\"토지수용법시행규칙\" \"미불용지\""
+      }
+    }
+  ],
+  "path": "P2",
+  "query": "\"토지수용법시행규칙\" \"미불용지\"",
+  "started": "2026-11-08T13:10:21.745681+00:00",
+  "status": "zero",
+  "target": "prec"
+}

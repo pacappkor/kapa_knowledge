@@ -1,0 +1,15 @@
+{
+  "document": "cases/광주고등법원/2018/(전주)2017누1853.md",
+  "finished": "2026-11-08T14:06:07.991512+00:00",
+  "query": "206153",
+  "relations": 0,
+  "source": "prec",
+  "started": "2026-11-08T14:06:07.621710+00:00",
+  "tracks": {
+    "prec": {
+      "count": 1,
+      "status": "success"
+    }
+  },
+  "unmapped": []
+}

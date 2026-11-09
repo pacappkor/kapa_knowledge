@@ -1,0 +1,78 @@
+{
+  "status": "success",
+  "integrated_on": "2026-11-09",
+  "method": "Offline re-screen of all 1,683 cached official court full texts with one complete whitespace-insensitive matcher; no network requests",
+  "previous_snapshot": "deferred-fulltext.json",
+  "results": "screening-remaining-1683.jsonl",
+  "counts": {
+    "processed": 1683,
+    "unique_ids": 1683,
+    "excluded": 1683,
+    "relevant": 0,
+    "failure": 0,
+    "manual_pending": 0,
+    "remaining_unscreened": 0
+  },
+  "batches": [
+    {
+      "rows": 561,
+      "first_fetched_at": "2026-11-08T14:54:29.718090+00:00",
+      "last_fetched_at": "2026-11-08T15:06:57.692251+00:00",
+      "request_interval_seconds": 1.05,
+      "throttle_scope": "per worker, not global across parallel workers",
+      "acquisition_batch": "screen-b1.jsonl",
+      "provenance": "Historical acquisition metadata only; all rows were re-screened with the single matcher above. Original batch files are not required replay inputs."
+    },
+    {
+      "rows": 561,
+      "first_fetched_at": "2026-11-08T14:54:27.383246+00:00",
+      "last_fetched_at": "2026-11-08T15:04:16.008364+00:00",
+      "request_interval_seconds": 1.05,
+      "throttle_scope": "per worker, not global across parallel workers",
+      "acquisition_batch": "screen-b2.jsonl",
+      "provenance": "Historical acquisition metadata only; all rows were re-screened with the single matcher above. Original batch files are not required replay inputs."
+    },
+    {
+      "rows": 561,
+      "first_fetched_at": "2026-11-08T14:54:35.289536+00:00",
+      "last_fetched_at": "2026-11-08T15:04:09.271292+00:00",
+      "request_interval_seconds": 1.02,
+      "throttle_scope": "per worker, not global across parallel workers",
+      "acquisition_batch": "screen-b3.jsonl",
+      "provenance": "Historical acquisition metadata only; all rows were re-screened with the single matcher above. Original batch files are not required replay inputs."
+    }
+  ],
+  "path_counts": {
+    "P2": 1,
+    "P3": 1680,
+    "P4": 14
+  },
+  "limitation": "Phrase absence only, not substantive irrelevance or full P1-P7 saturation. Hits are candidates needing review, never exclusions. The earlier 1,500-item screening and discovery snapshots retain their original historical methods.",
+  "started": "2026-11-09T10:47:00.750228+00:00",
+  "finished": "2026-11-09T10:47:03.712068+00:00",
+  "matcher": {
+    "id": "unpaid-land-complete-whitespace-v1",
+    "engine": "Python re, Unicode default, no flags",
+    "text_field": "PrecService.판례내용",
+    "normalization": "Remove every Unicode whitespace character using re.sub(r\"\\s+\", \"\", text) before matching. The nine patterns are batch 1 signals with all whitespace removed; this is a superset of every original batch matcher.",
+    "phrase_regex": [
+      "미지급용지",
+      "미불용지",
+      "미보상용지",
+      "보상금이지급되지아니한",
+      "종전(?:의)?공익사업",
+      "종전에시행된공익사업",
+      "공익사업에편입되었으나보상",
+      "(?:토지보상법|공익사업을위한토지등의취득및보상에관한법률)시행규칙제?25조",
+      "(?:공특법|공공용지의취득및손실보상에관한특례법)시행규칙제?6조(?:제?7항|\\(?7\\)?)"
+    ]
+  },
+  "evidence": {
+    "source_url": "Official per-ID LSW precInfoP.do URL; original fetched_at and acquisition batch are retained on every row.",
+    "screened_text_sha256": "Standard SRI sha256-<Base64 digest> string: the sha256- prefix followed by RFC 4648 standard Base64 (with padding) of the 32 SHA-256 digest bytes of the exact UTF-8 bytes of the decoded PrecService.판례내용 string BEFORE whitespace normalization. This represents the same digest bytes as hexadecimal SHA-256. No trimming, HTML decoding, newline conversion, JSON serialization, or BOM is added. This is not a digest of the HTTP response or full JSON payload.",
+    "screened_text_bytes": "Byte length of precisely the same pre-normalization UTF-8 text used for screened_text_sha256.",
+    "matcher_id": "Every row must equal matcher.id in this run record.",
+    "retention": "Raw full texts remain in local caches and are not committed. The URL, text digest, byte length, and pinned matcher identify the screened content for later comparison; replay requires the exact matching cached or refetched text."
+  },
+  "candidate_ids_needing_review": []
+}

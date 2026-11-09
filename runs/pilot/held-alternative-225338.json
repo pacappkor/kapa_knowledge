@@ -1,0 +1,10 @@
+{
+  "decision": "held",
+  "endpoint": "lawService.do target=cgmExpc ID=225338",
+  "finished": "2026-11-08T13:31:22.752473+00:00",
+  "path": "P7",
+  "query": "225338",
+  "reason": "대체 DRF cgmExpc 상세 endpoint도 실패: DRF lawService.do target=cgmExpc: 응답 검증/통신 실패 (3회)",
+  "started": "2026-11-08T13:31:19.226460+00:00",
+  "status": "failure"
+}

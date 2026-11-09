@@ -1,0 +1,22 @@
+{
+  "finished": "2026-11-08T13:08:34.242513+00:00",
+  "pages": [
+    {
+      "Expc": {
+        "numOfRows": "0",
+        "page": "1",
+        "resultCode": "00",
+        "resultMsg": "success",
+        "section": "bdyText",
+        "target": "expc",
+        "totalCnt": "0",
+        "키워드": "\"미불용지\""
+      }
+    }
+  ],
+  "path": "P5-exact",
+  "query": "\"미불용지\"",
+  "started": "2026-11-08T13:08:33.757353+00:00",
+  "status": "zero",
+  "target": "expc"
+}

@@ -1,0 +1,15 @@
+{
+  "document": "interpretations/molit/2017/토지정책과-3012.md",
+  "finished": "2026-11-08T13:18:28.620563+00:00",
+  "query": "24128",
+  "relations": 0,
+  "source": "molitCgmExpc",
+  "started": "2026-11-08T13:18:28.221588+00:00",
+  "tracks": {
+    "molitCgmExpc": {
+      "count": 1,
+      "status": "success"
+    }
+  },
+  "unmapped": []
+}

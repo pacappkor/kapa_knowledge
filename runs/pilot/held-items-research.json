@@ -1,0 +1,458 @@
+{
+  "reviewer_model": "ocx-claude-native--gpt-6.1-sol",
+  "date": "2026-11-08",
+  "scope": "Read-only research; no repository modifications or commits. All scripted requests spaced at least 1.1 seconds. No OC key in this output; URLs omit OC entirely.",
+  "criteria": {
+    "source": "issues/unpaid-land/coverage.md:15",
+    "quote": "법 제70조의 일반 평가·개발이익·표준지 쟁점은 직접 미지급용지 판단이 없으면 제외한다."
+  },
+  "items": [
+    {
+      "item": "cgmexpc/225338",
+      "finding": "Full text obtained. Earlier identification as MOLIT was wrong: source is 국세청 서면인터넷방문상담5팀-137, 2008-01-18. Article link is a false-positive for unpaid-land merits.",
+      "decision": "excluded",
+      "recommendation": "Close access hold and exclude from unpaid-land set; retain discovery/exclusion evidence. Do not map 225338 to molitCgmExpc.",
+      "evidence": [
+        {
+          "url": "https://www.law.go.kr/LSW/cgmExpcInfoR.do?cgmExpcDatSeq=225338",
+          "quote": "[국세청 서면인터넷방문상담5팀-137, 2008. 1. 18.]"
+        },
+        {
+          "url": "https://www.law.go.kr/LSW/cgmExpcInfoR.do?cgmExpcDatSeq=225338",
+          "quote": "공익사업용 토지를 사업인정고시일전에 양도하는 경우에는 양도일부터 소급하여 2년 이전에 취득한 토지 등을 2009.12.31. 이전에 양도함으로써 발생하는 소득에 대하여 양도소득세 감면규정 적용함."
+        },
+        {
+          "url": "https://www.law.go.kr/LSW/joStmdInfoP.do?lsiSeq=261727&joNo=0025&joBrNo=00",
+          "quote": "[국세청 서면인터넷방문상담5팀-137, 2008. 1. 18.]",
+          "location": "POST lsStmdConCgmExpcListR.do article context; linked-0025.html"
+        }
+      ],
+      "access_paths": {
+        "molitCgmExpc": "HTTP 200 but error root Law, not a valid interpretation payload",
+        "cgmExpcInfoR": "success, complete question/reply/reasons/related laws",
+        "cgmExpcInfoP_without_ofiClsCd": "HTTPError",
+        "cgmExpcInfoP_with_ofiClsCd": "success",
+        "working_detail_url": "https://www.law.go.kr/LSW/cgmExpcInfoP.do?mode=0&cgmExpcDatSeq=225338&ofiClsCd=350105",
+        "upstream": "https://taxlaw.nts.go.kr/qt/USEQTA002P.do?ntstDcmId=010000000000045760"
+      }
+    },
+    {
+      "item": "cgmexpc/24216",
+      "case_no": "토지정책과-5551",
+      "replied": "20140903",
+      "title": "사업인정 실효 후 새로 사업을 인정 받은경우 종전 토지의 현황 변경 반영 여부",
+      "decision": "excluded",
+      "adjacency": "24216 is conceptually adjacent as previous/new project valuation, but formal pilot decision remains excluded under explicit coverage criterion.",
+      "finding": "당초 사업인정 실효 뒤 새 사업의 용도지역 변경 평가 문제로서 미지급용지 자체 판단이 없어 coverage 기준상 제외한다.",
+      "recommendation": "Close detailed-screening hold; record excluded with full-text evidence.",
+      "evidence": [
+        {
+          "url": "https://www.law.go.kr/LSW/cgmExpcInfoR.do?cgmExpcDatSeq=24216",
+          "quote": "당초의 공익사업이 실효되고 새로 사업인정이 되었다면 당초의 공익사업 시행으로 인한 토지의 용도지역 변경 등은 당해 공익사업의 시행을 직접 목적으로 하여 용도지역 또는 용도지구 등이 변경된 토지라고 볼 수 없을 것으로 보나"
+        }
+      ],
+      "full_question": "당초의 사업인정이 실효된 후 새로 사업인정을 받은 경우 종전의 사업시행으로 인한 토지의 현황 변경을 반영하여야 하는 지 여부",
+      "full_reply": "「공익사업을 위한 토지 등의 취득 및 보상에 관한 법률」(이하 “토지보상법\"\"이라 함) 제70조제2항은 ”토지에 대한 보상액은 가격시점에서의 현실적인 이용상황과 일반적인 이용방법에 의한 객관적 상황을 고려하여 산정하되, 일시적인 이용상황과 토지소유자나 관계인이 갖는 주관적 가치 및 특별한 용도에 사용할 것을 전제로 한 경우 등은 고려하지 아니한다.“고 규정하고 있으며, 토지보상법 시행규칙 제23조제2항은 “당해 공익사업의 시행을 직접 목적으로 하여 용도지역 또는 용도지구 등이 변경된 토지에 대하여는 변경되기 전의 용도지역 또는 용도지구 등을 기준으로 평가한다.”고 규정하고 있습니다. 당초의 공익사업이 실효되고 새로 사업인정이 되었다면 당초의 공익사업 시행으로 인한 토지의 용도지역 변경 등은 당해 공익사업의 시행을 직접 목적으로 하여 용도지역 또는 용도지구 등이 변경된 토지라고 볼 수 없을 것으로 보나, 구체적인 사례에 대해서는 귀 기관에서 관계법령 및 사실관계 등을 조사하여 판단할 사항으로 봅니다."
+    },
+    {
+      "item": "cgmexpc/48124",
+      "case_no": "토지정책과-10058",
+      "replied": "20161214",
+      "title": "적법하게 대지로 형질변경한 토지의 평가방법",
+      "decision": "excluded",
+      "adjacency": "general valuation only",
+      "finding": "사업인정 후 적법하게 대지로 형질변경한 토지의 현실적 이용상황 평가 문제로서 미지급용지 자체 판단이 없어 제외한다.",
+      "recommendation": "Close detailed-screening hold; record excluded with full-text evidence.",
+      "evidence": [
+        {
+          "url": "https://www.law.go.kr/LSW/cgmExpcInfoR.do?cgmExpcDatSeq=48124",
+          "quote": "관계 법률에 따라 적법하게 지목이 변경된 토지라면 가격시점에서 해당 토지의 용도(대지)를 기준으로 평가하여야 할 것으로 보며"
+        }
+      ],
+      "full_question": "사업인정 고시이후 허가권자의 허가를 받아 적법하게 대지로 형질변경한 토지의 평가방법?",
+      "full_reply": "「공익사업을 위한 토지 등의 취득 및 보상에 관한 법률」(이하 “토지보상법”이라 함) 제70조제2항은 “토지에 대한 보상액은 가격시점에서의 현실적인 이용상황과 일반적인 이용방법에 의한 객관적 상황을 고려하여 산정하되, 일시적인 이용상황과 토지소유자나 관계인이 갖는 주관적 가치 및 특별한 용도에 사용할 것을 전제로 한 경우 등은 고려하지 아니한다.”고 규정하고 있습니다. 따라서 공익사업에 따른 토지에 대한 평가는 위 규정에 따라 산정하여야 할 것으로 보며, 관계 법률에 따라 적법하게 지목이 변경된 토지라면 가격시점에서 해당 토지의 용도(대지)를 기준으로 평가하여야 할 것으로 보며, 개별적인 사례에 대해서는 사업시행자가 관계 규정과 형질변경 현황 등을 검토하여 판단할 사항으로 봅니다."
+    },
+    {
+      "item": "토지정책과-308",
+      "finding": "Two separately indexed official records with 2015/2016 dates; entire reply strings are exactly identical. Titles and questions differ, with the later question adding a descriptive tail. The upstream LAIIS page body explicitly cites each respective year, so this is not merely a DRF date conversion issue. Whether one is a duplicate/date error or two actual issuances remains unresolved.",
+      "same_item_or_distinct": "probable duplicate-content/date-conflict; actual administrative identity indeterminate",
+      "comparison": {
+        "full_reply_exact_equal": true,
+        "full_reply_chars": 469,
+        "full_reply_sha256": "f2550d889ae679b7ab90219357c19bec5f880bc5a43c88f7c5fcf4222241cae9",
+        "questions_exact_equal": false,
+        "2016_added_question_tail": "에 대한 사항"
+      },
+      "recommendation": "Do not automatically merge or declare two independent replies. Preserve both source records, keep identity/reference-status hold, request original dated reply letters or agency correction. A date-qualified ID may distinguish source assertions, not certify two legal acts. If original documents confirm distinct replies, amend SCHEMA and duplicate key to agency+case_no+replied, migrate existing ID and all references explicitly. Do not silently suffix IDs under current schema.",
+      "proposed_ids_if_contract_is_approved": [
+        "interp/molit/토지정책과-308@20150114",
+        "interp/molit/토지정책과-308@20160114"
+      ],
+      "evidence": [
+        {
+          "source_id": "40786",
+          "case_no": "토지정책과-308",
+          "date": "20150114",
+          "title": "보상금 지급 이후 소 제기로 제3자에게 소유권 이전 등 판결이 난경우 이에 따른 토지사용료 지급",
+          "question": "공익사업에 따른 보상금지급과 이후 제3자에게 소유권 이전, 법원경매, 법원의 판결에 따른 해당 토지에 대한 사용료 지급",
+          "reply": "사업시행자가 소송 결과 등을 검토하여 조치할 사안으로 우리부에서 별도의 도움을 드릴 수 없음을 알려드리니 양해하여 주시기 바랍니다. 참고로, 토지보상법 시행규칙 제25조제1항에 따르면 종전에 시행된 공익사업의 부지로서 보상금이 지급되지 아니한 토지(이하 이 조에서 \"\"미지급용지\"\"라 한다)에 대하여는 종전의 공익사업에 편입될 당시의 이용상황을 상정하여 평가한다. 다만, 종전의 공익사업에 편입될 당시의 이용상황을 알 수 없는 경우에는 편입될 당시의 지목과 인근토지의 이용상황 등을 참작하여 평가한다라고 규정하고 있습니다. 이는 새로운 공익사업 지구내에 편입되는 토지 중 종전 공익사업에 편입되었으나 보상이 되지 아니한 토지에 대한 보상주체와 평가방법 등을 정한 것으로서, 새로운 공익사업시행을 하지 않는 경우에는 토지평가 등에 대하여 별도로 규정하고 있지 않은바, 사업시행자가 관계법령 및 사실관계 등을 검토하여 판단할 사항으로 봅니다.",
+          "law_url": "https://www.law.go.kr/LSW/cgmExpcInfoR.do?cgmExpcDatSeq=40786",
+          "upstream_url": "https://www.laiis.go.kr/lips/nya/lrn/localRegulationDetail.do?nttNo=37805",
+          "exact_citation": "토지정책과-308(2015.1.14.)",
+          "upstream_full_text": "■ 회신일자 : 2015.1.14. ■ 질의요지 공익사업에 따른 보상금지급과 이후 제3자에게 소유권 이전, 법원경매, 법원의 판결에 따른 해당 토지에 대한 사용료 지급 ■ 회신 내용 사업시행자가 소송 결과 등을 검토하여 조치할 사안으로 우리부에서 별도의 도움을 드릴 수 없음을 알려드리니 양해하여 주시기 바랍니다. 참고로, 토지보상법 시행규칙 제25조제1항에 따르면 종전에 시행된 공익사업의 부지로서 보상금이 지급되지 아니한 토지(이하 이 조에서 \"\"미지급용지\"\"라 한다)에 대하여는 종전의 공익사업에 편입될 당시의 이용상황을 상정하여 평가한다. 다만, 종전의 공익사업에 편입될 당시의 이용상황을 알 수 없는 경우에는 편입될 당시의 지목과 인근토지의 이용상황 등을 참작하여 평가한다라고 규정하고 있습니다. 이는 새로운 공익사업 지구내에 편입되는 토지 중 종전 공익사업에 편입되었으나 보상이 되지 아니한 토지에 대한 보상주체와 평가방법 등을 정한 것으로서, 새로운 공익사업시행을 하지 않는 경우에는 토지평가 등에 대하여 별도로 규정하고 있지 않은바, 사업시행자가 관계법령 및 사실관계 등을 검토하여 판단할 사항으로 봅니다. ■ 관련 공문 근거 ○ 토지정책과-308(2015.1.14.)"
+        },
+        {
+          "source_id": "40696",
+          "case_no": "토지정책과-308",
+          "date": "20160114",
+          "title": "보상금지급 이후 제3자에게 소유권이 이전된 경우 토지에 대한 사용료 지급",
+          "question": "공익사업에 따른 보상금지급과 이후 제3자에게 소유권 이전, 법원경매, 법원의 판결에 따른 해당 토지에 대한 사용료 지급에 대한 사항",
+          "reply": "사업시행자가 소송 결과 등을 검토하여 조치할 사안으로 우리부에서 별도의 도움을 드릴 수 없음을 알려드리니 양해하여 주시기 바랍니다. 참고로, 토지보상법 시행규칙 제25조제1항에 따르면 종전에 시행된 공익사업의 부지로서 보상금이 지급되지 아니한 토지(이하 이 조에서 \"\"미지급용지\"\"라 한다)에 대하여는 종전의 공익사업에 편입될 당시의 이용상황을 상정하여 평가한다. 다만, 종전의 공익사업에 편입될 당시의 이용상황을 알 수 없는 경우에는 편입될 당시의 지목과 인근토지의 이용상황 등을 참작하여 평가한다라고 규정하고 있습니다. 이는 새로운 공익사업 지구내에 편입되는 토지 중 종전 공익사업에 편입되었으나 보상이 되지 아니한 토지에 대한 보상주체와 평가방법 등을 정한 것으로서, 새로운 공익사업시행을 하지 않는 경우에는 토지평가 등에 대하여 별도로 규정하고 있지 않은바, 사업시행자가 관계법령 및 사실관계 등을 검토하여 판단할 사항으로 봅니다.",
+          "law_url": "https://www.law.go.kr/LSW/cgmExpcInfoR.do?cgmExpcDatSeq=40696",
+          "upstream_url": "https://www.laiis.go.kr/lips/nya/lrn/localRegulationDetail.do?nttNo=37808",
+          "exact_citation": "토지정책과-308(2016.1.14.)",
+          "upstream_full_text": "■ 회신일자 : 2016.1.14. ■ 질의요지 공익사업에 따른 보상금지급과 이후 제3자에게 소유권 이전, 법원경매, 법원의 판결에 따른 해당 토지에 대한 사용료 지급에 대한 사항 ■ 회신 내용 사업시행자가 소송 결과 등을 검토하여 조치할 사안으로 우리부에서 별도의 도움을 드릴 수 없음을 알려드리니 양해하여 주시기 바랍니다. 참고로, 토지보상법 시행규칙 제25조제1항에 따르면 종전에 시행된 공익사업의 부지로서 보상금이 지급되지 아니한 토지(이하 이 조에서 \"\"미지급용지\"\"라 한다)에 대하여는 종전의 공익사업에 편입될 당시의 이용상황을 상정하여 평가한다. 다만, 종전의 공익사업에 편입될 당시의 이용상황을 알 수 없는 경우에는 편입될 당시의 지목과 인근토지의 이용상황 등을 참작하여 평가한다라고 규정하고 있습니다. 이는 새로운 공익사업 지구내에 편입되는 토지 중 종전 공익사업에 편입되었으나 보상이 되지 아니한 토지에 대한 보상주체와 평가방법 등을 정한 것으로서, 새로운 공익사업시행을 하지 않는 경우에는 토지평가 등에 대하여 별도로 규정하고 있지 않은바, 사업시행자가 관계법령 및 사실관계 등을 검토하여 판단할 사항으로 봅니다. ■ 관련 공문 근거 ○ 토지정책과-308(2016.1.14.)"
+        }
+      ]
+    },
+    {
+      "item": "토지정책과-1730",
+      "finding": "Two separately indexed official records with 2015/2016 dates; entire reply strings are exactly identical. Titles and questions differ, with the later question adding a descriptive tail. The upstream LAIIS page body explicitly cites each respective year, so this is not merely a DRF date conversion issue. Whether one is a duplicate/date error or two actual issuances remains unresolved.",
+      "same_item_or_distinct": "probable duplicate-content/date-conflict; actual administrative identity indeterminate",
+      "comparison": {
+        "full_reply_exact_equal": true,
+        "full_reply_chars": 760,
+        "full_reply_sha256": "38117a084f81657ef21d9d2a351493fb227f188f16a08d934145befd5211556d",
+        "questions_exact_equal": false,
+        "2016_added_question_tail": " 토지보상법에 따라 잔여지를 매수할지 여부에 대한 사항"
+      },
+      "recommendation": "Do not automatically merge or declare two independent replies. Preserve both source records, keep identity/reference-status hold, request original dated reply letters or agency correction. A date-qualified ID may distinguish source assertions, not certify two legal acts. If original documents confirm distinct replies, amend SCHEMA and duplicate key to agency+case_no+replied, migrate existing ID and all references explicitly. Do not silently suffix IDs under current schema.",
+      "proposed_ids_if_contract_is_approved": [
+        "interp/molit/토지정책과-1730@20150309",
+        "interp/molit/토지정책과-1730@20160309"
+      ],
+      "evidence": [
+        {
+          "source_id": "23932",
+          "case_no": "토지정책과-1730",
+          "date": "20150309",
+          "title": "타인의 토지를 불법으로 사용하여 법원의 부당이득금 지급 판결에 따라 사용료를 지급하고 있으며, 해당 토지를 매수하고자 하였으나, 토지소유자가 잔여지에 대하여도 매수하여 줄 것을 요청한 경우",
+          "question": "타인의 토지를 불법으로 사용하여 법원의 부당이득금 지급 판결에 따라 사용료를 지급하고 있으며, 해당 토지를 매수하고자 하였으나, 토지소유자가 잔여지에 대하여도 매수하여 줄 것을 요청한 경우",
+          "reply": "사업시행자가 소송결과 등을 검토하여 조치할 사안으로 우리부에서 별도의 도움을 드릴 수 없음을 알려드리니 양해하여 주시기 바랍니다. 참고로, 토지보상법 시행규칙 제25조제1항에 따르면 종전에 시행된 공익사업의 부지로서 보상금이 지급되지 아니한 토지(이하 이 조에서 \"\"미지급용지\"\"라 한다)에 대하여는 종전의 공익사업에 편입될 당시의 이용상황을 상정하여 평가한다. 다만, 종전의 공익사업에 편입될 당시의 이용상황을 알 수 없는 경우에는 편입될 당시의 지목과 인근토지의 이용상황 등을 참작하여 평가한다라고 규정하고 있습니다. 토지보상법 제74조제1항에서 동일한 소유자에게 속하는 일단의 토지의 일부가 협의에 의하여 매수되거나 수용됨으로 인하여 잔여지를 종래의 목적에 사용하는 것이 현저히 곤란할 때에는 해당 토지소유자는 사업시행자에게 잔여지를 매수하여 줄 것을 청구할 수 있으며, 사업인정 이후에는 관할 토지수용위원회에 수용을 청구할 수 있다. 이 경우 수용의 청구는 매수에 관한 협의가 성립되지 아니한 경우에만 할 수 있으며, 그 사업의 공사완료일까지 하도록 하고 있습니다. 이는 새로운 공익사업 지구내에 편입되는 토지 중 종전 공익사업에 편입되었으나 보상이 되지 아니한 토지에 대한 보상주체와 평가방법 등을 정하고, 잔여지에 대해 관할 토지수용위원회에 수용을 청구할 수 있는 기간을 규정하고 있는 것으로서, 새로운 공익사업시행을 하지 않는 경우에 대하여는 별도로 규정하고 있지 않은바, 사업시행자가 관계법령 및 사실관계 등을 검토하여 판단할 사항으로 봅니다.",
+          "law_url": "https://www.law.go.kr/LSW/cgmExpcInfoR.do?cgmExpcDatSeq=23932",
+          "upstream_url": "https://www.laiis.go.kr/lips/nya/lrn/localRegulationDetail.do?nttNo=37643",
+          "exact_citation": "토지정책과-1730(2015.3.9.)",
+          "upstream_full_text": "■ 회신일자 : 2015.3.9. ■ 질의요지 타인의 토지를 불법으로 사용하여 법원의 부당이득금 지급 판결에 따라 사용료를 지급하고 있으며, 해당 토지를 매수하고자 하였으나, 토지소유자가 잔여지에 대하여도 매수하여 줄 것을 요청한 경우 ■ 답변내용 사업시행자가 소송결과 등을 검토하여 조치할 사안으로 우리부에서 별도의 도움을 드릴 수 없음을 알려드리니 양해하여 주시기 바랍니다. 참고로, 토지보상법 시행규칙 제25조제1항에 따르면 종전에 시행된 공익사업의 부지로서 보상금이 지급되지 아니한 토지(이하 이 조에서 \"\"미지급용지\"\"라 한다)에 대하여는 종전의 공익사업에 편입될 당시의 이용상황을 상정하여 평가한다. 다만, 종전의 공익사업에 편입될 당시의 이용상황을 알 수 없는 경우에는 편입될 당시의 지목과 인근토지의 이용상황 등을 참작하여 평가한다라고 규정하고 있습니다. 토지보상법 제74조제1항에서 동일한 소유자에게 속하는 일단의 토지의 일부가 협의에 의하여 매수되거나 수용됨으로 인하여 잔여지를 종래의 목적에 사용하는 것이 현저히 곤란할 때에는 해당 토지소유자는 사업시행자에게 잔여지를 매수하여 줄 것을 청구할 수 있으며, 사업인정 이후에는 관할 토지수용위원회에 수용을 청구할 수 있다. 이 경우 수용의 청구는 매수에 관한 협의가 성립되지 아니한 경우에만 할 수 있으며, 그 사업의 공사완료일까지 하도록 하고 있습니다. 이는 새로운 공익사업 지구내에 편입되는 토지 중 종전 공익사업에 편입되었으나 보상이 되지 아니한 토지에 대한 보상주체와 평가방법 등을 정하고, 잔여지에 대해 관할 토지수용위원회에 수용을 청구할 수 있는 기간을 규정하고 있는 것으로서, 새로운 공익사업시행을 하지 않는 경우에 대하여는 별도로 규정하고 있지 않은바, 사업시행자가 관계법령 및 사실관계 등을 검토하여 판단할 사항으로 봅니다. ■ 관련 공문 근거 ○ 토지정책과-1730(2015.3.9.)"
+        },
+        {
+          "source_id": "40580",
+          "case_no": "토지정책과-1730",
+          "date": "20160309",
+          "title": "잔여지 매입 가능 여부",
+          "question": "타인의 토지를 불법으로 사용하여 법원의 부당이득금 지급 판결에 따라 사용료를 지급하고 있으며, 해당 토지를 매수하고자 하였으나, 토지소유자가 잔여지에 대하여도 매수하여 줄 것을 요청한 경우 토지보상법에 따라 잔여지를 매수할지 여부에 대한 사항",
+          "reply": "사업시행자가 소송결과 등을 검토하여 조치할 사안으로 우리부에서 별도의 도움을 드릴 수 없음을 알려드리니 양해하여 주시기 바랍니다. 참고로, 토지보상법 시행규칙 제25조제1항에 따르면 종전에 시행된 공익사업의 부지로서 보상금이 지급되지 아니한 토지(이하 이 조에서 \"\"미지급용지\"\"라 한다)에 대하여는 종전의 공익사업에 편입될 당시의 이용상황을 상정하여 평가한다. 다만, 종전의 공익사업에 편입될 당시의 이용상황을 알 수 없는 경우에는 편입될 당시의 지목과 인근토지의 이용상황 등을 참작하여 평가한다라고 규정하고 있습니다. 토지보상법 제74조제1항에서 동일한 소유자에게 속하는 일단의 토지의 일부가 협의에 의하여 매수되거나 수용됨으로 인하여 잔여지를 종래의 목적에 사용하는 것이 현저히 곤란할 때에는 해당 토지소유자는 사업시행자에게 잔여지를 매수하여 줄 것을 청구할 수 있으며, 사업인정 이후에는 관할 토지수용위원회에 수용을 청구할 수 있다. 이 경우 수용의 청구는 매수에 관한 협의가 성립되지 아니한 경우에만 할 수 있으며, 그 사업의 공사완료일까지 하도록 하고 있습니다. 이는 새로운 공익사업 지구내에 편입되는 토지 중 종전 공익사업에 편입되었으나 보상이 되지 아니한 토지에 대한 보상주체와 평가방법 등을 정하고, 잔여지에 대해 관할 토지수용위원회에 수용을 청구할 수 있는 기간을 규정하고 있는 것으로서, 새로운 공익사업시행을 하지 않는 경우에 대하여는 별도로 규정하고 있지 않은바, 사업시행자가 관계법령 및 사실관계 등을 검토하여 판단할 사항으로 봅니다.",
+          "law_url": "https://www.law.go.kr/LSW/cgmExpcInfoR.do?cgmExpcDatSeq=40580",
+          "upstream_url": "https://www.laiis.go.kr/lips/nya/lrn/localRegulationDetail.do?nttNo=37950",
+          "exact_citation": "토지정책과-1730(2016.3.9.)",
+          "upstream_full_text": "■ 회신일자 : 2016.3.9. ■ 질의요지 타인의 토지를 불법으로 사용하여 법원의 부당이득금 지급 판결에 따라 사용료를 지급하고 있으며, 해당 토지를 매수하고자 하였으나, 토지소유자가 잔여지에 대하여도 매수하여 줄 것을 요청한 경우 토지보상법에 따라 잔여지를 매수할지 여부에 대한 사항 ■ 회신 내용 사업시행자가 소송결과 등을 검토하여 조치할 사안으로 우리부에서 별도의 도움을 드릴 수 없음을 알려드리니 양해하여 주시기 바랍니다. 참고로, 토지보상법 시행규칙 제25조제1항에 따르면 종전에 시행된 공익사업의 부지로서 보상금이 지급되지 아니한 토지(이하 이 조에서 \"\"미지급용지\"\"라 한다)에 대하여는 종전의 공익사업에 편입될 당시의 이용상황을 상정하여 평가한다. 다만, 종전의 공익사업에 편입될 당시의 이용상황을 알 수 없는 경우에는 편입될 당시의 지목과 인근토지의 이용상황 등을 참작하여 평가한다라고 규정하고 있습니다. 토지보상법 제74조제1항에서 동일한 소유자에게 속하는 일단의 토지의 일부가 협의에 의하여 매수되거나 수용됨으로 인하여 잔여지를 종래의 목적에 사용하는 것이 현저히 곤란할 때에는 해당 토지소유자는 사업시행자에게 잔여지를 매수하여 줄 것을 청구할 수 있으며, 사업인정 이후에는 관할 토지수용위원회에 수용을 청구할 수 있다. 이 경우 수용의 청구는 매수에 관한 협의가 성립되지 아니한 경우에만 할 수 있으며, 그 사업의 공사완료일까지 하도록 하고 있습니다. 이는 새로운 공익사업 지구내에 편입되는 토지 중 종전 공익사업에 편입되었으나 보상이 되지 아니한 토지에 대한 보상주체와 평가방법 등을 정하고, 잔여지에 대해 관할 토지수용위원회에 수용을 청구할 수 있는 기간을 규정하고 있는 것으로서, 새로운 공익사업시행을 하지 않는 경우에 대하여는 별도로 규정하고 있지 않은바, 사업시행자가 관계법령 및 사실관계 등을 검토하여 판단할 사항으로 봅니다. ■ 관련 공문 근거 ○ 토지정책과-1730(2016.3.9.)"
+        }
+      ]
+    },
+    {
+      "item": "faq/2284827",
+      "title": "미지급용지 보상금 책정은 어떻게 되나요?",
+      "source_title": "미지급용지 보상금 책정은 어떻게 되나요?",
+      "replied": "20250904",
+      "finding": "No official 안건번호 in law.go.kr API or rendered detail. Official source record identifiers do exist (law.go.kr 법령해석일련번호 and 국민신문고 epUnionSn), but neither is a reply 안건번호. No numbered MOLIT counterpart verified.",
+      "decision": "held",
+      "recommendation": "Keep on hold under current interp/<agency>/<안건번호> contract. If FAQ inclusion is later expressly approved, use a separately typed source-ID namespace such as faq/molit/lawgo/2284827 with source_identifier fields; preserve blank case_no rather than fabricate one.",
+      "evidence": [
+        {
+          "url": "https://www.law.go.kr/DRF/lawService.do?target=molitCgmExpc&ID=2284827&type=JSON",
+          "quote": "\"안건번호\": \"\""
+        },
+        {
+          "url": "https://www.law.go.kr/LSW/cgmExpcInfoR.do?cgmExpcDatSeq=2284827",
+          "quote": "미지급용지의 보상금 책정에 관한 질의"
+        },
+        {
+          "url": "https://www.law.go.kr/LSW/cgmExpcInfoR.do?cgmExpcDatSeq=2284827",
+          "quote": "국민신문고",
+          "source_link": "https://www.epeople.go.kr/nep/pttn/gnrlPttn/pttnSmlrCaseDetail.npaid?dutySctnNm=tqapttn&epUnionSn=6892751",
+          "epUnionSn": "6892751"
+        }
+      ],
+      "full_reply": "ㅇ 미지급용지의 보상금액은 보상을 청구한 날의 가격을 기준으로 하되, 편입당시의 이용상황을 고려하여 결정하고 편입당시의 이용상황을 알 수 없는 경우에는 편입당시의 지목과 인근 토지의 이용상황등을 참작하여 결정합니다.- 보상 결정된 토지의 보상금액은 「부동산 가격공시에 관한 법률 」에 의한 2인 이상의 감정평가업자에 의한 감정평가액의 산술평균치로 합니다.추가 문의사항이 있을 경우, 원주지방국토관리청 보상과(033-769-5751, 5753, 5761~5763)로 연락주시면 상세하고 친절하게 답변해 드리겠습니다.감사합니다. 즐거운 하루 되시기 바랍니다."
+    },
+    {
+      "item": "faq/2285119",
+      "title": "일반국도 미지급용지 문의",
+      "source_title": "일반국도 미지급용지 문의",
+      "replied": "20250904",
+      "finding": "No official 안건번호 in law.go.kr API or rendered detail. Official source record identifiers do exist (law.go.kr 법령해석일련번호 and 국민신문고 epUnionSn), but neither is a reply 안건번호. No numbered MOLIT counterpart verified.",
+      "decision": "held",
+      "recommendation": "Keep on hold under current interp/<agency>/<안건번호> contract. If FAQ inclusion is later expressly approved, use a separately typed source-ID namespace such as faq/molit/lawgo/2285119 with source_identifier fields; preserve blank case_no rather than fabricate one.",
+      "evidence": [
+        {
+          "url": "https://www.law.go.kr/DRF/lawService.do?target=molitCgmExpc&ID=2285119&type=JSON",
+          "quote": "\"안건번호\": \"\""
+        },
+        {
+          "url": "https://www.law.go.kr/LSW/cgmExpcInfoR.do?cgmExpcDatSeq=2285119",
+          "quote": "일반국도 공공사업용지로 이용 중인 토지 중 보상이 완료되지 않은 미지급용지가 존재하는 경우 어디에 문의해야하는지"
+        },
+        {
+          "url": "https://www.law.go.kr/LSW/cgmExpcInfoR.do?cgmExpcDatSeq=2285119",
+          "quote": "국민신문고",
+          "source_link": "https://www.epeople.go.kr/nep/pttn/gnrlPttn/pttnSmlrCaseDetail.npaid?dutySctnNm=tqapttn&epUnionSn=6897179",
+          "epUnionSn": "6897179"
+        }
+      ],
+      "full_reply": "2023년 이전 일반국도의 미지급용지는 지자체에서 보상을 진행했으나, 24.1.1부터 지방국토관리청이 일반국도 미지급용지 보상업무를 수행중임을 알려드리니,일반국도 미지급용지에 대한 문의는 서울지방국토관리청 보상과, 지방도에 속하는 미지급용지에 대한 문의는 관할 지자체 또는 해당 소관 기관으로 문의하여 주시기 바랍니다.위 답변이 참고가 되시길 바라며, 이와 관련하여 궁금한 사항이 있으실 경우 운영지원과 배현재(☎031-820-1716)으로 문의하시면 상세하고 친절하게 답변드리겠습니다."
+    },
+    {
+      "item": "faq/2285647",
+      "title": "도로부지내 개인토지를 활용하고 싶은데요",
+      "source_title": "도로부지내 개인토지를 활용하고 싶은데요",
+      "replied": "20250904",
+      "finding": "No official 안건번호 in law.go.kr API or rendered detail. Official source record identifiers do exist (law.go.kr 법령해석일련번호 and 국민신문고 epUnionSn), but neither is a reply 안건번호. No numbered MOLIT counterpart verified.",
+      "decision": "held",
+      "recommendation": "Keep on hold under current interp/<agency>/<안건번호> contract. If FAQ inclusion is later expressly approved, use a separately typed source-ID namespace such as faq/molit/lawgo/2285647 with source_identifier fields; preserve blank case_no rather than fabricate one.",
+      "evidence": [
+        {
+          "url": "https://www.law.go.kr/DRF/lawService.do?target=molitCgmExpc&ID=2285647&type=JSON",
+          "quote": "\"안건번호\": \"\""
+        },
+        {
+          "url": "https://www.law.go.kr/LSW/cgmExpcInfoR.do?cgmExpcDatSeq=2285647",
+          "quote": "국도변에 토지가 있는데 지목이 도로이고 도로부지로 이용되고 있는것으로 보입니다.개인재산인데 어떻게 하면 활용이 가능한가요?"
+        },
+        {
+          "url": "https://www.law.go.kr/LSW/cgmExpcInfoR.do?cgmExpcDatSeq=2285647",
+          "quote": "국민신문고",
+          "source_link": "https://www.epeople.go.kr/nep/pttn/gnrlPttn/pttnSmlrCaseDetail.npaid?dutySctnNm=tqapttn&epUnionSn=181130",
+          "epUnionSn": "181130"
+        }
+      ],
+      "full_reply": "안녕하십니까? 평소 국토교통 행정업무에 관심을 가져 주셔서 감사합니다.- 토지가 개인소유로 되어 있다 하더라도 도로구역내에 있다면 사권은 제한을 받으므로 활용이 불가능합니다.(도로법 제3조 - 도로를 구성하는 부지,옹벽,기타의 물건에 대하여서는 사권을 행사할 수 없다. 다만, 소유권을 이전하거나 저당권을 설정함은 그러하지 아니하다)- 도로부지내에 있는 토지 중 아직 개인소유로 되어 있다면 당초 도로개설시 국가로부터 정당한 보상을 받지 못한 미불용지일 가능성이 있으므로 토지가 위치하고 있는 해당 지자체에 문의하시면 안내를 받으실 수 있습니다.- 기타 궁금하신 점이 있으신 경우 포항국토관리사무소 도로안전운영과 김광원(054-260-2539)에게 연락주시면 상세히 답변해 드리겠습니다. 감사합니다."
+    },
+    {
+      "item": "faq/2285723",
+      "title": "도로로 사용되고 있는 사유지에 대한 보상 문의",
+      "source_title": "도로로 사용되고 있는 사유지에 대한 보상 문의",
+      "replied": "20250904",
+      "finding": "No official 안건번호 in law.go.kr API or rendered detail. Official source record identifiers do exist (law.go.kr 법령해석일련번호 and 국민신문고 epUnionSn), but neither is a reply 안건번호. No numbered MOLIT counterpart verified.",
+      "decision": "held",
+      "recommendation": "Keep on hold under current interp/<agency>/<안건번호> contract. If FAQ inclusion is later expressly approved, use a separately typed source-ID namespace such as faq/molit/lawgo/2285723 with source_identifier fields; preserve blank case_no rather than fabricate one.",
+      "evidence": [
+        {
+          "url": "https://www.law.go.kr/DRF/lawService.do?target=molitCgmExpc&ID=2285723&type=JSON",
+          "quote": "\"안건번호\": \"\""
+        },
+        {
+          "url": "https://www.law.go.kr/LSW/cgmExpcInfoR.do?cgmExpcDatSeq=2285723",
+          "quote": "기존도로로 사용되고 있는 사유지에 대해 보상받을 수 있는지 여부"
+        },
+        {
+          "url": "https://www.law.go.kr/LSW/cgmExpcInfoR.do?cgmExpcDatSeq=2285723",
+          "quote": "국민신문고",
+          "source_link": "https://www.epeople.go.kr/nep/pttn/gnrlPttn/pttnSmlrCaseDetail.npaid?dutySctnNm=tqapttn&epUnionSn=465155",
+          "epUnionSn": "465155"
+        }
+      ],
+      "full_reply": "평소 국토교통업무에 관심을 가져주신 점 깊이 감사드립니다.기존도로로 사용되고 있는 사유지는 국토교통부 '일반국도 편입 미지급용지 보상업무 지침'에 의하여 보상을 진행하고 있으며,과거 보상여부를 검토하여 미보상 토지로 확인된 경우 보상받으실 수 있습니다.토지소유자 및 관계인 또는 관계인의 대리인이 미지급용지 보상 신청이 가능하며,보상 신청을 하고자 하는 경우 토지소유자의 신분증 사본과 부산지방국토관리청 홈페이지(www.molit.go.kr/brocm) 공지사항에 있는 미지급용지 보상신청서를 부산지방국토관리청 보상과로 제출하시면 됩니다.기타 궁금하신 사항은 부산지방국토관리청 보상과 김지후(051-660-1057)으로 문의하여 주시면 성심성의껏 답변 드리겠습니다."
+    },
+    {
+      "item": "faq/2286795",
+      "title": "미지급용지 보상 신청 방법 및 제출서류",
+      "source_title": "미지급용지 보상 신청 방법 및 제출서류",
+      "replied": "20250722",
+      "finding": "No official 안건번호 in law.go.kr API or rendered detail. Official source record identifiers do exist (law.go.kr 법령해석일련번호 and 국민신문고 epUnionSn), but neither is a reply 안건번호. No numbered MOLIT counterpart verified.",
+      "decision": "held",
+      "recommendation": "Keep on hold under current interp/<agency>/<안건번호> contract. If FAQ inclusion is later expressly approved, use a separately typed source-ID namespace such as faq/molit/lawgo/2286795 with source_identifier fields; preserve blank case_no rather than fabricate one.",
+      "evidence": [
+        {
+          "url": "https://www.law.go.kr/DRF/lawService.do?target=molitCgmExpc&ID=2286795&type=JSON",
+          "quote": "\"안건번호\": \"\""
+        },
+        {
+          "url": "https://www.law.go.kr/LSW/cgmExpcInfoR.do?cgmExpcDatSeq=2286795",
+          "quote": "미지급용지 보상 신청 방법 궁금합니다."
+        },
+        {
+          "url": "https://www.law.go.kr/LSW/cgmExpcInfoR.do?cgmExpcDatSeq=2286795",
+          "quote": "국민신문고",
+          "source_link": "https://www.epeople.go.kr/nep/pttn/gnrlPttn/pttnSmlrCaseDetail.npaid?dutySctnNm=tqapttn&epUnionSn=6875657",
+          "epUnionSn": "6875657"
+        }
+      ],
+      "full_reply": "토지소유자 및 관계인 또는 관계인의 대리인이 미지급용지 보상 신청이 가능하며, 보상 신청을 하고자 하는 경우 토지소유자의 신분증 사본과 부산지방국토관리청 홈페이지(www.molit.go.kr/brocm) 공지사항에 있는 미지급용지 보상신청서를 부산지방국토관리청 보상과로 제출하시면 됩니다.기타 궁금하신 사항은 부산지방국토관리청 보상과 김지후(051-660-1057)으로 문의하여 주시면 성심성의껏 답변 드리겠습니다."
+    },
+    {
+      "item": "faq/2287409",
+      "title": "미지급용지 정의",
+      "source_title": "미지급용지 정의",
+      "replied": "20250714",
+      "finding": "No official 안건번호 in law.go.kr API or rendered detail. Official source record identifiers do exist (law.go.kr 법령해석일련번호 and 국민신문고 epUnionSn), but neither is a reply 안건번호. No numbered MOLIT counterpart verified.",
+      "decision": "held",
+      "recommendation": "Keep on hold under current interp/<agency>/<안건번호> contract. If FAQ inclusion is later expressly approved, use a separately typed source-ID namespace such as faq/molit/lawgo/2287409 with source_identifier fields; preserve blank case_no rather than fabricate one.",
+      "evidence": [
+        {
+          "url": "https://www.law.go.kr/DRF/lawService.do?target=molitCgmExpc&ID=2287409&type=JSON",
+          "quote": "\"안건번호\": \"\""
+        },
+        {
+          "url": "https://www.law.go.kr/LSW/cgmExpcInfoR.do?cgmExpcDatSeq=2287409",
+          "quote": "미지급용지가 무엇인가요?"
+        },
+        {
+          "url": "https://www.law.go.kr/LSW/cgmExpcInfoR.do?cgmExpcDatSeq=2287409",
+          "quote": "국민신문고",
+          "source_link": "https://www.epeople.go.kr/nep/pttn/gnrlPttn/pttnSmlrCaseDetail.npaid?dutySctnNm=tqapttn&epUnionSn=6875656",
+          "epUnionSn": "6875656"
+        }
+      ],
+      "full_reply": "공익사업의 시행으로 도로에 편입되었으나 보상금이 지급되지 아니한 토지를 의미하며, 이를 미지급용지라고 합니다.기타 궁금하신 사항은 부산지방국토관리청 보상과 최다현(051-660-1057)으로 문의하시면 성심성의껏 답변 드리겠습니다."
+    },
+    {
+      "item": "faq/2288509",
+      "title": "국도 미지급용지(체불용지) 보상요청",
+      "source_title": "국도 미지급용지(체불용지) 보상요청",
+      "replied": "20250610",
+      "finding": "No official 안건번호 in law.go.kr API or rendered detail. Official source record identifiers do exist (law.go.kr 법령해석일련번호 and 국민신문고 epUnionSn), but neither is a reply 안건번호. No numbered MOLIT counterpart verified.",
+      "decision": "held",
+      "recommendation": "Keep on hold under current interp/<agency>/<안건번호> contract. If FAQ inclusion is later expressly approved, use a separately typed source-ID namespace such as faq/molit/lawgo/2288509 with source_identifier fields; preserve blank case_no rather than fabricate one.",
+      "evidence": [
+        {
+          "url": "https://www.law.go.kr/DRF/lawService.do?target=molitCgmExpc&ID=2288509&type=JSON",
+          "quote": "\"안건번호\": \"\""
+        },
+        {
+          "url": "https://www.law.go.kr/LSW/cgmExpcInfoR.do?cgmExpcDatSeq=2288509",
+          "quote": "국도내 미지급용지(체불용지)의 보상신청은 어떻게 해야 하는지?"
+        },
+        {
+          "url": "https://www.law.go.kr/LSW/cgmExpcInfoR.do?cgmExpcDatSeq=2288509",
+          "quote": "국민신문고",
+          "source_link": "https://www.epeople.go.kr/nep/pttn/gnrlPttn/pttnSmlrCaseDetail.npaid?dutySctnNm=tqapttn&epUnionSn=337597",
+          "epUnionSn": "337597"
+        }
+      ],
+      "full_reply": "안녕하세요? 고객님, 국토교통부 원주지방국토관리청 FAQ를 찾아주셔서 감사드립니다.1. 기존에는 국도내 미지급용지(체불용지)의 보상업무는 토지가 소재한 각 자치단쳬(시,군)에서 담당하였으나, 2024년부터 각 지방국토관리청으로 업무가 이관되었습니다.2.. 지방국토관리청에서 하는 미지급용지 보상업무 절차는 다음과 같습니다.가. 국도 미지급용지 보상 신청 접수나. 신청 토지에 대한 현재 사용현황 및 과거 보상 이력 조사다. 보상심의위원에에서 보상대상여부, 보상여부 심의 및 결정라. 보상심의 위원회 심의결과 신청인에게 통지마. 보상대상인 경우, 필요 시 토지 분할 및 감정평가 의뢰바. 감정평가액으로 토지 소유자에게 보상협의 요청사. 보상협의 계약서 작성, 토지 등기 이전, 보상금 지급3. 미지급용지라 함은 다음 각 호의 어느 하나에 해당하는 토지로서 현재 일반국도 도로구역 내에 포함되어 있는 토지를 말합니다.가. 정부가 시행한 도로에 관한 공공사업(이하 도로사업이라 한다)에 편입되었으나 보상금이 지급되지 아니한 토지나. 도로사업의 시행이 불분명하지만 소송(부당이득금반환청구, 임료청구 등)에서 국토교통부의 패소가 확정된 토지다. 도로사업의 시행이 불분명하지만 미지급도로로 확정된 기존의 대법원판례와 유사하여 국토교통부의 승소가능성이 없는 토지4. 다음 각 호의 경우에는 미지급용지로 보지 아니합니다.가. 지역주민 등이 자조사업(새마을사업 등)으로 조성하여 공공시설에 편입된 토지나. 토지 소유자, 주택사업자 등이 자기 소유 및 인근 토지의 효용을 ？이기 위하여 도로 등으로 제공하였거나일단의 주택지 조성사업 등으로 공공시설에 편입된 토지다. 「민법」 제245조 에 의하여 국토교통부가 소유권을 취득할 수 있는 토지라. 도시구역계획 내 국도 편입지1). 각급 시장이 관할하는 도시계획구역 내 국도 편입지(보상책임 : 각급 시장)2). 각급 지방자치단체의 장이 도시계획사업으로 신설하거나 확장한 국도 편입지(보상책임 : 당해 사업 시행자)마. 증여 또는 기부채납을 조건으로 편입시킨 용지바. 국공유지사. 현재 국토교통부 시행 도로공사가 진행되고 있는 구간의 편입지아. 그 밖의 다른 법률에 의하여 국토교통부에 무상으로 귀속되어야 하는 토지5. 미지급용지에 대한 보상을 신청을 할 수 있는 자는 다음 각 호와 같습니다.가. 토지소유자 및 관계인(공익사업을 위한 토지 등의 취득 및 보상에 관한 법률 제2조제4호 및 제5호의 정의 준용)나. 토지소유자 및 관계인의 대리인추가 문의사항이 있을 경우, 원주지방국토관리청 보상과(033-769-5751, 5753, 5755. 5761~5763)로 연락주시면 상세하고 친절하게 답변해 드리겠습니다.감사합니다. 좋은 하루 되십시오."
+    },
+    {
+      "item": "faq/2372909",
+      "title": "미지급용지 정의",
+      "source_title": "미지급용지 정의",
+      "replied": "20260224",
+      "finding": "No official 안건번호 in law.go.kr API or rendered detail. Official source record identifiers do exist (law.go.kr 법령해석일련번호 and 국민신문고 epUnionSn), but neither is a reply 안건번호. No numbered MOLIT counterpart verified.",
+      "decision": "held",
+      "recommendation": "Keep on hold under current interp/<agency>/<안건번호> contract. If FAQ inclusion is later expressly approved, use a separately typed source-ID namespace such as faq/molit/lawgo/2372909 with source_identifier fields; preserve blank case_no rather than fabricate one.",
+      "evidence": [
+        {
+          "url": "https://www.law.go.kr/DRF/lawService.do?target=molitCgmExpc&ID=2372909&type=JSON",
+          "quote": "\"안건번호\": \"\""
+        },
+        {
+          "url": "https://www.law.go.kr/LSW/cgmExpcInfoR.do?cgmExpcDatSeq=2372909",
+          "quote": "미지급용지가 무엇인가요?"
+        },
+        {
+          "url": "https://www.law.go.kr/LSW/cgmExpcInfoR.do?cgmExpcDatSeq=2372909",
+          "quote": "국민신문고",
+          "source_link": "https://www.epeople.go.kr/nep/pttn/gnrlPttn/pttnSmlrCaseDetail.npaid?dutySctnNm=tqapttn&epUnionSn=6900441",
+          "epUnionSn": "6900441"
+        }
+      ],
+      "full_reply": "\"미지급용지\"란 현재 일반국도 도로구역내에 포함되어있으며, 공익사업의 시행으로 도로에 편입되었으나 보상금이 지급되지 아니한 토지를 의미합니다.기타 궁금하신 사항은 부산지방국토관리청 보상과(051-660-1057)로 문의하시면 친절하게 답변해드리겠습니다."
+    },
+    {
+      "item": "faq/2372927",
+      "title": "미지급용지 보상 신청 방법 및 제출서류",
+      "source_title": "미지급용지 보상 신청 방법 및 제출서류",
+      "replied": "20260224",
+      "finding": "No official 안건번호 in law.go.kr API or rendered detail. Official source record identifiers do exist (law.go.kr 법령해석일련번호 and 국민신문고 epUnionSn), but neither is a reply 안건번호. No numbered MOLIT counterpart verified.",
+      "decision": "held",
+      "recommendation": "Keep on hold under current interp/<agency>/<안건번호> contract. If FAQ inclusion is later expressly approved, use a separately typed source-ID namespace such as faq/molit/lawgo/2372927 with source_identifier fields; preserve blank case_no rather than fabricate one.",
+      "evidence": [
+        {
+          "url": "https://www.law.go.kr/DRF/lawService.do?target=molitCgmExpc&ID=2372927&type=JSON",
+          "quote": "\"안건번호\": \"\""
+        },
+        {
+          "url": "https://www.law.go.kr/LSW/cgmExpcInfoR.do?cgmExpcDatSeq=2372927",
+          "quote": "미지급용지 보상 신청 방법 궁금합니다."
+        },
+        {
+          "url": "https://www.law.go.kr/LSW/cgmExpcInfoR.do?cgmExpcDatSeq=2372927",
+          "quote": "국민신문고",
+          "source_link": "https://www.epeople.go.kr/nep/pttn/gnrlPttn/pttnSmlrCaseDetail.npaid?dutySctnNm=tqapttn&epUnionSn=6900440",
+          "epUnionSn": "6900440"
+        }
+      ],
+      "full_reply": "토지소유자 또는 대리인이 신청 가능하며, 토지소유자의 신분증 사본과 부산지방국토관리청 홈페이지 공지사항에 있는 미지급용지 보상신청서를 작성하여 부산지방국토관리청 보상과로 제출하시면 됩니다.기타 궁금하신 사항은 부산지방국토관리청 보상과(051-660-1057)로 문의하여 주시면 친절하게 답변해드리겠습니다."
+    },
+    {
+      "item": "faq/2372961",
+      "title": "도로로 사용되고 있는 사유지에 대한 보상 문의",
+      "source_title": "도로로 사용되고 있는 사유지에 대한 보상 문의",
+      "replied": "20260224",
+      "finding": "No official 안건번호 in law.go.kr API or rendered detail. Official source record identifiers do exist (law.go.kr 법령해석일련번호 and 국민신문고 epUnionSn), but neither is a reply 안건번호. No numbered MOLIT counterpart verified.",
+      "decision": "held",
+      "recommendation": "Keep on hold under current interp/<agency>/<안건번호> contract. If FAQ inclusion is later expressly approved, use a separately typed source-ID namespace such as faq/molit/lawgo/2372961 with source_identifier fields; preserve blank case_no rather than fabricate one.",
+      "evidence": [
+        {
+          "url": "https://www.law.go.kr/DRF/lawService.do?target=molitCgmExpc&ID=2372961&type=JSON",
+          "quote": "\"안건번호\": \"\""
+        },
+        {
+          "url": "https://www.law.go.kr/LSW/cgmExpcInfoR.do?cgmExpcDatSeq=2372961",
+          "quote": "기존도로로 사용되고 있는 사유지에 대해 보상받을 수 있는지 여부"
+        },
+        {
+          "url": "https://www.law.go.kr/LSW/cgmExpcInfoR.do?cgmExpcDatSeq=2372961",
+          "quote": "국민신문고",
+          "source_link": "https://www.epeople.go.kr/nep/pttn/gnrlPttn/pttnSmlrCaseDetail.npaid?dutySctnNm=tqapttn&epUnionSn=6900434",
+          "epUnionSn": "6900434"
+        }
+      ],
+      "full_reply": "평소 국토교통업무에 관심을 자져주신 점 깊이 감사드립니다.기존도로로 사용되고 있는 사유지는 국토교통부 「국도편입체불용지보상지침」에 따라 미지급용지 보상 심의회의 결과에 따라 보상결정된 경우 보상받으실 수 있습니다.기타 궁금하신 사항이 있으실 경우에는 부산지방국토관리청 보상과(전화 051-660-1056)로 연락주시면 친절히 답변해 드리겠습니다."
+    },
+    {
+      "item": "faq/2380945",
+      "title": "미불용지 보상에 대한 처리방법이 궁금합니다.",
+      "source_title": "미불용지 보상에 대한 처리방법이 궁금합니다.",
+      "replied": "20260227",
+      "finding": "No official 안건번호 in law.go.kr API or rendered detail. Official source record identifiers do exist (law.go.kr 법령해석일련번호 and 국민신문고 epUnionSn), but neither is a reply 안건번호. No numbered MOLIT counterpart verified.",
+      "decision": "held",
+      "recommendation": "Keep on hold under current interp/<agency>/<안건번호> contract. If FAQ inclusion is later expressly approved, use a separately typed source-ID namespace such as faq/molit/lawgo/2380945 with source_identifier fields; preserve blank case_no rather than fabricate one.",
+      "evidence": [
+        {
+          "url": "https://www.law.go.kr/DRF/lawService.do?target=molitCgmExpc&ID=2380945&type=JSON",
+          "quote": "\"안건번호\": \"\""
+        },
+        {
+          "url": "https://www.law.go.kr/LSW/cgmExpcInfoR.do?cgmExpcDatSeq=2380945",
+          "quote": "미불용지에 대한 보상 처리 방법이 어떻게 되는지 궁금합니다."
+        },
+        {
+          "url": "https://www.law.go.kr/LSW/cgmExpcInfoR.do?cgmExpcDatSeq=2380945",
+          "quote": "국민신문고",
+          "source_link": "https://www.epeople.go.kr/nep/pttn/gnrlPttn/pttnSmlrCaseDetail.npaid?dutySctnNm=tqapttn&epUnionSn=6900670",
+          "epUnionSn": "6900670"
+        }
+      ],
+      "full_reply": "안녕하세요? 국토교통 행정에 관심을 가져주신 점 감사드립니다.미불용지(종전에 시행된 공익사업의 부지로서 보상금이 지급되지 아니한 토지)에 대한 보상은 토지보상법 시행규칙 제25조(미불용지의 평가)의하여 종전에 공익사업에 편입될 당시의 이용상황을 상정하여 평가하여야 하지만 공익사업에 편입될 당시의 이용상황을 알 수 없는 경우에는 편입될 당시의 지목과 인근토지의 이용상황 등을 참작하여 평가하여 보상하도록 되어 있고 사업시행자는 미불용지의 평가를 의뢰하는 때에는 보상평가의뢰서에 미불용지임을 표시하여야 합니다. 그러나 미불용지에 대한 구체적인 판단기준이 모호하므로 종전에 공익사업에 편입되었다는 근거 자료를 충분히 수집한 후 미불용지로 보상토록 결정하여야 될 것으로 판단됩니다.답변 내용 외 추가 궁금한 사항이 있으실 경우 남원국토관리사무소 운영지원과(063-620-2914, 담당 유제훈)로 문의하시면 성심 성의껏 답변해 드리겠습니다."
+    }
+  ],
+  "limitations": [
+    "No original signed MOLIT reply letters were obtained. Identical reply text cannot prove one administrative issuance; different source dates cannot prove two independently issued replies.",
+    "MOLIT FAQ list request returned HTTPError; search did not identify an exact official MOLIT FAQ page with a document number. This does not prove no official number exists. The 11 law.go.kr API records and rendered pages were individually checked.",
+    "The FAQ source links identify 국민신문고 epUnionSn records, not 안건번호. They must not be relabeled as official reply numbers."
+  ],
+  "integration": {
+    "date": "2026-11-09",
+    "reference_status_changed": false,
+    "note": "Screening decisions only; no new status review or identity contract changes."
+  }
+}

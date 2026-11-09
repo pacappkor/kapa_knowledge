@@ -1,0 +1,979 @@
+{
+  "date": "2026-11-09",
+  "reviewed_at": "2026-11-09T10:48:05.718740+00:00",
+  "reviewer_model": "GPT-6",
+  "method": "Offline source-substring/location check of 48 previously confirmed relations; semantic agent re-check is limited to the five explicitly listed changes. Character offsets are zero-based Python string indices, end-exclusive; no HTML or whitespace normalization is used for quotation matching. Prior review records are preserved, not rewritten. No human review is claimed.",
+  "reviews": "reviews/2026/pilot-relation-evidence-recheck.jsonl",
+  "counts": {
+    "checked": 48,
+    "unchanged": 43,
+    "quote_replaced_confirmed": 4,
+    "downgraded_needs_review": 1,
+    "confirmed_after": 47,
+    "needs_review_after": 12,
+    "unreviewed_after": 7,
+    "total_relations": 66
+  },
+  "rows": [
+    {
+      "relation_id": "rel-aed732a5fe3288396d05",
+      "source_sha256": "9e2cece33f402c56e3031dac8c9ec95fdff4875815f7a2aad30828bf754e1591",
+      "review_before": "confirmed",
+      "review_after": "confirmed",
+      "action": "unchanged",
+      "previous_evidence_location": {
+        "path": "sources/prec/206153.json",
+        "json_pointer": "/payload/PrecService/판례내용",
+        "start_character": 2109,
+        "end_character": 2348
+      },
+      "evidence_location": {
+        "path": "sources/prec/206153.json",
+        "json_pointer": "/payload/PrecService/판례내용",
+        "start_character": 2109,
+        "end_character": 2348
+      },
+      "reason": "Stored-source quote location checked mechanically; relation and prior approval retained without a new semantic approval."
+    },
+    {
+      "relation_id": "rel-425dd958a654964a610e",
+      "source_sha256": "9e2cece33f402c56e3031dac8c9ec95fdff4875815f7a2aad30828bf754e1591",
+      "review_before": "confirmed",
+      "review_after": "confirmed",
+      "action": "unchanged",
+      "previous_evidence_location": {
+        "path": "sources/prec/206153.json",
+        "json_pointer": "/payload/PrecService/판례내용",
+        "start_character": 4474,
+        "end_character": 5253
+      },
+      "evidence_location": {
+        "path": "sources/prec/206153.json",
+        "json_pointer": "/payload/PrecService/판례내용",
+        "start_character": 4474,
+        "end_character": 5253
+      },
+      "reason": "Stored-source quote location checked mechanically; relation and prior approval retained without a new semantic approval."
+    },
+    {
+      "relation_id": "rel-2822477ed942a6399a18",
+      "source_sha256": "2614ed6dc0bf86c396481f70f4ba846e3be226d8b388c6aa84941493331463de",
+      "review_before": "confirmed",
+      "review_after": "confirmed",
+      "action": "unchanged",
+      "previous_evidence_location": {
+        "path": "sources/prec/201930.json",
+        "json_pointer": "/payload/PrecService/참조판례",
+        "start_character": 0,
+        "end_character": 117
+      },
+      "evidence_location": {
+        "path": "sources/prec/201930.json",
+        "json_pointer": "/payload/PrecService/참조판례",
+        "start_character": 0,
+        "end_character": 117
+      },
+      "reason": "Stored-source quote location checked mechanically; relation and prior approval retained without a new semantic approval."
+    },
+    {
+      "relation_id": "rel-f16766f56a3c238fb3e5",
+      "source_sha256": "2614ed6dc0bf86c396481f70f4ba846e3be226d8b388c6aa84941493331463de",
+      "review_before": "confirmed",
+      "review_after": "confirmed",
+      "action": "unchanged",
+      "previous_evidence_location": {
+        "path": "sources/prec/201930.json",
+        "json_pointer": "/payload/PrecService/참조판례",
+        "start_character": 0,
+        "end_character": 117
+      },
+      "evidence_location": {
+        "path": "sources/prec/201930.json",
+        "json_pointer": "/payload/PrecService/참조판례",
+        "start_character": 0,
+        "end_character": 117
+      },
+      "reason": "Stored-source quote location checked mechanically; relation and prior approval retained without a new semantic approval."
+    },
+    {
+      "relation_id": "rel-ba0a696cea0a99179b42",
+      "source_sha256": "bd069424597fa0b87d6f16d5d351b91e923faac118a8c97ec2f2dddc2529ea1e",
+      "review_before": "confirmed",
+      "review_after": "confirmed",
+      "action": "unchanged",
+      "previous_evidence_location": {
+        "path": "sources/prec/199258.json",
+        "json_pointer": "/payload/PrecService/판례내용",
+        "start_character": 210,
+        "end_character": 1481
+      },
+      "evidence_location": {
+        "path": "sources/prec/199258.json",
+        "json_pointer": "/payload/PrecService/판례내용",
+        "start_character": 210,
+        "end_character": 1481
+      },
+      "reason": "Stored-source quote location checked mechanically; relation and prior approval retained without a new semantic approval."
+    },
+    {
+      "relation_id": "rel-8a73b25468431af5af54",
+      "source_sha256": "5914f1ded3a28ee4f6f64635e1b6f51c13163b90e87d68ec470f9dbb68665144",
+      "review_before": "confirmed",
+      "review_after": "confirmed",
+      "action": "unchanged",
+      "previous_evidence_location": {
+        "path": "sources/prec/117524.json",
+        "json_pointer": "/payload/PrecService/판례내용",
+        "start_character": 2200,
+        "end_character": 3334
+      },
+      "evidence_location": {
+        "path": "sources/prec/117524.json",
+        "json_pointer": "/payload/PrecService/판례내용",
+        "start_character": 2200,
+        "end_character": 3334
+      },
+      "reason": "Stored-source quote location checked mechanically; relation and prior approval retained without a new semantic approval."
+    },
+    {
+      "relation_id": "rel-e2fd0db923073d18f44c",
+      "source_sha256": "5914f1ded3a28ee4f6f64635e1b6f51c13163b90e87d68ec470f9dbb68665144",
+      "review_before": "confirmed",
+      "review_after": "confirmed",
+      "action": "unchanged",
+      "previous_evidence_location": {
+        "path": "sources/prec/117524.json",
+        "json_pointer": "/payload/PrecService/판례내용",
+        "start_character": 2200,
+        "end_character": 3334
+      },
+      "evidence_location": {
+        "path": "sources/prec/117524.json",
+        "json_pointer": "/payload/PrecService/판례내용",
+        "start_character": 2200,
+        "end_character": 3334
+      },
+      "reason": "Stored-source quote location checked mechanically; relation and prior approval retained without a new semantic approval."
+    },
+    {
+      "relation_id": "rel-181827f1c4b286c3a7ee",
+      "source_sha256": "e0a590c565f2dbb9674bebc72b5c76e467156855be3715e93ea9aad5dedb5f4b",
+      "review_before": "confirmed",
+      "review_after": "confirmed",
+      "action": "unchanged",
+      "previous_evidence_location": {
+        "path": "sources/prec/192287.json",
+        "json_pointer": "/payload/PrecService/판례내용",
+        "start_character": 1320,
+        "end_character": 1420
+      },
+      "evidence_location": {
+        "path": "sources/prec/192287.json",
+        "json_pointer": "/payload/PrecService/판례내용",
+        "start_character": 1320,
+        "end_character": 1420
+      },
+      "reason": "Stored-source quote location checked mechanically; relation and prior approval retained without a new semantic approval."
+    },
+    {
+      "relation_id": "rel-b70ca15030307a2fc9bf",
+      "source_sha256": "e0a590c565f2dbb9674bebc72b5c76e467156855be3715e93ea9aad5dedb5f4b",
+      "review_before": "confirmed",
+      "review_after": "confirmed",
+      "action": "unchanged",
+      "previous_evidence_location": {
+        "path": "sources/prec/192287.json",
+        "json_pointer": "/payload/PrecService/참조판례",
+        "start_character": 0,
+        "end_character": 231
+      },
+      "evidence_location": {
+        "path": "sources/prec/192287.json",
+        "json_pointer": "/payload/PrecService/참조판례",
+        "start_character": 0,
+        "end_character": 231
+      },
+      "reason": "Stored-source quote location checked mechanically; relation and prior approval retained without a new semantic approval."
+    },
+    {
+      "relation_id": "rel-70e624776f7fd9c075b2",
+      "source_sha256": "7a3c153cbdd4696f59b783300821e209263e3b3ec0655fcf590f9ff69f93c0c8",
+      "review_before": "confirmed",
+      "review_after": "confirmed",
+      "action": "unchanged",
+      "previous_evidence_location": {
+        "path": "sources/prec/229177.json",
+        "json_pointer": "/payload/PrecService/참조판례",
+        "start_character": 0,
+        "end_character": 374
+      },
+      "evidence_location": {
+        "path": "sources/prec/229177.json",
+        "json_pointer": "/payload/PrecService/참조판례",
+        "start_character": 0,
+        "end_character": 374
+      },
+      "reason": "Stored-source quote location checked mechanically; relation and prior approval retained without a new semantic approval."
+    },
+    {
+      "relation_id": "rel-7782f3c2a1fecab1f17c",
+      "source_sha256": "7a3c153cbdd4696f59b783300821e209263e3b3ec0655fcf590f9ff69f93c0c8",
+      "review_before": "confirmed",
+      "review_after": "confirmed",
+      "action": "unchanged",
+      "previous_evidence_location": {
+        "path": "sources/prec/229177.json",
+        "json_pointer": "/payload/PrecService/참조판례",
+        "start_character": 0,
+        "end_character": 374
+      },
+      "evidence_location": {
+        "path": "sources/prec/229177.json",
+        "json_pointer": "/payload/PrecService/참조판례",
+        "start_character": 0,
+        "end_character": 374
+      },
+      "reason": "Stored-source quote location checked mechanically; relation and prior approval retained without a new semantic approval."
+    },
+    {
+      "relation_id": "rel-7a9ffb67a8c643b0e75e",
+      "source_sha256": "7bcdf01da9b63b3274b81799a081bc36424b3d1e6927424330840539058cdb4a",
+      "review_before": "confirmed",
+      "review_after": "confirmed",
+      "action": "unchanged",
+      "previous_evidence_location": {
+        "path": "sources/prec/136387.json",
+        "json_pointer": "/payload/PrecService/판례내용",
+        "start_character": 2019,
+        "end_character": 2234
+      },
+      "evidence_location": {
+        "path": "sources/prec/136387.json",
+        "json_pointer": "/payload/PrecService/판례내용",
+        "start_character": 2019,
+        "end_character": 2234
+      },
+      "reason": "Stored-source quote location checked mechanically; relation and prior approval retained without a new semantic approval."
+    },
+    {
+      "relation_id": "rel-7a4860c2afb8292cd8be",
+      "source_sha256": "959b8201865285640b1ff3e0226b6bb1bfc944611c880e9220719e77b8087823",
+      "review_before": "confirmed",
+      "review_after": "confirmed",
+      "action": "unchanged",
+      "previous_evidence_location": {
+        "path": "sources/prec/213643.json",
+        "json_pointer": "/payload/PrecService/판례내용",
+        "start_character": 125,
+        "end_character": 170
+      },
+      "evidence_location": {
+        "path": "sources/prec/213643.json",
+        "json_pointer": "/payload/PrecService/판례내용",
+        "start_character": 125,
+        "end_character": 170
+      },
+      "reason": "Stored-source quote location checked mechanically; relation and prior approval retained without a new semantic approval."
+    },
+    {
+      "relation_id": "rel-a6d4ddcbe0e5e22fd898",
+      "source_sha256": "64e29bd027c609b2e3b67db3d58946cb08145531381dd7cb6f779226699d2121",
+      "review_before": "confirmed",
+      "review_after": "confirmed",
+      "action": "unchanged",
+      "previous_evidence_location": {
+        "path": "sources/prec/173527.json",
+        "json_pointer": "/payload/PrecService/판례내용",
+        "start_character": 81,
+        "end_character": 125
+      },
+      "evidence_location": {
+        "path": "sources/prec/173527.json",
+        "json_pointer": "/payload/PrecService/판례내용",
+        "start_character": 81,
+        "end_character": 125
+      },
+      "reason": "Stored-source quote location checked mechanically; relation and prior approval retained without a new semantic approval."
+    },
+    {
+      "relation_id": "rel-27449643aa076b5d8275",
+      "source_sha256": "af9285290923f4e7c734c60a89216613b395419d87b14e2b49acb857888ae634",
+      "review_before": "confirmed",
+      "review_after": "confirmed",
+      "action": "unchanged",
+      "previous_evidence_location": {
+        "path": "sources/prec/192870.json",
+        "json_pointer": "/payload/PrecService/판례내용",
+        "start_character": 6445,
+        "end_character": 7182
+      },
+      "evidence_location": {
+        "path": "sources/prec/192870.json",
+        "json_pointer": "/payload/PrecService/판례내용",
+        "start_character": 6445,
+        "end_character": 7182
+      },
+      "reason": "Stored-source quote location checked mechanically; relation and prior approval retained without a new semantic approval."
+    },
+    {
+      "relation_id": "rel-e6cbc7522780cd2bc95b",
+      "source_sha256": "c9566641589b6c041122ab9b6fc517fd5974b9e9a95636ce06864c6e23aa3c0e",
+      "review_before": "confirmed",
+      "review_after": "confirmed",
+      "action": "unchanged",
+      "previous_evidence_location": {
+        "path": "sources/prec/192382.json",
+        "json_pointer": "/payload/PrecService/판례내용",
+        "start_character": 48,
+        "end_character": 91
+      },
+      "evidence_location": {
+        "path": "sources/prec/192382.json",
+        "json_pointer": "/payload/PrecService/판례내용",
+        "start_character": 48,
+        "end_character": 91
+      },
+      "reason": "Stored-source quote location checked mechanically; relation and prior approval retained without a new semantic approval."
+    },
+    {
+      "relation_id": "rel-6a3d73da218eeae6fdcf",
+      "source_sha256": "d55930221a33e34088e2b53d1fa7fd20119a1de67809be4808aa79db8a05fc2c",
+      "review_before": "confirmed",
+      "review_after": "confirmed",
+      "action": "unchanged",
+      "previous_evidence_location": {
+        "path": "sources/prec/220223.json",
+        "json_pointer": "/payload/PrecService/판례내용",
+        "start_character": 3705,
+        "end_character": 4265
+      },
+      "evidence_location": {
+        "path": "sources/prec/220223.json",
+        "json_pointer": "/payload/PrecService/판례내용",
+        "start_character": 3705,
+        "end_character": 4265
+      },
+      "reason": "Stored-source quote location checked mechanically; relation and prior approval retained without a new semantic approval."
+    },
+    {
+      "relation_id": "rel-aa8e422d55b984bdd7e7",
+      "source_sha256": "e0a590c565f2dbb9674bebc72b5c76e467156855be3715e93ea9aad5dedb5f4b",
+      "review_before": "confirmed",
+      "review_after": "confirmed",
+      "action": "unchanged",
+      "previous_evidence_location": {
+        "path": "sources/prec/192287.json",
+        "json_pointer": "/payload/PrecService/판례내용",
+        "start_character": 1320,
+        "end_character": 1420
+      },
+      "evidence_location": {
+        "path": "sources/prec/192287.json",
+        "json_pointer": "/payload/PrecService/판례내용",
+        "start_character": 1320,
+        "end_character": 1420
+      },
+      "reason": "Stored-source quote location checked mechanically; relation and prior approval retained without a new semantic approval."
+    },
+    {
+      "relation_id": "rel-f5c424b1c810a014f321",
+      "source_sha256": "637febb1e159eebf492d311fab94b50a56d49cac088ea70c821081cb3361e2ca",
+      "review_before": "confirmed",
+      "review_after": "confirmed",
+      "action": "unchanged",
+      "previous_evidence_location": {
+        "path": "sources/expc/322545.json",
+        "json_pointer": "/payload/ExpcService/회답",
+        "start_character": 0,
+        "end_character": 228
+      },
+      "evidence_location": {
+        "path": "sources/expc/322545.json",
+        "json_pointer": "/payload/ExpcService/회답",
+        "start_character": 0,
+        "end_character": 228
+      },
+      "reason": "Stored-source quote location checked mechanically; relation and prior approval retained without a new semantic approval."
+    },
+    {
+      "relation_id": "rel-25eaffcd49b63831dfc3",
+      "source_sha256": "ddadfb54ea5f741a23083acb9e6d27b4a022efe243b12e6ffda40431e2f22f31",
+      "review_before": "confirmed",
+      "review_after": "confirmed",
+      "action": "unchanged",
+      "previous_evidence_location": {
+        "path": "sources/expc/328733.json",
+        "json_pointer": "/payload/ExpcService/회답",
+        "start_character": 0,
+        "end_character": 216
+      },
+      "evidence_location": {
+        "path": "sources/expc/328733.json",
+        "json_pointer": "/payload/ExpcService/회답",
+        "start_character": 0,
+        "end_character": 216
+      },
+      "reason": "Stored-source quote location checked mechanically; relation and prior approval retained without a new semantic approval."
+    },
+    {
+      "relation_id": "rel-657ee879fc855bc959fb",
+      "source_sha256": "ddadfb54ea5f741a23083acb9e6d27b4a022efe243b12e6ffda40431e2f22f31",
+      "review_before": "confirmed",
+      "review_after": "confirmed",
+      "action": "unchanged",
+      "previous_evidence_location": {
+        "path": "sources/expc/328733.json",
+        "json_pointer": "/payload/ExpcService/회답",
+        "start_character": 0,
+        "end_character": 216
+      },
+      "evidence_location": {
+        "path": "sources/expc/328733.json",
+        "json_pointer": "/payload/ExpcService/회답",
+        "start_character": 0,
+        "end_character": 216
+      },
+      "reason": "Stored-source quote location checked mechanically; relation and prior approval retained without a new semantic approval."
+    },
+    {
+      "relation_id": "rel-2d11ae437ecea081c28d",
+      "source_sha256": "183803c561e3db3fa7330bb7a038b057fc1b759ddc09b026eb5c2b2f64faf2c5",
+      "review_before": "confirmed",
+      "review_after": "confirmed",
+      "action": "unchanged",
+      "previous_evidence_location": {
+        "path": "sources/expc/326371.json",
+        "json_pointer": "/payload/ExpcService/회답",
+        "start_character": 0,
+        "end_character": 68
+      },
+      "evidence_location": {
+        "path": "sources/expc/326371.json",
+        "json_pointer": "/payload/ExpcService/회답",
+        "start_character": 0,
+        "end_character": 68
+      },
+      "reason": "Stored-source quote location checked mechanically; relation and prior approval retained without a new semantic approval."
+    },
+    {
+      "relation_id": "rel-b9161fec2a211ae35bef",
+      "source_sha256": "183803c561e3db3fa7330bb7a038b057fc1b759ddc09b026eb5c2b2f64faf2c5",
+      "review_before": "confirmed",
+      "review_after": "confirmed",
+      "action": "unchanged",
+      "previous_evidence_location": {
+        "path": "sources/expc/326371.json",
+        "json_pointer": "/payload/ExpcService/회답",
+        "start_character": 0,
+        "end_character": 68
+      },
+      "evidence_location": {
+        "path": "sources/expc/326371.json",
+        "json_pointer": "/payload/ExpcService/회답",
+        "start_character": 0,
+        "end_character": 68
+      },
+      "reason": "Stored-source quote location checked mechanically; relation and prior approval retained without a new semantic approval."
+    },
+    {
+      "relation_id": "rel-c8b2108482d4ae0b62c7",
+      "source_sha256": "b127e023a6615d43a581c85f5e09a82b7e42bd892f2cf16345e26b26895d01f5",
+      "review_before": "confirmed",
+      "review_after": "confirmed",
+      "action": "unchanged",
+      "previous_evidence_location": {
+        "path": "sources/expc/343741.json",
+        "json_pointer": "/payload/ExpcService/이유",
+        "start_character": 1175,
+        "end_character": 1256
+      },
+      "evidence_location": {
+        "path": "sources/expc/343741.json",
+        "json_pointer": "/payload/ExpcService/이유",
+        "start_character": 1175,
+        "end_character": 1256
+      },
+      "reason": "Stored-source quote location checked mechanically; relation and prior approval retained without a new semantic approval."
+    },
+    {
+      "relation_id": "rel-8bd90e5f4d9f6f0716bb",
+      "source_sha256": "b127e023a6615d43a581c85f5e09a82b7e42bd892f2cf16345e26b26895d01f5",
+      "review_before": "confirmed",
+      "review_after": "confirmed",
+      "action": "unchanged",
+      "previous_evidence_location": {
+        "path": "sources/expc/343741.json",
+        "json_pointer": "/payload/ExpcService/이유",
+        "start_character": 1175,
+        "end_character": 1256
+      },
+      "evidence_location": {
+        "path": "sources/expc/343741.json",
+        "json_pointer": "/payload/ExpcService/이유",
+        "start_character": 1175,
+        "end_character": 1256
+      },
+      "reason": "Stored-source quote location checked mechanically; relation and prior approval retained without a new semantic approval."
+    },
+    {
+      "relation_id": "rel-337fe9b0e2244ccff179",
+      "source_sha256": "c4c00f2075754c95559b8aaf5276ed0615e2e356f2c80cd5ed59d1db1c0aed6c",
+      "review_before": "confirmed",
+      "review_after": "confirmed",
+      "action": "unchanged",
+      "previous_evidence_location": {
+        "path": "sources/cgmexpc/278712.json",
+        "json_pointer": "/payload/CgmExpcService/회답",
+        "start_character": 0,
+        "end_character": 231
+      },
+      "evidence_location": {
+        "path": "sources/cgmexpc/278712.json",
+        "json_pointer": "/payload/CgmExpcService/회답",
+        "start_character": 0,
+        "end_character": 231
+      },
+      "reason": "Stored-source quote location checked mechanically; relation and prior approval retained without a new semantic approval."
+    },
+    {
+      "relation_id": "rel-a097900d33e0e1faf96b",
+      "source_sha256": "c4c00f2075754c95559b8aaf5276ed0615e2e356f2c80cd5ed59d1db1c0aed6c",
+      "review_before": "confirmed",
+      "review_after": "needs-review",
+      "action": "needs-review",
+      "previous_evidence_location": {
+        "path": "sources/cgmexpc/278712.json",
+        "json_pointer": "/payload/CgmExpcService/회답",
+        "start_character": 0,
+        "end_character": 231
+      },
+      "evidence_location": {
+        "path": "sources/cgmexpc/278712.json",
+        "json_pointer": "/payload/CgmExpcService/질의요지",
+        "start_character": 0,
+        "end_character": 118
+      },
+      "reason": "제25조는 질의요지에만 명시되어 있고 회답은 법 적용범위와 시행자의 사실검토라는 일반 답변이다. 질의를 제25조 직접 해석의 승인 증거로 쓰지 않으며, 특정 조문의 해석 연결은 추가 근거 확인 전 needs-review로 보류한다. 같은 쟁점 분류 cites 관계와 문서 indeterminate 상태는 유지한다."
+    },
+    {
+      "relation_id": "rel-48bcf9501f5ba976f76a",
+      "source_sha256": "51e2dbdf617ca6ef0f68270812602f74a2c6a0c5e11e8d480e552636aef2639c",
+      "review_before": "confirmed",
+      "review_after": "confirmed",
+      "action": "unchanged",
+      "previous_evidence_location": {
+        "path": "sources/cgmexpc/48198.json",
+        "json_pointer": "/payload/CgmExpcService/회답",
+        "start_character": 0,
+        "end_character": 300
+      },
+      "evidence_location": {
+        "path": "sources/cgmexpc/48198.json",
+        "json_pointer": "/payload/CgmExpcService/회답",
+        "start_character": 0,
+        "end_character": 300
+      },
+      "reason": "Stored-source quote location checked mechanically; relation and prior approval retained without a new semantic approval."
+    },
+    {
+      "relation_id": "rel-067a4d190d67de40bd2b",
+      "source_sha256": "50263fc106acadc9611fbc69486dd795735d82a1236972b6b437ba7c75685dda",
+      "review_before": "confirmed",
+      "review_after": "confirmed",
+      "action": "issue-classification",
+      "previous_evidence_location": {
+        "path": "sources/cgmexpc/23932.json",
+        "json_pointer": "/payload/CgmExpcService/회답",
+        "start_character": 0,
+        "end_character": 72
+      },
+      "evidence_location": {
+        "path": "sources/cgmexpc/23932.json",
+        "json_pointer": "/payload/CgmExpcService/회답",
+        "start_character": 73,
+        "end_character": 760
+      },
+      "reason": "일반적인 소송결과 검토 안내 대신 제25조 미지급용지·제74조 잔여지 매수 및 신규사업 조건을 논한 정확 문단으로 쟁점 분류 근거를 보강한 에이전트 재검토다. 회신일 동일성 보류와 별도의 interprets needs-review 상태는 해소하지 않는다."
+    },
+    {
+      "relation_id": "rel-ea71702b8a3a98cdb9f5",
+      "source_sha256": "57c1a9bba68d61596b26b8ebb8b24e01c4569e6589b4c4b6d9cb9754c102fa1f",
+      "review_before": "confirmed",
+      "review_after": "confirmed",
+      "action": "unchanged",
+      "previous_evidence_location": {
+        "path": "sources/cgmexpc/40696.json",
+        "json_pointer": "/payload/CgmExpcService/회답",
+        "start_character": 0,
+        "end_character": 469
+      },
+      "evidence_location": {
+        "path": "sources/cgmexpc/40696.json",
+        "json_pointer": "/payload/CgmExpcService/회답",
+        "start_character": 0,
+        "end_character": 469
+      },
+      "reason": "Stored-source quote location checked mechanically; relation and prior approval retained without a new semantic approval."
+    },
+    {
+      "relation_id": "rel-c85db16ff2db92fe3d4b",
+      "source_sha256": "df84f99573c8c78911bab6fc1512c907e1b742af18abd0f6fdb0095d2fac19fb",
+      "review_before": "confirmed",
+      "review_after": "confirmed",
+      "action": "unchanged",
+      "previous_evidence_location": {
+        "path": "sources/cgmexpc/48376.json",
+        "json_pointer": "/payload/CgmExpcService/회답",
+        "start_character": 0,
+        "end_character": 340
+      },
+      "evidence_location": {
+        "path": "sources/cgmexpc/48376.json",
+        "json_pointer": "/payload/CgmExpcService/회답",
+        "start_character": 0,
+        "end_character": 340
+      },
+      "reason": "Stored-source quote location checked mechanically; relation and prior approval retained without a new semantic approval."
+    },
+    {
+      "relation_id": "rel-e491176818b688907e9e",
+      "source_sha256": "df84f99573c8c78911bab6fc1512c907e1b742af18abd0f6fdb0095d2fac19fb",
+      "review_before": "confirmed",
+      "review_after": "confirmed",
+      "action": "article-25",
+      "previous_evidence_location": {
+        "path": "sources/cgmexpc/48376.json",
+        "json_pointer": "/payload/CgmExpcService/회답",
+        "start_character": 0,
+        "end_character": 340
+      },
+      "evidence_location": {
+        "path": "sources/cgmexpc/48376.json",
+        "json_pointer": "/payload/CgmExpcService/회답",
+        "start_character": 637,
+        "end_character": 1086
+      },
+      "reason": "제19·20·30조 절차 인용 대신 제25조제1항 평가방법 및 신규사업 없는 불법사용의 민사구제 경계 문단을 직접 대조한 에이전트 재검토다. 기존 현행 조문 대조 범위만 유지하며 개별 사건 적용이나 문서 참조 상태를 새로 승인하지 않는다."
+    },
+    {
+      "relation_id": "rel-133fe915cd09060ead73",
+      "source_sha256": "f13af03a54e5f16e200f19ec54f4d714dc7867fce2169f61472f94ff44440ef4",
+      "review_before": "confirmed",
+      "review_after": "confirmed",
+      "action": "unchanged",
+      "previous_evidence_location": {
+        "path": "sources/cgmexpc/48580.json",
+        "json_pointer": "/payload/CgmExpcService/회답",
+        "start_character": 0,
+        "end_character": 341
+      },
+      "evidence_location": {
+        "path": "sources/cgmexpc/48580.json",
+        "json_pointer": "/payload/CgmExpcService/회답",
+        "start_character": 0,
+        "end_character": 341
+      },
+      "reason": "Stored-source quote location checked mechanically; relation and prior approval retained without a new semantic approval."
+    },
+    {
+      "relation_id": "rel-7ed73cfcdee881c86528",
+      "source_sha256": "f13af03a54e5f16e200f19ec54f4d714dc7867fce2169f61472f94ff44440ef4",
+      "review_before": "confirmed",
+      "review_after": "confirmed",
+      "action": "unchanged",
+      "previous_evidence_location": {
+        "path": "sources/cgmexpc/48580.json",
+        "json_pointer": "/payload/CgmExpcService/회답",
+        "start_character": 0,
+        "end_character": 341
+      },
+      "evidence_location": {
+        "path": "sources/cgmexpc/48580.json",
+        "json_pointer": "/payload/CgmExpcService/회답",
+        "start_character": 0,
+        "end_character": 341
+      },
+      "reason": "Stored-source quote location checked mechanically; relation and prior approval retained without a new semantic approval."
+    },
+    {
+      "relation_id": "rel-2a19c438541a8a6ac4da",
+      "source_sha256": "a46404f5a1a34c5d688b05cdfd9c65f6f01e39c54ed034ce29235f920925936c",
+      "review_before": "confirmed",
+      "review_after": "confirmed",
+      "action": "unchanged",
+      "previous_evidence_location": {
+        "path": "sources/cgmexpc/47930.json",
+        "json_pointer": "/payload/CgmExpcService/회답",
+        "start_character": 0,
+        "end_character": 463
+      },
+      "evidence_location": {
+        "path": "sources/cgmexpc/47930.json",
+        "json_pointer": "/payload/CgmExpcService/회답",
+        "start_character": 0,
+        "end_character": 463
+      },
+      "reason": "Stored-source quote location checked mechanically; relation and prior approval retained without a new semantic approval."
+    },
+    {
+      "relation_id": "rel-47dfc383c45b1021775b",
+      "source_sha256": "a46404f5a1a34c5d688b05cdfd9c65f6f01e39c54ed034ce29235f920925936c",
+      "review_before": "confirmed",
+      "review_after": "confirmed",
+      "action": "unchanged",
+      "previous_evidence_location": {
+        "path": "sources/cgmexpc/47930.json",
+        "json_pointer": "/payload/CgmExpcService/회답",
+        "start_character": 0,
+        "end_character": 463
+      },
+      "evidence_location": {
+        "path": "sources/cgmexpc/47930.json",
+        "json_pointer": "/payload/CgmExpcService/회답",
+        "start_character": 0,
+        "end_character": 463
+      },
+      "reason": "Stored-source quote location checked mechanically; relation and prior approval retained without a new semantic approval."
+    },
+    {
+      "relation_id": "rel-ab163a60c4342e7f942b",
+      "source_sha256": "17d8b0c758d050d8ec20b1e97346f7b17166d09f3d4df0eaefddd8c2b89cbac2",
+      "review_before": "confirmed",
+      "review_after": "confirmed",
+      "action": "unchanged",
+      "previous_evidence_location": {
+        "path": "sources/cgmexpc/47926.json",
+        "json_pointer": "/payload/CgmExpcService/회답",
+        "start_character": 0,
+        "end_character": 169
+      },
+      "evidence_location": {
+        "path": "sources/cgmexpc/47926.json",
+        "json_pointer": "/payload/CgmExpcService/회답",
+        "start_character": 0,
+        "end_character": 169
+      },
+      "reason": "Stored-source quote location checked mechanically; relation and prior approval retained without a new semantic approval."
+    },
+    {
+      "relation_id": "rel-982a0390233e9e68ff8b",
+      "source_sha256": "17d8b0c758d050d8ec20b1e97346f7b17166d09f3d4df0eaefddd8c2b89cbac2",
+      "review_before": "confirmed",
+      "review_after": "confirmed",
+      "action": "unchanged",
+      "previous_evidence_location": {
+        "path": "sources/cgmexpc/47926.json",
+        "json_pointer": "/payload/CgmExpcService/회답",
+        "start_character": 0,
+        "end_character": 169
+      },
+      "evidence_location": {
+        "path": "sources/cgmexpc/47926.json",
+        "json_pointer": "/payload/CgmExpcService/회답",
+        "start_character": 0,
+        "end_character": 169
+      },
+      "reason": "Stored-source quote location checked mechanically; relation and prior approval retained without a new semantic approval."
+    },
+    {
+      "relation_id": "rel-93d1fa4422521ed7048d",
+      "source_sha256": "faf14db113d8bee1dc2a57ace9b4c5516d1578a6192098d6859d0bf487935f80",
+      "review_before": "confirmed",
+      "review_after": "confirmed",
+      "action": "unchanged",
+      "previous_evidence_location": {
+        "path": "sources/cgmexpc/24128.json",
+        "json_pointer": "/payload/CgmExpcService/회답",
+        "start_character": 0,
+        "end_character": 512
+      },
+      "evidence_location": {
+        "path": "sources/cgmexpc/24128.json",
+        "json_pointer": "/payload/CgmExpcService/회답",
+        "start_character": 0,
+        "end_character": 512
+      },
+      "reason": "Stored-source quote location checked mechanically; relation and prior approval retained without a new semantic approval."
+    },
+    {
+      "relation_id": "rel-b6ed514ba40d392a32d5",
+      "source_sha256": "faf14db113d8bee1dc2a57ace9b4c5516d1578a6192098d6859d0bf487935f80",
+      "review_before": "confirmed",
+      "review_after": "confirmed",
+      "action": "unchanged",
+      "previous_evidence_location": {
+        "path": "sources/cgmexpc/24128.json",
+        "json_pointer": "/payload/CgmExpcService/회답",
+        "start_character": 0,
+        "end_character": 512
+      },
+      "evidence_location": {
+        "path": "sources/cgmexpc/24128.json",
+        "json_pointer": "/payload/CgmExpcService/회답",
+        "start_character": 0,
+        "end_character": 512
+      },
+      "reason": "Stored-source quote location checked mechanically; relation and prior approval retained without a new semantic approval."
+    },
+    {
+      "relation_id": "rel-0619befb42ec402cf850",
+      "source_sha256": "519fe592919e9f18aea04f65860a2dac20fdd0a8412600f8b5747e90da5971fd",
+      "review_before": "confirmed",
+      "review_after": "confirmed",
+      "action": "unchanged",
+      "previous_evidence_location": {
+        "path": "sources/cgmexpc/48066.json",
+        "json_pointer": "/payload/CgmExpcService/회답",
+        "start_character": 0,
+        "end_character": 208
+      },
+      "evidence_location": {
+        "path": "sources/cgmexpc/48066.json",
+        "json_pointer": "/payload/CgmExpcService/회답",
+        "start_character": 0,
+        "end_character": 208
+      },
+      "reason": "Stored-source quote location checked mechanically; relation and prior approval retained without a new semantic approval."
+    },
+    {
+      "relation_id": "rel-0a30ff53d72660a08e34",
+      "source_sha256": "519fe592919e9f18aea04f65860a2dac20fdd0a8412600f8b5747e90da5971fd",
+      "review_before": "confirmed",
+      "review_after": "confirmed",
+      "action": "article-25",
+      "previous_evidence_location": {
+        "path": "sources/cgmexpc/48066.json",
+        "json_pointer": "/payload/CgmExpcService/회답",
+        "start_character": 0,
+        "end_character": 208
+      },
+      "evidence_location": {
+        "path": "sources/cgmexpc/48066.json",
+        "json_pointer": "/payload/CgmExpcService/회답",
+        "start_character": 295,
+        "end_character": 705
+      },
+      "reason": "제28조 재결절차 인용 대신 제25조제1항 평가방법과 신규 공익사업 편입 조건 문단을 직접 대조한 에이전트 재검토다. 기존 현행 조문 대조 범위만 유지한다."
+    },
+    {
+      "relation_id": "rel-dd4cd477676ce1a947fb",
+      "source_sha256": "f6562339527bb2cba53897ebaa8e8f93c72a2c82299e03835e385c5cc0a36fcc",
+      "review_before": "confirmed",
+      "review_after": "confirmed",
+      "action": "unchanged",
+      "previous_evidence_location": {
+        "path": "sources/cgmexpc/24066.json",
+        "json_pointer": "/payload/CgmExpcService/회답",
+        "start_character": 0,
+        "end_character": 166
+      },
+      "evidence_location": {
+        "path": "sources/cgmexpc/24066.json",
+        "json_pointer": "/payload/CgmExpcService/회답",
+        "start_character": 0,
+        "end_character": 166
+      },
+      "reason": "Stored-source quote location checked mechanically; relation and prior approval retained without a new semantic approval."
+    },
+    {
+      "relation_id": "rel-c77a16b3174a0b6c03d3",
+      "source_sha256": "f6562339527bb2cba53897ebaa8e8f93c72a2c82299e03835e385c5cc0a36fcc",
+      "review_before": "confirmed",
+      "review_after": "confirmed",
+      "action": "unchanged",
+      "previous_evidence_location": {
+        "path": "sources/cgmexpc/24066.json",
+        "json_pointer": "/payload/CgmExpcService/회답",
+        "start_character": 0,
+        "end_character": 166
+      },
+      "evidence_location": {
+        "path": "sources/cgmexpc/24066.json",
+        "json_pointer": "/payload/CgmExpcService/회답",
+        "start_character": 0,
+        "end_character": 166
+      },
+      "reason": "Stored-source quote location checked mechanically; relation and prior approval retained without a new semantic approval."
+    },
+    {
+      "relation_id": "rel-1333bb09cd2954e91765",
+      "source_sha256": "9afd92e2e4a6b147da44310d485ac4ba8329c93d38102ec1767268ff51ccd653",
+      "review_before": "confirmed",
+      "review_after": "confirmed",
+      "action": "unchanged",
+      "previous_evidence_location": {
+        "path": "sources/cgmexpc/24282.json",
+        "json_pointer": "/payload/CgmExpcService/회답",
+        "start_character": 0,
+        "end_character": 271
+      },
+      "evidence_location": {
+        "path": "sources/cgmexpc/24282.json",
+        "json_pointer": "/payload/CgmExpcService/회답",
+        "start_character": 0,
+        "end_character": 271
+      },
+      "reason": "Stored-source quote location checked mechanically; relation and prior approval retained without a new semantic approval."
+    },
+    {
+      "relation_id": "rel-f93f016198e2c13357dc",
+      "source_sha256": "9afd92e2e4a6b147da44310d485ac4ba8329c93d38102ec1767268ff51ccd653",
+      "review_before": "confirmed",
+      "review_after": "confirmed",
+      "action": "article-25",
+      "previous_evidence_location": {
+        "path": "sources/cgmexpc/24282.json",
+        "json_pointer": "/payload/CgmExpcService/회답",
+        "start_character": 0,
+        "end_character": 271
+      },
+      "evidence_location": {
+        "path": "sources/cgmexpc/24282.json",
+        "json_pointer": "/payload/CgmExpcService/회답",
+        "start_character": 272,
+        "end_character": 696
+      },
+      "reason": "일반 취득·사용 절차 인용 대신 제25조제1항의 정의·평가방법·신규사업 편입 및 사실확인 조건 문단을 직접 대조한 에이전트 재검토다. 기존 현행 조문 대조 범위만 유지한다."
+    },
+    {
+      "relation_id": "rel-cfd73ff799b1d02bbc7d",
+      "source_sha256": "739a37d641303e48ff1105a0dbb1f59b30e7f7667b669d594aac322561fb4404",
+      "review_before": "confirmed",
+      "review_after": "confirmed",
+      "action": "unchanged",
+      "previous_evidence_location": {
+        "path": "sources/cgmexpc/23852.json",
+        "json_pointer": "/payload/CgmExpcService/회답",
+        "start_character": 0,
+        "end_character": 442
+      },
+      "evidence_location": {
+        "path": "sources/cgmexpc/23852.json",
+        "json_pointer": "/payload/CgmExpcService/회답",
+        "start_character": 0,
+        "end_character": 442
+      },
+      "reason": "Stored-source quote location checked mechanically; relation and prior approval retained without a new semantic approval."
+    },
+    {
+      "relation_id": "rel-cb478551587515ee3d87",
+      "source_sha256": "739a37d641303e48ff1105a0dbb1f59b30e7f7667b669d594aac322561fb4404",
+      "review_before": "confirmed",
+      "review_after": "confirmed",
+      "action": "unchanged",
+      "previous_evidence_location": {
+        "path": "sources/cgmexpc/23852.json",
+        "json_pointer": "/payload/CgmExpcService/회답",
+        "start_character": 0,
+        "end_character": 442
+      },
+      "evidence_location": {
+        "path": "sources/cgmexpc/23852.json",
+        "json_pointer": "/payload/CgmExpcService/회답",
+        "start_character": 0,
+        "end_character": 442
+      },
+      "reason": "Stored-source quote location checked mechanically; relation and prior approval retained without a new semantic approval."
+    }
+  ]
+}

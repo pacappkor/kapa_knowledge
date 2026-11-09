@@ -1,0 +1,13 @@
+{
+  "finished": "2026-11-08T13:18:30.819936+00:00",
+  "query": "40786",
+  "source": "molitCgmExpc",
+  "started": "2026-11-08T13:18:30.494713+00:00",
+  "tracks": {
+    "molitCgmExpc": {
+      "count": 0,
+      "error": "중복 식별 키가 다른 경로에 존재: 보류",
+      "status": "failure"
+    }
+  }
+}

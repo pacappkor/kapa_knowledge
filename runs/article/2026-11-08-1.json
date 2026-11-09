@@ -1,0 +1,22 @@
+{
+  "article": "law/009471@261727#a25",
+  "candidate_count": 7,
+  "candidates": "sources/candidates/article-2026-11-08-1.jsonl",
+  "finished": "2026-11-08T13:07:54.933249+00:00",
+  "id": "article-2026-11-08-1",
+  "started": "2026-11-08T13:07:50.857560+00:00",
+  "tracks": {
+    "cgmexpc": {
+      "count": 2,
+      "status": "success"
+    },
+    "expc": {
+      "count": 2,
+      "status": "success"
+    },
+    "prec": {
+      "count": 3,
+      "status": "success"
+    }
+  }
+}

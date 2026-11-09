@@ -1,0 +1,19 @@
+{
+  "finished": "2026-11-08T14:05:28.851176+00:00",
+  "paths": [
+    "P3",
+    "P4"
+  ],
+  "rounds": [
+    {
+      "manual_pending": [],
+      "new_documents": [],
+      "queries": [],
+      "round": 1,
+      "seeds": []
+    }
+  ],
+  "saturation": true,
+  "scope": "이번 전문 선별로 새로 수록한 자료에 한정",
+  "started": "2026-11-08T14:05:28.649877+00:00"
+}
