@@ -1,9 +1,9 @@
 {
   "kapa_skills": {
     "repo": "pacappkor/kapa_skills",
-    "commit": "536356823d43e867d426ba5eb5c6407ca64199cd",
+    "commit": "747dc72b5a0fa5b1298f72751f11ac535e32a6e0",
     "vendor": {
-      "commit": "536356823d43e867d426ba5eb5c6407ca64199cd",
+      "commit": "747dc72b5a0fa5b1298f72751f11ac535e32a6e0",
       "files": {
         "docs/law-index.json": "994af451f6a8dc9d6dfb713ed63dc0ef051174e17cf5efda60168af91c723eb5",
         "sources/laws/appraisal-act/versions/act.json": "e89402f02c5903365df4b6b5201df3da76c8c1089ac8246b39718bbd9de41fb5",

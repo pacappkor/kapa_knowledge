@@ -4,6 +4,11 @@ Keep a Changelog와 유의적 버전을 따른다. [버전 규칙](docs/RELEASIN
 
 ## [Unreleased]
 
+### kapa_skills 의존성 갱신
+
+- kapa_skills 잠금 commit과 vendor commit을 5363568에서 747dc72로 갱신했다. 색인·과거 판본 메타데이터 165개 파일의 원본 바이트와 SHA-256은 모두 동일하다. 보류 자료 카탈로그를 오프라인 재생성했으며 `catalogs/materials.json`은 dependency_commit만 변경했다.
+- 상위 5개 commit은 미래 시행 법령 판본 snapshot 추가, 86824 규칙 부칙 정리(조문 불변), 별표 Markdown 줄바꿈 서식, 문서·도구·CI 변경이다. 기존 저장 인용·해시 영향은 0건이며 source_sha256·검토 이력·관계·역사 조사 기록·보류 상태는 변경하지 않았다. 새 원문 수집이나 참조 상태 승인은 없다.
+
 ### 과거 판본·회신 동일성·FAQ 계약 (#2·#3·#4)
 
 - PR7 검토 반영: 입력·카탈로그 동시 삭제로 동일성 게시 보류를 우회하지 못하도록 독립 검사한다. law.go.kr–LAIIS 출처 ID 쌍과 실제 판례 문서·경로를 주석 생성 전에 대조하며, FAQ 빈 번호·조사 판단·중첩 assertion 해시의 provenance를 실제 출처에 맞게 구분한다.
