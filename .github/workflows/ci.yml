@@ -83,9 +83,10 @@ jobs:
                       metadata, separator, actual_path = entry.partition('\t')
                       fields = metadata.split()
                       if (not separator or actual_path != path or len(fields) != 3
-                              or fields[0] not in {'100644', '100755'} or fields[1] != 'blob'):
+                              or fields[0] not in {'100644', '100755'} or fields[1] != 'blob'
+                              or not re.fullmatch('[0-9a-f]{40}', fields[2])):
                           raise SystemExit('Trusted pattern scanner input must be a regular blob')
-                      blobs[name] = git('show', fields[2])
+                      blobs[name] = git('cat-file', '-p', fields[2])
                   temporary = Path(os.environ['RUNNER_TEMP']).resolve()
                   if temporary.is_relative_to(Path.cwd().resolve()):
                       raise SystemExit('Trusted pattern scanner must be outside the PR worktree')

@@ -6,6 +6,8 @@ Keep a Changelog와 유의적 버전을 따른다. [버전 규칙](docs/RELEASIN
 
 ### Secret-free CI hardening
 
+- Address six scanner findings: extract trusted blobs with validated object IDs and cat-file, bound assignment RHS at quote-aware shell separators, include non-ignored untracked files, preserve padded colon values, distinguish source references from literals, and restrict placeholder markers to whole allowlisted shapes. Add runtime-built scanner and extracted-CI regressions; no research data changes.
+
 - Remove the untrusted PR-scanner bootstrap gate: when the immutable base lacks tools/pattern_scan.py, preparation succeeds with an explicit activation notice and the blocking step is skipped, never executing the PR copy. Keep ordinary scanner unit tests and fail-closed handling for every other extraction error; add hostile-copy and credential-gate regressions.
 
 - Close #7: preserve and unescape shell words with escaped whitespace, share enclosing lexer candidates for provider environment-reference exemptions, restrict masking/example markers to whole placeholder shapes, and keep prose apostrophes out of statement quote bounds. Add runtime-built positive and negative regressions for all four scanner findings.

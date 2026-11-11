@@ -43,6 +43,50 @@ class PatternTests(unittest.TestCase):
         self.assertFalse(self.rules('password=' + 'a' * 40))
         self.assertFalse(self.rules('token=short'))
 
+    def test_statement_rhs_bounds(self):
+        for separator in (';', '&&', '||', '|', '\n'):
+            prefix = OC_NAME + '=${LAW_OC}' + separator
+            self.assertFalse(self.rules(prefix + ' echo done'))
+            self.assertFalse(self.rules(prefix + ' echo ' + repr(VALUE)))
+            self.assertEqual(self.rules(prefix + ' token=' + repr(VALUE)), {'generic-secret'})
+            self.assertEqual(self.rules('token=' + repr(VALUE + separator + VALUE)), {'generic-secret'})
+        self.assertEqual(self.rules('token=${NAME:-' + VALUE + ';suffix}'), {'generic-secret'})
+
+    def test_padded_colon_values(self):
+        for suffix in ('=', '=='):
+            self.assertEqual(self.rules('password: ' + VALUE + suffix), {'generic-secret'})
+        self.assertFalse(self.rules('password: example='))
+        self.assertEqual(self.rules('token: str = ' + repr(VALUE)), {'generic-secret'})
+
+    def test_runtime_references_and_source_literals(self):
+        for path in ('sample.py', 'sample.js', 'sample.ts'):
+            for rhs in ('get_access_token_from_environment()', 'self.config.token_value',
+                        'settings[' + repr(VALUE) + ']', VALUE, 'left + right'):
+                self.assertFalse(list(pattern_scan.findings('token = ' + rhs, path)))
+                self.assertFalse(list(pattern_scan.findings(OC_NAME + ' = ' + rhs, path)))
+            for rhs in (repr(VALUE), 'Token(' + repr(VALUE) + ')'):
+                self.assertEqual(list(pattern_scan.findings('token = ' + rhs, path)),
+                                 [(1, 'generic-secret')])
+        self.assertEqual(list(pattern_scan.findings(
+            'url = "https://law.go.kr/DRF?' + OC_NAME + '=' + VALUE + '&target=law"',
+            'sample.py')), [(1, 'law-oc')])
+        for path in ('.env', 'sample.ini', 'sample.toml', 'sample.yaml', 'sample.sh'):
+            self.assertEqual(list(pattern_scan.findings('token=' + VALUE, path)),
+                             [(1, 'generic-secret')])
+        for rhs in ('get_access_token_from_environment()', 'self.config.token_value'):
+            self.assertFalse(self.rules('token = ' + rhs))
+
+    def test_delimited_fake_is_not_a_placeholder(self):
+        for value in (VALUE[:12] + '_FAKE_' + VALUE[12:],
+                      'FAKE_' + VALUE, VALUE + '_EXAMPLE', 'arbitrary_FAKE_TOKEN'):
+            self.assertFalse(pattern_scan.placeholder(value))
+            if pattern_scan.high_entropy(value):
+                self.assertIn('generic-secret', self.rules('token=' + repr(value)))
+        for value in ('hf_FAKE-NOT-A-REAL-TOKEN', 'YOUR_API_KEY_HERE',
+                      'EXAMPLE_TOKEN', '<anything>', '*' * 30, 'ghp_EXAMPLE_TOKEN'):
+            self.assertTrue(pattern_scan.placeholder(value))
+            self.assertFalse(self.rules('token=' + repr(value)))
+
     def test_typed_assignments(self):
         for name, rule in (('token', 'generic-secret'), ('apiKey', 'generic-secret'),
                            (OC_NAME, 'law-oc')):
@@ -166,10 +210,12 @@ class PatternTests(unittest.TestCase):
         providers = ('ghp' + '_' + VALUE * 2, 'hf' + '_' + VALUE * 2,
                      'AK' + 'IA' + 'A1B2C3D4' * 2)
         for value, rule in zip(providers, ('github-token', 'huggingface-token', 'aws-access-key')):
-            for wrapper in ('<{}>', 'FAKE_{}', '{}_FAKE'):
+            for wrapper in ('<{}>',):
                 for quote in ('', '"', "'"):
                     with self.subTest(rule=rule, wrapper=wrapper, quote=quote):
                         self.assertFalse(self.rules('token=' + quote + wrapper.format(value) + quote))
+            for wrapper in ('FAKE_{}', '{}_FAKE'):
+                self.assertIn('generic-secret', self.rules('token=' + repr(wrapper.format(value))))
             self.assertIn(rule, self.rules('token=' + value))
             self.assertIn(rule, self.rules('Documentation mentions ' + value))
             self.assertIn(rule, self.rules('print("' + value + '")'))
@@ -292,7 +338,14 @@ class PatternTests(unittest.TestCase):
             self.assertEqual(result.returncode, 1)
             self.assertIn("'tracked.dat':2: law-oc [masked]", result.stdout)
             self.assertNotIn(VALUE, result.stdout + result.stderr)
-            self.assertNotIn('untracked.dat', result.stdout)
+            self.assertIn("'untracked.dat':1: law-oc [masked]", result.stdout)
+            (root / '.gitignore').write_text('ignored.dat\n', encoding='utf-8')
+            (root / 'ignored.dat').write_text(OC_NAME + '=' + VALUE, encoding='utf-8')
+            result = subprocess.run([sys.executable, '-I', '-B', str(SCRIPT), '--root', temp],
+                                    cwd=SCRIPT.parent, capture_output=True, text=True)
+            self.assertEqual(result.returncode, 1)
+            self.assertIn("'untracked.dat':1: law-oc [masked]", result.stdout)
+            self.assertNotIn('ignored.dat', result.stdout)
 
     def test_korean_bomless_utf16_cli(self):
         surrounding = '한글 문서의 일반 설명입니다. ' * 100

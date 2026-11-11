@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: GPL-3.0-only
-"""Blocking, secret-free credential shapes in tracked working files (not history)."""
+"""Blocking, secret-free credential shapes in non-ignored worktree files (not history)."""
 import argparse
 import hashlib
 import math
@@ -42,11 +42,13 @@ ASSIGNMENT = re.compile(
     (?P<operator>\?\?=|\|\|=|&&=|\+=|:=|=>|->|\?=|=|:)""", re.X
 )
 SEGMENTS = re.compile(r'[A-Z]+(?=[A-Z][a-z]|$)|[A-Z]?[a-z]+|[A-Z]+|[0-9]+')
-PLACEHOLDER = re.compile(
-    r'(?ix)(?:[*•●]+|<[^>]*>|'
-    r'(?:[a-z0-9]+[_-])*(?:example|fake|not[-_]a[-_]real|your)'
-    r'(?:[_-][a-z0-9]+)*)'
-)
+PLACEHOLDER = re.compile(r'(?:[*•●]+|<[^>]*>)')
+MARKER_WORDS = frozenset(('example', 'fake', 'not', 'a', 'real', 'your',
+                          'api', 'key', 'here', 'token', 'secret', 'password',
+                          'value', 'placeholder', 'test', 'dummy', 'sample'))
+PROVIDER_PREFIXES = frozenset(('hf', 'ghp', 'gho', 'ghu', 'ghs', 'ghr', 'sk'))
+PLACEHOLDER_MARKERS = frozenset(('example', 'fake', 'your', 'placeholder',
+                                'test', 'dummy', 'sample'))
 ENV_REFERENCE = re.compile(
     r"""(?ix)(?:\$env:[A-Z_][A-Z0-9_]*|\$[A-Z_][A-Z0-9_]*|
     % [A-Z_][A-Z0-9_]* %|\$\{[A-Z_][A-Z0-9_]*\}|
@@ -82,7 +84,15 @@ def credential_rule(name):
 
 
 def placeholder(value):
-    return not value or bool(PLACEHOLDER.fullmatch(value) or ENV_REFERENCE.fullmatch(value))
+    if not value or PLACEHOLDER.fullmatch(value) or ENV_REFERENCE.fullmatch(value):
+        return True
+    words = re.split(r'[_-]', value.lower())
+    if words[0] in PROVIDER_PREFIXES:
+        words = words[1:]
+    return bool(words and all(word in MARKER_WORDS for word in words)
+                and (set(words) & PLACEHOLDER_MARKERS
+                     or words[:4] == ['not', 'a', 'real', 'token']
+                     or words == ['not', 'a', 'real']))
 
 
 def braced_end(text, start):
@@ -163,7 +173,7 @@ def literal_candidates(value):
     yield value
 
 
-def lexemes(text, comment_at_start=True):
+def lexemes(text, comment_at_start=True, separators=False):
     """Yield source bounds and values for single-line literals, refs and words.
 
     Python literal prefixes are syntax, not values. Source bounds let provider
@@ -171,6 +181,12 @@ def lexemes(text, comment_at_start=True):
     """
     index = 0
     while index < len(text):
+        if separators and text[index] in ';|&\n':
+            stop = index + (2 if text[index:index + 2] in ('&&', '||') else 1)
+            if text[index] != '&' or stop == index + 2:
+                yield index, stop, None
+            index = stop
+            continue
         if text[index].isspace() or text[index] in '=,:;()[]&':
             index += 1
             continue
@@ -198,6 +214,7 @@ def lexemes(text, comment_at_start=True):
             elif text.startswith('${', index):
                 index = braced_end(text, index)
             elif (text[index].isspace() or text[index] in '=,:;()[]}&'
+                  or (separators and text[index] == '|')
                   or quote_start(text, index)):
                 break
             else:
@@ -209,8 +226,19 @@ def lexemes(text, comment_at_start=True):
             yield start, index, re.sub(r'\\(.)', r'\1', text[start:index])
 
 
-def candidates(text, comment_at_start=True):
-    for start, _, value in lexemes(text, comment_at_start):
+def candidates(text, comment_at_start=True, source=False):
+    references = list(re.finditer(r'\b[A-Za-z_$][\w$]*(?:\.[A-Za-z_$][\w$]*|\[[^\]]*\])+', text)) if source else []
+    spans = list(quote_spans(text)) if source else []
+    for start, end, value in lexemes(text, comment_at_start):
+        if source:
+            # A quoted subscript is a lookup key, not a credential literal.
+            if any(item.start() <= start and end <= item.end()
+                   and not any(a < item.start() < b for a, b in spans)
+                   for item in references):
+                continue
+            literal = re.match(r"(?i:[bruf]*)['\"`]", text[start:])
+            if not literal:
+                continue
         if text[start] == '`':
             chunks = []
             begin = cursor = 0
@@ -237,7 +265,7 @@ def high_entropy(value):
     return entropy >= 3.5
 
 
-def findings(text):
+def findings(text, path=None):
     """Yield only (line number, rule id); never return matched values."""
     for number, line in enumerate(text.splitlines(), 1):
         rules = set()
@@ -267,6 +295,10 @@ def findings(text):
             if rule is None:
                 continue
             rest = line[match.end():]
+            boundary = next((start for start, _, value in
+                             lexemes(rest, comment_at_start=False, separators=True)
+                             if value is None), len(rest))
+            rest = rest[:boundary]
             # Embedded URL assignments end at the next query parameter. A name
             # inside a surrounding string cannot consume code after that string.
             if '?' in line[:match.start()] and rule == 'law-oc':
@@ -277,9 +309,17 @@ def findings(text):
                     break
             if match['operator'] == ':':
                 annotation = TYPE_ANNOTATION.match(rest)
-                if annotation:
+                if annotation and rest[annotation.end():].strip().strip('='):
                     rest = rest[annotation.end():]
-            for value in candidates(rest, comment_at_start=False):
+            embedded = any(start < match.start() < match.end() <= end
+                           for start, end in spans)
+            source = (not embedded and path is not None and Path(path).suffix.lower() in
+                      {'.py', '.js', '.jsx', '.ts', '.tsx', '.mjs', '.cjs'})
+            # Calls and access chains are references even without a source suffix;
+            # bare config/shell words otherwise remain literal values.
+            expression = re.match(r'\s*[A-Za-z_$][\w$]*(?:\s*\(|\.[A-Za-z_$]|\[)', rest)
+            for value in candidates(rest, comment_at_start=False,
+                                    source=source or (path is None and bool(expression))):
                 if not placeholder(value) and (rule == 'law-oc' or high_entropy(value)):
                     rules.add(rule)
         for rule in sorted(rules):
@@ -306,7 +346,7 @@ def decode_text(data):
 
 
 def scan(root):
-    root, paths = repository_files(root)
+    root, paths = repository_files(root, worktree=True)
     matches = []
     for relative in paths:
         # A credential-shaped filename must not leak through diagnostics either.
@@ -340,7 +380,7 @@ def scan(root):
         file_matches = set()
         for text in texts:
             lines = text.splitlines()
-            for line, rule in findings(text):
+            for line, rule in findings(text, relative):
                 digest = hashlib.sha256(lines[line - 1].encode('utf-8')).hexdigest()
                 if (relative, rule, digest) not in ALLOWLIST:
                     file_matches.add((line, rule))

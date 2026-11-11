@@ -67,6 +67,8 @@ class TrustedPatternScannerTests(unittest.TestCase):
         scanner = self.scanner()
         self.assertFalse(scanner.is_relative_to(self.root))
         self.assertEqual({p.name for p in scanner.parent.iterdir()}, set(MODULES))
+        for name in MODULES:
+            self.assertEqual((scanner.parent / name).read_bytes(), (ROOT / 'tools' / name).read_bytes())
         # An explicit root also works when cwd is not the worktree.
         for cwd in (self.root, self.runner):
             result = subprocess.run([sys.executable, '-I', '-B', str(scanner), '--root', str(self.root)],
@@ -74,6 +76,35 @@ class TrustedPatternScannerTests(unittest.TestCase):
             self.assertEqual(result.returncode, 1, result.stdout + result.stderr)
             self.assertIn("'payload':1: github-token [masked]", result.stdout)
             self.assertNotIn(payload, result.stdout + result.stderr)
+
+    def test_extracted_scanner_covers_untracked_and_runtime_syntax(self):
+        value = 'aB3dE6gH9jK2' + 'mN5pQ8sT1vW4yZ7'
+        self.assertEqual(self.prepare().returncode, 0)
+        scanner = self.scanner()
+        sample = self.root / 'untracked.env'
+        (self.root / '.gitignore').write_text('ignored.env\n', encoding='utf-8')
+        (self.root / 'ignored.env').write_text('token=' + value, encoding='utf-8')
+        (self.root / 'runtime.py').write_text(
+            'access_token = get_access_token_from_environment()\n'
+            'token = self.config.token_value\n', encoding='utf-8')
+        for text, blocked in (
+            ('O' + 'C=${LAW_OC}; echo done', False),
+            ('O' + 'C=${LAW_OC}; token=' + repr(value), True),
+            ('password: ' + value + '=', True),
+            ('token=' + value[:12] + '_FAKE_' + value[12:], True),
+            ('token=hf_FAKE-NOT-A-REAL-TOKEN', False),
+        ):
+            with self.subTest(blocked=blocked):
+                sample.write_text(text, encoding='utf-8')
+                result = subprocess.run(
+                    [sys.executable, '-I', '-B', str(scanner), '--root', str(self.root)],
+                    cwd=self.runner, env=self.env, capture_output=True, text=True)
+                self.assertEqual(result.returncode, int(blocked), result.stdout + result.stderr)
+                self.assertNotIn('ignored.env', result.stdout)
+                self.assertNotIn('runtime.py', result.stdout)
+                self.assertNotIn(value, result.stdout + result.stderr)
+                if blocked:
+                    self.assertIn("'untracked.env':1: generic-secret [masked]", result.stdout)
 
     def test_absent_base_scanner_skips_gate_without_executing_pr_copy(self):
         self.git('rm', 'tools/pattern_scan.py')
