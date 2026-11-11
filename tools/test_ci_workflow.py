@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: GPL-3.0-only
-"""Keep the small credential-bearing workflow's ordering and scope explicit."""
+"""Keep secret-free checks separate from the credential-bearing job."""
 from pathlib import Path
 import re
 import unittest
@@ -10,18 +10,19 @@ WORKFLOW = Path(__file__).resolve().parents[1] / '.github/workflows/ci.yml'
 class WorkflowTests(unittest.TestCase):
     def test_secret_is_first_repository_run_and_scoped_to_one_step(self):
         text = WORKFLOW.read_text(encoding='utf-8')
-        commands = re.findall(r'^\s+run: (.+)$', text, re.MULTILINE)
-        self.assertEqual(commands[0], '|')
-        self.assertEqual(commands[1], 'python -I -B "$TRUSTED_SCANNER/secret_scan.py" --require --worktree')
+        offline, credential = text.split('\n  credential-scan:\n', 1)
+        self.assertNotIn('secrets.', offline)
+        self.assertNotIn('--require', offline)
+        commands = re.findall(r'^\s+run: (.+)$', credential, re.MULTILINE)
+        self.assertEqual(commands, ['|', 'python -I -B "$TRUSTED_SCANNER/secret_scan.py" --require --worktree'])
         self.assertEqual(text.count('${{ secrets.LAW_OC }}'), 1)
         self.assertEqual(text.count('LAW_OC:'), 1)
         self.assertIn('      - name: Scan actual LAW_OC value\n'
                       '        env:\n          TRUSTED_SCANNER: ${{ steps.scanner.outputs.directory }}\n'
                       '          LAW_OC: ${{ secrets.LAW_OC }}\n'
-                      '        run: python -I -B "$TRUSTED_SCANNER/secret_scan.py" --require --worktree', text)
-        preparation, scanner = text.split('      - name: Scan actual LAW_OC value', 1)
+                      '        run: python -I -B "$TRUSTED_SCANNER/secret_scan.py" --require --worktree', credential)
+        preparation, scanner = credential.split('      - name: Scan actual LAW_OC value', 1)
         self.assertNotIn('secrets.', preparation)
-        self.assertNotIn('if:', preparation)
         self.assertIn("python -I -B - <<'PY'", preparation)
         self.assertNotIn('from tools', preparation)
         self.assertNotIn('sys.path', preparation)
@@ -29,33 +30,78 @@ class WorkflowTests(unittest.TestCase):
         self.assertIn('CI_PR_BASE_REF: ${{ github.event.pull_request.base.ref }}', preparation)
         self.assertLess(preparation.index("os.environ.get('CI_PR_BASE_REF')"),
                         preparation.index("revision = os.environ['CI_PR_BASE']"))
-        self.assertNotIn('if:', scanner.split('      - name: Reject tracked', 1)[0])
-        for command in commands:
+        self.assertNotIn('if:', scanner)
+        for command in re.findall(r'^\s+run: (.+)$', text, re.MULTILINE):
             if command.startswith('python '):
                 self.assertTrue(command.startswith('python -I -B '))
         self.assertNotIn('echo', '\n'.join(commands))
 
     def test_basic_hosted_runner_and_triggers(self):
         text = WORKFLOW.read_text(encoding='utf-8')
-        self.assertIn('  pull_request:\n    branches: [main]\n', text)
-        for required in ('  pull_request:', '  workflow_dispatch:', 'branches: [main]',
-                         '    runs-on: ubuntu-latest', '          python-version: \'3.12\'',
+        self.assertIn('on:\n  pull_request:\n  push:\n  workflow_dispatch:\n', text)
+        for required in ('    runs-on: ubuntu-latest', '          python-version: \'3.12\'',
                          'permissions:\n  contents: read', 'persist-credentials: false',
                          'PYTHONDONTWRITEBYTECODE: "1"'):
             self.assertIn(required, text)
+        self.assertNotIn('pull_request_target', text)
         self.assertNotIn('schedule:', text)
         self.assertNotIn('matrix:', text)
-        self.assertEqual(text.count('    runs-on:'), 1)
+        self.assertEqual(text.count('    runs-on:'), 2)
+        self.assertEqual(text.count('persist-credentials: false'), 2)
 
-    def test_unconditional_integrity_and_selected_expensive_checks(self):
+    def test_only_credential_job_has_an_event_gate(self):
         text = WORKFLOW.read_text(encoding='utf-8')
-        self.assertIn("if: steps.changes.outputs.validate == 'true'", text)
-        self.assertIn("if: steps.changes.outputs.tests == 'true'", text)
-        self.assertIn('run: python -I -B tools/validate.py --check-links', text)
-        self.assertIn('      - name: Check documentation snapshot without rewriting it\n'
-                      "        if: steps.changes.outputs.validate == 'true'\n"
-                      '        run: python -I -B .github/ci/ci_docs.py', text)
-        self.assertIn('run: python -I -B .github/ci/ci_integrity.py', text)
+        offline, credential = text.split('\n  credential-scan:\n', 1)
+        self.assertNotIn('    if:', offline)
+        gate = credential.split('    runs-on:', 1)[0]
+        self.assertEqual(gate, "    if: >-\n"
+                         "      github.event_name == 'workflow_dispatch' ||\n"
+                         "      (github.event_name == 'push' && github.ref == 'refs/heads/main') ||\n"
+                         "      (github.event_name == 'pull_request' &&\n"
+                         "       github.event.pull_request.head.repo.full_name == github.repository &&\n"
+                         "       github.base_ref == 'main' &&\n"
+                         "       github.event.pull_request.user.login != 'dependabot[bot]' &&\n"
+                         "       github.actor != 'dependabot[bot]')\n")
+
+    def test_credential_gate_event_matrix(self):
+        credential = WORKFLOW.read_text(encoding='utf-8').split('\n  credential-scan:\n', 1)[1]
+        gate = credential.split('    runs-on:', 1)[0].split('if: >-\n', 1)[1]
+        cases = (
+            ('pull_request', 'refs/pull/5/merge', True, 'main', 'contributor', 'contributor', True),
+            ('pull_request', 'refs/pull/5/merge', False, 'main', 'contributor', 'contributor', False),
+            ('pull_request', 'refs/pull/5/merge', True, 'release', 'contributor', 'contributor', False),
+            ('pull_request', 'refs/pull/5/merge', True, 'main', 'dependabot[bot]', 'contributor', False),
+            ('pull_request', 'refs/pull/5/merge', True, 'main', 'contributor', 'dependabot[bot]', False),
+            ('pull_request', 'refs/pull/5/merge', True, 'main', 'dependabot[bot]', 'dependabot[bot]', False),
+            ('push', 'refs/heads/main', False, '', '', 'dependabot[bot]', True),
+            ('push', 'refs/heads/release', True, 'main', 'contributor', 'contributor', False),
+            ('workflow_dispatch', 'refs/heads/release', False, '', '', 'dependabot[bot]', True),
+        )
+        for event, ref, same_repo, base, author, actor, expected in cases:
+            with self.subTest(event=event, ref=ref, same_repo=same_repo, base=base,
+                              author=author, actor=actor):
+                expression = gate
+                values = {
+                    'github.event.pull_request.head.repo.full_name': 'owner/repo' if same_repo else 'fork/repo',
+                    'github.event.pull_request.user.login': author,
+                    'github.repository': 'owner/repo',
+                    'github.event_name': event,
+                    'github.base_ref': base,
+                    'github.actor': actor,
+                    'github.ref': ref,
+                }
+                for name, value in values.items():
+                    expression = expression.replace(name, repr(value))
+                expression = expression.replace('&&', 'and').replace('||', 'or')
+                self.assertEqual(eval(' '.join(expression.split()), {'__builtins__': {}}), expected)
+
+    def test_offline_checks_always_validate_and_test(self):
+        text = WORKFLOW.read_text(encoding='utf-8').split('\n  credential-scan:\n', 1)[0]
+        for command in ('tools/secret_scan.py --worktree', 'tools/validate.py --check-links',
+                        'tools/validate.py', '.github/ci/ci_docs.py',
+                        '.github/ci/ci_tests_supervise.py', '.github/ci/ci_integrity.py'):
+            self.assertIn('run: python -I -B ' + command + '\n', text)
+        self.assertNotIn('        if:', text)
         self.assertIn('run: bash .github/ci/ci_whitespace.sh "$BASE_SHA"', text)
 
 

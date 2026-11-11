@@ -47,9 +47,11 @@ def main():
         output.write(f"whitespace_base={resolved['whitespace_base']}\n")
         for group, enabled in flags.items():
             output.write(f'{group}={str(enabled).lower()}\n')
-    summary = '## CI check selection\n\n' + '\n'.join(
-        f'- {group}: {"selected" if enabled else "skipped"}' for group, enabled in flags.items())
-    summary += '\n- credential scan, tracked links, clean tree, whitespace: always selected\n'
+    summary = '## Changed-path recommendations (informational only)\n\n' + '\n'.join(
+        f'- {group}: {"recommended" if enabled else "not required by paths"}' for group, enabled in flags.items())
+    summary += ('\n- Offline validation, tests, environment-only scanner, tracked links, '
+                'clean tree, whitespace: always run.\n'
+                '- Actual-value credential scan: separate event-gated job; forks skip it.\n')
     if all_checks:
         summary += '- All checks: manual run, unusable base, rewritten history, or diff failure.\n'
     with open(os.environ['GITHUB_STEP_SUMMARY'], 'a', encoding='utf-8') as output:

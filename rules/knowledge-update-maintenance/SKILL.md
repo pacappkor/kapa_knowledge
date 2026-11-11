@@ -9,7 +9,7 @@ description: 명시적 요청에 따라 법령 연계·판례·해석·재검토
 
 ## 1. 범위와 기준 확인
 
-쟁점·조문·기관·기간·적용 시점과 기존 검토 상태를 정한다. 초기 역사 조사인지 추가 조사인지 구별한다. 키는 LAW_OC, 없으면 LAW_OC_FILE 경로, 없으면 저장소 부모의 law_oc.txt에서 읽는다. 키를 출력하지 않는다. 모든 URL의 OC를 가린다. 실패를 변동 없음으로 보고하지 않는다.
+쟁점·조문·기관·기간·적용 시점과 기존 검토 상태를 정한다. 초기 역사 조사인지 추가 조사인지 구별한다. 운영 키는 셸 환경변수 LAW_OC로만 전달하고 CI에서는 GitHub Actions secrets를 사용한다. API의 기존 파일 fallback은 호환용 구현이며 이 운영 절차에서는 사용하지 않는다. 키를 출력하지 않는다. 모든 URL의 OC를 가린다. 실패를 변동 없음으로 보고하지 않는다.
 
 ## 2. 작업 브랜치와 조사 계획
 
@@ -78,7 +78,7 @@ API 보조 검색은 lawapi의 search(target, query, page, display, **kw), 상�
 
 ## 5. 검증
 
-CI credential 검사 PR의 허용 base는 기본 브랜치 main뿐이다. pull_request branches 필터와 인라인 준비의 base ref == main == repository default branch 검사를 함께 적용하고, 일치 확인 뒤에만 이벤트의 immutable base SHA와 scanner blob을 읽는다. 비기본 브랜치에 있는 regular scanner도 신뢰하지 않는다. main은 신뢰된 리뷰로 관리한다는 운영 전제이며 실제 branch protection 설정이 있다고 가정하지 않는다. 기본 브랜치 변경은 이 허용 정책과 workflow를 함께 검토해야 한다.
+CI credential 검사 PR의 허용 base는 기본 브랜치 main뿐이다. secret-free 검사는 모든 PR에 실행하며 실제 값 검사 인라인 준비는 base ref == main == repository default branch를 검사하고, 일치 확인 뒤에만 이벤트의 immutable base SHA와 scanner blob을 읽는다. 비기본 브랜치에 있는 regular scanner도 신뢰하지 않는다. main은 신뢰된 리뷰로 관리한다는 운영 전제이며 실제 branch protection 설정이 있다고 가정하지 않는다. 기본 브랜치 변경은 이 허용 정책과 workflow를 함께 검토해야 한다.
 
 기존 자료의 원문 링크 문법 이스케이프 이관은 저장 JSON으로 오프라인 재생성한다. 문서 경로를 인수로 받으며 원문 메타데이터·해시를 대조한 뒤 GENERATED 블록 전체를 교체한다. 네트워크·상태 변경·발견 경로 추가·관계 재생성은 하지 않는다. 예시는 파일럿의 원문 인용 번호 문서다.
 
@@ -119,9 +119,9 @@ python -I -B tools/secret_scan.py --worktree
 
 credential 검사는 위 수집기의 파일 fallback과 달리 셸 환경변수 LAW_OC에서만 실제 키를 읽는다. 로컬에서는 개발자가 LAW_OC를 셸에 설정한 뒤 실행한다. 수집 API와 같이 앞뒤 공백·탭 등을 strip한 정규 값으로 검색 바이트를 한 번 만들고 진단 가림에도 공유한다. UTF-8 원문, URL quote(safe 빈 문자열)·quote_plus, UTF-16-LE/BE, UTF-8 바이트의 hex(소문자/대문자/혼합 표기), 표준/URL-safe base64를 대소문자 구분하여 검사한다. base64 전체 키의 독립 인코딩은 padding 유무와 무관하게 검사하고, 큰 blob 내부의 세 정렬 조각은 8자 이상일 때만 검사한다. URL percent escape의 hex 대소문자만 정규화하고 base64는 CR·LF·공백·탭을 제거한 사본에서도 검사하여 MIME 줄바꿈을 허용하되 키 자체의 대소문자는 유지한다. 추적 파일의 현재 바이트 전체(바이너리 포함)와 상대 경로명을 검사하며 경로명에만 키가 있어도 경로를 가려 보고한다. worktree 모드는 미추적·비무시 파일도 포함한다. 무시된 미추적 파일은 읽지 않고, 강제로 추적한 파일은 검사한다. 심볼릭 링크는 링크 문자열만, 하위 모듈은 별도 검사한다. index·과거 이력 검사가 아니므로 커밋 내용과 같은 clean checkout에서 확인한다.
 
-유효한 실제 LAW_OC로 성공하면 문서화한 인코딩의 그 키가 검사 파일에 없음을 보장한다. 다른 키·문자열 조립·escape·난독화·암호화·미문서 인코딩은 범위 밖이며 비공개·PR 검토가 전제다. 값·파생 검색 바이트·일치 내용은 출력하지 않는다. 일치는 종료 1, 실행 오류·잘못된 값은 종료 2다. 미설정·빈 값은 기본 안내와 종료 0이며 필수 모드는 종료 2다. 일반 검증기는 LAW_OC가 있으면 의존성 등 다른 계약을 읽기 전에 worktree 모드로 추적·미추적 비무시 파일을 검사하고 같은 집합만 순회한다. 별도로 여는 의존성 색인·지정 snapshot·참조 파일도 파싱 전에 바이트를 검사하고 무시 파일과 로컬 링크 대상은 읽지 않는다. 노출이나 검사 오류가 있으면 중단하며 진단에 문서화한 키 인코딩이 있으면 percent·hex 대소문자와 base64 공백 정규화 변형까지 포함하여 진단 전체를 가린다. 명백한 quoted literal 대입의 참고 경고는 검증을 실패시키지 않는다.
+유효한 실제 LAW_OC로 성공하면 문서화한 인코딩의 그 키가 검사 파일에 없음을 보장한다. 다른 키·문자열 조립·escape·난독화·암호화·미문서 인코딩은 범위 밖이며 가시성에 의존하지 않는 PR 검토가 전제다. 값·파생 검색 바이트·일치 내용은 출력하지 않는다. 일치는 종료 1, 실행 오류·잘못된 값은 종료 2다. 미설정·빈 값은 기본 안내와 종료 0이며 필수 모드는 종료 2다. 일반 검증기는 LAW_OC가 있으면 의존성 등 다른 계약을 읽기 전에 worktree 모드로 추적·미추적 비무시 파일을 검사하고 같은 집합만 순회한다. 별도로 여는 의존성 색인·지정 snapshot·참조 파일도 파싱 전에 바이트를 검사하고 무시 파일과 로컬 링크 대상은 읽지 않는다. 노출이나 검사 오류가 있으면 중단하며 진단에 문서화한 키 인코딩이 있으면 percent·hex 대소문자와 base64 공백 정규화 변형까지 포함하여 진단 전체를 가린다. 명백한 quoted literal 대입의 참고 경고는 검증을 실패시키지 않는다.
 
-GitHub 저장소 secret LAW_OC는 등록되어 있다. CI는 전용 단계에서만 secret을 환경변수 LAW_OC로 노출하여 필수 검사를 실행한다. 다른 단계나 job 전체에는 전달하지 않고 echo하지 않는다. GitHub 로그 마스킹도 적용되지만 도구 자체도 키·검색 바이트를 출력하지 않는다. checkout·Python 준비 뒤에는 workflow 인라인 표준 라이브러리만 실행하여 PR base SHA(main push는 해당 SHA, 수동 실행은 기본 브랜치 ref를 commit으로 고정)의 tools/secret_scan.py·credentials.py·git_read.py 일반 blob 세 개를 작업 트리 밖의 새 runner 임시 디렉터리에 추출한다. PR 코드나 helper를 실행·import하지 않고 누락·비정규 객체에는 실패한다. 첫 저장소 코드 실행은 이 trusted scanner이며 경로와 무관하게 실행한다. cwd는 PR checkout이고 추적·미추적 비무시 파일 전체를 --require·--worktree로 검사한다. fork PR 등 secret이 없는 실행은 필수 모드에서 실패한다.
+GitHub Actions secret LAW_OC는 관리자가 별도로 설정해야 한다. CI는 전용 단계에서만 secret을 환경변수 LAW_OC로 노출하여 필수 검사를 실행한다. 다른 단계나 job 전체에는 전달하지 않고 echo하지 않는다. GitHub 로그 마스킹도 적용되지만 도구 자체도 키·검색 바이트를 출력하지 않는다. checkout·Python 준비 뒤에는 workflow 인라인 표준 라이브러리만 실행하여 PR base SHA(main push는 해당 SHA, 수동 실행은 기본 브랜치 ref를 commit으로 고정)의 tools/secret_scan.py·credentials.py·git_read.py 일반 blob 세 개를 작업 트리 밖의 새 runner 임시 디렉터리에 추출한다. PR 코드나 helper를 실행·import하지 않고 누락·비정규 객체에는 실패한다. credential-scan 작업의 첫 저장소 코드 실행은 이 trusted scanner이며 경로와 무관하게 실행한다. cwd는 PR checkout이고 추적·미추적 비무시 파일 전체를 --require·--worktree로 검사한다. credential-scan은 main 푸시·수동 실행·main 대상 same-repo PR(작성자와 실행 actor 모두 Dependabot이 아닌 경우)에서만 실행하며 secret이 없으면 필수 모드에서 실패한다. fork PR·비-main 대상 PR·Dependabot 작성 또는 실행 PR은 secret-free offline-checks만 실행한다. 모든 PR·푸시에서 --require 없는 scanner 호출·검증·전체 시험을 실행하지만 키 없는 scanner는 건너뛰며 literal-shape 경고는 보안 보장이 아니다.
 
 전용 단계의 환경변수 LAW_OC에 GitHub secret LAW_OC를 연결한다. 단계 이름은 Scan actual LAW_OC value로 두고 workflow의 TRUSTED_SCANNER 디렉터리에 추출한 scanner를 격리 실행한다. 아래는 로컬 검사 정규 명령이며 CI에서는 PR 작업 트리의 tools 스크립트를 실행하지 않는다. same-repo PR은 workflow YAML 자체도 제안할 수 있으므로 trusted base scanner만으로 악성 workflow 변경까지 막지는 못한다. workflow 작성 권한·PR 리뷰가 잔여 신뢰 경계이며, 별도 environment 승인·secret 설정이나 PR에서 수정할 수 없는 실행 출처는 이번 변경에 포함하지 않는다.
 

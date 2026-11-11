@@ -4,4 +4,4 @@
 
 CHANGELOG는 Unreleased에 먼저 기록한다. 릴리스 시 vX.Y.Z와 실제 날짜를 적고 자료·판본 변화, 검토 모델·근거, 조사 범위·미확인, 검증 결과를 포함한다. 병합된 main 커밋에 태그와 릴리스를 둔다. 갱신 실행 절차는 [갱신 스킬](../rules/knowledge-update-maintenance/SKILL.md)에만 있다.
 
-PR에서는 deps.lock을 실제 kapa_skills SHA로 고정한다. WORKTREE는 개발 전용이다. 비공개 상태를 유지하고 인증정보를 포함하지 않는다.
+PR에서는 deps.lock을 실제 kapa_skills SHA로 고정한다. WORKTREE는 개발 전용이다. 저장소는 공개 배포할 수 있다. 공개 여부와 무관하게 인증정보는 Actions secrets 또는 셸 환경변수로만 전달하고 저장소에 포함하지 않는다. 공개 전 개인정보·제3자 자료의 배포 권리를 별도 확인한다. 공개 전환 시 관리자는 GitHub private vulnerability reporting을 활성화한다. 신고 버튼이 아직 없으면 취약점 상세 없이 공개 이슈 제목을 Security contact request로 작성하고, 관리자가 신고자를 collaborator로 추가한 draft security advisory 등의 비공개 채널을 연 뒤 상세를 받는다. 보안 신고는 [SECURITY](../SECURITY.md)를 따른다.
