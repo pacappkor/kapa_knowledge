@@ -69,6 +69,89 @@ class PatternTests(unittest.TestCase):
         self.assertFalse(list(pattern_scan.findings(
             'token /* not Python trivia */ = ' + repr(VALUE), 'sample.py')))
 
+    def test_unknown_unbalanced_comment_linear_work(self):
+        code = ('import sys,time;sys.path.insert(0,sys.argv[1]);import pattern_scan;'
+                'text="/* "*76000;'
+                'start=time.perf_counter();assert not list(pattern_scan.findings(text,"unknown.ext"));'
+                'print(time.perf_counter()-start)')
+        result = subprocess.run([sys.executable, '-I', '-B', '-c', code, str(SCRIPT.parent)],
+                                capture_output=True, text=True, timeout=10, check=True)
+        self.assertLess(float(result.stdout), 2.0)
+
+    def test_comment_syntax_across_file_types(self):
+        paths = ('sample.c', 'sample.h', 'sample.cpp', 'sample.hpp', 'sample.cs',
+                 'sample.java', 'sample.go', 'sample.rs', 'sample.kt', 'sample.swift',
+                 'sample.php', 'sample.js', 'sample.tsx', 'sample.css', 'sample.scss',
+                 'sample.sql', 'sample.unknown', 'extensionless')
+        for path in paths:
+            for name, rule in ((OC_NAME, 'law-oc'), ('token', 'generic-secret')):
+                for trivia in ('/* compatibility */', '/* first */ /* second */'):
+                    prefix = 'const char *' + name + ' ' + trivia + ' = '
+                    with self.subTest(path=path, name=name, trivia=trivia):
+                        self.assertEqual(list(pattern_scan.findings(prefix + repr(VALUE), path)),
+                                         [(1, rule)])
+                        for safe in ('example', '<hi>', '${NAME}'):
+                            self.assertFalse(list(pattern_scan.findings(prefix + repr(safe), path)))
+                self.assertFalse(list(pattern_scan.findings(
+                    name + ' /* unbalanced\n = ' + repr(VALUE), path)))
+            self.assertFalse(list(pattern_scan.findings(
+                'tokenizer /* trivia */ = ' + repr(VALUE), path)))
+        for path in ('sample.py', 'sample.sh', 'sample.yaml', 'sample.toml', 'sample.ini'):
+            self.assertFalse(list(pattern_scan.findings(
+                'token /* not trivia */ = ' + repr(VALUE), path)))
+        # Unknown syntax must not hide nesting behind an unbalanced opener.
+        with self.assertRaises(pattern_scan.ScanError):
+            list(pattern_scan.findings('/* ' + '(' * 65, 'sample.unknown'))
+        for path, comment in (('sample.py', '#'), ('sample.sh', '#'),
+                              ('sample.yaml', '#'), ('sample.toml', '#'),
+                              ('sample.ini', ';'), ('sample.sql', '--'),
+                              ('sample.c', '//'), ('sample.lua', '--')):
+            self.assertFalse(list(pattern_scan.findings(comment + ' ' + '(' * 100, path)))
+        # Do not remove markers inside quoted literals; keep comment examples scanned.
+        self.assertEqual(list(pattern_scan.findings(
+            OC_NAME + ' = "/* literal */"', 'sample.c')), [(1, 'law-oc')])
+        self.assertEqual(list(pattern_scan.findings(
+            '// token=' + repr(VALUE), 'sample.c')), [(1, 'generic-secret')])
+
+    def test_shebang_classification_and_semantics(self):
+        provider = 'ghp' + '_' + VALUE * 2
+        for interpreter in ('sh', 'bash', 'zsh', 'dash', 'ksh'):
+            for shebang in ('#!/bin/' + interpreter,
+                            '#!/usr/bin/env ' + interpreter,
+                            '#!/usr/bin/env -S ' + interpreter + ' -eu'):
+                for path in (None, 'runner', 'runner.py', 'runner.txt'):
+                    prefix = shebang + '\n'
+                    self.assertEqual(pattern_scan.file_type(prefix, path), 'shell')
+                    self.assertIn((2, 'github-token'), list(pattern_scan.findings(
+                        prefix + 'token="<placeholder>" printf "<' + provider + '>"', path)))
+                    self.assertFalse(list(pattern_scan.findings(
+                        prefix + 'token="<prefix ' + provider + '>"', path)))
+                    rhs = '"' + VALUE[:10] + '"' + VALUE[10:]
+                    self.assertIn((2, 'generic-secret'), list(pattern_scan.findings(
+                        prefix + 'token=' + rhs, path)))
+                    self.assertFalse(list(pattern_scan.findings(
+                        prefix + 'token="${NAME}"', path)))
+        for interpreter, kind in (('python', 'python'), ('python3', 'python'),
+                                  ('python3.12', 'python'), ('node', 'javascript'),
+                                  ('nodejs', 'javascript')):
+            for shebang in ('#!/usr/bin/' + interpreter, '#!/usr/bin/env ' + interpreter):
+                for path in (None, 'runner', 'runner.sh'):
+                    prefix = shebang + '\n'
+                    self.assertEqual(pattern_scan.file_type(prefix, path), kind)
+                    self.assertFalse(list(pattern_scan.findings(prefix + 'token=' + VALUE, path)))
+                    self.assertEqual(list(pattern_scan.findings(
+                        prefix + 'token=' + repr(VALUE), path)), [(2, 'generic-secret')])
+                    self.assertFalse(list(pattern_scan.findings(
+                        prefix + 'token="' + VALUE[:10] + '" "' + VALUE[10:] + '"', path)))
+                    if kind == 'javascript':
+                        self.assertFalse(list(pattern_scan.findings(
+                            prefix + 'token => ' + repr(VALUE), path)))
+                        self.assertEqual(list(pattern_scan.findings(
+                            prefix + 'token /* trivia */ = ' + repr(VALUE), path)),
+                            [(2, 'generic-secret')])
+        for text in ('ordinary\n#!/bin/bash', '#!/bin/notbash', '#!/usr/bin/env pythonish'):
+            self.assertEqual(pattern_scan.file_type(text, 'runner'), 'unknown')
+
     def test_shell_placeholder_scope_ends_at_word(self):
         provider = 'ghp' + '_' + VALUE * 2
         wrapped = '<' + provider + '>'

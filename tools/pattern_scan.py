@@ -75,6 +75,70 @@ MAX_LINE_WORK = 4 * 1024 * 1024
 MAX_FILE_WORK = 64 * 1024 * 1024
 MAX_NESTING = 64
 
+# (line markers, block marker pairs). Unknown files retain prose/config handling,
+# but only balanced same-line block comments may act as assignment trivia.
+COMMENT_SYNTAX = {
+    'javascript': (('//',), (('/*', '*/'),)),
+    'c-family': (('//',), (('/*', '*/'),)),
+    'css': ((), (('/*', '*/'),)),
+    'php': (('//', '#'), (('/*', '*/'),)),
+    'python': (('#',), ()),
+    'shell': (('#',), ()),
+    'hash-config': (('#',), ()),
+    'ini': (('#', ';'), ()),
+    'sql': (('--',), (('/*', '*/'),)),
+    'lua': (('--',), (('--[[', ']]'),)),
+    'markup': ((), (('<!--', '-->'),)),
+    'json': ((), ()),
+    'unknown': (('#', '//'), (('/*', '*/'),)),
+}
+FILE_TYPES = {
+    'javascript': ('.js', '.jsx', '.ts', '.tsx', '.mjs', '.cjs'),
+    'c-family': ('.c', '.h', '.cc', '.cpp', '.cxx', '.hpp', '.hh', '.hxx',
+                 '.cs', '.java', '.go', '.rs', '.kt', '.kts', '.swift',
+                 '.m', '.mm', '.scala', '.sc', '.dart', '.groovy', '.gradle'),
+    'css': ('.css', '.scss', '.less'),
+    'php': ('.php', '.phtml'),
+    'python': ('.py', '.pyw'),
+    'shell': ('.sh', '.bash', '.zsh', '.dash', '.ksh', '.env'),
+    'hash-config': ('.yaml', '.yml', '.toml'),
+    'ini': ('.ini', '.cfg'),
+    'sql': ('.sql',),
+    'lua': ('.lua',),
+    'markup': ('.html', '.htm', '.xml', '.svg'),
+    'json': ('.json', '.jsonl'),
+}
+SUFFIX_TYPES = {suffix: kind for kind, suffixes in FILE_TYPES.items() for suffix in suffixes}
+SOURCE_TYPES = frozenset(('python', 'javascript', 'c-family', 'php'))
+SHELL_TYPES = frozenset(('shell', 'ini'))
+SHEBANG = re.compile(
+    r'^#!\s*(?:/[^\s]*/)?(?P<command>[\w.+-]+)(?:\s|$)')
+
+
+def file_type(text, path=None):
+    """Classify once per file; an interpreter shebang takes precedence over suffix."""
+    first_line = text[:min(len(text), MAX_LINE_CHARS + 1)].split('\n', 1)[0]
+    match = SHEBANG.match(first_line)
+    if match:
+        command = match['command']
+        if command == 'env':
+            # Support env options (notably -S) and leading NAME=value arguments.
+            words = first_line[match.end():].split()
+            command = next((word for word in words
+                            if not word.startswith('-') and '=' not in word), '')
+        if command in ('sh', 'bash', 'zsh', 'dash', 'ksh'):
+            return 'shell'
+        if re.fullmatch(r'python(?:\d+(?:\.\d+)*)?', command):
+            return 'python'
+        if command in ('node', 'nodejs'):
+            return 'javascript'
+    if path is None:
+        return 'unknown'
+    name = Path(path)
+    if name.name == '.env':
+        return 'shell'
+    return SUFFIX_TYPES.get(name.suffix.lower(), 'unknown')
+
 
 def literal_prefix(text, index):
     start = index
@@ -507,7 +571,9 @@ def static_chunks(value, formatted=False):
 class LineState:
     """One quote-aware structural pass; RHS queries are O(log n), not rescans."""
 
-    def __init__(self, line):
+    def __init__(self, line, kind='unknown'):
+        line_comments, block_comments = COMMENT_SYNTAX[kind]
+        last_closings = {closing: line.rfind(closing) for _, closing in block_comments}
         self.owner = [-1] * (len(line) + 1)
         self.context = [0] * (len(line) + 1)
         self.braces = [0] * (len(line) + 1)
@@ -553,16 +619,23 @@ class LineState:
                 continue
             # Comments contain no source nesting. Credential matching still
             # examines their text below; only structural accounting stops here.
-            if ((line[index] == '#' or line.startswith('//', index))
-                    and (not index or line[index - 1].isspace())):
+            block = next(((opening, closing) for opening, closing in block_comments
+                          if line.startswith(opening, index)), None)
+            if block:
+                opening, closing_marker = block
+                closing = (line.find(closing_marker, index + len(opening))
+                           if last_closings[closing_marker] >= index + len(opening) else -1)
+                if closing >= 0 or kind != 'unknown':
+                    end = len(line) if closing < 0 else closing + len(closing_marker)
+                    self.comments.append((index, end))
+                    index = end
+                    continue
+            if (any(line.startswith(marker, index) for marker in line_comments)
+                    and (kind not in ('shell', 'unknown', 'ini')
+                         or not index or line[index - 1].isspace()
+                         or line[index - 1] in ';(&|')):
                 self.comments.append((index, len(line)))
                 break
-            if line.startswith('/*', index):
-                closing = line.find('*/', index + 2)
-                end = len(line) if closing < 0 else closing + 2
-                self.comments.append((index, end))
-                index = end
-                continue
             char = line[index]
             if char.isspace() or char in ';|':
                 question = False
@@ -663,17 +736,18 @@ def findings(text, path=None, budget=None):
     """Yield only (line number, rule id); never return matched values."""
     if budget is None:
         budget = [MAX_FILE_WORK]
+    kind = file_type(text, path)
+    shell = kind in SHELL_TYPES
+    source_file = kind in SOURCE_TYPES
+    typed_source = kind in ('python', 'javascript')
     for number, line in enumerate(text.splitlines(), 1):
         if len(line) > MAX_LINE_CHARS:
             raise ScanError('pattern scan line work limit exceeded [masked]')
         rules = set()
         work = len(line)
         value_end = len(line.rstrip(' \t='))
-        state = LineState(line)
-        suffix = Path(path).suffix.lower() if path is not None else ''
-        shell = suffix in {'.sh', '.bash', '.zsh', '.env', '.ini'} or (path is not None and Path(path).name == '.env')
-        assignment_text = (state.without_comments(line) if suffix in
-                           {'.js', '.jsx', '.ts', '.tsx', '.mjs', '.cjs'} else line)
+        state = LineState(line, kind)
+        assignment_text = state.without_comments(line)
         # Preserve scanning of example assignments inside comments as well.
         assignments = []
         previous = None
@@ -724,21 +798,17 @@ def findings(text, path=None, budget=None):
             if rule is None:
                 continue
             if (match['operator'] == '=>' and
-                    (path is None or Path(path).suffix.lower() in
-                     {'.js', '.jsx', '.ts', '.tsx', '.mjs', '.cjs'})):
+                    (path is None or kind == 'javascript')):
                 continue
             if (match['operator'] == ':' and match.end() - 1 in state.ternary_colons
-                    and path is not None and Path(path).suffix.lower() in
-                    {'.js', '.jsx', '.ts', '.tsx', '.mjs', '.cjs'}):
+                    and kind == 'javascript'):
                 continue
             start = match.end()
             typed = (TYPE_ANNOTATION.match(assignment_text, start, min(len(line), start + 4096))
                      if match['operator'] == ':' else None)
             if typed and not (
                     typed.end() < value_end
-                    and ((path is not None and Path(path).suffix.lower() in
-                          {'.py', '.js', '.jsx', '.ts', '.tsx', '.mjs', '.cjs'})
-                         or re.search(r'\s=|=\s', typed[0]))):
+                    and (typed_source or re.search(r'\s=|=\s', typed[0]))):
                 typed = None
             if typed:
                 work += typed.end() - start
@@ -763,23 +833,20 @@ def findings(text, path=None, budget=None):
             if rest.strip() in ('', '~', 'null', 'Null', 'NULL'):
                 continue
             if (match['operator'] == ':' and not typed
-                    and path is not None and Path(path).suffix.lower() in
-                    {'.py', '.js', '.jsx', '.ts', '.tsx', '.mjs', '.cjs'}
+                    and typed_source
                     and state.context[match.start()] in state.parameters):
                 # Typed function parameters are declarations, not values.
                 # A literal default above still follows the assignment path.
                 continue
             if state.question[match.start()] and rule == 'law-oc':
                 rest = rest.split('&', 1)[0]
-            source = (not embedded and path is not None and Path(path).suffix.lower() in
-                      {'.py', '.js', '.jsx', '.ts', '.tsx', '.mjs', '.cjs'})
+            source = not embedded and source_file
             # Calls and access chains are references even without a source suffix;
             # bare config/shell words otherwise remain literal values.
             expression = re.match(r'\s*[A-Za-z_$][\w$]*(?:\s*\(|\.[A-Za-z_$]|\[)', rest)
             for value in candidates(rest, comment_at_start=False,
                                     source=source or (path is None and bool(expression)),
-                                    shell=path is not None and (Path(path).suffix.lower() in
-                                        {'.sh', '.bash', '.zsh', '.env', '.ini'} or Path(path).name == '.env')):
+                                    shell=shell):
                 if not placeholder(value) and (rule == 'law-oc' or high_entropy(value)):
                     rules.add(rule)
         budget[0] -= work
