@@ -6,6 +6,8 @@ Keep a Changelog와 유의적 버전을 따른다. [버전 규칙](docs/RELEASIN
 
 ### Secret-free CI hardening
 
+- Scan strict UTF-16LE and UTF-16BE decodings independently whenever NUL-containing bytes have even length, in addition to the existing decoding. Union findings by line and rule so Korean-heavy BOM-less text cannot hide credentials; add runtime-built CLI detection, masking and clean-text regressions for both byte orders.
+
 - Default-inspect all single-line assignment candidates, with segmented credential names, prefixed/template literals and shell fallback operands. Add runtime-built regressions and document heuristic limits and the authoritative trusted LAW_OC control. Keep the exact-hash allowlist unchanged.
 
 - Address scanner review gaps: inspect typed assignment literals, exempt only whole environment references instead of arbitrary dollar-prefixed values, and recognize plausible BOM-less UTF-16LE/BE text. Add runtime-built positive/negative fixtures, including binary safety; keep masked diagnostics and the existing exact-line allowlist unchanged.

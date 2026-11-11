@@ -248,13 +248,24 @@ def scan(root):
             continue  # Tracked deletion.
         except OSError:
             raise ScanError(f'{safe_path}: cannot read file [masked]') from None
-        # No extension exclusions; only plausible text gets BOM-less UTF-16 decoding.
-        text = decode_text(data)
-        lines = text.splitlines()
-        for line, rule in findings(text):
-            digest = hashlib.sha256(lines[line - 1].encode('utf-8')).hexdigest()
-            if (relative, rule, digest) not in ALLOWLIST:
-                matches.append((safe_path, line, rule))
+        # Keep the original decoding, but do not let ASCII-lane heuristics hide
+        # credentials surrounded by non-ASCII UTF-16 text. Strict decoding rejects
+        # malformed binary data; each byte order is attempted independently.
+        texts = [decode_text(data)]
+        if b'\0' in data and len(data) % 2 == 0:
+            for encoding in ('utf-16-le', 'utf-16-be'):
+                try:
+                    texts.append(data.decode(encoding, errors='strict'))
+                except UnicodeError:
+                    continue
+        file_matches = set()
+        for text in texts:
+            lines = text.splitlines()
+            for line, rule in findings(text):
+                digest = hashlib.sha256(lines[line - 1].encode('utf-8')).hexdigest()
+                if (relative, rule, digest) not in ALLOWLIST:
+                    file_matches.add((line, rule))
+        matches.extend((safe_path, line, rule) for line, rule in sorted(file_matches))
     return matches
 
 

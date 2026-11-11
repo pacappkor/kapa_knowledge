@@ -158,6 +158,42 @@ class PatternTests(unittest.TestCase):
             self.assertNotIn(VALUE, result.stdout + result.stderr)
             self.assertNotIn('untracked.dat', result.stdout)
 
+    def test_korean_bomless_utf16_cli(self):
+        surrounding = '한글 문서의 일반 설명입니다. ' * 100
+        provider = 'ghp' + '_' + VALUE * 2
+        with tempfile.TemporaryDirectory(dir=os.environ.get('KK_TEST_TMP')) as temp:
+            root = Path(temp)
+            subprocess.run(['git', '-C', temp, 'init', '-q'], check=True, capture_output=True)
+            sample = root / 'tracked.dat'
+            sample.write_bytes(b'')
+            subprocess.run(['git', '-C', temp, 'add', '--', sample.name],
+                           check=True, capture_output=True)
+            for encoding in ('utf-16-le', 'utf-16-be'):
+                for payload, expected in (
+                    (provider, 'github-token'),
+                    ('token = "' + VALUE + '"', 'generic-secret'),
+                    ('비밀 값이 없는 평범한 문서입니다.', None),
+                ):
+                    with self.subTest(encoding=encoding, rule=expected):
+                        data = (surrounding + '\n' + payload + '\n' + surrounding).encode(encoding)
+                        # Both lanes stay below the old ASCII-heavy threshold.
+                        for lane in (data[::2], data[1::2]):
+                            self.assertLess(lane.count(0) / len(lane), 0.6)
+                        sample.write_bytes(data)
+                        result = subprocess.run(
+                            [sys.executable, '-I', '-B', str(SCRIPT)], cwd=temp,
+                            env=dict(os.environ, **{'LAW_O' + 'C': ''}, LAW_OC_FILE='must-not-open'),
+                            capture_output=True, text=True)
+                        output = result.stdout + result.stderr
+                        self.assertNotIn(VALUE, output)
+                        self.assertNotIn(provider, output)
+                        self.assertEqual(result.returncode, 1 if expected else 0)
+                        if expected:
+                            self.assertIn("'tracked.dat':2: " + expected + ' [masked]', output)
+                            self.assertIn('Pattern scan: 1 finding(s).', output)
+                        else:
+                            self.assertIn('Pattern scan: 0 finding(s).', output)
+
     def test_patterns_never_select_credentials(self):
         with tempfile.TemporaryDirectory(dir=os.environ.get('KK_TEST_TMP')) as temp:
             root = Path(temp)
