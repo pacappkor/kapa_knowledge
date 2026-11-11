@@ -9,7 +9,6 @@ import re
 import stat
 import sys
 from collections import Counter
-from heapq import merge
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from secret_scan import ScanError, repository_files
@@ -37,15 +36,89 @@ TOKEN_RULES = (
 )
 # Recognize names independently of value syntax. Once an assignment is found,
 # inspect the entire remaining line, rather than accepting one blessed RHS form.
-ASSIGNMENT = re.compile(
-    r"""(?<![\w.-]) (?:
-    ["'] (?P<key>[A-Za-z_][\w.-]*) ["'] \s* \] |
-    (?P<name> (?: (?: "(?:\\.|[^"\\])*" | '(?:\\.|[^'\\])*' |
-                       [A-Za-z_][\w-]* ) \s* \. \s* )*
-    ["']? [A-Za-z_][\w.-]* ["']? )) \s*
-    (?P<operator>\?\?=|\|\|=|&&=|\+=|:=|=>|->|\?=|=(?!=|>)|:(?!=))""", re.X
-)
-SEGMENTS = re.compile(r'[A-Z]+(?=[A-Z][a-z]|$)|[A-Z]?[a-z]+|[A-Z]+|[0-9]+')
+NAME_TOKEN = re.compile(r'''"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|[A-Za-z_][\w.-]*''')
+OPERATOR = re.compile(r'\?\?=|\|\|=|&&=|\+=|:=|=>|->|\?=|=(?!=|>)|:(?!=)')
+SPACE = re.compile(r'\s*')
+
+
+class Assignment:
+    """Small match-compatible record produced by the forward-only name scan."""
+
+    def __init__(self, start, end, name, operator, key=None):
+        self.start_at, self.end_at = start, end
+        self.fields = {'name': name, 'key': key, 'operator': operator}
+
+    def start(self):
+        return self.start_at
+
+    def end(self):
+        return self.end_at
+
+    def span(self):
+        return self.start_at, self.end_at
+
+    def __getitem__(self, key):
+        return self.fields[key]
+
+
+def assignments_in(text):
+    """Consume a dotted chain once, including when no operator follows it."""
+    cursor = 0
+    while cursor < len(text):
+        if text[cursor] == '\\':
+            cursor += 2
+            continue
+        token = NAME_TOKEN.match(text, cursor)
+        if token is None:
+            cursor += 1
+            continue
+        start, end = token.span()
+        if text[start:end].endswith('.') and text[end:end + 1] in ('"', "'"):
+            end -= 1
+        cursor = end
+        if text[start] in '\"\'' and not re.fullmatch(r'[A-Za-z_][\w.-]*', text[start + 1:end - 1]):
+            # Still recognize embedded examples inside ordinary strings/prose.
+            if text.startswith('.', SPACE.match(text, end).end()):
+                pass  # Quoted namespace.
+            else:
+                cursor = start + 1
+                continue
+        if text[start:end].endswith('-') and text[end:end + 1] == '>':
+            end -= 1
+        if start and (text[start - 1].isalnum() or text[start - 1] in '_.-'):
+            continue
+        key = None
+        after = SPACE.match(text, end).end()
+        if text[start] in '\"\'' and text[after:after + 1] == ']':
+            key = text[start + 1:end - 1]
+            after = SPACE.match(text, after + 1).end()
+        else:
+            while text[after:after + 1] == '.':
+                following = NAME_TOKEN.match(text, SPACE.match(text, after + 1).end())
+                if following is None:
+                    break
+                end = following.end()
+                after = SPACE.match(text, end).end()
+            cursor = max(cursor, after)
+        operator = OPERATOR.match(text, after)
+        if operator:
+            yield Assignment(start, operator.end(), text[start:end], operator[0], key)
+            cursor = operator.end()
+SEGMENTS = re.compile(r'[A-Za-z]+|[0-9]+')
+
+
+def name_segments(part):
+    """Split camel/acronym boundaries without uppercase-run backtracking."""
+    for match in SEGMENTS.finditer(part):
+        word = match[0]
+        start = 0
+        for index in range(1, len(word)):
+            if (word[index].isupper() and
+                    (word[index - 1].islower() or
+                     (index + 1 < len(word) and word[index + 1].islower()))):
+                yield word[start:index].lower()
+                start = index
+        yield word[start:].lower()
 PLACEHOLDER = re.compile(r'(?:[*•●]+|<[^>]*>)')
 MARKER_WORDS = frozenset(('example', 'fake', 'not', 'a', 'real', 'your',
                           'api', 'key', 'here', 'token', 'secret', 'password',
@@ -64,8 +137,8 @@ ENV_REFERENCE = re.compile(
 )
 SHELL_OPERAND = re.compile(r'[A-Za-z_][A-Za-z0-9_]*(?P<op>:-|:=|:\+|:\?|[-=+?])')
 TYPE_ANNOTATION = re.compile(
-    r'''\s*(?:[A-Za-z_]|"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*')
-    (?:[\w.\s\[\]<>,|?]|"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*')*=(?!=|>)''', re.X)
+    r'''\s*+(?:[A-Za-z_]|"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*')
+    (?:[\w.\s\[\]<>,|?]|"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*')*+=(?!=|>)''', re.X)
 LITERAL_PREFIX = re.compile(r"(?i:([bruf]*))(['\"`])")
 # Deterministic work limits, not a best-effort timeout. Exceeding any limit
 # raises ScanError (CLI exit 2); no file is silently skipped.
@@ -152,7 +225,7 @@ def credential_rule(name):
     # Split delimiters first, then camel humps (including acronym boundaries).
     words = []
     for part in re.split(r'[_ .-]+', name):
-        words.extend(word.lower() for word in SEGMENTS.findall(part))
+        words.extend(name_segments(part))
     if words and words[-1] == 'oc':
         return 'law-oc'
     if words and words[-1] in ('secret', 'token', 'password', 'passwd'):
@@ -509,19 +582,45 @@ def candidates(text, comment_at_start=True, source=False, shell=False):
                  and not re.search(r"(?:^|\s)[brufBRUF]+['\"]", text)):
         yield from shell_word_candidates(text, comment_at_start)
         return
-    references = list(re.finditer(r'\b[A-Za-z_$][\w$]*(?:\.[A-Za-z_$][\w$]*|\[[^\]]*\])+', text)) if source else []
+    # Only brackets can enclose quoted keys; bare member chains have no
+    # literals to exclude. Do not retry a repeated chain at every member.
+    references = []
+    if source:
+        cursor = 0
+        while cursor < len(text):
+            reference = re.compile(r'\b[A-Za-z_$][\w$]*\[').search(text, cursor)
+            if reference is None:
+                break
+            closing = text.find(']', reference.end())
+            if closing < 0:
+                break
+            references.append((reference.start(), closing + 1))
+            cursor = closing + 1
     spans = list(quote_spans(text)) if source else []
+    # Getter first arguments are names, like bracketed lookup keys. Defaults
+    # remain separate literals and are deliberately not excluded.
+    getters = []
+    if source:
+        for call in re.finditer(r'\b(?:get|getenv)\s*\(\s*', text):
+            argument = LITERAL_PREFIX.match(text, call.end())
+            if argument:
+                closing = quoted_end(text, argument.end() - 1)
+                key = text[argument.end():closing]
+                if re.fullmatch(r'[A-Za-z_$][\w$.-]*', key) and not high_entropy(key):
+                    getters.append((argument.start(), closing + 1))
     span_starts = [a for a, _ in spans]
     lookups = []
-    for item in references:
-        position = bisect_right(span_starts, item.start()) - 1
-        if position < 0 or not spans[position][0] < item.start() < spans[position][1]:
-            lookups.append((item.start(), item.end()))
+    for start, end in references:
+        position = bisect_right(span_starts, start) - 1
+        if position < 0 or not spans[position][0] < start < spans[position][1]:
+            lookups.append((start, end))
     lookup_starts = [a for a, _ in lookups]
     # The assignment operator has already been consumed; inner equals signs
     # (including base64 padding) belong to the bare shell/config word.
     for start, end, value in lexemes(text, comment_at_start, bare_equals=True):
         if source:
+            if any(a <= start and end <= b for a, b in getters):
+                continue
             # A quoted subscript is a lookup key, not a credential literal.
             lookup = bisect_right(lookup_starts, start) - 1
             if lookup >= 0 and end <= lookups[lookup][1]:
@@ -568,6 +667,31 @@ def static_chunks(value, formatted=False):
     yield ''.join(chunk)
 
 
+REGEX_KEYWORDS = frozenset(('return', 'throw', 'case', 'delete', 'void',
+                            'typeof', 'instanceof', 'in', 'of', 'yield', 'await', 'new'))
+
+
+def regex_end(text, start):
+    index = start + 1
+    character_class = False
+    while index < len(text):
+        char = text[index]
+        if char == '\\':
+            index += 2
+            continue
+        if char == '[':
+            character_class = True
+        elif char == ']':
+            character_class = False
+        elif char == '/' and not character_class:
+            index += 1
+            while index < len(text) and text[index].isalpha():
+                index += 1
+            return index
+        index += 1
+    return None
+
+
 class LineState:
     """One quote-aware structural pass; RHS queries are O(log n), not rescans."""
 
@@ -582,14 +706,17 @@ class LineState:
         self.statements = []
         self.comments = []
         self.parameters = set()
+        self.regex_spans = []
+        self.formatted_spans = []
         self.ternary_colons = set()
         ternaries = Counter()
         self.quotes = quotes = QuoteIndex(line)
         openings = {}
         signatures = {m.end() - 1 for m in re.finditer(
-            r'\b(?:def|function)\s+[A-Za-z_$][\w$]*\s*\(', line)}
+            r'\b(?:def\s+[A-Za-z_$][\w$]*\s*+|function\s*+(?:\*\s*+)?(?:[A-Za-z_$][\w$]*\s*+)?)[(]', line)}
         methods = {m.end() - 1 for m in re.finditer(
-            r'(?:^|[;{}])\s*(?:(?:async|static|get|set)\s+)*[A-Za-z_$][\w$]*\s*\(', line)}
+            r'(?:^|[;,{}])\s*(?:(?:async|static|get|set)\s+)*[A-Za-z_$][\w$]*\s*\(', line)}
+        regex_allowed = True
         stack = [0]
         brace_depth = 0
         question = False
@@ -598,8 +725,32 @@ class LineState:
             self.context[index] = stack[-1]
             self.braces[index] = brace_depth
             self.question[index] = question
+            if (kind == 'javascript' and line[index] == '/' and regex_allowed
+                    and not line.startswith(('//', '/*'), index)):
+                # ECMAScript's expression-start heuristic: escaped slashes and
+                # character classes do not terminate a regular expression.
+                end = regex_end(line, index)
+                if end is not None:
+                    self.regex_spans.append((index, end))
+                    index = end
+                    regex_allowed = False
+                    continue
+            if kind == 'javascript' and (line[index].isalpha() or line[index] in '_$'):
+                word = re.compile(r'[\w$]+').match(line, index)
+                regex_allowed = word[0] in REGEX_KEYWORDS
+                # Keep structural arrays populated at every offset.
+                for offset in range(index, word.end()):
+                    self.context[offset] = stack[-1]
+                    self.braces[offset] = brace_depth
+                    self.question[offset] = question
+                index = word.end()
+                continue
             if quote_start(line, index, quotes):
                 end = min(quoted_end(line, index), len(line))
+                formatted = 'f' in literal_prefix(line, index).lower()
+                if formatted or line[index] == '`':
+                    self.formatted_spans.append((index, end, formatted))
+                regex_allowed = False
                 query = False
                 expansion_end = index
                 for offset in range(index, min(end + 1, len(line))):
@@ -637,6 +788,8 @@ class LineState:
                 self.comments.append((index, len(line)))
                 break
             char = line[index]
+            if kind == 'javascript' and not char.isspace():
+                regex_allowed = char in '=(:,[!&|?;{}~+-*%^<>'
             if char.isspace() or char in ';|':
                 question = False
             if char == '\\':
@@ -667,9 +820,9 @@ class LineState:
             elif char in ')]}':
                 context = stack[-1]
                 if char == ')' and context in openings:
-                    if (re.compile(r'\s*(?::\s*[\w<>\[\]|? .]+)?\s*=>').match(line, index + 1)
+                    if (re.compile(r'\s*+(?::\s*+[\w<>\[\]|? .]++)?\s*+=>').match(line, index + 1)
                             or (openings[context] in methods
-                                and re.compile(r'\s*(?::\s*[\w<>\[\]|? .]+)?\s*\{').match(line, index + 1))):
+                                and re.compile(r'\s*+(?::\s*+[\w<>\[\]|? .]++)?\s*+\{').match(line, index + 1))):
                         self.parameters.add(context)
                 self.bounds[stack[-1]].append(index)
                 if len(stack) > 1:
@@ -746,18 +899,31 @@ def findings(text, path=None, budget=None):
         rules = set()
         work = len(line)
         value_end = len(line.rstrip(' \t='))
+        raw_assignments = list(assignments_in(line))
+        provider_matches = [(rule, match) for rule, pattern in TOKEN_RULES
+                            for match in pattern.finditer(line)]
+        # Most repository lines contain no credential-shaped name or provider.
+        # Avoid all quote/structure/token passes on those lines. Keep structural
+        # work-limit enforcement for potentially deeply nested input.
+        if (not provider_matches and not any(credential_rule(m['key'] or m['name'])
+                                            for m in raw_assignments)
+                and not any(marker in line for marker in ('/*', '<!--', '--[['))
+                and sum(line.count(c) for c in '([{') <= MAX_NESTING):
+            budget[0] -= work
+            if budget[0] < 0:
+                raise ScanError('pattern scan file work limit exceeded [masked]')
+            continue
         state = LineState(line, kind)
         assignment_text = state.without_comments(line)
-        # Preserve scanning of example assignments inside comments as well.
-        assignments = []
-        previous = None
-        for match in merge(ASSIGNMENT.finditer(line), ASSIGNMENT.finditer(assignment_text),
-                           key=lambda item: item.end()):
-            if match.span() != previous:
-                assignments.append(match)
-                previous = match.span()
+        # Only rescan when comment elision actually changed the line.
+        assignments = raw_assignments
+        if assignment_text != line:
+            assignments = sorted({m.span(): m for m in
+                                  raw_assignments + list(assignments_in(assignment_text))}.values(),
+                                 key=lambda item: item.end())
         word_ends = shell_word_boundaries(line) if shell else []
-        tokens = list(lexemes(line, comment_at_start=False, quotes=state.quotes))
+        tokens = (list(lexemes(line, comment_at_start=False, quotes=state.quotes))
+                  if provider_matches else [])
         token_starts = [start for start, _, _ in tokens]
         assignment_ranges = []
         for item in assignments:
@@ -840,13 +1006,28 @@ def findings(text, path=None, budget=None):
                 continue
             if state.question[match.start()] and rule == 'law-oc':
                 rest = rest.split('&', 1)[0]
+            if any(a <= match.start() < b for a, b in state.regex_spans):
+                continue
+            embedded_chunks = None
+            if embedded:
+                formatted_owner = next(((a, b, f) for a, b, f in state.formatted_spans
+                                        if a <= match.start() < b), None)
+                if formatted_owner:
+                    # Preserve the enclosing template's interpolation mode even
+                    # though the embedded query RHS has no opening quote.
+                    embedded_chunks = static_chunks(rest, formatted=formatted_owner[2])
             source = not embedded and source_file
             # Calls and access chains are references even without a source suffix;
             # bare config/shell words otherwise remain literal values.
             expression = re.match(r'\s*[A-Za-z_$][\w$]*(?:\s*\(|\.[A-Za-z_$]|\[)', rest)
-            for value in candidates(rest, comment_at_start=False,
+            if embedded_chunks is not None:
+                values = (value for chunk in embedded_chunks
+                          for value in literal_candidates(chunk))
+            else:
+                values = candidates(rest, comment_at_start=False,
                                     source=source or (path is None and bool(expression)),
-                                    shell=shell):
+                                    shell=shell)
+            for value in values:
                 if not placeholder(value) and (rule == 'law-oc' or high_entropy(value)):
                     rules.add(rule)
         budget[0] -= work

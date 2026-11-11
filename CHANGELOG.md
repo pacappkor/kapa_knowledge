@@ -6,6 +6,8 @@ Keep a Changelog와 유의적 버전을 따른다. [버전 규칙](docs/RELEASIN
 
 ### Secret-free CI hardening
 
+- Replace backtracking dotted-assignment matching with a forward tokenizer; avoid duplicate assignment, provider-token and structural passes on irrelevant lines. Recognize anonymous/generator/async and object-method typed parameters, JS/TS regex boundaries, runtime getter keys versus literal defaults, and interpolation-aware embedded OC queries. Add runtime-built positive/negative cases and 20,000-member adversarial guards while retaining existing performance tests. No runs or catalogs changes.
+
 - Centralize suffix/shebang file classification and per-type comment syntax. Recognize block-comment assignment trivia across C-family and CSS source, SQL and balanced same-line unknown syntax; use shell-word placeholder scope for extensionless shebang scripts and source semantics for Python/Node shebangs. Add runtime-built positive/negative regressions and retain all performance guards. No runs or catalogs changes.
 
 - Recognize JS/TS assignment and type-annotation comment trivia through an offset-preserving view of the existing structural comment pass, and end shell provider-placeholder exemptions at the first unquoted, unescaped word boundary. Add runtime-built positive/negative regressions; retain the 3,000-property and 228 KB elision performance guards. No runs or catalogs changes.

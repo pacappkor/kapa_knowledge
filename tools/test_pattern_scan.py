@@ -21,6 +21,54 @@ class PatternTests(unittest.TestCase):
     def rules(self, text):
         return {rule for _, rule in pattern_scan.findings(text)}
 
+    def test_round_six_regressions(self):
+        for declaration in ('function ', 'function* ', 'async function ',
+                            'const obj = { method', 'const obj = { first() {}, method'):
+            for name, rule in ((OC_NAME, 'law-oc'), ('accessToken', 'generic-secret')):
+                for default, expected in (('', []), (' = ' + repr(VALUE), [(1, rule)])):
+                    text = declaration + '(' + name + ': string' + default + ') {}'
+                    self.assertEqual(list(pattern_scan.findings(text, 'sample.ts')), expected)
+        for regex in ("/'/", '/[\"\']/g', r"/a\/'b/i"):
+            for name, rule in ((OC_NAME, 'law-oc'), ('accessToken', 'generic-secret')):
+                for value, expected in ((VALUE, [(1, rule)]), ('<hi>', [])):
+                    self.assertEqual(list(pattern_scan.findings(
+                        'const r = ' + regex + '; ' + name + ' = ' + repr(value), 'sample.js')),
+                        expected)
+        for expression in ('config.get("' + OC_NAME + '")',
+                           'os.environ.get("LAW_' + OC_NAME + '")',
+                           'os.getenv("X")', 'process.env.X'):
+            self.assertFalse(list(pattern_scan.findings(OC_NAME + ' = ' + expression, 'sample.py')))
+        for expression in ('config.get("X", ' + repr(VALUE) + ')',
+                           'os.getenv("X", ' + repr(VALUE) + ')',
+                           'config.get(' + repr(VALUE) + ')'):
+            self.assertEqual(list(pattern_scan.findings(OC_NAME + ' = ' + expression, 'sample.py')),
+                             [(1, 'law-oc')])
+        for operator in ('=', 'return ', 'throw ', '(', '[', '!', '&&', '?'):
+            self.assertEqual(list(pattern_scan.findings(
+                'const r ' + operator + "/'/; accessToken = " + repr(VALUE), 'sample.js')),
+                [(1, 'generic-secret')])
+        self.assertEqual(list(pattern_scan.findings(
+            'const n = a / b; accessToken = ' + repr(VALUE), 'sample.js')),
+            [(1, 'generic-secret')])
+        for prefix, quote, reference, path in (('f', '"', '{key}', 'sample.py'),
+                                               ('', '`', '${key}', 'sample.js')):
+            for value, expected in ((reference, []), (VALUE, [(1, 'law-oc')])):
+                text = 'url = ' + prefix + quote + 'https://law.go.kr/DRF?' + OC_NAME + '=' + value + '&target=law' + quote
+                self.assertEqual(list(pattern_scan.findings(text, path)), expected)
+
+    def test_adversarial_name_scans_linear_work(self):
+        code = ('import sys,time;sys.path.insert(0,sys.argv[1]);import pattern_scan;'
+                'cases=["a."*20000,"a . "*20000,"A"*100000,'
+                '"a-"*50000,"a."*20000+"[",chr(34)+"a."*20000];'
+                'exec("for text in cases:\\n start=time.perf_counter()\\n "'
+                '+"assert not list(pattern_scan.findings(text,\'sample.ts\'))\\n "'
+                '+"elapsed=time.perf_counter()-start\\n assert elapsed<2, elapsed\\n print(elapsed)")')
+        result = subprocess.run([sys.executable, '-I', '-B', '-c', code, str(SCRIPT.parent)],
+                                capture_output=True, text=True, timeout=15, check=True)
+        self.assertEqual(len(result.stdout.splitlines()), 6)
+        text = 'a.' * 20000 + 'accessToken = ' + repr(VALUE)
+        self.assertEqual(list(pattern_scan.findings(text, 'sample.ts')), [(1, 'generic-secret')])
+
     def test_large_flow_object_linear_work(self):
         # A child provides a hard guard even if the scanner regresses to cubic.
         code = ('import sys,time;sys.path.insert(0,sys.argv[1]);import pattern_scan;'
