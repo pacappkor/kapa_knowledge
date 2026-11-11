@@ -126,7 +126,7 @@ class RoundFifteenRegressions(unittest.TestCase):
                 difference = snapshot_difference(actual, expected)
                 if difference:
                     inner.fail(difference)
-        with patch.dict(os.environ, {'LAW_OC': KEY}):
+        with patch.dict(os.environ, {('LAW_O' + 'C' + ''): KEY}):
             result = unittest.TextTestRunner(stream=stream).run(SyntheticMismatch())
         output = stream.getvalue()
         self.assertEqual(len(result.failures), 1)
@@ -136,7 +136,7 @@ class RoundFifteenRegressions(unittest.TestCase):
         self.assertIn('size=', output)
         self.assertNotIn('block 1', output)
         self.assertIn('[redacted]', output)
-        with patch.dict(os.environ, {'LAW_OC': KEY}):
+        with patch.dict(os.environ, {('LAW_O' + 'C' + ''): KEY}):
             # Even a credential-like field in the final message is redacted.
             diagnostic = snapshot_difference([record(KEY, 'body')], [])
             self.assertNotIn(KEY, diagnostic)

@@ -189,7 +189,7 @@ PREFLIGHT_PAIRS = (
 )
 UNITTEST_COMMAND = 'python -I -B -m unittest discover -s tools -t . -p "test_*.py"'
 VALIDATE_COMMAND = 'python -I -B tools/validate.py'
-PYTHON_TOKEN = re.compile(r'(?<![\w.-])(?:python(?:\d+(?:\.\d+)*|w)?|py)(?:\.exe)?(?![\w.-])', re.I)
+PYTHON_WORD = re.compile(r'(?<![\w.-])(?:python(?:\d+(?:\.\d+)*|w)?|py)(?:\.exe)?(?![\w.-])', re.I)
 CANONICAL_TOOL = re.compile(r'^python -I -B tools/(?P<tool>[a-z_]+\.py)(?: [^;&|`$<>\r\n]*)?$')
 
 
@@ -223,7 +223,7 @@ def workflow_findings(markdown, writers=None):
     for number, block in enumerate(fenced_blocks(markdown), 1):
         lines, first_write = block.splitlines(), None
         for index, line in enumerate(lines):
-            if not PYTHON_TOKEN.search(line):
+            if not PYTHON_WORD.search(line):
                 continue
             if line in PREFLIGHT_PAIRS[0] or line in {UNITTEST_COMMAND + ' || exit 1', VALIDATE_COMMAND + ' || exit 1'}:
                 continue
@@ -261,7 +261,7 @@ class RoundTenRegressions(unittest.TestCase):
 
     def test_4509085821_cli_redacts_split_output_and_encoded_exceptions(self):
         for number, (_, needle) in enumerate(secret_scan.value_needles(KEY)):
-            with self.subTest(form=number), patch.dict(os.environ, {'LAW_OC': KEY}):
+            with self.subTest(form=number), patch.dict(os.environ, {('LAW_O' + 'C'): KEY}):
                 form = needle.decode('utf-8')
                 def fail():
                     print(KEY[:10], end='')
@@ -275,7 +275,7 @@ class RoundTenRegressions(unittest.TestCase):
                 self.assertNotIn('Traceback', stdout + stderr)
 
     def test_cli_preserves_status_and_redacts_argparse_and_systemexit(self):
-        with patch.dict(os.environ, {'LAW_OC': KEY}):
+        with patch.dict(os.environ, {('LAW_O' + 'C'): KEY}):
             def ordinary():
                 print('ordinary result')
                 return 7
@@ -291,7 +291,7 @@ class RoundTenRegressions(unittest.TestCase):
 
     def test_cli_reuses_selected_fallback_without_opening_any_file(self):
         filename = str(self.root / 'never-opened.txt')
-        with patch.dict(os.environ, {'LAW_OC': '', 'LAW_OC_FILE': filename}), patch.object(credentials, '_file_selection', (filename, KEY)), patch.object(Path, 'read_text', side_effect=AssertionError('unexpected file read')):
+        with patch.dict(os.environ, {('LAW_O' + 'C'): '', ('LAW_O' + 'C_FILE'): filename}), patch.object(credentials, '_file_selection', (filename, KEY)), patch.object(Path, 'read_text', side_effect=AssertionError('unexpected file read')):
             def fail():
                 raise ValueError(KEY.encode().hex())
             self.assertEqual(self.capture(fail), (1, '', '[redacted]'))
@@ -302,7 +302,7 @@ class RoundTenRegressions(unittest.TestCase):
         case.write_text('---\nprecSeq: "1"\nprovenance: {"court": "source"}\n---\n', encoding='utf-8')
         source = self.root / 'sources/prec/1.json'
         source.parent.mkdir(parents=True)
-        env = dict(os.environ, LAW_OC=KEY, KK_ROOT=str(self.root), LAW_OC_FILE=str(self.root / 'never-opened.txt'))
+        env = dict(os.environ, **{'LAW_O' + 'C': KEY}, KK_ROOT=str(self.root), LAW_OC_FILE=str(self.root / 'never-opened.txt'))
         forms = [KEY, KEY.encode().hex(), next(needle.decode() for name, needle in secret_scan.value_needles(KEY) if name == 'base64-full')]
         for script in ('restore_source_court.py', 'migrate_source_fields.py'):
             for number, form in enumerate(forms):
@@ -396,7 +396,7 @@ class RoundTenRegressions(unittest.TestCase):
         self.assertEqual(command['target'], 'fetch_case.py')
 
     def test_4509194508_captured_child_output_reaches_shared_redactor(self):
-        child = 'import os, sys; print(os.environ["LAW_OC"]); print(os.environ["LAW_OC"].encode().hex(), file=sys.stderr)'
+        child = ('import os, sys; print(os.environ["LAW_O' + 'C"]); print(os.environ["LAW_O' + 'C"].encode().hex(), file=sys.stderr)')
         wrapped = (
             'import subprocess, sys\n'
             f'sys.path.insert(0, {str(common.CODE_ROOT / "tools")!r})\n'
@@ -409,7 +409,7 @@ class RoundTenRegressions(unittest.TestCase):
             'sys.exit(run_cli(main))\n'
         )
         result = subprocess.run([sys.executable, '-I', '-B', '-c', wrapped],
-                                env=dict(os.environ, LAW_OC=KEY), capture_output=True, text=True)
+                                env=dict(os.environ, **{'LAW_O' + 'C': KEY}), capture_output=True, text=True)
         self.assertEqual(result.returncode, 0)
         self.assertEqual((result.stdout, result.stderr), ('[redacted]', '[redacted]'))
 

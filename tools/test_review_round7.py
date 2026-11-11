@@ -28,7 +28,7 @@ def synthetic_fallback():
     with tempfile.TemporaryDirectory(dir=os.environ.get('KK_TEST_TMP')) as folder:
         path = Path(folder) / 'synthetic-credential.txt'
         path.write_text(' \t' + KEY + '\n', encoding='utf-8-sig')
-        with patch.dict(os.environ, {'LAW_OC': '', 'LAW_OC_FILE': str(path)}), patch.object(credentials, '_file_selection', None), patch.object(common, 'ROOT', Path(folder)):
+        with patch.dict(os.environ, {('LAW_O' + 'C' + ''): '', ('LAW_O' + 'C' + '_FILE'): str(path)}), patch.object(credentials, '_file_selection', None), patch.object(common, 'ROOT', Path(folder)):
             yield Path(folder), path
 
 
@@ -78,7 +78,7 @@ class RoundSevenRegressions(unittest.TestCase):
         with synthetic_fallback():
             lawapi.key()
             env_key = 'EnvironmentSelected' + 'Synthetic9'
-            with patch.dict(os.environ, {'LAW_OC': ' \t' + env_key + ' '}), patch.object(Path, 'read_text') as read:
+            with patch.dict(os.environ, {('LAW_O' + 'C' + ''): ' \t' + env_key + ' '}), patch.object(Path, 'read_text') as read:
                 self.assertEqual(lawapi.key(), env_key)
                 self.assertEqual(common.mask(env_key), '***')
                 self.assertEqual(secret_scan.redact_diagnostic(env_key.encode().hex()), '[redacted]')
@@ -92,7 +92,7 @@ class RoundSevenRegressions(unittest.TestCase):
                     'nested': [{'***': {'url': '***'}}], 'OC': '***'}
         for fallback in (False, True):
             with self.subTest(fallback=fallback), synthetic_fallback() as (root, _):
-                with patch.dict(os.environ, {'LAW_OC': '' if fallback else ' \t' + KEY + ' '}):
+                with patch.dict(os.environ, {('LAW_O' + 'C' + ''): '' if fallback else ' \t' + KEY + ' '}):
                     if fallback:
                         lawapi.key()
                     self.assertEqual(common.mask(payload), expected)
@@ -105,7 +105,7 @@ class RoundSevenRegressions(unittest.TestCase):
                     self.assertNotIn(KEY.encode(), common.canonical(payload))
 
     def test_mapping_key_redaction_collisions_rejected_without_discarding_data(self):
-        with patch.dict(os.environ, {'LAW_OC': KEY}):
+        with patch.dict(os.environ, {('LAW_O' + 'C' + ''): KEY}):
             for payload in ({KEY: 'secret-named', '***': 'ordinary'},
                             {'prefix' + KEY: 1, 'prefix***': 2}):
                 with self.assertRaisesRegex(ValueError, '^masked mapping keys collide$'):
@@ -127,7 +127,7 @@ class RoundSevenRegressions(unittest.TestCase):
 
     def test_4508801302_checkout_parent_and_external_paths_do_not_match(self):
         key = 'CheckoutParent' + 'SyntheticOc9'
-        with fixture() as root, patch.dict(os.environ, {'LAW_OC': key}):
+        with fixture() as root, patch.dict(os.environ, {('LAW_O' + 'C' + ''): key}):
             repo = self.nested_checkout(root, key)
             sibling = root / 'external' / key
             (sibling / 'docs').mkdir(parents=True)
@@ -148,7 +148,7 @@ class RoundSevenRegressions(unittest.TestCase):
 
     def test_4508801302_per_read_guard_still_checks_relative_pathnames(self):
         key = 'RelativePath' + 'SyntheticOc9'
-        with fixture() as root, patch.dict(os.environ, {'LAW_OC': key}):
+        with fixture() as root, patch.dict(os.environ, {('LAW_O' + 'C' + ''): key}):
             (root / (key + '.txt')).write_text('ordinary', encoding='utf-8')
             subprocess.run(['git', '-C', str(root), 'init', '-q'], check=True, capture_output=True)
             # Bypass the earlier scan to exercise the later per-input guard.

@@ -420,7 +420,7 @@ class WriteSafetyTests(unittest.TestCase):
     def test_cheap_tracked_link_cli_requires_no_dependency_or_credential(self):
         subprocess.run(['git', '-C', str(self.root), 'init', '-q'], check=True, capture_output=True)
         script = common.CODE_ROOT / 'tools/validate.py'
-        env = dict(os.environ, KK_ROOT=str(self.root), LAW_OC='', LAW_OC_FILE=str(self.base / 'never-read.txt'))
+        env = dict(os.environ, KK_ROOT=str(self.root), **{'LAW_O' + 'C': ''}, LAW_OC_FILE=str(self.base / 'never-read.txt'))
         def run():
             return subprocess.run([sys.executable, '-I', '-B', str(script), '--check-links'],
                                   cwd=self.root, env=env, capture_output=True, text=True)

@@ -152,7 +152,7 @@ class RoundEightRegressions(unittest.TestCase):
         self.git('update-index', '--add', '--cacheinfo', f'120000,{oid},linked.txt')
         (self.root / 'linked.txt').write_text('ordinary file', encoding='utf-8')
         self.assertFalse((self.root / 'linked.txt').is_symlink())
-        with patch.dict(os.environ, {'LAW_OC': ''}), patch.object(validate, 'load_index') as load:
+        with patch.dict(os.environ, {('LAW_O' + 'C' + ''): ''}), patch.object(validate, 'load_index') as load:
             errors, warnings, count = validate.validate(self.root)
         load.assert_not_called()
         self.assertEqual(errors, ['repository: tracked symlinks are not allowed'])

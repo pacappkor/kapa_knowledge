@@ -29,30 +29,141 @@ TOKEN_RULES = (
     ('aws-access-key', re.compile(r'\bAKIA[A-Z0-9]{16}\b')),
     ('private-key', re.compile(r'-----BEGIN (?:RSA |EC |DSA |OPENSSH |ENCRYPTED )?PRIVATE KEY-----')),
 )
-# Capture the value after an optional Python/TS type annotation, not the type.
-# Quoted values may contain spaces; bare braced references stay whole so suffixes
-# cannot masquerade as environment references. The name boundary excludes
-# identifiers such as protocol while allowing OC query parameters.
+# Recognize names independently of value syntax. Once an assignment is found,
+# inspect the entire remaining line, rather than accepting one blessed RHS form.
 ASSIGNMENT = re.compile(
-    r'''(?ix)(?<![\w-]) ["']?
-    (?P<name>oc|(?:[\w]+[_-])?(?:api[_-]?key|service[_-]?key|secret|token|password))
-    ["']? \s*
-    (?: : \s* [A-Za-z_][\w.]* (?: \s* \[ [^\r\n=]* \])? \s* = | [=:]) \s*
-    (?: "(?P<double>[^"\r\n]*)" | '(?P<single>[^'\r\n]*)' |
-        (?P<bare>(?:\$\{\{[^\r\n]*?\}\}|\$\{[^{}\r\n]*\}|[^\s&;,\}\]\)"'`])+))'''
+    r"""(?<![\w.-]) ["']? (?P<name>[A-Za-z_][\w.-]*) ["']? \s*
+    (?P<operator>:=|=>|->|\?=|=|:)""", re.X
 )
+SEGMENTS = re.compile(r'[A-Z]+(?=[A-Z][a-z]|$)|[A-Z]?[a-z]+|[A-Z]+|[0-9]+')
 PLACEHOLDER = re.compile(
     r'(?ix)^(?:\*+|<[^>]*>|example(?:[_-].*)?|fake(?:[_-].*)?|'
-    r'not[-_]a[-_]real(?:[-_].*)?|your[_-].*|'
-    r'\$(?:[A-Z_][A-Z0-9_]*|env:[A-Z_][A-Z0-9_]*|'
-    r'\{[A-Z_][A-Z0-9_]*(?::?[-+?=][^{}\r\n]*)?\}|'
-    r'\{\{\s*(?:secrets|env)\.[A-Z_][A-Z0-9_]*\s*\}\})|%[A-Z_][A-Z0-9_]*%|'
-    r'\{.*\}|(?:os\.)?(?:getenv|environ)(?:\b.*)|process\.env\..*)$'
+    r'not[-_]a[-_]real(?:[-_].*)?|your[_-].*)$'
 )
+ENV_REFERENCE = re.compile(
+    r"""(?ix)(?:\$[A-Z_][A-Z0-9_]*|\$env:[A-Z_][A-Z0-9_]*|
+    % [A-Z_][A-Z0-9_]* %|\$\{[A-Z_][A-Z0-9_]*\}|
+    \$\{\{\s*(?:secrets|env)\.[A-Z_][A-Z0-9_]*\s*\}\}|
+    (?:os\.)?getenv\(\s*["'][A-Z_][A-Z0-9_]*["']\s*\)|
+    (?:os\.)?environ\[\s*["'][A-Z_][A-Z0-9_]*["']\s*\]|
+    process\.env\.[A-Z_][A-Z0-9_]*)"""
+)
+SHELL_OPERAND = re.compile(r'[A-Za-z_][A-Za-z0-9_]*(?P<op>:-|:=|:\+|:\?|[-=+?])')
+TYPE_ANNOTATION = re.compile(r'\s*[A-Za-z_][\w.]*\s*(?:\[[^=]*?\]\s*)?=(?!>)')
+
+
+def credential_rule(name):
+    # Split delimiters first, then camel humps (including acronym boundaries).
+    words = []
+    for part in re.split(r'[_ .-]+', name):
+        words.extend(word.lower() for word in SEGMENTS.findall(part))
+    if words and words[-1] == 'oc':
+        return 'law-oc'
+    if words and words[-1] in ('secret', 'token', 'password', 'passwd'):
+        return 'generic-secret'
+    pairs = set(zip(words, words[1:]))
+    if pairs & {('api', 'key'), ('service', 'key'), ('private', 'key')}:
+        return 'generic-secret'
+    # Preserve conventional all-lower/all-upper spellings as whole segments.
+    if any(word in ('apikey', 'servicekey', 'privatekey') for word in words):
+        return 'generic-secret'
+    return None
 
 
 def placeholder(value):
-    return not value or bool(PLACEHOLDER.fullmatch(value))
+    return not value or bool(PLACEHOLDER.fullmatch(value) or ENV_REFERENCE.fullmatch(value))
+
+
+def braced_end(text, start):
+    """Find a balanced shell expansion without mistaking nested refs for literals."""
+    depth = 1
+    for index in range(start + 2, len(text)):
+        if text[index] == '{':
+            depth += 1
+        elif text[index] == '}':
+            depth -= 1
+            if not depth:
+                return index + 1
+    return len(text)
+
+
+def literal_candidates(value):
+    """Inspect expansion operands and template static parts, not reference names."""
+    if placeholder(value):
+        return
+    if value.startswith('${') and braced_end(value, 0) == len(value):
+        operand = SHELL_OPERAND.match(value, 2)
+        if operand:
+            yield from literal_candidates(value[operand.end():-1])
+            return
+    # A mixed reference/literal is not exempt. Also inspect operands separately
+    # so a long fallback cannot hide behind low-entropy surrounding syntax.
+    index = 0
+    while index < len(value):
+        start = value.find('${', index)
+        if start < 0:
+            break
+        end = braced_end(value, start)
+        operand = SHELL_OPERAND.match(value, start + 2)
+        if operand:
+            yield from literal_candidates(value[operand.end():end - 1])
+        index = end
+    yield value
+
+
+def candidates(text):
+    """Small single-line lexer: every literal or bare token is inspected.
+
+    Python literal prefixes are syntax, not values. Backtick interpolations are
+    omitted while their static chunks are retained. This is not a language parser.
+    """
+    index = 0
+    while index < len(text):
+        if text[index].isspace() or text[index] in '=,:;()[]&':
+            index += 1
+            continue
+        if text[index] == '#':
+            break
+        env = ENV_REFERENCE.match(text, index)
+        if env and (env.end() == len(text) or text[env.end()] in ' 	,;)]}\"\''):
+            index = env.end()
+            continue
+        prefix = re.match(r"(?i:[bruf]*)['\"`]", text[index:])
+        if prefix:
+            quote_index = index + prefix.end() - 1
+            quote = text[quote_index]
+            end = quote_index + 1
+            chunks = []
+            start = end
+            while end < len(text) and text[end] != quote:
+                if text[end] == '\\':
+                    end += 2
+                    continue
+                if quote == '`' and text.startswith('${', end):
+                    chunks.append(text[start:end])
+                    # Shell-style fallbacks are inspected even in templates.
+                    stop = braced_end(text, end)
+                    yield from literal_candidates(text[end:stop])
+                    end = stop
+                    start = end
+                    continue
+                end += 1
+            chunks.append(text[start:end])
+            yield from literal_candidates(''.join(chunks))
+            index = end + 1
+            continue
+        start = index
+        while index < len(text):
+            if text.startswith('${', index):
+                index = braced_end(text, index)
+            elif text[index].isspace() or text[index] in ',;)]}\"\'`&':
+                break
+            else:
+                index += 1
+        if index == start:
+            index += 1
+        else:
+            yield from literal_candidates(text[start:index])
 
 
 def high_entropy(value):
@@ -72,13 +183,26 @@ def findings(text):
                 if not placeholder(match[0]):
                     rules.add(rule)
         for match in ASSIGNMENT.finditer(line):
-            value = next(v for v in (match['double'], match['single'], match['bare']) if v is not None)
-            if placeholder(value):
+            rule = credential_rule(match['name'])
+            if rule is None:
                 continue
-            if match['name'].lower() == 'oc':
-                rules.add('law-oc')
-            elif high_entropy(value):
-                rules.add('generic-secret')
+            rest = line[match.end():]
+            # Embedded URL assignments end at the next query parameter. A name
+            # inside a surrounding string cannot consume code after that string.
+            if '?' in line[:match.start()] and rule == 'law-oc':
+                rest = rest.split('&', 1)[0]
+            before = line[:match.start()]
+            for quote in ('"', "'"):
+                if before.count(quote) % 2 and quote in rest:
+                    rest = rest.split(quote, 1)[0]
+                    break
+            if match['operator'] == ':':
+                annotation = TYPE_ANNOTATION.match(rest)
+                if annotation:
+                    rest = rest[annotation.end():]
+            for value in candidates(rest):
+                if not placeholder(value) and (rule == 'law-oc' or high_entropy(value)):
+                    rules.add(rule)
         for rule in sorted(rules):
             yield number, rule
 

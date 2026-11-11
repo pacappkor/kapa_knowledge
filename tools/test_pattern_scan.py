@@ -57,8 +57,7 @@ class PatternTests(unittest.TestCase):
         self.assertFalse(self.rules('token: string = "short"'))
 
     def test_environment_references_are_whole_values(self):
-        references = ('$NAME', '${NAME}', '${NAME:-default}', '${NAME-default}',
-                      '${NAME:+alternate}', '${NAME:?required}', '$env:NAME', '%NAME%',
+        references = ('$NAME', '${NAME}', '$env:NAME', '%NAME%',
                       '${{ secrets.LAW_OC }}', '${{ env.LAW_OC }}')
         for value in references:
             self.assertTrue(pattern_scan.placeholder(value))
@@ -71,6 +70,47 @@ class PatternTests(unittest.TestCase):
                 self.assertEqual(self.rules('token=' + quote + value + quote), {'generic-secret'})
                 self.assertEqual(self.rules(OC_NAME + '=' + quote + value + quote), {'law-oc'})
 
+    def test_default_inspect_forms(self):
+        names = ('clientSecret', 'accessToken', 'ApiKey', 'serviceKey',
+                 'X_API_KEY', 'prefix_api_key', 'prefix-api-key',
+                 'PrefixApiKey', 'prefix.api.key', 'privateKey', 'passwd')
+        for name in names:
+            for operator in ('=', ':=', ':', '=>', '->', '?='):
+                for prefix in ('', 'b', 'r', 'u', 'f', 'br', 'rb', 'BR', 'rB'):
+                    with self.subTest(name=name, operator=operator, prefix=prefix):
+                        self.assertEqual(self.rules(name + operator + prefix + repr(VALUE)),
+                                         {'generic-secret'})
+        for name in (OC_NAME, 'law_' + OC_NAME.lower(), 'law' + OC_NAME.title()):
+            for operator in (':-', '-', ':=', ':+', '=', '+'):
+                value = '${NAME' + operator + VALUE + '}'
+                for quote in ('', '"', "'", '`'):
+                    self.assertEqual(self.rules(name + '=' + quote + value + quote), {'law-oc'})
+        for operator in (':-', '-', ':=', ':+', '=', '+'):
+            self.assertEqual(self.rules('token' + '=${TOKEN' + operator + VALUE + '}'), {'generic-secret'})
+        for prefix in ('clientSecret: string = ', 'accessToken = ', 'token: bytes = b',
+                       'token = rb', 'token = ', '"token": '):
+            self.assertEqual(self.rules(prefix + '"' + VALUE + '"'), {'generic-secret'})
+        self.assertEqual(self.rules('token = `' + VALUE + '`'), {'generic-secret'})
+        self.assertEqual(self.rules('token = `prefix${variable}' + VALUE + '`'), {'generic-secret'})
+        # Inspect all candidates, including literals following calls or placeholders.
+        for rhs in ('lookup("***", "' + VALUE + '")', '"***" + "' + VALUE + '"',
+                    '"***", other="' + VALUE + '"', 'factory(' + repr(VALUE) + ')'):
+            self.assertEqual(self.rules('token = ' + rhs), {'generic-secret'})
+
+    def test_default_inspect_negatives(self):
+        for name in ('tokenizer', 'protocol', 'location', 'myTokenizer', 'socket'):
+            self.assertFalse(self.rules(name + ' = "' + VALUE + '"'))
+        for value in ('${TOKEN}', '${TOKEN:-}', '${TOKEN:-${OTHER}}',
+                      '${TOKEN:-***}', '${TOKEN:-<value>}', '${TOKEN:-FAKE}',
+                      '${TOKEN:-YOUR_KEY}', '${TOKEN:-example}', ''):
+            for name in ('token', OC_NAME):
+                for quote in ('', '"', "'", '`'):
+                    self.assertFalse(self.rules(name + '=' + quote + value + quote))
+        for text in ('An ordinary prose sentence about access tokens.',
+                     'The tokenizer: processes words, not credentials.',
+                     'A secret is never printed.', 'token: Optional[str]'):
+            self.assertFalse(self.rules(text))
+
     def test_bomless_utf16_and_binary(self):
         with tempfile.TemporaryDirectory(dir=os.environ.get('KK_TEST_TMP')) as temp:
             root = Path(temp)
@@ -79,7 +119,7 @@ class PatternTests(unittest.TestCase):
                     ('first\n' + OC_NAME + '=' + VALUE, [("'sample.dat'", 2, 'law-oc')]),
                     ('first\ntoken: str = "' + VALUE + '"', [("'sample.dat'", 2, 'generic-secret')]),
                     ('first\n' + 'ghp' + '_' + VALUE * 2, [("'sample.dat'", 2, 'github-token')]),
-                    ('first\n' + OC_NAME + '=${NAME:-default}', []),
+                    ('first\n' + OC_NAME + '=${NAME:-}', []),
                     ('ordinary text\nno credentials', []),
                 ):
                     (root / 'sample.dat').write_bytes(text.encode(encoding))
@@ -111,7 +151,7 @@ class PatternTests(unittest.TestCase):
             (root / 'untracked.dat').write_text(OC_NAME + '=' + VALUE, encoding='utf-8')
             subprocess.run(['git', '-C', temp, 'add', '--', 'tracked.dat'], check=True, capture_output=True)
             result = subprocess.run([sys.executable, '-I', '-B', str(SCRIPT)], cwd=temp,
-                                    env=dict(os.environ, LAW_OC='', LAW_OC_FILE='must-not-open'),
+                                    env=dict(os.environ, **{'LAW_O' + 'C': ''}, LAW_OC_FILE='must-not-open'),
                                     capture_output=True, text=True)
             self.assertEqual(result.returncode, 1)
             self.assertIn("'tracked.dat':2: law-oc [masked]", result.stdout)

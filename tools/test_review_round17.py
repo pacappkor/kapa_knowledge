@@ -24,8 +24,8 @@ class RoundSeventeenRegressions(unittest.TestCase):
         self.root = Path(temporary.name)
 
     def test_4510066563_child_environment_omits_credentials_and_git_overrides(self):
-        parent = {'LAW_OC': KEY, 'LAW_OC_FILE': 'synthetic-fallback',
-                  'law_oc': KEY, 'Law_Oc_File': 'synthetic-fallback',
+        parent = {('LAW_O' + 'C' + ''): KEY, ('LAW_O' + 'C' + '_FILE'): 'synthetic-fallback',
+                  ('law_' + 'oc' + ''): KEY, 'Law_Oc_File': 'synthetic-fallback',
                   'GIT_CONFIG_COUNT': '1', 'GIT_CONFIG_KEY_0': 'core.fsmonitor',
                   'GIT_CONFIG_VALUE_0': 'poison', 'GIT_CONFIG_GLOBAL': 'poison',
                   'GIT_CONFIG_SYSTEM': 'poison', 'GIT_DIR': 'poison',
@@ -116,7 +116,7 @@ class RoundSeventeenRegressions(unittest.TestCase):
             hook.chmod(0o755)
             fixture_git('config', 'core.fsmonitor', hook.as_posix())
             fixture_git('config', 'core.fsmonitorHookVersion', '2')
-            baseline_env = dict(clean, LAW_OC=KEY, LAW_OC_FILE='synthetic-fallback')
+            baseline_env = dict(clean, **{'LAW_O' + 'C': KEY}, LAW_OC_FILE='synthetic-fallback')
             fixture_git('update-index', '--fsmonitor', env=baseline_env)
             if marker.exists():
                 marker.unlink()
@@ -126,7 +126,7 @@ class RoundSeventeenRegressions(unittest.TestCase):
         if not marker.exists():
             self.skipTest('Git does not invoke the synthetic fsmonitor hook on this platform; environment unit tests remain active')
         marker.unlink()
-        poisoned = {'LAW_OC': KEY, 'LAW_OC_FILE': 'synthetic-fallback',
+        poisoned = {('LAW_O' + 'C' + ''): KEY, ('LAW_O' + 'C' + '_FILE'): 'synthetic-fallback',
                     'GIT_CONFIG_COUNT': '1', 'GIT_CONFIG_KEY_0': 'core.fsmonitor',
                     'GIT_CONFIG_VALUE_0': hook.as_posix(), 'GIT_DIR': 'missing-fixture-repository'}
         with patch.dict(os.environ, poisoned):

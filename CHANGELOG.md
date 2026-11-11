@@ -6,6 +6,8 @@ Keep a Changelog와 유의적 버전을 따른다. [버전 규칙](docs/RELEASIN
 
 ### Secret-free CI hardening
 
+- Default-inspect all single-line assignment candidates, with segmented credential names, prefixed/template literals and shell fallback operands. Add runtime-built regressions and document heuristic limits and the authoritative trusted LAW_OC control. Keep the exact-hash allowlist unchanged.
+
 - Address scanner review gaps: inspect typed assignment literals, exempt only whole environment references instead of arbitrary dollar-prefixed values, and recognize plausible BOM-less UTF-16LE/BE text. Add runtime-built positive/negative fixtures, including binary safety; keep masked diagnostics and the existing exact-line allowlist unchanged.
 - Add a blocking tracked-file credential-shape scan for all PRs, including forks and Dependabot, with masked diagnostics and synthetic regression tests. Four exact-line exceptions cover existing runtime expressions and masking fixtures; no research data changes.
 - Add CODEOWNERS and pin checkout v4.4.0 / setup-python v5.6.0 to release commit SHAs; retain the pinned central traffic workflow.

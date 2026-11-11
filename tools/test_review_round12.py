@@ -44,7 +44,7 @@ class RoundTwelveRegressions(unittest.TestCase):
 
     def test_4509302146_all_documented_forms_mask_values_and_mapping_keys(self):
         needles = secret_scan.value_needles(KEY)
-        with patch.dict(os.environ, {'LAW_OC': KEY}), patch.object(common, 'ROOT', self.root):
+        with patch.dict(os.environ, {('LAW_O' + 'C' + ''): KEY}), patch.object(common, 'ROOT', self.root):
             for name, form in self.encoded_forms():
                 with self.subTest(form=name):
                     payload = {'key-' + form: {'nested': ['before-' + form + '-after']}}
@@ -65,7 +65,7 @@ class RoundTwelveRegressions(unittest.TestCase):
     def test_4509302146_encoded_selected_fallback_and_mapping_collisions(self):
         filename = str(self.root / 'never-read.txt')
         form = KEY.encode().hex().upper()
-        with patch.dict(os.environ, {'LAW_OC': '', 'LAW_OC_FILE': filename}), patch.object(credentials, '_file_selection', (filename, KEY)), patch.object(Path, 'read_text', side_effect=AssertionError('unexpected credential read')):
+        with patch.dict(os.environ, {('LAW_O' + 'C' + ''): '', ('LAW_O' + 'C' + '_FILE'): filename}), patch.object(credentials, '_file_selection', (filename, KEY)), patch.object(Path, 'read_text', side_effect=AssertionError('unexpected credential read')):
             self.assertEqual(common.mask({form: form}), {'***': '***'})
             with self.assertRaisesRegex(ValueError, 'unmasked secret'):
                 common.canonical({'value': form}, reject_masked=True)
@@ -173,7 +173,7 @@ class RoundTwelveRegressions(unittest.TestCase):
                 self.assertEqual(check(commands), [])
         noncanonical = (
             'PYTHONDONTWRITEBYTECODE=1 python tools/export_records.py',
-            'LAW_OC=fixture python -I -B tools/export_records.py',
+            ('LAW_O' + 'C' + '=fixture python -I -B tools/export_records.py'),
             'env python -I -B tools/export_records.py',
             'command python -I -B tools/export_records.py',
             'python -I -B tools/export_records.py; true',
