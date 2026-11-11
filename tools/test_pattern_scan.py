@@ -33,6 +33,81 @@ class PatternTests(unittest.TestCase):
         text = '{' + ','.join(['"token":"example"'] * 3000) + ',"token":' + repr(VALUE) + '}'
         self.assertEqual(self.rules(text), {'generic-secret'})
 
+    def test_large_elisions_linear_work(self):
+        code = ('import sys,time;sys.path.insert(0,sys.argv[1]);import pattern_scan;'
+                'text=("In the "+chr(39)+"90s ")*19000;'
+                'start=time.perf_counter();assert not list(pattern_scan.findings(text));'
+                'print(time.perf_counter()-start)')
+        result = subprocess.run([sys.executable, '-I', '-B', '-c', code, str(SCRIPT.parent)],
+                                capture_output=True, text=True, timeout=10, check=True)
+        self.assertLess(float(result.stdout), 2.0)
+        text = ("In the '90s " * 19000) + 'token=' + repr(VALUE)
+        self.assertEqual(self.rules(text), {'generic-secret'})
+
+    def test_shell_single_operator_boundaries(self):
+        for operator in ('&', '|'):
+            for path in (None, 'sample.sh', '.env'):
+                prefix = OC_NAME + '=${LAW_OC} ' + operator
+                self.assertFalse(list(pattern_scan.findings(prefix + ' echo done', path)))
+                self.assertEqual(list(pattern_scan.findings(prefix + ' token=' + repr(VALUE), path)),
+                                 [(1, 'generic-secret')])
+                self.assertEqual(list(pattern_scan.findings(
+                    OC_NAME + '=' + repr(VALUE + operator + 'tail'), path)), [(1, 'law-oc')])
+        self.assertEqual(self.rules('https://x/?' + OC_NAME + '=' + VALUE + '&x=y'), {'law-oc'})
+        self.assertFalse(self.rules('https://x/?' + OC_NAME + '=${LAW_OC}&x=y'))
+
+    def test_flow_sequence_colon_bounds(self):
+        for path in (None, 'sample.yaml', 'sample.yml'):
+            for name, rule in ((OC_NAME, 'law-oc'), ('token', 'generic-secret')):
+                for safe in ('${LAW_OC}', '<hi>', 'example', ''):
+                    text = 'entries: [' + name + ': "' + safe + '", description: "' + VALUE + '"]'
+                    self.assertFalse(list(pattern_scan.findings(text, path)))
+                for suffix in (']', ', description: "hello"]'):
+                    self.assertEqual(list(pattern_scan.findings(
+                        'entries: [' + name + ': ' + repr(VALUE) + suffix, path)), [(1, rule)])
+
+    def test_source_ternary_colons(self):
+        for path in ('sample.js', 'sample.ts', 'sample.tsx', 'sample.jsx'):
+            for name in ('accessToken', OC_NAME):
+                for value in ('<hi>', VALUE):
+                    for prefix in ('ok ? ', 'ok ? nested ? x : ', 'ok ? (x) : nested ? '):
+                        self.assertFalse(list(pattern_scan.findings(
+                            prefix + name + ' : ' + repr(value), path)))
+                for prefix in ('const x = {', 'ok ? {'):
+                    self.assertTrue(list(pattern_scan.findings(
+                        prefix + name + ': ' + repr(VALUE) + '}', path)))
+                self.assertTrue(list(pattern_scan.findings(name + ': string = ' + repr(VALUE), path)))
+                self.assertFalse(list(pattern_scan.findings(name + ': string = "<hi>"', path)))
+            for operator in ('??', '?.member', '?: string;'):
+                self.assertTrue(list(pattern_scan.findings(
+                    'ordinary ' + operator + ' const x = {' + OC_NAME + ': ' + repr(VALUE) + '}', path)))
+        self.assertEqual(self.rules(OC_NAME + ': "literal"'), {'law-oc'})
+
+    def test_shell_positional_and_special_references(self):
+        refs = ['$' + str(n) for n in range(10)] + ['${10}']
+        refs += ['$' + char for char in '@*#?$!-']
+        for ref in refs:
+            self.assertTrue(pattern_scan.placeholder(ref))
+            for quote in ('', '"', "'"):
+                for name in (OC_NAME, 'token'):
+                    text = name + '=' + quote + ref + quote
+                    self.assertFalse(list(pattern_scan.findings(text, 'sample.sh')))
+                    self.assertTrue(list(pattern_scan.findings(
+                        name + '=' + quote + ref + VALUE + quote, 'sample.sh')))
+
+    def test_null_sentinels_and_quoted_null_strings(self):
+        for path in (None, 'sample.json', 'sample.yaml'):
+            for name in (OC_NAME, 'token'):
+                for value in ('null', 'Null', 'NULL', '~', ''):
+                    for text in (name + ': ' + value,
+                                 '{"' + name + '": ' + value + '}',
+                                 'entries: [' + name + ': ' + value + ', description: "hello"]'):
+                        self.assertFalse(list(pattern_scan.findings(text, path)))
+                self.assertTrue(list(pattern_scan.findings(name + ': ' + repr(VALUE), path)))
+            # A quoted null is a real string, not a null sentinel.
+            self.assertEqual(list(pattern_scan.findings(OC_NAME + ': "null"', path)), [(1, 'law-oc')])
+            self.assertFalse(list(pattern_scan.findings('token: "null"', path)))
+
     def test_structural_depth_ignores_literals_and_comments(self):
         for text in ('ordinary = ' + repr('(' * 1000),
                      '# ' + '(' * 1000, '// ' + '[' * 1000,
@@ -115,8 +190,7 @@ class PatternTests(unittest.TestCase):
             for separator in (' ', '&', '|', ';', '(', ')'):
                 self.assertFalse(list(pattern_scan.findings(
                     'token="' + VALUE[:10] + '"' + separator + "'" + VALUE[10:] + "'", path)))
-            self.assertEqual(list(pattern_scan.findings(OC_NAME + '="${LAW_OC}"&suffix', path)),
-                             [(1, 'law-oc')])
+            self.assertFalse(list(pattern_scan.findings(OC_NAME + '="${LAW_OC}"&suffix', path)))
             self.assertEqual(list(pattern_scan.findings(
                 ''.join(('token=', '"${VAR}"', VALUE)), path)), [(1, 'generic-secret')])
         for path in ('sample.py', 'sample.js', 'sample.ts'):

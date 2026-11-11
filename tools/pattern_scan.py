@@ -54,6 +54,7 @@ PLACEHOLDER_MARKERS = frozenset(('example', 'fake', 'your', 'placeholder',
                                 'test', 'dummy', 'sample'))
 ENV_REFERENCE = re.compile(
     r"""(?ix)(?:\$env:[A-Z_][A-Z0-9_]*|\$[A-Z_][A-Z0-9_]*|
+    \$[0-9@*#?$!\-]|\$\{[0-9]+\}|
     % [A-Z_][A-Z0-9_]* %|\$\{[A-Z_][A-Z0-9_]*\}|
     \$\{\{\s*(?:secrets|env)\.[A-Z_][A-Z0-9_]*\s*\}\}|
     (?:os\.)?getenv\(\s*["'][A-Z_][A-Z0-9_]*["']\s*\)|
@@ -183,29 +184,52 @@ def quoted_end(text, start):
     return len(text)
 
 
-def quote_start(text, index):
+class QuoteIndex:
+    """Cache prose-elision lookahead once, without copying per-quote suffixes."""
+
+    def __init__(self, text):
+        self.boundaries = [m.start() for m in re.finditer(
+            r'[;\n]|(?<![\w.-])[A-Za-z_][\w.-]*\s*[:=]', text)] + [len(text)]
+        self.single_end = [len(text)] * (len(text) + 2)
+        self.previous = [''] * len(text)
+        previous = ''
+        for index, char in enumerate(text):
+            self.previous[index] = previous
+            if not char.isspace():
+                previous = char
+        for index in range(len(text) - 1, -1, -1):
+            char = text[index]
+            if char == '\\':
+                self.single_end[index] = self.single_end[index + 2]
+            elif char == "'":
+                self.single_end[index] = (self.single_end[index + 2]
+                                          if text.startswith("''", index) else index)
+            else:
+                self.single_end[index] = self.single_end[index + 1]
+
+
+def quote_start(text, index, quotes=None):
     # Word-internal and trailing possessive apostrophes are prose. Only a
     # recognized literal prefix at a token boundary can open a quote after a word.
     if text[index] == "'" and index > 0 and re.match(r'\w', text[index - 1]):
         return bool(literal_prefix(text, index))
     if (text[index] == "'" and re.match(r'\w', text[index + 1:index + 2])
-            and (not index or text[index - 1].isspace())
-            and (not text[:index].rstrip() or text[:index].rstrip()[-1] not in '=(:,[{+')):
-        # Leading elisions are prose unless closed before a statement or the
-        # next assignment (whose quotes must not close the prose apostrophe).
-        boundary = re.search(r'[;\n]|(?<![\w.-])[A-Za-z_][\w.-]*\s*[:=]', text[index + 1:])
-        stop = index + 1 + boundary.start() if boundary else len(text)
-        if quoted_end(text[:stop], index) >= stop:
-            return False
+            and (not index or text[index - 1].isspace())):
+        quotes = quotes if quotes is not None else QuoteIndex(text)
+        if quotes.previous[index] not in '=(:,[{+' or not quotes.previous[index]:
+            stop = quotes.boundaries[bisect_right(quotes.boundaries, index)]
+            if quotes.single_end[index + 1] >= stop:
+                return False
     return text[index] in '\"\'`'
 
 
 def quote_spans(text):
+    quotes = QuoteIndex(text)
     index = 0
     while index < len(text):
         if text[index] == '\\':
             index += 2
-        elif quote_start(text, index):
+        elif quote_start(text, index, quotes):
             end = quoted_end(text, index)
             yield index, end
             index = end + 1
@@ -291,12 +315,13 @@ def literal_candidates(value):
     yield value
 
 
-def lexemes(text, comment_at_start=True, separators=False, bare_equals=False):
+def lexemes(text, comment_at_start=True, separators=False, bare_equals=False, quotes=None):
     """Yield source bounds and values for single-line literals, refs and words.
 
     Python literal prefixes are syntax, not values. Source bounds let provider
     rules reuse the generic lexer's whole-reference test. Not a language parser.
     """
+    quotes = quotes if quotes is not None else QuoteIndex(text)
     index = 0
     while index < len(text):
         if separators and text[index] in ';|&\n':
@@ -337,7 +362,7 @@ def lexemes(text, comment_at_start=True, separators=False, bare_equals=False):
             elif (text[index].isspace() or text[index] in ';&'
                   or (text[index] in ',:=()[]}' and not bare_equals)
                   or (separators and text[index] == '|')
-                  or quote_start(text, index)):
+                  or quote_start(text, index, quotes)):
                 break
             else:
                 index += 1
@@ -489,7 +514,14 @@ class LineState:
         self.bounds = {0: []}
         self.statements = []
         self.parameters = set()
+        self.ternary_colons = set()
+        ternaries = Counter()
+        self.quotes = quotes = QuoteIndex(line)
         openings = {}
+        signatures = {m.end() - 1 for m in re.finditer(
+            r'\b(?:def|function)\s+[A-Za-z_$][\w$]*\s*\(', line)}
+        methods = {m.end() - 1 for m in re.finditer(
+            r'(?:^|[;{}])\s*(?:(?:async|static|get|set)\s+)*[A-Za-z_$][\w$]*\s*\(', line)}
         stack = [0]
         brace_depth = 0
         question = False
@@ -498,7 +530,7 @@ class LineState:
             self.context[index] = stack[-1]
             self.braces[index] = brace_depth
             self.question[index] = question
-            if quote_start(line, index):
+            if quote_start(line, index, quotes):
                 end = min(quoted_end(line, index), len(line))
                 query = False
                 expansion_end = index
@@ -534,6 +566,15 @@ class LineState:
                 continue
             if char == '?':
                 question = True
+                if (not line.startswith(('??', '?.', '?='), index)
+                        and not re.compile(r'\s*:').match(line, index + 1)
+                        and (not index or line[index - 1] != '?')):
+                    ternaries[stack[-1]] += 1
+            elif char == ':' and ternaries[stack[-1]] and not line.startswith(':=', index):
+                self.ternary_colons.add(index)
+                ternaries[stack[-1]] -= 1
+            elif char == ';':
+                ternaries[stack[-1]] = 0
             if char in '([{':
                 if len(stack) > MAX_NESTING:
                     raise ScanError('pattern scan nesting work limit exceeded [masked]')
@@ -541,26 +582,24 @@ class LineState:
                 self.bounds[context] = []
                 if char == '(':
                     openings[context] = index
-                    if re.search(r'\b(?:def|function)\s+[A-Za-z_$][\w$]*\s*$', line[:index]):
+                    if index in signatures:
                         self.parameters.add(context)
                 stack.append(context)
-                brace_depth += char == '{'
+                brace_depth += char in '{['
             elif char in ')]}':
                 context = stack[-1]
                 if char == ')' and context in openings:
-                    tail = line[index + 1:]
-                    prefix = line[:openings[context]]
-                    if (re.match(r'\s*(?::\s*[\w<>\[\]|? .]+)?\s*=>', tail)
-                            or (re.search(r'(?:^|[;{}])\s*(?:(?:async|static|get|set)\s+)*[A-Za-z_$][\w$]*\s*$', prefix)
-                                and re.match(r'\s*(?::\s*[\w<>\[\]|? .]+)?\s*\{', tail))):
+                    if (re.compile(r'\s*(?::\s*[\w<>\[\]|? .]+)?\s*=>').match(line, index + 1)
+                            or (openings[context] in methods
+                                and re.compile(r'\s*(?::\s*[\w<>\[\]|? .]+)?\s*\{').match(line, index + 1))):
                         self.parameters.add(context)
                 self.bounds[stack[-1]].append(index)
                 if len(stack) > 1:
                     stack.pop()
-                brace_depth -= char == '}'
+                brace_depth -= char in '}]'
             elif char in ',;':
                 self.bounds[stack[-1]].append(index)
-            if char in ';|' or line.startswith('&&', index):
+            if char in ';|' or (char == '&' and (not question or line.startswith('&&', index))):
                 self.statements.append(index)
             index += 1
         self.context[len(line)] = stack[-1]
@@ -596,7 +635,7 @@ def findings(text, path=None, budget=None):
         value_end = len(line.rstrip(' \t='))
         state = LineState(line)
         assignments = list(ASSIGNMENT.finditer(line))
-        tokens = list(lexemes(line, comment_at_start=False))
+        tokens = list(lexemes(line, comment_at_start=False, quotes=state.quotes))
         token_starts = [start for start, _, _ in tokens]
         assignment_ranges = []
         for item in assignments:
@@ -638,6 +677,10 @@ def findings(text, path=None, budget=None):
                     (path is None or Path(path).suffix.lower() in
                      {'.js', '.jsx', '.ts', '.tsx', '.mjs', '.cjs'})):
                 continue
+            if (match['operator'] == ':' and match.end() - 1 in state.ternary_colons
+                    and path is not None and Path(path).suffix.lower() in
+                    {'.js', '.jsx', '.ts', '.tsx', '.mjs', '.cjs'}):
+                continue
             start = match.end()
             typed = (TYPE_ANNOTATION.match(line, start, min(len(line), start + 4096))
                      if match['operator'] == ':' else None)
@@ -665,6 +708,10 @@ def findings(text, path=None, budget=None):
             if work > MAX_LINE_WORK:
                 raise ScanError('pattern scan line work limit exceeded [masked]')
             rest = line[start:stop]
+            # Only bare config nulls are sentinels. Quoted "null" is a string
+            # (and remains reportable for OC); source literals are unchanged.
+            if rest.strip() in ('', '~', 'null', 'Null', 'NULL'):
+                continue
             if (match['operator'] == ':' and not typed
                     and path is not None and Path(path).suffix.lower() in
                     {'.py', '.js', '.jsx', '.ts', '.tsx', '.mjs', '.cjs'}
