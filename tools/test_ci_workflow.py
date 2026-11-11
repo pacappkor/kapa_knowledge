@@ -97,15 +97,33 @@ class WorkflowTests(unittest.TestCase):
 
     def test_offline_checks_always_validate_and_test(self):
         text = WORKFLOW.read_text(encoding='utf-8').split('\n  credential-scan:\n', 1)[0]
-        for command in ('tools/pattern_scan.py', 'tools/secret_scan.py --worktree', 'tools/validate.py --check-links',
+        for command in ('"$PATTERN_SCANNER" --root .', 'tools/secret_scan.py --worktree', 'tools/validate.py --check-links',
                         'tools/validate.py', '.github/ci/ci_docs.py',
                         '.github/ci/ci_tests_supervise.py', '.github/ci/ci_integrity.py'):
             self.assertIn('run: python -I -B ' + command + '\n', text)
         self.assertNotIn('        if:', text)
         self.assertNotIn('continue-on-error:', text)
-        self.assertLess(text.index('run: python -I -B tools/pattern_scan.py'),
+        self.assertLess(text.index('run: python -I -B "$PATTERN_SCANNER" --root .'),
                         text.index('run: python -I -B .github/ci/ci_tests_supervise.py'))
         self.assertIn('run: bash .github/ci/ci_whitespace.sh "$BASE_SHA"', text)
+
+    def test_pattern_scanner_uses_base_tooling_with_narrow_bootstrap(self):
+        text = WORKFLOW.read_text(encoding='utf-8').split('\n  credential-scan:\n', 1)[0]
+        preparation, blocking = text.split('      - name: Block credential-shaped content without secrets', 1)
+        self.assertIn('CI_PR_BASE: ${{ github.event.pull_request.base.sha }}', preparation)
+        self.assertIn("if os.environ['CI_EVENT'] == 'pull_request':", preparation)
+        self.assertIn("git('cat-file', '-e', revision + '^{commit}')", preparation)
+        self.assertIn("git('rev-parse', '--is-shallow-repository')", preparation)
+        self.assertIn("'fetch', '--no-tags', '--depth=1', 'origin', revision", preparation)
+        self.assertIn("entry = git('ls-tree', revision, '--', 'tools/pattern_scan.py')\n"
+                      '              if not entry:', preparation)
+        self.assertIn('::notice::Base revision has no tools/pattern_scan.py', preparation)
+        self.assertIn("('pattern_scan.py', 'secret_scan.py', 'credentials.py', 'git_read.py')", preparation)
+        self.assertIn("blobs[name] = git('show', fields[2])", preparation)
+        self.assertIn("Path(os.environ['RUNNER_TEMP'])", preparation)
+        self.assertNotIn('from tools', preparation)
+        self.assertIn('working-directory: ${{ github.workspace }}', blocking)
+        self.assertIn('PATTERN_SCANNER: ${{ steps.pattern-scanner.outputs.scanner }}', blocking)
 
     def test_actions_are_commit_pinned(self):
         for workflow in WORKFLOW.parent.glob('*.yml'):

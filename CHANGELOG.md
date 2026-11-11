@@ -6,6 +6,8 @@ Keep a Changelog와 유의적 버전을 따른다. [버전 규칙](docs/RELEASIN
 
 ### Secret-free CI hardening
 
+- Run the blocking PR pattern scan from immutable base tooling and its embedded allowlist outside the worktree, with a notice-only bootstrap when the scanner is absent at base and fail-closed extraction otherwise. Keep PR scanner unit tests, add explicit worktree root support and trusted-extraction regressions, and document that scanner/allowlist changes apply after merge.
+
 - Address seven scanner review gaps with shared escape/doubled-quote handling, quoted shell operands, shell word-boundary comments, literal subscript targets, compound assignments, conventional secret-key names and enclosing provider placeholders. Add runtime-built positive/negative regressions; two exact path/rule/line-hash exceptions cover existing runtime-variable subscript fixtures, not literal credentials.
 
 - Scan strict UTF-16LE and UTF-16BE decodings independently whenever NUL-containing bytes have even length, in addition to the existing decoding. Union findings by line and rule so Korean-heavy BOM-less text cannot hide credentials; add runtime-built CLI detection, masking and clean-text regressions for both byte orders.

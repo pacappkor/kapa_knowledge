@@ -27,8 +27,78 @@ jobs:
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
         with:
           python-version: '3.12'
+      # Inline stdlib only: prepare the blocking tool before executing PR code.
+      - name: Prepare trusted pattern scanner
+        id: pattern-scanner
+        env:
+          CI_EVENT: ${{ github.event_name }}
+          CI_PR_BASE: ${{ github.event.pull_request.base.sha }}
+        run: |
+          python -I -B - <<'PY'
+          import os
+          from pathlib import Path
+          import re
+          import subprocess
+          import tempfile
+
+          env = {k: v for k, v in os.environ.items()
+                 if not k.upper().startswith('GIT_') and k.upper() not in {'LAW_OC', 'LAW_OC_FILE'}}
+          env.update(GIT_ALLOW_PROTOCOL='', GIT_NO_LAZY_FETCH='1', GIT_TERMINAL_PROMPT='0')
+          def git(*args):
+              return subprocess.run(
+                  ['git', '-c', 'core.fsmonitor=false', '-c', 'core.untrackedCache=false',
+                   '-c', 'protocol.allow=never', '--no-replace-objects', *args],
+                  check=True, capture_output=True, env=env).stdout
+
+          scanner = Path.cwd() / 'tools/pattern_scan.py'
+          if os.environ['CI_EVENT'] == 'pull_request':
+              revision = os.environ['CI_PR_BASE']
+              if not re.fullmatch('[0-9a-f]{40}', revision):
+                  raise SystemExit('Trusted pattern scanner requires an immutable base commit')
+              try:
+                  git('cat-file', '-e', revision + '^{commit}')
+              except subprocess.CalledProcessError:
+                  if git('rev-parse', '--is-shallow-repository').strip() != b'true':
+                      raise
+                  # Checkout normally fetches full history. Fetch just the base
+                  # commit if a shallow checkout does not already contain it.
+                  fetch_env = dict(env, GIT_ALLOW_PROTOCOL='https')
+                  subprocess.run(
+                      ['git', '-c', 'core.fsmonitor=false', '-c', 'core.untrackedCache=false',
+                       '--no-replace-objects', 'fetch', '--no-tags', '--depth=1', 'origin', revision],
+                      check=True, capture_output=True, env=fetch_env)
+                  git('cat-file', '-e', revision + '^{commit}')
+              entry = git('ls-tree', revision, '--', 'tools/pattern_scan.py')
+              if not entry:
+                  # Bootstrap only: this PR first introduces the pattern scanner.
+                  print('::notice::Base revision has no tools/pattern_scan.py; '
+                        'bootstrap uses the PR copy until the scanner is merged to main.')
+              else:
+                  blobs = {}
+                  for name in ('pattern_scan.py', 'secret_scan.py', 'credentials.py', 'git_read.py'):
+                      path = 'tools/' + name
+                      entry = git('ls-tree', revision, '--', path).decode().strip()
+                      metadata, separator, actual_path = entry.partition('\t')
+                      fields = metadata.split()
+                      if (not separator or actual_path != path or len(fields) != 3
+                              or fields[0] not in {'100644', '100755'} or fields[1] != 'blob'):
+                          raise SystemExit('Trusted pattern scanner input must be a regular blob')
+                      blobs[name] = git('show', fields[2])
+                  temporary = Path(os.environ['RUNNER_TEMP']).resolve()
+                  if temporary.is_relative_to(Path.cwd().resolve()):
+                      raise SystemExit('Trusted pattern scanner must be outside the PR worktree')
+                  directory = Path(tempfile.mkdtemp(prefix='trusted-pattern-scan-', dir=temporary))
+                  for name, data in blobs.items():
+                      (directory / name).write_bytes(data)
+                  scanner = directory / 'pattern_scan.py'
+          with open(os.environ['GITHUB_OUTPUT'], 'a', encoding='utf-8') as output:
+              output.write('scanner=' + str(scanner) + '\n')
+          PY
       - name: Block credential-shaped content without secrets
-        run: python -I -B tools/pattern_scan.py
+        env:
+          PATTERN_SCANNER: ${{ steps.pattern-scanner.outputs.scanner }}
+        working-directory: ${{ github.workspace }}
+        run: python -I -B "$PATTERN_SCANNER" --root .
       - name: Run environment-only credential scan without requiring a secret
         run: python -I -B tools/secret_scan.py --worktree
       - name: Reject tracked symlinks and gitlinks

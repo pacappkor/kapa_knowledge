@@ -10,7 +10,8 @@ import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
 WORKFLOW = (ROOT / '.github/workflows/ci.yml').read_text(encoding='utf-8')
-PREPARATION = textwrap.dedent(WORKFLOW.split("          python -I -B - <<'PY'\n", 1)[1]
+PREPARATION = textwrap.dedent(WORKFLOW.split('\n  credential-scan:\n', 1)[1]
+                              .split("          python -I -B - <<'PY'\n", 1)[1]
                               .split('          PY\n', 1)[0])
 KEY = 'fixture-only-credential-7192'
 

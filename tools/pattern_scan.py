@@ -1,5 +1,6 @@
 # SPDX-License-Identifier: GPL-3.0-only
 """Blocking, secret-free credential shapes in tracked working files (not history)."""
+import argparse
 import hashlib
 import math
 from pathlib import Path
@@ -331,8 +332,12 @@ def scan(root):
 
 
 def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--root', type=Path, default=Path.cwd(),
+                        help='Git worktree to scan (default: current working directory)')
+    args = parser.parse_args()
     try:
-        matches = scan(Path.cwd())
+        matches = scan(args.root)
     except ScanError as exc:
         print(f'ERROR: {exc}')
         return 2
