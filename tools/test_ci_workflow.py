@@ -47,7 +47,7 @@ class WorkflowTests(unittest.TestCase):
         self.assertNotIn('schedule:', text)
         self.assertNotIn('matrix:', text)
         self.assertEqual(text.count('    runs-on:'), 2)
-        self.assertEqual(text.count('persist-credentials: false'), 2)
+        self.assertEqual(text.count('persist-credentials: false'), 3)
 
     def test_only_credential_job_has_an_event_gate(self):
         text = WORKFLOW.read_text(encoding='utf-8')
@@ -102,7 +102,7 @@ class WorkflowTests(unittest.TestCase):
                         '.github/ci/ci_tests_supervise.py', '.github/ci/ci_integrity.py'):
             self.assertIn('run: python -I -B ' + command + '\n', text)
         self.assertEqual(re.findall(r'^        if: (.+)$', text, re.MULTILINE),
-                         ["steps.pattern-scanner.outputs.scanner != ''"])
+                         ["github.event_name == 'pull_request'", "steps.pattern-scanner.outputs.scanner != ''"])
         self.assertNotIn('continue-on-error:', text)
         self.assertLess(text.index('run: python -I -B "$PATTERN_SCANNER" --root .'),
                         text.index('run: python -I -B .github/ci/ci_tests_supervise.py'))
@@ -116,9 +116,10 @@ class WorkflowTests(unittest.TestCase):
         self.assertIn("if os.environ['CI_EVENT'] == 'pull_request':", preparation)
         self.assertIn("os.environ.get('CI_DEFAULT_BRANCH') != 'main'", preparation)
         self.assertIn("git('cat-file', '-e', revision + '^{commit}')", preparation)
-        self.assertIn("'fetch', '--no-tags', '--depth=1', 'origin',", preparation)
-        self.assertIn("'+refs/heads/main:refs/remotes/origin/main'", preparation)
-        self.assertIn("'refs/remotes/origin/main^{commit}'", preparation)
+        self.assertNotIn("'fetch'", preparation)
+        self.assertIn('ref: main\n          fetch-depth: 1', preparation)
+        self.assertIn("'HEAD^{commit}'", preparation)
+        self.assertIn('cwd=trusted_root', preparation)
         self.assertIn("entry = git('ls-tree', revision, '--', 'tools/pattern_scan.py')\n"
                       '              if not entry:', preparation)
         self.assertIn('::notice::Trusted main has no tools/pattern_scan.py', preparation)
@@ -142,7 +143,7 @@ class WorkflowTests(unittest.TestCase):
             for action in re.findall(r'^\s+(?:- )?uses: (\S+)', workflow.read_text(encoding='utf-8'), re.MULTILINE):
                 self.assertRegex(action, r'^[^@]+@[0-9a-f]{40}$')
         text = WORKFLOW.read_text(encoding='utf-8')
-        self.assertEqual(text.count('actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0'), 2)
+        self.assertEqual(text.count('actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0'), 3)
         self.assertEqual(text.count('actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0'), 2)
 
 

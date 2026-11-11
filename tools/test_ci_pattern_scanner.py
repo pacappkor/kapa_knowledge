@@ -12,8 +12,6 @@ ROOT = Path(__file__).resolve().parents[1]
 WORKFLOW = (ROOT / '.github/workflows/ci.yml').read_text(encoding='utf-8')
 PREPARATION = textwrap.dedent(WORKFLOW.split("          python -I -B - <<'PY'\n", 1)[1]
                               .split('          PY\n', 1)[0])
-# Fixtures use a local trusted origin; production allows HTTPS transport only.
-PREPARATION = PREPARATION.replace("GIT_ALLOW_PROTOCOL='https'", "GIT_ALLOW_PROTOCOL='file'")
 MODULES = ('pattern_scan.py', 'secret_scan.py', 'credentials.py', 'git_read.py')
 
 
@@ -51,6 +49,17 @@ class TrustedPatternScannerTests(unittest.TestCase):
         self.git('commit', '-qm', 'fixture revision')
 
     def prepare(self):
+        trusted = self.directory / 'trusted-main'
+        if trusted.exists():
+            # TemporaryDirectory handles Git's read-only pack files on Windows.
+            with tempfile.TemporaryDirectory(dir=self.directory) as discarded:
+                trusted.rename(Path(discarded) / 'previous-checkout')
+        # Emulate actions/checkout outside the production preparation script.
+        checkout = subprocess.run(
+            ['git', 'clone', '--quiet', '--depth=1', '--branch', 'main',
+             self.root.as_uri(), str(trusted)], env=self.env, capture_output=True, text=True)
+        if checkout.returncode and self.env['CI_EVENT'] == 'pull_request':
+            return checkout
         return subprocess.run([sys.executable, '-I', '-B', '-c', PREPARATION],
                               cwd=self.root, env=self.env, capture_output=True, text=True)
 
@@ -171,6 +180,20 @@ class TrustedPatternScannerTests(unittest.TestCase):
         self.assertNotEqual(result.returncode, 0)
         self.assertNotIn('::notice::', result.stdout)
         self.assertFalse(self.output.exists())
+
+    def test_trusted_checkout_and_plumbing_contract(self):
+        checkout = WORKFLOW.split('      - name: Check out trusted main for pattern scanner', 1)[1].split('      - uses: actions/setup-python', 1)[0]
+        for setting in ('ref: main', 'fetch-depth: 1', 'persist-credentials: false', 'path: trusted-main'):
+            self.assertIn(setting, checkout)
+        self.assertIn('actions/checkout@11d5960a326750d5838078e36cf38b85af677262', checkout)
+        self.assertNotIn("'fetch'", PREPARATION)
+        self.assertIn("cwd=trusted_root", PREPARATION)
+        self.assertIn('working-directory: pr', WORKFLOW)
+        security = (ROOT / 'SECURITY.md').read_text(encoding='utf-8')
+        for phrase in ('regardless of the PR base', 'tracked plus non-ignored untracked',
+                       'Only main lacking'):
+            self.assertIn(phrase, security)
+        self.assertNotIn("event's immutable base SHA", security)
 
     def test_non_pr_uses_checked_out_tool_without_base_lookup(self):
         for event in ('push', 'workflow_dispatch'):

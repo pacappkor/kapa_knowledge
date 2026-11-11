@@ -1,8 +1,8 @@
 [
   {
     "file": "AGENTS.md",
-    "sha256": "84a1a4ca6bfa4739a9d8c714756c7d44a6281c1d0bd2387ed8f85fd1593d8919",
-    "size": 6178
+    "sha256": "84341603cb30111038ce42fde1172b4ea05442839cf046dd3f5373928c9b38b8",
+    "size": 6390
   },
   {
     "file": "CLAUDE.md",
@@ -11,8 +11,8 @@
   },
   {
     "file": "README.md",
-    "sha256": "dbae6ee9eedfc18f3203316647a89ba4705cdc10d845d8d510335318f40bbbc4",
-    "size": 18642
+    "sha256": "db1caa1cd7dfc13aae8abadafa3bdb35c70c88bc1f9c4fefbe0a34069a747ada",
+    "size": 18961
   },
   {
     "file": "docs/RELEASING.md",

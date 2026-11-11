@@ -6,6 +6,8 @@ Keep a Changelog와 유의적 버전을 따른다. [버전 규칙](docs/RELEASIN
 
 ### Secret-free CI hardening
 
+- Address scanner review findings with quote-aware object RHS boundaries, comparison/JS-arrow exclusion, union/generic annotations, intact bracketed config words, and independent JS-template/Python f-string static chunks (including rf/fr). Acquire trusted main only through pinned checkout, retain main-only absence skip and fail-closed extraction, align security documentation and refresh the snapshot. Add runtime-built positive/negative regressions; no runs or catalogs changes.
+
 - Resolve every PR's trusted pattern scanner from freshly fetched, validated default main instead of an arbitrary PR base; retain validated blob extraction, main-only absence notice, and fail-closed errors. Skip balanced JS/TS template interpolation expressions while inspecting static chunks, and preserve punctuation in bare shell/config values. Add runtime-built positive/negative and non-main-base regressions; no runs or catalog changes.
 
 - Address three scanner findings: keep trailing possessive apostrophes out of quote bounds, preserve inner equals signs in bare assignment candidates, and recognize TOML dotted credential keys with quoted prefixes. Add runtime-built positive and negative regressions; no runs or catalog changes.

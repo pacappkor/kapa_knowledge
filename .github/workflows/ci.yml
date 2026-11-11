@@ -15,6 +15,9 @@ concurrency:
 
 jobs:
   offline-checks:
+    defaults:
+      run:
+        working-directory: pr
     runs-on: ubuntu-latest
     timeout-minutes: 10
     env:
@@ -24,6 +27,15 @@ jobs:
         with:
           fetch-depth: 0
           persist-credentials: false
+          path: pr
+      - name: Check out trusted main for pattern scanner
+        if: github.event_name == 'pull_request'
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          ref: main
+          fetch-depth: 1
+          persist-credentials: false
+          path: trusted-main
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
         with:
           python-version: '3.12'
@@ -48,22 +60,17 @@ jobs:
               return subprocess.run(
                   ['git', '-c', 'core.fsmonitor=false', '-c', 'core.untrackedCache=false',
                    '-c', 'protocol.allow=never', '--no-replace-objects', *args],
-                  check=True, capture_output=True, env=env).stdout
+                  check=True, capture_output=True, env=env, cwd=trusted_root).stdout
 
           scanner = Path.cwd() / 'tools/pattern_scan.py'
           if os.environ['CI_EVENT'] == 'pull_request':
               if os.environ.get('CI_DEFAULT_BRANCH') != 'main':
                   raise SystemExit('Pattern scanner default branch must be the accepted main branch')
-              # Never trust an arbitrary PR base or a stale local tracking ref.
-              # origin is the repository remote installed by actions/checkout.
-              fetch_env = dict(env, GIT_ALLOW_PROTOCOL='https')
-              subprocess.run(
-                  ['git', '-c', 'core.fsmonitor=false', '-c', 'core.untrackedCache=false',
-                   '--no-replace-objects', 'fetch', '--no-tags', '--depth=1', 'origin',
-                   '+refs/heads/main:refs/remotes/origin/main'],
-                  check=True, capture_output=True, env=fetch_env)
+              # Acquisition is exclusively the pinned checkout step, never a
+              # production child process or an arbitrary PR base/tracking ref.
+              trusted_root = Path.cwd().parent / 'trusted-main'
               revision = git('rev-parse', '--verify', '--end-of-options',
-                             'refs/remotes/origin/main^{commit}').decode().strip()
+                             'HEAD^{commit}').decode().strip()
               if not re.fullmatch('[0-9a-f]{40}', revision):
                   raise SystemExit('Trusted pattern scanner requires an immutable main commit')
               git('cat-file', '-e', revision + '^{commit}')
@@ -100,7 +107,7 @@ jobs:
         if: steps.pattern-scanner.outputs.scanner != ''
         env:
           PATTERN_SCANNER: ${{ steps.pattern-scanner.outputs.scanner }}
-        working-directory: ${{ github.workspace }}
+        working-directory: ${{ github.workspace }}/pr
         run: python -I -B "$PATTERN_SCANNER" --root .
       - name: Run environment-only credential scan without requiring a secret
         run: python -I -B tools/secret_scan.py --worktree

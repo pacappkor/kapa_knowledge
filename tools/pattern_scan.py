@@ -41,7 +41,7 @@ ASSIGNMENT = re.compile(
     (?P<name> (?: (?: "(?:\\.|[^"\\])*" | '(?:\\.|[^'\\])*' |
                        [A-Za-z_][\w-]* ) \s* \. \s* )*
     ["']? [A-Za-z_][\w.-]* ["']? )) \s*
-    (?P<operator>\?\?=|\|\|=|&&=|\+=|:=|=>|->|\?=|=|:)""", re.X
+    (?P<operator>\?\?=|\|\|=|&&=|\+=|:=|=>|->|\?=|=(?!=|>)|:(?!=))""", re.X
 )
 SEGMENTS = re.compile(r'[A-Z]+(?=[A-Z][a-z]|$)|[A-Z]?[a-z]+|[A-Z]+|[0-9]+')
 PLACEHOLDER = re.compile(r'(?:[*•●]+|<[^>]*>)')
@@ -60,7 +60,7 @@ ENV_REFERENCE = re.compile(
     process\.env\.[A-Z_][A-Z0-9_]*)"""
 )
 SHELL_OPERAND = re.compile(r'[A-Za-z_][A-Za-z0-9_]*(?P<op>:-|:=|:\+|:\?|[-=+?])')
-TYPE_ANNOTATION = re.compile(r'\s*[A-Za-z_][\w.]*\s*(?:\[[^=]*?\]\s*)?=(?!>)')
+TYPE_ANNOTATION = re.compile(r'\s*[A-Za-z_][\w.\s\[\]<>,|?]*=(?!=|>)')
 
 
 def credential_rule(name):
@@ -110,18 +110,18 @@ def braced_end(text, start):
     return len(text)
 
 
-def interpolation_end(text, start):
-    """Skip a JS/TS interpolation, including nested objects and templates."""
+def interpolation_end(text, start, opening=2, python=False):
+    """Skip a balanced interpolation, including nested objects and strings."""
     depth = 1
-    index = start + 2
+    index = start + opening
     while index < len(text):
         if text[index] == '\\':
             index += 2
         elif text[index] in '\"\'`':
             index = quoted_end(text, index) + 1
-        elif text.startswith('//', index):
+        elif not python and text.startswith('//', index):
             return len(text)  # Single-line scanner: the rest is a comment.
-        elif text.startswith('/*', index):
+        elif not python and text.startswith('/*', index):
             stop = text.find('*/', index + 2)
             index = len(text) if stop < 0 else stop + 2
         elif text[index] == '{':
@@ -140,10 +140,15 @@ def interpolation_end(text, start):
 def quoted_end(text, start):
     """Return the closing quote offset, respecting escapes and doubled quotes."""
     quote = text[start]
+    formatted = quote != '`' and bool(re.search(r'(?i)(?<!\w)[bruf]*f[bruf]*$', text[:start]))
     index = start + 1
     while index < len(text):
         if text[index] == '\\':
+            index += 1 if formatted and text[index + 1:index + 2] in ('{', '}') else 2
+        elif formatted and text[index:index + 2] in ('{{', '}}'):
             index += 2
+        elif formatted and text[index] == '{':
+            index = interpolation_end(text, index, opening=1, python=True)
         elif text.startswith('${', index):
             index = (interpolation_end(text, index) if quote == '`'
                      else braced_end(text, index))
@@ -218,7 +223,8 @@ def lexemes(text, comment_at_start=True, separators=False, bare_equals=False):
                 yield index, stop, None
             index = stop
             continue
-        if text[index].isspace() or text[index] in '=,:;()[]&':
+        if (text[index].isspace() or text[index] in '=,:;()&'
+                or (not bare_equals and text[index] in '[]')):
             index += 1
             continue
         if text[index] == '#' and ((index == 0 and comment_at_start)
@@ -244,8 +250,8 @@ def lexemes(text, comment_at_start=True, separators=False, bare_equals=False):
                 index += 2
             elif text.startswith('${', index):
                 index = braced_end(text, index)
-            elif (text[index].isspace() or text[index] in ';()[]}&'
-                  or (text[index] in ',:=' and not bare_equals)
+            elif (text[index].isspace() or text[index] in ';&'
+                  or (text[index] in ',:=()[]}' and not bare_equals)
                   or (separators and text[index] == '|')
                   or quote_start(text, index)):
                 break
@@ -273,24 +279,68 @@ def candidates(text, comment_at_start=True, source=False):
             literal = re.match(r"(?i:[bruf]*)['\"`]", text[start:])
             if not literal:
                 continue
-        if text[start] == '`':
-            chunks = []
-            begin = cursor = 0
-            while cursor < len(value):
-                if value[cursor] == '\\':
-                    cursor += 2
-                elif value.startswith('${', cursor):
-                    chunks.append(value[begin:cursor])
-                    # Expressions are runtime values, never static template text.
-                    begin = cursor = interpolation_end(value, cursor)
-                else:
-                    cursor += 1
-            chunks.append(value[begin:])
-            value = ''.join(chunks)
-        yield from literal_candidates(value)
+        literal = re.match(r"(?i:([bruf]*))(['\"`])", text[start:])
+        if literal and (literal[2] == '`' or 'f' in literal[1].lower()):
+            for chunk in static_chunks(value, formatted=literal[2] != '`'):
+                yield from literal_candidates(chunk)
+        else:
+            yield from literal_candidates(value)
+
+
+def static_chunks(value, formatted=False):
+    """Keep noncontiguous template text separate; doubled f-braces are literal."""
+    chunk = []
+    cursor = 0
+    while cursor < len(value):
+        if value[cursor] == '\\':
+            width = 1 if formatted and value[cursor + 1:cursor + 2] in ('{', '}') else 2
+            chunk.append(value[cursor:cursor + width])
+            cursor += width
+        elif formatted and value[cursor:cursor + 2] in ('{{', '}}'):
+            chunk.append(value[cursor])
+            cursor += 2
+        elif ((formatted and value[cursor] == '{')
+              or (not formatted and value.startswith('${', cursor))):
+            yield ''.join(chunk)
+            chunk = []
+            cursor = interpolation_end(value, cursor, opening=1 if formatted else 2,
+                                       python=formatted)
+        else:
+            chunk.append(value[cursor])
+            cursor += 1
+    yield ''.join(chunk)
+
+
+def object_rhs_end(text):
+    """Find an object's value boundary with the same quote-aware lexer."""
+    spans = iter(quote_spans(text))
+    quoted = next(spans, None)
+    depth = []
+    index = 0
+    while index < len(text):
+        if quoted and index == quoted[0]:
+            index = quoted[1] + 1
+            quoted = next(spans, None)
+            continue
+        char = text[index]
+        if char == '\\':
+            index += 2
+            continue
+        if char in '([{':
+            depth.append(char)
+        elif char in ')]}':
+            if not depth:
+                return index
+            depth.pop()
+        elif char == ',' and not depth:
+            return index
+        index += 1
+    return len(text)
 
 
 def high_entropy(value):
+    # Public URL scheme syntax does not contribute credential entropy/length.
+    value = re.sub(r'^https?://', '', value)
     if len(value) < 20:
         return False
     counts = Counter(value)
@@ -331,11 +381,29 @@ def findings(text, path=None):
             rule = credential_rule(name)
             if rule is None:
                 continue
+            if (match['operator'] == '=>' and
+                    (path is None or Path(path).suffix.lower() in
+                     {'.js', '.jsx', '.ts', '.tsx', '.mjs', '.cjs'})):
+                continue
             rest = line[match.end():]
+            if match['operator'] == ':':
+                annotation = TYPE_ANNOTATION.match(rest)
+                if (annotation and rest[annotation.end():].strip().strip('=')
+                        and ((path is not None and Path(path).suffix.lower() in
+                              {'.py', '.js', '.jsx', '.ts', '.tsx', '.mjs', '.cjs'})
+                             or re.search(r'\s=|=\s', annotation[0]))):
+                    rest = rest[annotation.end():]
             boundary = next((start for start, _, value in
                              lexemes(rest, comment_at_start=False, separators=True)
                              if value is None), len(rest))
             rest = rest[:boundary]
+            if match['operator'] == ':':
+                # Flow-style JSON/YAML/JS objects, not bare config words whose
+                # commas are part of the value. Ignore braces inside strings.
+                prefix = ''.join(char for index, char in enumerate(line[:match.start()])
+                                 if not any(a <= index <= b for a, b in spans))
+                if prefix.count('{') > prefix.count('}'):
+                    rest = rest[:object_rhs_end(rest)]
             # Embedded URL assignments end at the next query parameter. A name
             # inside a surrounding string cannot consume code after that string.
             if '?' in line[:match.start()] and rule == 'law-oc':
@@ -344,13 +412,6 @@ def findings(text, path=None):
                 if start <= match.start() < match.end() <= end:
                     rest = rest[:end - match.end()]
                     break
-            if match['operator'] == ':':
-                annotation = TYPE_ANNOTATION.match(rest)
-                if (annotation and rest[annotation.end():].strip().strip('=')
-                        and ((path is not None and Path(path).suffix.lower() in
-                              {'.py', '.js', '.jsx', '.ts', '.tsx', '.mjs', '.cjs'})
-                             or re.search(r'\s=|=\s', annotation[0]))):
-                    rest = rest[annotation.end():]
             embedded = any(start < match.start() < match.end() <= end
                            for start, end in spans)
             source = (not embedded and path is not None and Path(path).suffix.lower() in

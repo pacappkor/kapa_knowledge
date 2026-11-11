@@ -35,6 +35,71 @@ class PatternTests(unittest.TestCase):
                      OC_NAME + '=' + VALUE, '"' + OC_NAME.lower() + '": "' + VALUE + '"', "'" + OC_NAME + "': '" + VALUE + "'"):
             self.assertIn('law-oc', self.rules(text))
 
+    def test_object_colon_rhs_bounds(self):
+        self.assertFalse(self.rules('{"' + OC_NAME + '": "${LAW_OC}", "description": "hello"}'))
+        for path in (None, 'sample.json', 'sample.yaml', 'sample.js'):
+            for name, rule in ((OC_NAME, 'law-oc'), ('token', 'generic-secret')):
+                for safe in ('${LAW_OC}', 'example', ''):
+                    text = '{' + repr(name) + ': ' + repr(safe) + ', "description": ' + repr(VALUE) + '}'
+                    self.assertFalse(list(pattern_scan.findings(text, path)))
+                for suffix in (', "x": 1}', '}', '}, 1]'):
+                    text = '{' + repr(name) + ': ' + repr(VALUE) + suffix
+                    self.assertEqual(list(pattern_scan.findings(text, path)), [(1, rule)])
+                self.assertEqual(list(pattern_scan.findings(
+                    '{' + repr(name) + ': factory({"x": ' + repr(VALUE) + '}), "y": 1}', path)),
+                    [(1, rule)])
+        self.assertFalse(self.rules('{"x": "{", ' + repr(OC_NAME) + ': "${LAW_OC}", "y": "hello"}'))
+        self.assertEqual(self.rules('{' + repr(OC_NAME) + ': "literal, } ]", "x": 1}'), {'law-oc'})
+
+    def test_comparisons_and_arrows_are_not_assignments(self):
+        for name in (OC_NAME, 'token'):
+            for operator in ('==', '===', '!=', '<=', '>=', '=>'):
+                self.assertFalse(self.rules('if ' + name + ' ' + operator + ' ' + repr(VALUE) + ':'))
+            for operator in ('=', ':=', '+='):
+                self.assertTrue(self.rules(name + operator + repr(VALUE)))
+        self.assertFalse(self.rules('if ' + OC_NAME + ' == "disabled":'))
+        self.assertFalse(self.rules('token === "x"'))
+
+    def test_static_template_chunks_are_independent(self):
+        for prefix, expression in (('`', '${userId}'), ('f"', '{userId}')):
+            close = '`' if prefix == '`' else '"'
+            self.assertFalse(self.rules('token = ' + prefix + 'https://example.com/' + expression + '/callback' + close))
+            self.assertFalse(self.rules('token = ' + prefix + VALUE[:12] + expression + VALUE[12:] + close))
+            self.assertEqual(self.rules('token = ' + prefix + expression + VALUE + close), {'generic-secret'})
+
+    def test_python_f_string_interpolations(self):
+        for prefix in ('f', 'F', 'rf', 'fr', 'RF', 'FR', 'rF', 'Fr'):
+            for expression in ('get_access_token_from_environment()', 'x // 2', 'lookup({"x": runtime})',
+                               'lookup(' + repr(VALUE) + ')'):
+                rhs = prefix + "'{" + expression + "}'"
+                self.assertFalse(self.rules('token = ' + rhs))
+                self.assertFalse(self.rules(OC_NAME + ' = ' + rhs))
+                self.assertEqual(self.rules('token = ' + prefix + "'{" + expression + '}' + VALUE + "'"), {'generic-secret'})
+        self.assertEqual(self.rules('token = f"{{' + VALUE + '}}"'), {'generic-secret'})
+        self.assertEqual(list(pattern_scan.static_chunks('{{x}}{runtime}tail', formatted=True)), ['{x}', 'tail'])
+        self.assertEqual(list(pattern_scan.static_chunks(chr(92) + '{runtime}tail', formatted=True)), [chr(92), 'tail'])
+        self.assertFalse(self.rules('token = f"{get_access_token_from_environment()}"'))
+
+    def test_annotation_unions_and_generics(self):
+        for path in (None, 'sample.py', 'sample.ts'):
+            for annotation in ('str | None', 'Optional[str]', 'string | undefined',
+                               'Map<string, Optional[str]]'):
+                prefix = 'token: ' + annotation + ' = '
+                self.assertEqual(list(pattern_scan.findings(prefix + repr(VALUE), path)), [(1, 'generic-secret')])
+                self.assertFalse(list(pattern_scan.findings(prefix + '"example"', path)))
+
+    def test_bracketed_config_words_and_source_arrows(self):
+        for path in ('.env', 'sample.sh', 'sample.toml'):
+            value = VALUE[:12] + '[' + VALUE[12:] + ']'
+            self.assertEqual(list(pattern_scan.candidates(value)), [value])
+            self.assertEqual(list(pattern_scan.findings('token=' + value, path)), [(1, 'generic-secret')])
+            self.assertFalse(list(pattern_scan.findings('token=short[ordinary]', path)))
+            self.assertEqual(list(pattern_scan.findings('token => ' + repr(VALUE), path)), [(1, 'generic-secret')])
+        for path in ('sample.js', 'sample.ts', 'sample.tsx'):
+            self.assertFalse(list(pattern_scan.findings('tokens.map(accessToken => ' + repr(VALUE) + ')', path)))
+            self.assertEqual(list(pattern_scan.findings('accessToken = ' + repr(VALUE), path)), [(1, 'generic-secret')])
+            self.assertFalse(list(pattern_scan.findings('token = settings[' + repr(VALUE) + ']', path)))
+
     def test_generic_assignments(self):
         for key in ('api_key', 'api-key', 'apikey', 'service_key', 'service-key',
                     'secret', 'token', 'password', 'client_secret', 'access_token'):
@@ -119,7 +184,7 @@ class PatternTests(unittest.TestCase):
                  'X_API_KEY', 'prefix_api_key', 'prefix-api-key',
                  'PrefixApiKey', 'prefix.api.key', 'privateKey', 'passwd')
         for name in names:
-            for operator in ('=', ':=', ':', '=>', '->', '?='):
+            for operator in ('=', ':=', ':', '->', '?='):
                 for prefix in ('', 'b', 'r', 'u', 'f', 'br', 'rb', 'BR', 'rB'):
                     with self.subTest(name=name, operator=operator, prefix=prefix):
                         self.assertEqual(self.rules(name + operator + prefix + repr(VALUE)),
