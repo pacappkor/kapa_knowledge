@@ -6,7 +6,8 @@ Keep a Changelog와 유의적 버전을 따른다. [버전 규칙](docs/RELEASIN
 
 ### 공개 여부와 독립적인 CI 준비
 
-- 공개 배포에 대비해 조직 템플릿의 일일 traffic workflow와 방문·clone 배지를 추가한다. 모든 PR·푸시의 secret-free 검사와 main 푸시·수동 실행·same-repo PR의 필수 실제 키 검사를 분리했다. 신뢰된 base scanner 추출과 최소 읽기 권한을 유지한다.
+- 공개 배포에 대비해 조직 템플릿의 일일 traffic workflow와 방문·clone 배지를 추가한다. 모든 PR·푸시의 secret-free 검사와 main 푸시·수동 실행·main 대상 same-repo PR(작성자와 실행 actor 모두 Dependabot이 아닌 경우)의 필수 실제 키 검사를 분리했다. 신뢰된 base scanner 추출과 최소 읽기 권한을 유지한다.
+- Codex 검토 반영: 비-main 대상 PR과 Dependabot 작성·실행 PR은 fork PR처럼 offline-checks만 실행하도록 job 조건을 좁히고 기존 fail-closed 준비 검사는 유지한다. 공개 전환 시 비공개 취약점 신고 활성화와 상세 없는 Security contact request 공개 이슈에서 비공개 채널로 전환하는 fallback을 명시했다.
 - 비공개에 의존하지 않는 신뢰 경계·vendor 메타데이터의 배포 권리 확인·비공개 보안 신고 절차를 문서화했다. runs와 FAQ·동일성 보류 자료는 변경하지 않았다.
 
 ### 저장소 이력 재생성에 따른 의존성 고정 갱신

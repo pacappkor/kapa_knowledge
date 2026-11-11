@@ -1,8 +1,8 @@
 [
   {
     "file": "AGENTS.md",
-    "sha256": "a2abd683eba856774a3b4c7a3da1f33035b130e01a2f2ddbf92bd675f2510094",
-    "size": 5618
+    "sha256": "b12549fd800fc544c8cbba8427e9bb8990e9f679f6291e0c63f72b35c23396cd",
+    "size": 5748
   },
   {
     "file": "CLAUDE.md",
@@ -11,18 +11,18 @@
   },
   {
     "file": "README.md",
-    "sha256": "7c73808b2ec514050e60d5b046d6e4ef7ab22727c75d3e98941f9412ea8be518",
-    "size": 16455
+    "sha256": "c6b2414d968ad5316055e13afd8203af4c8d5a782091428734a1c1435d409dd7",
+    "size": 16641
   },
   {
     "file": "docs/RELEASING.md",
-    "sha256": "c6b8f6d58bf1d3924ca8a05ca517b41b067dd3787ffcebddd4ad9e8c2b717b2a",
-    "size": 960
+    "sha256": "f94a6e43aacaa639b9826aa38c5e0027b4dc6ec324fe9fcb785a6cccfe5cc9fc",
+    "size": 1364
   },
   {
     "file": "docs/SCHEMA.md",
-    "sha256": "449c325ae6f24161ef76ef45f429e567de4c5019a1eb39a8dea3de50eb7f642a",
-    "size": 42096
+    "sha256": "017f8871afceb516d172d697cb348fae09f5f8d1a3734716b38ccee49a2ce280",
+    "size": 42226
   },
   {
     "file": "rules/knowledge-reading-rules/SKILL.md",
@@ -31,7 +31,7 @@
   },
   {
     "file": "rules/knowledge-update-maintenance/SKILL.md",
-    "sha256": "a8d8223b51ab94dd0388bddb15586ed4f47b399cf04af54f8b9933d5278c21c5",
-    "size": 26715
+    "sha256": "0a5b171b5e359df081197ba0e6326f11b5fc3ee951c26aa19bf90002480f2b50",
+    "size": 26845
   }
 ]

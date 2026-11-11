@@ -56,7 +56,10 @@ jobs:
       github.event_name == 'workflow_dispatch' ||
       (github.event_name == 'push' && github.ref == 'refs/heads/main') ||
       (github.event_name == 'pull_request' &&
-       github.event.pull_request.head.repo.full_name == github.repository)
+       github.event.pull_request.head.repo.full_name == github.repository &&
+       github.base_ref == 'main' &&
+       github.event.pull_request.user.login != 'dependabot[bot]' &&
+       github.actor != 'dependabot[bot]')
     runs-on: ubuntu-latest
     timeout-minutes: 10
     env:
@@ -133,7 +136,8 @@ jobs:
           PY
       # First repository-code execution is the extracted trusted scanner.
       # Workflow edits themselves still require trusted authors/review; see README.
-      # Missing secrets fail closed on eligible events; forks skip this job.
+      # Missing secrets fail closed on eligible events; forks, non-main PRs,
+      # and PRs authored or run by Dependabot skip this job.
       - name: Scan actual LAW_OC value
         env:
           TRUSTED_SCANNER: ${{ steps.scanner.outputs.directory }}

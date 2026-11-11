@@ -58,7 +58,42 @@ class WorkflowTests(unittest.TestCase):
                          "      github.event_name == 'workflow_dispatch' ||\n"
                          "      (github.event_name == 'push' && github.ref == 'refs/heads/main') ||\n"
                          "      (github.event_name == 'pull_request' &&\n"
-                         "       github.event.pull_request.head.repo.full_name == github.repository)\n")
+                         "       github.event.pull_request.head.repo.full_name == github.repository &&\n"
+                         "       github.base_ref == 'main' &&\n"
+                         "       github.event.pull_request.user.login != 'dependabot[bot]' &&\n"
+                         "       github.actor != 'dependabot[bot]')\n")
+
+    def test_credential_gate_event_matrix(self):
+        credential = WORKFLOW.read_text(encoding='utf-8').split('\n  credential-scan:\n', 1)[1]
+        gate = credential.split('    runs-on:', 1)[0].split('if: >-\n', 1)[1]
+        cases = (
+            ('pull_request', 'refs/pull/5/merge', True, 'main', 'contributor', 'contributor', True),
+            ('pull_request', 'refs/pull/5/merge', False, 'main', 'contributor', 'contributor', False),
+            ('pull_request', 'refs/pull/5/merge', True, 'release', 'contributor', 'contributor', False),
+            ('pull_request', 'refs/pull/5/merge', True, 'main', 'dependabot[bot]', 'contributor', False),
+            ('pull_request', 'refs/pull/5/merge', True, 'main', 'contributor', 'dependabot[bot]', False),
+            ('pull_request', 'refs/pull/5/merge', True, 'main', 'dependabot[bot]', 'dependabot[bot]', False),
+            ('push', 'refs/heads/main', False, '', '', 'dependabot[bot]', True),
+            ('push', 'refs/heads/release', True, 'main', 'contributor', 'contributor', False),
+            ('workflow_dispatch', 'refs/heads/release', False, '', '', 'dependabot[bot]', True),
+        )
+        for event, ref, same_repo, base, author, actor, expected in cases:
+            with self.subTest(event=event, ref=ref, same_repo=same_repo, base=base,
+                              author=author, actor=actor):
+                expression = gate
+                values = {
+                    'github.event.pull_request.head.repo.full_name': 'owner/repo' if same_repo else 'fork/repo',
+                    'github.event.pull_request.user.login': author,
+                    'github.repository': 'owner/repo',
+                    'github.event_name': event,
+                    'github.base_ref': base,
+                    'github.actor': actor,
+                    'github.ref': ref,
+                }
+                for name, value in values.items():
+                    expression = expression.replace(name, repr(value))
+                expression = expression.replace('&&', 'and').replace('||', 'or')
+                self.assertEqual(eval(' '.join(expression.split()), {'__builtins__': {}}), expected)
 
     def test_offline_checks_always_validate_and_test(self):
         text = WORKFLOW.read_text(encoding='utf-8').split('\n  credential-scan:\n', 1)[0]
