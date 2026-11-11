@@ -4,9 +4,14 @@ Keep a Changelog와 유의적 버전을 따른다. [버전 규칙](docs/RELEASIN
 
 ## [Unreleased]
 
+### 저장소 이력 재생성에 따른 의존성 고정 갱신
+
+- 새 관리자 계정으로 저장소 이력을 재생성했다. 각 commit의 tree 내용은 동일하며 kapa_skills 잠금 commit과 vendor commit을 747dc72에서 b8d9d8d로 옮겼다(동일 tree). vendor 메타데이터 165개 파일의 원본 바이트·SHA-256은 모두 동일하고 보류 자료 카탈로그는 dependency_commit만 변경했다. 새 원문 수집·검토·관계·상태 변경은 없다.
+- 이전 기록의 SHA를 새 이력에 맞췄다: 536356823d43e867d426ba5eb5c6407ca64199cd → e5d7d2c4fda6d19cdf7813e88445debd217c558b, 747dc72b5a0fa5b1298f72751f11ac535e32a6e0 → b8d9d8d93e59d0a7da29d0fe120177ea9b0d1b02.
+
 ### kapa_skills 의존성 갱신
 
-- kapa_skills 잠금 commit과 vendor commit을 5363568에서 747dc72로 갱신했다. 색인·과거 판본 메타데이터 165개 파일의 원본 바이트와 SHA-256은 모두 동일하다. 보류 자료 카탈로그를 오프라인 재생성했으며 `catalogs/materials.json`은 dependency_commit만 변경했다.
+- kapa_skills 잠금 commit과 vendor commit을 e5d7d2c에서 b8d9d8d로 갱신했다. 색인·과거 판본 메타데이터 165개 파일의 원본 바이트와 SHA-256은 모두 동일하다. 보류 자료 카탈로그를 오프라인 재생성했으며 `catalogs/materials.json`은 dependency_commit만 변경했다.
 - 상위 5개 commit은 미래 시행 법령 판본 snapshot 추가, 86824 규칙 부칙 정리(조문 불변), 별표 Markdown 줄바꿈 서식, 문서·도구·CI 변경이다. 기존 저장 인용·해시 영향은 0건이며 source_sha256·검토 이력·관계·역사 조사 기록·보류 상태는 변경하지 않았다. 새 원문 수집이나 참조 상태 승인은 없다.
 
 ### 과거 판본·회신 동일성·FAQ 계약 (#2·#3·#4)
