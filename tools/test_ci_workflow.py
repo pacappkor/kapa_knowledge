@@ -97,12 +97,23 @@ class WorkflowTests(unittest.TestCase):
 
     def test_offline_checks_always_validate_and_test(self):
         text = WORKFLOW.read_text(encoding='utf-8').split('\n  credential-scan:\n', 1)[0]
-        for command in ('tools/secret_scan.py --worktree', 'tools/validate.py --check-links',
+        for command in ('tools/pattern_scan.py', 'tools/secret_scan.py --worktree', 'tools/validate.py --check-links',
                         'tools/validate.py', '.github/ci/ci_docs.py',
                         '.github/ci/ci_tests_supervise.py', '.github/ci/ci_integrity.py'):
             self.assertIn('run: python -I -B ' + command + '\n', text)
         self.assertNotIn('        if:', text)
+        self.assertNotIn('continue-on-error:', text)
+        self.assertLess(text.index('run: python -I -B tools/pattern_scan.py'),
+                        text.index('run: python -I -B .github/ci/ci_tests_supervise.py'))
         self.assertIn('run: bash .github/ci/ci_whitespace.sh "$BASE_SHA"', text)
+
+    def test_actions_are_commit_pinned(self):
+        for workflow in WORKFLOW.parent.glob('*.yml'):
+            for action in re.findall(r'^\s+(?:- )?uses: (\S+)', workflow.read_text(encoding='utf-8'), re.MULTILINE):
+                self.assertRegex(action, r'^[^@]+@[0-9a-f]{40}$')
+        text = WORKFLOW.read_text(encoding='utf-8')
+        self.assertEqual(text.count('actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0'), 2)
+        self.assertEqual(text.count('actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0'), 2)
 
 
 if __name__ == '__main__':

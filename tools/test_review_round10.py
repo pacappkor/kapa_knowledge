@@ -319,7 +319,7 @@ class RoundTenRegressions(unittest.TestCase):
     def test_repository_reading_cli_entrypoints_use_shared_wrapper(self):
         found = set()
         for path in (common.CODE_ROOT / 'tools').rglob('*.py'):
-            if path.name.startswith('test_') or path.name == 'secret_scan.py':
+            if path.name.startswith('test_') or path.name in {'secret_scan.py', 'pattern_scan.py'}:
                 continue  # Scanner reads bytes, not repository JSON, and has safe errors.
             tree = ast.parse(path.read_text(encoding='utf-8'))
             guards = [node for node in tree.body if isinstance(node, ast.If) and '__main__' in ast.unparse(node.test)]

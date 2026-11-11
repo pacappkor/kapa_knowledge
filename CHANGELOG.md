@@ -4,6 +4,11 @@ Keep a Changelog와 유의적 버전을 따른다. [버전 규칙](docs/RELEASIN
 
 ## [Unreleased]
 
+### Secret-free CI hardening
+
+- Add a blocking tracked-file credential-shape scan for all PRs, including forks and Dependabot, with masked diagnostics and synthetic regression tests. Four exact-line exceptions cover existing runtime expressions and masking fixtures; no research data changes.
+- Add CODEOWNERS and pin checkout v4.4.0 / setup-python v5.6.0 to release commit SHAs; retain the pinned central traffic workflow.
+
 ### 공개 여부와 독립적인 CI 준비
 
 - 공개 배포에 대비해 조직 템플릿의 일일 traffic workflow와 방문·clone 배지를 추가한다. 모든 PR·푸시의 secret-free 검사와 main 푸시·수동 실행·main 대상 same-repo PR(작성자와 실행 actor 모두 Dependabot이 아닌 경우)의 필수 실제 키 검사를 분리했다. 신뢰된 base scanner 추출과 최소 읽기 권한을 유지한다.
