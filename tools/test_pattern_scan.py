@@ -21,6 +21,72 @@ class PatternTests(unittest.TestCase):
     def rules(self, text):
         return {rule for _, rule in pattern_scan.findings(text)}
 
+    def test_language_string_syntax(self):
+        forms = {
+            'cpp': [('R"(', ')"'), ('R"tag(', ')tag"'),
+                    *[(p + 'R"x(', ')x"') for p in ('u8', 'u', 'U', 'L')]],
+            'cs': [('@"', '"'), ('"""', '"""'), ('$"', '"'),
+                   ('$@"', '"'), ('@$"', '"')],
+            'rs': [('r"', '"'), ('r###"', '"###'), ('b"', '"'), ('br##"', '"##')],
+            'go': [('`', '`')],
+            'py': [('"""', '"""'), ("'''", "'''"),
+                   *[(p + '"""', '"""') for p in ('r', 'b', 'f', 'rf', 'fr')],
+                   *[(p + '"', '"') for p in ('r', 'b', 'f', 'rf', 'fr')]],
+            'swift': [('#"', '"#'), ('###"', '"###'), ('"""', '"""')],
+            'kt': [('"""', '"""')],
+            'java': [('"""', '"""')],
+        }
+        for suffix, literals in forms.items():
+            path = 'sample.' + suffix
+            for opening, closing in literals:
+                for value, expected in ((VALUE, True), ('<hi>', False)):
+                    with self.subTest(path=path, opening=opening, expected=expected):
+                        text = 'accessToken = ' + opening + value + closing + ';'
+                        self.assertEqual(list(pattern_scan.findings(text, path)),
+                                         [(1, 'generic-secret')] if expected else [])
+                # Quotes and statement punctuation inside the literal must not
+                # swallow a later initializer or create structural nesting.
+                body = '"; [ ( description = '
+                if opening.endswith('"') and not opening.endswith('"""'):
+                    if suffix == 'cs' and '@' in opening:
+                        body = '""; [ ( description = '
+                    elif suffix == 'rs' and opening == 'b"' or suffix == 'py' and len(opening) < 4:
+                        body = '\\"; [ ( description = '
+                    elif suffix == 'cs':
+                        body = '\\"; [ ( description = '
+                if suffix == 'rs' and opening == 'r"':
+                    body = '; [ ( description = '
+                text = 'description = ' + opening + body + closing + '; accessToken = "' + VALUE + '";'
+                self.assertEqual(list(pattern_scan.findings(text, path)), [(1, 'generic-secret')], text)
+        exact = 'auto pattern = R"(")"; const char *accessToken = "<hi>";'
+        state = pattern_scan.LineState(exact, 'cpp')
+        self.assertEqual(state.owner[exact.index('accessToken')], -1)
+        # The placeholder itself is exempt, but the exact source must still
+        # produce an assignment whose value is independently inspected.
+        self.assertFalse(list(pattern_scan.findings(exact, 'sample.cpp')))
+        self.assertEqual(list(pattern_scan.findings(exact.replace('<hi>', VALUE), 'sample.cpp')),
+                         [(1, 'generic-secret')])
+        for prefix in ('$"', '$@"'):
+            self.assertFalse(list(pattern_scan.findings(
+                'accessToken = ' + prefix + '{get("' + VALUE + '")}";', 'sample.cs')))
+            self.assertEqual(list(pattern_scan.findings(
+                'accessToken = ' + prefix + VALUE + '{runtime}";', 'sample.cs')),
+                [(1, 'generic-secret')])
+
+    def test_raw_literal_adversarial_guards(self):
+        code = ('import sys,time;sys.path.insert(0,sys.argv[1]);import pattern_scan;'
+                'cases=[("description = R\\\""+"x"*100000+"(body", "sample.cpp"),'
+                '("description = R\\\"tag("+"x"*100000,"sample.cpp"),'
+                '("accessToken = r"+"#"*100000+"\\\"body","sample.rs"),'
+                '("description = "+"#"*100000+"body","sample.swift")];'
+                'start=time.perf_counter();'
+                '[(pattern_scan.LineState(text,pattern_scan.file_type(text,path)),'
+                'list(pattern_scan.findings(text,path))) for text,path in cases];'
+                'elapsed=time.perf_counter()-start;assert elapsed<2,elapsed;print(elapsed)')
+        result = subprocess.run([sys.executable, '-I', '-B', '-c', code, str(SCRIPT.parent)],
+                                capture_output=True, text=True, timeout=5, check=True)
+        self.assertLess(float(result.stdout), 2)
+
     def test_round_eight_assignment_regressions(self):
         def check(text, path, expected):
             self.assertEqual(list(pattern_scan.findings(text, path)),

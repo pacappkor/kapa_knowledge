@@ -16,6 +16,8 @@ from secret_scan import ScanError, repository_files
 # Exact path/rule/whole-line SHA-256 only: edits invalidate each exception.
 # No path-wide exclusions or inline suppression directives.
 ALLOWLIST = {
+    # Assignment-name tokenizer regex, not an assigned credential literal.
+    ('tools/pattern_scan.py', 'generic-secret', 'd153645771ec4b5e5402d69e4da3e7a0adbe0cbc7691327ee372e56ecfdc9ca9'),
     # Regex tokenizer pattern, not a credential; plural tokens is now recognized.
     ('tools/markdown_context.py', 'generic-secret', '65acb9e4e80e86c2c2dbef5442c70be0ab16ec87b82905d73f371decad6fa090'),
     # Runtime function call, not a literal credential.
@@ -258,15 +260,23 @@ FILE_TYPES = {
 # Syntax capabilities live beside file classification, not in individual cases.
 LANGUAGE_SUFFIXES = {
     'typescript': ('.ts', '.tsx'),
+    'cpp': ('.cc', '.cpp', '.cxx', '.hpp', '.hh', '.hxx', '.mm'),
     'csharp': ('.cs',), 'java': ('.java',), 'rust': ('.rs',),
     'kotlin': ('.kt', '.kts'), 'swift': ('.swift',),
     'scala': ('.scala', '.sc'), 'dart': ('.dart',),
     'go': ('.go',), 'groovy': ('.groovy', '.gradle'),
 }
-C_FAMILY_TYPES = frozenset(('c-family', 'csharp', 'java', 'rust', 'kotlin',
+C_FAMILY_TYPES = frozenset(('c-family', 'cpp', 'csharp', 'java', 'rust', 'kotlin',
                             'swift', 'scala', 'dart', 'go', 'groovy'))
+# Per-language string literal capabilities; unknown syntax deliberately retains
+# the legacy conservative prose/config lexer. No cross-line quote state existed:
+# multiline literals are recognized only when their delimiters share a line.
+STRING_SYNTAX = {
+    'c-family': 'cpp', 'cpp': 'cpp', 'csharp': 'csharp', 'rust': 'rust', 'go': 'go',
+    'python': 'python', 'swift': 'swift', 'kotlin': 'triple', 'java': 'triple',
+}
 JS_TYPES = frozenset(('javascript', 'typescript'))
-TERNARY_TYPES = frozenset(('javascript', 'typescript', 'c-family', 'csharp',
+TERNARY_TYPES = frozenset(('javascript', 'typescript', 'c-family', 'cpp', 'csharp',
                            'java', 'swift', 'php', 'dart', 'groovy'))
 ARROW_TYPES = frozenset(('javascript', 'typescript', 'csharp', 'scala', 'rust', 'php'))
 for language in C_FAMILY_TYPES:
@@ -433,6 +443,108 @@ def quoted_end(text, start):
     return len(text)
 
 
+def source_literal(text, start, kind):
+    """Return (end, content_start, content_end, formatted), or None.
+
+    Match at the current cursor only. Fixed prefixes and bounded C++ delimiters
+    take constant lookahead; arbitrary Rust/Swift hashes are consumed once.
+    str.find performs the single forward search for a literal's closing marker.
+    Unterminated literals consume the remaining line, never retry its suffixes.
+    """
+    syntax = STRING_SYNTAX.get(kind)
+    if not syntax:
+        return None
+    boundary = not start or not (text[start - 1].isalnum() or text[start - 1] == '_')
+    tail = None
+    opening = start
+    formatted = False
+    verbatim = False
+    if syntax == 'cpp' and boundary:
+        match = re.compile(r'(?:u8|u|U|L)?R"([^ ()\\\t\r\n]{0,16})\(').match(text, start)
+        if match:
+            opening = match.end()
+            tail = ')' + match[1] + '"'
+    elif syntax == 'rust' and boundary:
+        match = re.compile(r'(?:br|r)(#*)"|b"').match(text, start)
+        if match:
+            opening = match.end()
+            if match[1] is not None:
+                tail = '"' + match[1]
+    elif (syntax == 'swift' and text[start] == '#'
+          and (not start or text[start - 1] != '#')):
+        match = re.compile(r'(#+)("{3}|")').match(text, start)
+        if match:
+            opening = match.end()
+            tail = match[2] + match[1]
+    elif syntax == 'go' and text[start] == '`':
+        opening, tail = start + 1, '`'
+    elif syntax == 'csharp' and (not start or text[start - 1] != '$'):
+        match = re.compile(r'(?:\$+@|@\$|@|\$+)?("{3,}|")').match(text, start)
+        if match:
+            opening = match.end()
+            prefix = text[start:opening - len(match[1])]
+            formatted = '$' in prefix
+            verbatim = '@' in prefix
+            if len(match[1]) >= 3:
+                tail = match[1]
+    elif syntax in ('python', 'swift', 'triple'):
+        pattern = r"(?i:[bruf]{0,2})(\"{3}|'{3}|\"|')" if syntax == 'python' else r'("{3})'
+        match = re.compile(pattern).match(text, start) if boundary or text[start] in '\"\'' else None
+        if match:
+            opening = match.end()
+            prefix = text[start:opening - len(match[1])].lower()
+            formatted = 'f' in prefix
+            if len(match[1]) == 3:
+                tail = match[1]
+    if opening == start:
+        return None
+    if tail is not None:
+        if syntax in ('python', 'triple') or (syntax == 'swift' and text[start] != '#'):
+            closing = opening
+            while closing < len(text):
+                if text[closing] == '\\':
+                    closing += 2
+                elif formatted and text[closing:closing + 2] in ('{{', '}}'):
+                    closing += 2
+                elif formatted and text[closing] == '{':
+                    closing = interpolation_end(text, closing, opening=1, python=True)
+                elif text.startswith(tail, closing):
+                    return closing + len(tail), opening, closing, formatted
+                else:
+                    closing += 1
+            return len(text), opening, len(text), formatted
+        closing = text.find(tail, opening)
+        if closing < 0:
+            return len(text), opening, len(text), formatted
+        return closing + len(tail), opening, closing, formatted
+    # Preserve the legacy ordinary Python/prose adjacency and embedded-example
+    # behavior; only triple delimiters require a different boundary algorithm.
+    if syntax == 'python':
+        if opening == start + 1:
+            return None  # Let quote_start retain conservative prose elision.
+        closing = quoted_end(text, opening - 1)
+        return min(len(text), closing + 1), opening, closing, formatted
+    # Ordinary prefixed/byte/verbatim strings need language-specific escaping.
+    quote = text[opening - 1]
+    index = opening
+    while index < len(text):
+        if text[index] == '\\' and not verbatim:
+            # Python raw strings still escape their quote delimiter lexically.
+            index += 2
+        elif formatted and text[index:index + 2] in ('{{', '}}'):
+            index += 2
+        elif formatted and text[index] == '{':
+            index = interpolation_end(text, index, opening=1, python=True)
+        elif text[index] == quote:
+            if verbatim and text.startswith(quote * 2, index):
+                index += 2
+            else:
+                return index + 1, opening, index, formatted
+        else:
+            index += 1
+    return len(text), opening, len(text), formatted
+
+
 class QuoteIndex:
     """Cache prose-elision lookahead once, without copying per-quote suffixes."""
 
@@ -472,12 +584,15 @@ def quote_start(text, index, quotes=None):
     return text[index] in '\"\'`'
 
 
-def quote_spans(text):
+def quote_spans(text, kind='unknown'):
     quotes = QuoteIndex(text)
     index = 0
     while index < len(text):
         if text[index] == '\\':
             index += 2
+        elif (literal := source_literal(text, index, kind)):
+            yield index, literal[0] - 1
+            index = literal[0]
         elif quote_start(text, index, quotes):
             end = quoted_end(text, index)
             yield index, end
@@ -564,7 +679,8 @@ def literal_candidates(value):
     yield value
 
 
-def lexemes(text, comment_at_start=True, separators=False, bare_equals=False, quotes=None):
+def lexemes(text, comment_at_start=True, separators=False, bare_equals=False, quotes=None,
+            kind='unknown'):
     """Yield source bounds and values for single-line literals, refs and words.
 
     Python literal prefixes are syntax, not values. Source bounds let provider
@@ -582,6 +698,12 @@ def lexemes(text, comment_at_start=True, separators=False, bare_equals=False, qu
         if (text[index].isspace() or text[index] in '=,:;()&'
                 or (not bare_equals and text[index] in '[]')):
             index += 1
+            continue
+        literal = source_literal(text, index, kind)
+        if literal:
+            end, opening, closing, formatted = literal
+            yield index, end, text[opening:closing]
+            index = end
             continue
         if text[index] == '#' and ((index == 0 and comment_at_start)
                                    or (index > 0 and (text[index - 1].isspace()
@@ -686,7 +808,7 @@ def shell_word_candidates(text, comment_at_start=True):
     yield from literal_candidates(''.join(parts))
 
 
-def candidates(text, comment_at_start=True, source=False, shell=False):
+def candidates(text, comment_at_start=True, source=False, shell=False, kind='unknown'):
     # Source literals retain the existing per-token semantics (including Python
     # implicit concatenation, which this heuristic deliberately does not fold).
     # Unknown/config contexts keep template and prefixed-source literal handling.
@@ -708,7 +830,7 @@ def candidates(text, comment_at_start=True, source=False, shell=False):
                 break
             references.append((reference.start(), closing + 1))
             cursor = closing + 1
-    spans = list(quote_spans(text)) if source else []
+    spans = list(quote_spans(text, kind)) if source else []
     # Getter first arguments are names, like bracketed lookup keys. Defaults
     # remain separate literals and are deliberately not excluded.
     getters = []
@@ -728,7 +850,8 @@ def candidates(text, comment_at_start=True, source=False, shell=False):
     getter_starts = [a for a, _ in getters]
     # The assignment operator has already been consumed; inner equals signs
     # (including base64 padding) belong to the bare shell/config word.
-    for start, end, value in lexemes(text, comment_at_start, bare_equals=True):
+    for start, end, value in lexemes(text, comment_at_start, bare_equals=True, kind=kind):
+        syntax_literal = source_literal(text, start, kind)
         if source:
             getter = bisect_right(getter_starts, start) - 1
             if getter >= 0 and end <= getters[getter][1]:
@@ -738,8 +861,13 @@ def candidates(text, comment_at_start=True, source=False, shell=False):
             if lookup >= 0 and end <= lookups[lookup][1]:
                 continue
             literal = LITERAL_PREFIX.match(text, start)
-            if not literal:
+            if not literal and not syntax_literal:
                 continue
+        if syntax_literal:
+            chunks = static_chunks(value, formatted=True) if syntax_literal[3] else (value,)
+            for chunk in chunks:
+                yield from literal_candidates(chunk)
+            continue
         literal = LITERAL_PREFIX.match(text, start)
         if literal and literal[2] == '`' and shell:
             continue
@@ -894,9 +1022,10 @@ class LineState:
                     self.question[offset] = question
                 index = word.end()
                 continue
-            if quote_start(line, index, quotes):
-                end = min(quoted_end(line, index), len(line))
-                formatted = 'f' in literal_prefix(line, index).lower()
+            literal = source_literal(line, index, kind)
+            if literal or quote_start(line, index, quotes):
+                end = literal[0] - 1 if literal else min(quoted_end(line, index), len(line))
+                formatted = literal[3] if literal else 'f' in literal_prefix(line, index).lower()
                 if formatted or line[index] == '`':
                     self.formatted_spans.append((index, end, formatted))
                 regex_allowed = False
@@ -1085,7 +1214,7 @@ def findings(text, path=None, budget=None):
                                   raw_assignments + list(assignments_in(assignment_text, kind))}.values(),
                                  key=lambda item: item.end())
         word_ends = shell_word_boundaries(line) if shell or any(m['option'] for m in assignments) else []
-        tokens = (list(lexemes(line, comment_at_start=False, quotes=state.quotes))
+        tokens = (list(lexemes(line, comment_at_start=False, quotes=state.quotes, kind=kind))
                   if provider_matches else [])
         token_starts = [start for start, _, _ in tokens]
         assignment_ranges = []
@@ -1206,7 +1335,7 @@ def findings(text, path=None, budget=None):
             else:
                 values = candidates(rest, comment_at_start=False,
                                     source=source or (path is None and bool(expression)),
-                                    shell=shell)
+                                    shell=shell, kind=kind)
             for value in values:
                 if not placeholder(value) and (rule == 'law-oc' or high_entropy(value)):
                     rules.add(rule)

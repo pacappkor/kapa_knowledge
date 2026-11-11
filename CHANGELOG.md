@@ -6,6 +6,8 @@ Keep a Changelog와 유의적 버전을 따른다. [버전 규칙](docs/RELEASIN
 
 ### Secret-free CI hardening
 
+- Add centralized language-specific string literal capabilities for C++ raw/custom-delimiter strings, C# verbatim/raw/interpolated strings, Rust raw/byte strings, Go backticks, Python prefixed/triple strings, Swift hash/multiline strings, and Kotlin/Java text blocks. Share literal boundaries with structural ownership and candidate inspection; preserve JS/TS and unknown-file behavior. Multiline constructions remain outside the scanner's existing single-line scope (there is no cross-line quote state). Add runtime-built positive/negative regressions and bounded raw-delimiter/unterminated/hash performance guards. No runs or catalogs changes.
+
 - Fix ten scanner findings: index getter literals once, preserve credential subscript bases, recognize control-condition regex starts, distinguish TS type-only/optional fields, handle PHP concatenation assignments, segmented credential plurals, Bash process substitutions, and table-driven cross-language ternary/arrow syntax (PHP quoted array keys remain mappings). Add runtime-built positive/negative regressions and a 10,000-getter performance guard. No runs or catalogs changes.
 
 - Fix JS postfix increment/decrement slash state and bounded C-family/Go declarator suffixes before initializers. Verify Rust colon annotations and Java/C# leading generic types; add runtime-built positive/negative transition and declaration regressions plus a declarator performance guard. No runs or catalogs changes.
