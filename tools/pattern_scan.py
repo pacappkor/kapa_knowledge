@@ -43,11 +43,12 @@ ASSIGNMENT = re.compile(
 )
 SEGMENTS = re.compile(r'[A-Z]+(?=[A-Z][a-z]|$)|[A-Z]?[a-z]+|[A-Z]+|[0-9]+')
 PLACEHOLDER = re.compile(
-    r'(?ix)^(?:\*+|<[^>]*>|example(?:[_-].*)?|fake(?:[_-].*)?|'
-    r'not[-_]a[-_]real(?:[-_].*)?|your[_-].*)$'
+    r'(?ix)(?:[*•●]+|<[^>]*>|'
+    r'(?:[a-z0-9]+[_-])*(?:example|fake|not[-_]a[-_]real|your)'
+    r'(?:[_-][a-z0-9]+)*)'
 )
 ENV_REFERENCE = re.compile(
-    r"""(?ix)(?:\$[A-Z_][A-Z0-9_]*|\$env:[A-Z_][A-Z0-9_]*|
+    r"""(?ix)(?:\$env:[A-Z_][A-Z0-9_]*|\$[A-Z_][A-Z0-9_]*|
     % [A-Z_][A-Z0-9_]* %|\$\{[A-Z_][A-Z0-9_]*\}|
     \$\{\{\s*(?:secrets|env)\.[A-Z_][A-Z0-9_]*\s*\}\}|
     (?:os\.)?getenv\(\s*["'][A-Z_][A-Z0-9_]*["']\s*\)|
@@ -81,9 +82,7 @@ def credential_rule(name):
 
 
 def placeholder(value):
-    return not value or bool(PLACEHOLDER.fullmatch(value) or ENV_REFERENCE.fullmatch(value)
-                             or '***' in value
-                             or re.search(r'(?i)(?:^|[_-])FAKE(?:$|[_-])', value))
+    return not value or bool(PLACEHOLDER.fullmatch(value) or ENV_REFERENCE.fullmatch(value))
 
 
 def braced_end(text, start):
@@ -118,12 +117,19 @@ def quoted_end(text, start):
     return len(text)
 
 
+def quote_start(text, index):
+    # Apostrophes within words are prose, not opening string delimiters.
+    return (text[index] in '\"\'`' and not (
+        text[index] == "'" and 0 < index < len(text) - 1
+        and re.match(r'\w', text[index - 1]) and re.match(r'\w', text[index + 1])))
+
+
 def quote_spans(text):
     index = 0
     while index < len(text):
         if text[index] == '\\':
             index += 2
-        elif text[index] in '\"\'`':
+        elif quote_start(text, index):
             end = quoted_end(text, index)
             yield index, end
             index = end + 1
@@ -157,11 +163,11 @@ def literal_candidates(value):
     yield value
 
 
-def candidates(text, comment_at_start=True):
-    """Small single-line lexer: every literal or bare token is inspected.
+def lexemes(text, comment_at_start=True):
+    """Yield source bounds and values for single-line literals, refs and words.
 
-    Python literal prefixes are syntax, not values. Backtick interpolations are
-    omitted while their static chunks are retained. This is not a language parser.
+    Python literal prefixes are syntax, not values. Source bounds let provider
+    rules reuse the generic lexer's whole-reference test. Not a language parser.
     """
     index = 0
     while index < len(text):
@@ -174,44 +180,53 @@ def candidates(text, comment_at_start=True):
             break
         env = ENV_REFERENCE.match(text, index)
         if env and (env.end() == len(text) or text[env.end()] in ' 	,;)]}\"\''):
+            yield index, env.end(), env[0]
             index = env.end()
             continue
         prefix = re.match(r"(?i:[bruf]*)['\"`]", text[index:])
         if prefix:
             quote_index = index + prefix.end() - 1
-            quote = text[quote_index]
             end = quoted_end(text, quote_index)
             value = text[quote_index + 1:end]
-            if quote == '`':
-                chunks = []
-                start = cursor = 0
-                while cursor < len(value):
-                    if value[cursor] == '\\':
-                        cursor += 2
-                    elif value.startswith('${', cursor):
-                        chunks.append(value[start:cursor])
-                        stop = braced_end(value, cursor)
-                        yield from literal_candidates(value[cursor:stop])
-                        start = cursor = stop
-                    else:
-                        cursor += 1
-                chunks.append(value[start:])
-                value = ''.join(chunks)
-            yield from literal_candidates(value)
+            yield index, end + 1, value
             index = end + 1
             continue
         start = index
         while index < len(text):
-            if text.startswith('${', index):
+            if text[index] == '\\':
+                index += 2
+            elif text.startswith('${', index):
                 index = braced_end(text, index)
-            elif text[index].isspace() or text[index] in ',;)]}\"\'`&':
+            elif (text[index].isspace() or text[index] in '=,:;()[]}&'
+                  or quote_start(text, index)):
                 break
             else:
                 index += 1
         if index == start:
             index += 1
         else:
-            yield from literal_candidates(text[start:index])
+            # Escaped whitespace and delimiters belong to the same shell word.
+            yield start, index, re.sub(r'\\(.)', r'\1', text[start:index])
+
+
+def candidates(text, comment_at_start=True):
+    for start, _, value in lexemes(text, comment_at_start):
+        if text[start] == '`':
+            chunks = []
+            begin = cursor = 0
+            while cursor < len(value):
+                if value[cursor] == '\\':
+                    cursor += 2
+                elif value.startswith('${', cursor):
+                    chunks.append(value[begin:cursor])
+                    stop = braced_end(value, cursor)
+                    yield from literal_candidates(value[cursor:stop])
+                    begin = cursor = stop
+                else:
+                    cursor += 1
+            chunks.append(value[begin:])
+            value = ''.join(chunks)
+        yield from literal_candidates(value)
 
 
 def high_entropy(value):
@@ -228,13 +243,15 @@ def findings(text):
         rules = set()
         assignments = list(ASSIGNMENT.finditer(line))
         spans = list(quote_spans(line))
+        tokens = list(lexemes(line, comment_at_start=False))
         for rule, pattern in TOKEN_RULES:
             for match in pattern.finditer(line):
-                # Exempt a provider shape only when its enclosing assignment
-                # token is a placeholder; bare tokens elsewhere still report.
-                enclosing = next((token[0] for token in re.finditer(
-                    r'''[^\s"'`=,;()\[\]{}]+''', line)
-                    if token.start() <= match.start() and token.end() >= match.end()), match[0])
+                # Pure reference names are not credentials. Other placeholder
+                # wrappers are exempt only in assignments; bare prose still reports.
+                enclosing = next((value for start, end, value in tokens
+                                  if start <= match.start() and end >= match.end()), match[0])
+                if ENV_REFERENCE.fullmatch(enclosing):
+                    continue
                 in_assignment = any(
                     item.end() <= match.start()
                     and not any(line[index] == ';'

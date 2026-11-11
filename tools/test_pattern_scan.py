@@ -166,7 +166,7 @@ class PatternTests(unittest.TestCase):
         providers = ('ghp' + '_' + VALUE * 2, 'hf' + '_' + VALUE * 2,
                      'AK' + 'IA' + 'A1B2C3D4' * 2)
         for value, rule in zip(providers, ('github-token', 'huggingface-token', 'aws-access-key')):
-            for wrapper in ('<{}>', '***{}', '{}***', 'FAKE_{}', '{}_FAKE'):
+            for wrapper in ('<{}>', 'FAKE_{}', '{}_FAKE'):
                 for quote in ('', '"', "'"):
                     with self.subTest(rule=rule, wrapper=wrapper, quote=quote):
                         self.assertFalse(self.rules('token=' + quote + wrapper.format(value) + quote))
@@ -176,6 +176,58 @@ class PatternTests(unittest.TestCase):
             self.assertIn(rule, self.rules('token=<example>; print("' + value + '")'))
             self.assertIn(rule, self.rules('token=<example>; print("<' + value + '>")'))
             self.assertIn(rule, self.rules('print("token=example", "<' + value + '>")'))
+
+    def test_escaped_shell_whitespace(self):
+        value = VALUE[:12] + ' ' + VALUE[12:]
+        for whitespace in (' ', '\t'):
+            escaped = VALUE[:12] + chr(92) + whitespace + VALUE[12:]
+            self.assertEqual(list(pattern_scan.candidates(escaped)),
+                             [value.replace(' ', whitespace)])
+            self.assertEqual(self.rules('accessToken=' + escaped), {'generic-secret'})
+        self.assertFalse(self.rules('accessToken=' + VALUE[:12] + ' ' + VALUE[12:]))
+        self.assertFalse(self.rules('accessToken=short' + chr(92) + ' word'))
+
+    def test_provider_environment_names(self):
+        for value, rule in (('ghp' + '_' + VALUE * 2, 'github-token'),
+                            ('hf' + '_' + VALUE * 2, 'huggingface-token'),
+                            ('AK' + 'IA' + 'A1B2C3D4' * 2, 'aws-access-key')):
+            for wrapper in ('${%s}', '$%s', '$env:%s', '%%%s%%',
+                            'os.getenv("%s")', "getenv('%s')",
+                            'os.environ["%s"]', "environ['%s']",
+                            'process.env.%s', '${{ secrets.%s }}'):
+                reference = wrapper % value
+                for prefix in ('', 'token='):
+                    with self.subTest(wrapper=wrapper, prefix=prefix):
+                        self.assertFalse(self.rules(prefix + reference))
+            self.assertIn(rule, self.rules('token="${' + value + '}' + VALUE + '"'))
+            for text in (value, 'A prose mention of ' + value, 'print("' + value + '")'):
+                self.assertIn(rule, self.rules(text))
+
+    def test_whole_placeholder_shapes(self):
+        for marker in ('***', '•••', '●●●', 'FAKE', 'EXAMPLE'):
+            value = VALUE[:12] + marker + VALUE[12:]
+            self.assertFalse(pattern_scan.placeholder(value))
+            self.assertEqual(self.rules('token=' + repr(value)), {'generic-secret'})
+        for marker in ('FAKE', 'EXAMPLE'):
+            for value in (marker + VALUE, VALUE + marker):
+                self.assertFalse(pattern_scan.placeholder(value))
+                self.assertEqual(self.rules('token=' + repr(value)), {'generic-secret'})
+        for value in ('***', '•••', '●●●', '<value>', 'FAKE', 'EXAMPLE',
+                      'NOT-A-REAL-TOKEN', 'YOUR_KEY', 'hf_FAKE-NOT-A-REAL-TOKEN'):
+            self.assertTrue(pattern_scan.placeholder(value))
+            self.assertFalse(self.rules('token=' + repr(value)))
+        provider = 'ghp' + '_' + VALUE * 2
+        for value in ('***' + provider, provider + '***', provider + 'FAKE'):
+            self.assertIn('github-token', self.rules('token=' + repr(value)))
+
+    def test_contraction_statement_boundaries(self):
+        for contraction in ("Don't", "it's", "user's"):
+            for quote in ('"', "'", ''):
+                self.assertEqual(self.rules(contraction + ' token=' + quote + VALUE + quote),
+                                 {'generic-secret'})
+                self.assertFalse(self.rules(contraction + ' token=' + quote + 'example' + quote))
+            self.assertFalse(self.rules(contraction + ' echo "token=example"; other="' + VALUE + '"'))
+        self.assertFalse(self.rules("echo 'token=example'; other=\"" + VALUE + '"'))
 
     def test_conventional_secret_key_names(self):
         for name in ('AWS_SECRET_ACCESS_KEY', 'secretKey', 'SECRET_KEY',

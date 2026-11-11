@@ -6,6 +6,8 @@ Keep a Changelog와 유의적 버전을 따른다. [버전 규칙](docs/RELEASIN
 
 ### Secret-free CI hardening
 
+- Close #7: preserve and unescape shell words with escaped whitespace, share enclosing lexer candidates for provider environment-reference exemptions, restrict masking/example markers to whole placeholder shapes, and keep prose apostrophes out of statement quote bounds. Add runtime-built positive and negative regressions for all four scanner findings.
+
 - Run the blocking PR pattern scan from immutable base tooling and its embedded allowlist outside the worktree, with a notice-only bootstrap when the scanner is absent at base and fail-closed extraction otherwise. Keep PR scanner unit tests, add explicit worktree root support and trusted-extraction regressions, and document that scanner/allowlist changes apply after merge.
 
 - Address seven scanner review gaps with shared escape/doubled-quote handling, quoted shell operands, shell word-boundary comments, literal subscript targets, compound assignments, conventional secret-key names and enclosing provider placeholders. Add runtime-built positive/negative regressions; two exact path/rule/line-hash exceptions cover existing runtime-variable subscript fixtures, not literal credentials.
