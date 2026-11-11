@@ -83,8 +83,15 @@ def bracket_pairs(text, angles=False):
     return pairs
 
 
-def assignments_in(text):
-    """Consume dotted/indexed chains and command options in one forward pass."""
+DECLARATOR_SUFFIX = re.compile(
+    r'(?:\[[A-Za-z_0-9\s]*+\]\s*+)*+(?:const\s++)*+'
+    r'(?:\*+(?:const\s++)*+)?'
+    r'(?:[A-Za-z_][\w.]*+(?:\s*\[[A-Za-z_0-9\s]*+\])*+(?:\s+const)*+\s*+)?'
+    r'=(?!=|>)')
+
+
+def assignments_in(text, kind='unknown'):
+    """Consume dotted/indexed chains and bounded declarators in one forward pass."""
     pairs = bracket_pairs(text) if '[' in text else {}
     cursor = 0
     while cursor < len(text):
@@ -117,6 +124,14 @@ def assignments_in(text):
             continue
         key = 'password' if option and text[start:end] == 'p' else None
         after = SPACE.match(text, end).end()
+        if kind == 'c-family' and credential_rule(text[start:end]):
+            # Bound each lookahead independently of the line length. Only a
+            # completed initializer is a declaration; bare declarations stay clean.
+            declarator = DECLARATOR_SUFFIX.match(text, after, min(len(text), after + 4096))
+            if declarator:
+                yield Assignment(start, declarator.end(), text[start:end], '=')
+                cursor = declarator.end()
+                continue
         if text[start] in '\"\'' and text[after:after + 1] == ']':
             key = text[start + 1:end - 1]
             after = SPACE.match(text, after + 1).end()
@@ -862,7 +877,17 @@ class LineState:
                 break
             char = line[index]
             if kind == 'javascript' and not char.isspace():
-                regex_allowed = char in '=(:,[!&|?;{}~+-*%^<>'
+                if line.startswith(('++', '--'), index):
+                    # Preserve expression-start for prefix operators, but a
+                    # postfix operator ends an expression just like its operand.
+                    # Consume both characters so the second cannot reset state.
+                    for offset in (index, index + 1):
+                        self.context[offset] = stack[-1]
+                        self.braces[offset] = brace_depth
+                        self.question[offset] = question
+                    index += 2
+                    continue
+                regex_allowed = char in '=(:,[!&|?;{}~+-*%/^<>'
             if char.isspace() or char in ';|':
                 question = False
             if char == '\\':
@@ -972,7 +997,7 @@ def findings(text, path=None, budget=None):
         rules = set()
         work = len(line)
         value_end = len(line.rstrip(' \t='))
-        raw_assignments = list(assignments_in(line))
+        raw_assignments = list(assignments_in(line, kind))
         provider_matches = [(rule, match) for rule, pattern in TOKEN_RULES
                             for match in pattern.finditer(line)]
         # Most repository lines contain no credential-shaped name or provider.
@@ -992,7 +1017,7 @@ def findings(text, path=None, budget=None):
         assignments = raw_assignments
         if assignment_text != line:
             assignments = sorted({m.span(): m for m in
-                                  raw_assignments + list(assignments_in(assignment_text))}.values(),
+                                  raw_assignments + list(assignments_in(assignment_text, kind))}.values(),
                                  key=lambda item: item.end())
         word_ends = shell_word_boundaries(line) if shell or any(m['option'] for m in assignments) else []
         tokens = (list(lexemes(line, comment_at_start=False, quotes=state.quotes))

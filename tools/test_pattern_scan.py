@@ -21,6 +21,66 @@ class PatternTests(unittest.TestCase):
     def rules(self, text):
         return {rule for _, rule in pattern_scan.findings(text)}
 
+    def test_javascript_slash_transitions(self):
+        # Assert lexer state as well as findings: an apostrophe in a regex
+        # exposes accidental treatment as division, and vice versa.
+        for operand in ('x', '42', 'true', 'null', '"text"', '`text`',
+                        '(x)', 'items[0]', 'x++', 'x--', '(x)++', 'items[0]--'):
+            text = operand + ' / y; accessToken = ' + repr(VALUE) + '; // c'
+            with self.subTest(operand=operand):
+                self.assertFalse(pattern_scan.LineState(text, 'javascript').regex_spans)
+                self.assertEqual(list(pattern_scan.findings(text, 'sample.js')),
+                                 [(1, 'generic-secret')])
+        for prefix in ('=', '+', '-', '*', 'x /', '%', '!', '~', '&&', '||', '?',
+                       '(', '[', ',', ':', ';', '{', '}', '++', '--',
+                       *sorted(pattern_scan.REGEX_KEYWORDS)):
+            text = prefix + " /'/; accessToken = " + repr(VALUE)
+            with self.subTest(prefix=prefix):
+                self.assertEqual(len(pattern_scan.LineState(text, 'javascript').regex_spans), 1)
+                self.assertEqual(list(pattern_scan.findings(text, 'sample.js')),
+                                 [(1, 'generic-secret')])
+                self.assertFalse(list(pattern_scan.findings(
+                    prefix + " /accessToken=" + VALUE + "/", 'sample.js')))
+        for postfix in ('++', '--'):
+            self.assertFalse(list(pattern_scan.findings(
+                'x' + postfix + ' / y; accessToken = "<hi>"; // c', 'sample.js')))
+
+    def test_typed_declarator_initializers(self):
+        declarations = {
+            'sample.c': ('char {name}[]', 'char {name}[32]', 'const char *{name}',
+                         'char * const {name}', 'char {name}[N][32]'),
+            'sample.cpp': ('char const * const {name}', 'char {name}[]'),
+            'sample.go': ('var {name} string', '{name} string', 'var ( {name} string',
+                          'var {name} [32]byte', 'var {name} *string'),
+            'sample.rs': ('let {name}: String', 'let {name}: Option<String>'),
+            'sample.java': ('String {name}', 'List<String> {name}'),
+            'sample.cs': ('string {name}', 'Dictionary<string, string> {name}'),
+        }
+        for path, forms in declarations.items():
+            for form in forms:
+                for name, rule in (('accessToken', 'generic-secret'), (OC_NAME, 'law-oc')):
+                    head = form.format(name=name)
+                    with self.subTest(path=path, head=head):
+                        self.assertEqual(list(pattern_scan.findings(
+                            head + ' = "' + VALUE + '";', path)), [(1, rule)])
+                        self.assertFalse(list(pattern_scan.findings(head + ';', path)))
+                        self.assertFalse(list(pattern_scan.findings(
+                            head + ' = "<hi>";', path)))
+                        self.assertFalse(list(pattern_scan.findings(
+                            head + ' = runtimeValue;', path)))
+
+    def test_declarator_suffix_linear_work(self):
+        code = ('import sys,time;sys.path.insert(0,sys.argv[1]);import pattern_scan;'
+                'cases=["char accessToken["+" "*100000, '
+                '"var accessToken "+"const "*15000, '
+                '"char accessToken"+"[N]"*20000+";"];'
+                'exec("for text in cases:\\n start=time.perf_counter()\\n "'
+                '+"assert not list(pattern_scan.findings(text,\'sample.c\'))\\n "'
+                '+"elapsed=time.perf_counter()-start\\n assert elapsed<2, elapsed\\n print(elapsed)")')
+        result = subprocess.run([sys.executable, '-I', '-B', '-c', code, str(SCRIPT.parent)],
+                                capture_output=True, text=True, timeout=10, check=True)
+        self.assertEqual(len(result.stdout.splitlines()), 3)
+
     def test_round_six_regressions(self):
         for declaration in ('function ', 'function* ', 'async function ',
                             'const obj = { method', 'const obj = { first() {}, method'):

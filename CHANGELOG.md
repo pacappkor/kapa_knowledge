@@ -6,6 +6,8 @@ Keep a Changelog와 유의적 버전을 따른다. [버전 규칙](docs/RELEASIN
 
 ### Secret-free CI hardening
 
+- Fix JS postfix increment/decrement slash state and bounded C-family/Go declarator suffixes before initializers. Verify Rust colon annotations and Java/C# leading generic types; add runtime-built positive/negative transition and declaration regressions plus a declarator performance guard. No runs or catalogs changes.
+
 - Fix eight scanner review findings: JS regex control-flow state, balanced composite TS arrow return annotations, unconditional getter-key exclusion with default inspection, spaced/hyphenated mapping keys, credential CLI options, C/C++/PHP member arrows, call-local assignment boundaries, and indexed member chains. Add runtime-built positive/negative regressions and a 15,000-indexed-member performance guard; retain all existing guards. No runs or catalogs changes.
 
 - Replace backtracking dotted-assignment matching with a forward tokenizer; avoid duplicate assignment, provider-token and structural passes on irrelevant lines. Recognize anonymous/generator/async and object-method typed parameters, JS/TS regex boundaries, runtime getter keys versus literal defaults, and interpolation-aware embedded OC queries. Add runtime-built positive/negative cases and 20,000-member adversarial guards while retaining existing performance tests. No runs or catalogs changes.
