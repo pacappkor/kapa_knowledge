@@ -111,14 +111,17 @@ class WorkflowTests(unittest.TestCase):
     def test_pattern_scanner_uses_base_tooling_and_skips_untrusted_bootstrap(self):
         text = WORKFLOW.read_text(encoding='utf-8').split('\n  credential-scan:\n', 1)[0]
         preparation, blocking = text.split('      - name: Block credential-shaped content without secrets', 1)
-        self.assertIn('CI_PR_BASE: ${{ github.event.pull_request.base.sha }}', preparation)
+        self.assertIn('CI_DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}', preparation)
+        self.assertNotIn('CI_PR_BASE:', preparation)
         self.assertIn("if os.environ['CI_EVENT'] == 'pull_request':", preparation)
+        self.assertIn("os.environ.get('CI_DEFAULT_BRANCH') != 'main'", preparation)
         self.assertIn("git('cat-file', '-e', revision + '^{commit}')", preparation)
-        self.assertIn("git('rev-parse', '--is-shallow-repository')", preparation)
-        self.assertIn("'fetch', '--no-tags', '--depth=1', 'origin', revision", preparation)
+        self.assertIn("'fetch', '--no-tags', '--depth=1', 'origin',", preparation)
+        self.assertIn("'+refs/heads/main:refs/remotes/origin/main'", preparation)
+        self.assertIn("'refs/remotes/origin/main^{commit}'", preparation)
         self.assertIn("entry = git('ls-tree', revision, '--', 'tools/pattern_scan.py')\n"
                       '              if not entry:', preparation)
-        self.assertIn('::notice::Base revision has no tools/pattern_scan.py', preparation)
+        self.assertIn('::notice::Trusted main has no tools/pattern_scan.py', preparation)
         absent = preparation.split('              if not entry:\n', 1)[1].split('              else:', 1)[0]
         self.assertIn('scanner = None', absent)
         self.assertIn('blocking pattern scan skipped', absent)

@@ -32,7 +32,7 @@ jobs:
         id: pattern-scanner
         env:
           CI_EVENT: ${{ github.event_name }}
-          CI_PR_BASE: ${{ github.event.pull_request.base.sha }}
+          CI_DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
         run: |
           python -I -B - <<'PY'
           import os
@@ -52,29 +52,28 @@ jobs:
 
           scanner = Path.cwd() / 'tools/pattern_scan.py'
           if os.environ['CI_EVENT'] == 'pull_request':
-              revision = os.environ['CI_PR_BASE']
+              if os.environ.get('CI_DEFAULT_BRANCH') != 'main':
+                  raise SystemExit('Pattern scanner default branch must be the accepted main branch')
+              # Never trust an arbitrary PR base or a stale local tracking ref.
+              # origin is the repository remote installed by actions/checkout.
+              fetch_env = dict(env, GIT_ALLOW_PROTOCOL='https')
+              subprocess.run(
+                  ['git', '-c', 'core.fsmonitor=false', '-c', 'core.untrackedCache=false',
+                   '--no-replace-objects', 'fetch', '--no-tags', '--depth=1', 'origin',
+                   '+refs/heads/main:refs/remotes/origin/main'],
+                  check=True, capture_output=True, env=fetch_env)
+              revision = git('rev-parse', '--verify', '--end-of-options',
+                             'refs/remotes/origin/main^{commit}').decode().strip()
               if not re.fullmatch('[0-9a-f]{40}', revision):
-                  raise SystemExit('Trusted pattern scanner requires an immutable base commit')
-              try:
-                  git('cat-file', '-e', revision + '^{commit}')
-              except subprocess.CalledProcessError:
-                  if git('rev-parse', '--is-shallow-repository').strip() != b'true':
-                      raise
-                  # Checkout normally fetches full history. Fetch just the base
-                  # commit if a shallow checkout does not already contain it.
-                  fetch_env = dict(env, GIT_ALLOW_PROTOCOL='https')
-                  subprocess.run(
-                      ['git', '-c', 'core.fsmonitor=false', '-c', 'core.untrackedCache=false',
-                       '--no-replace-objects', 'fetch', '--no-tags', '--depth=1', 'origin', revision],
-                      check=True, capture_output=True, env=fetch_env)
-                  git('cat-file', '-e', revision + '^{commit}')
+                  raise SystemExit('Trusted pattern scanner requires an immutable main commit')
+              git('cat-file', '-e', revision + '^{commit}')
               entry = git('ls-tree', revision, '--', 'tools/pattern_scan.py')
               if not entry:
                   # Never use proposed PR code as a blocking security control.
                   scanner = None
-                  print('::notice::Base revision has no tools/pattern_scan.py; '
+                  print('::notice::Trusted main has no tools/pattern_scan.py; '
                         'blocking pattern scan skipped. The blocker activates once '
-                        'the scanner exists on the base branch.')
+                        'the scanner exists on main.')
               else:
                   blobs = {}
                   for name in ('pattern_scan.py', 'secret_scan.py', 'credentials.py', 'git_read.py'):

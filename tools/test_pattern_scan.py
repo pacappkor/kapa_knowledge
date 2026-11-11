@@ -127,7 +127,7 @@ class PatternTests(unittest.TestCase):
         for name in (OC_NAME, 'law_' + OC_NAME.lower(), 'law' + OC_NAME.title()):
             for operator in (':-', '-', ':=', ':+', '=', '+'):
                 value = '${NAME' + operator + VALUE + '}'
-                for quote in ('', '"', "'", '`'):
+                for quote in ('', '"', "'"):
                     self.assertEqual(self.rules(name + '=' + quote + value + quote), {'law-oc'})
         for operator in (':-', '-', ':=', ':+', '=', '+'):
             self.assertEqual(self.rules('token' + '=${TOKEN' + operator + VALUE + '}'), {'generic-secret'})
@@ -140,6 +140,32 @@ class PatternTests(unittest.TestCase):
         for rhs in ('lookup("***", "' + VALUE + '")', '"***" + "' + VALUE + '"',
                     '"***", other="' + VALUE + '"', 'factory(' + repr(VALUE) + ')'):
             self.assertEqual(self.rules('token = ' + rhs), {'generic-secret'})
+
+    def test_template_interpolations_are_not_static_credentials(self):
+        expressions = (
+            'getAccessTokenFromEnvironment()',
+            'lookup({nested: {value: runtimeValue}})',
+            'lookup("}", {value: runtimeValue})',
+            'lookup(`nested${lookup({value: runtimeValue})}tail`)',
+            'lookup(`nested${lookup("}")}tail`, {value: runtimeValue})',
+            'lookup(/* } */ runtimeValue)',
+            'lookup(' + repr(VALUE) + ')',
+        )
+        for path in (None, 'sample.js', 'sample.ts', 'sample.tsx'):
+            for expression in expressions:
+                with self.subTest(path=path, expression=expression):
+                    template = '${' + expression + '}'
+                    self.assertFalse(list(pattern_scan.findings(
+                        'accessToken = `' + template + '`', path)))
+                    self.assertEqual(list(pattern_scan.findings(
+                        'accessToken = `prefix' + template + VALUE + '`', path)),
+                        [(1, 'generic-secret')])
+                    self.assertEqual(list(pattern_scan.findings(
+                        'accessToken = `' + VALUE + template + 'suffix`', path)),
+                        [(1, 'generic-secret')])
+        self.assertFalse(self.rules('token = `prefix${runtimeValue}suffix`'))
+        self.assertEqual(self.rules('token = `' + chr(92) + '${' + VALUE + '}`'),
+                         {'generic-secret'})
 
     def test_default_inspect_negatives(self):
         for name in ('tokenizer', 'protocol', 'location', 'myTokenizer', 'socket'):
@@ -300,6 +326,25 @@ class PatternTests(unittest.TestCase):
         self.assertEqual(list(pattern_scan.candidates(value)), [value])
         self.assertFalse(self.rules('token=' + VALUE[:12] + '= ' + VALUE[12:]))
         self.assertFalse(self.rules('token=example= # ' + VALUE))
+
+    def test_bare_shell_word_punctuation(self):
+        for punctuation in (':', '=', '/', '+', '@', '%', ',', '.', '-'):
+            value = VALUE[:12] + punctuation + VALUE[12:]
+            for path in ('.env', 'sample.sh', 'sample.yaml', 'sample.toml'):
+                with self.subTest(punctuation=punctuation, path=path):
+                    for separator in ('=', ': '):
+                        self.assertEqual(list(pattern_scan.findings(
+                            'accessToken' + separator + value, path)),
+                            [(1, 'generic-secret')])
+                    self.assertFalse(list(pattern_scan.findings(
+                        'accessToken=short' + punctuation + 'word', path)))
+                    self.assertFalse(list(pattern_scan.findings(
+                        'accessToken=example; other=' + value, path)))
+            for path in ('sample.py', 'sample.js', 'sample.ts'):
+                self.assertFalse(list(pattern_scan.findings('accessToken=' + value, path)))
+        self.assertFalse(self.rules('accessToken=' + VALUE[:12] + ' ' + VALUE[12:]))
+        self.assertFalse(self.rules('accessToken: Optional[str]'))
+        self.assertEqual(self.rules('accessToken: str = ' + repr(VALUE)), {'generic-secret'})
 
     def test_toml_quoted_dotted_prefixes(self):
         for prefix in ('"service config".', 'a."b c".', "'service config'.",

@@ -12,6 +12,8 @@ ROOT = Path(__file__).resolve().parents[1]
 WORKFLOW = (ROOT / '.github/workflows/ci.yml').read_text(encoding='utf-8')
 PREPARATION = textwrap.dedent(WORKFLOW.split("          python -I -B - <<'PY'\n", 1)[1]
                               .split('          PY\n', 1)[0])
+# Fixtures use a local trusted origin; production allows HTTPS transport only.
+PREPARATION = PREPARATION.replace("GIT_ALLOW_PROTOCOL='https'", "GIT_ALLOW_PROTOCOL='file'")
 MODULES = ('pattern_scan.py', 'secret_scan.py', 'credentials.py', 'git_read.py')
 
 
@@ -27,7 +29,8 @@ class TrustedPatternScannerTests(unittest.TestCase):
         self.output = self.directory / 'output'
         self.env = {k: v for k, v in os.environ.items()
                     if not k.upper().startswith('GIT_') and k.upper() not in {'LAW_OC', 'LAW_OC_FILE'}}
-        self.git('init', '-q')
+        self.git('init', '-q', '-b', 'main')
+        self.git('remote', 'add', 'origin', str(self.root))
         self.git('config', 'user.email', 'ci@example.invalid')
         self.git('config', 'user.name', 'CI fixture')
         self.git('config', 'commit.gpgsign', 'false')
@@ -35,7 +38,8 @@ class TrustedPatternScannerTests(unittest.TestCase):
         for name in MODULES:
             (self.root / 'tools' / name).write_bytes((ROOT / 'tools' / name).read_bytes())
         self.commit()
-        self.env.update(CI_EVENT='pull_request', CI_PR_BASE=self.git('rev-parse', 'HEAD').decode().strip(),
+        self.env.update(CI_EVENT='pull_request', CI_DEFAULT_BRANCH='main',
+                        CI_PR_BASE=self.git('rev-parse', 'HEAD').decode().strip(),
                         RUNNER_TEMP=str(self.runner), GITHUB_OUTPUT=str(self.output))
 
     def git(self, *args):
@@ -116,9 +120,9 @@ class TrustedPatternScannerTests(unittest.TestCase):
             "raise SystemExit('PR scanner must never run as the gate')\n", encoding='utf-8')
         result = self.prepare()
         self.assertEqual(result.returncode, 0, result.stderr)
-        self.assertIn('::notice::Base revision has no tools/pattern_scan.py', result.stdout)
+        self.assertIn('::notice::Trusted main has no tools/pattern_scan.py', result.stdout)
         self.assertIn('blocking pattern scan skipped', result.stdout)
-        self.assertIn('the scanner exists on the base branch', result.stdout)
+        self.assertIn('the scanner exists on main', result.stdout)
         self.assertEqual(self.output.read_text(encoding='utf-8'), 'scanner=\n')
         blocking = WORKFLOW.split('      - name: Block credential-shaped content without secrets', 1)[1]
         self.assertIn("        if: steps.pattern-scanner.outputs.scanner != ''\n", blocking)
@@ -143,13 +147,30 @@ class TrustedPatternScannerTests(unittest.TestCase):
         self.assertNotEqual(self.prepare().returncode, 0)
         self.assertFalse(self.output.exists())
 
-    def test_invalid_or_missing_commit_does_not_bootstrap(self):
-        for revision in ('', 'HEAD', 'f' * 40):
-            self.env['CI_PR_BASE'] = revision
+    def test_non_main_base_still_uses_main_scanner(self):
+        self.git('checkout', '-qb', 'untrusted-base')
+        (self.root / 'tools/pattern_scan.py').write_text('raise SystemExit(0)\n', encoding='utf-8')
+        self.commit()
+        self.env.update(CI_PR_BASE_REF='untrusted-base',
+                        CI_PR_BASE=self.git('rev-parse', 'HEAD').decode().strip())
+        result = self.prepare()
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(self.scanner().read_bytes(), (ROOT / 'tools/pattern_scan.py').read_bytes())
+
+    def test_invalid_default_or_unavailable_main_fails_closed(self):
+        for branch in ('', 'other', 'refs/heads/main'):
+            self.env['CI_DEFAULT_BRANCH'] = branch
             result = self.prepare()
             self.assertNotEqual(result.returncode, 0)
             self.assertNotIn('::notice::', result.stdout)
             self.assertFalse(self.output.exists())
+        self.env['CI_DEFAULT_BRANCH'] = 'main'
+        self.git('checkout', '-qb', 'other')
+        self.git('branch', '-D', 'main')
+        result = self.prepare()
+        self.assertNotEqual(result.returncode, 0)
+        self.assertNotIn('::notice::', result.stdout)
+        self.assertFalse(self.output.exists())
 
     def test_non_pr_uses_checked_out_tool_without_base_lookup(self):
         for event in ('push', 'workflow_dispatch'):

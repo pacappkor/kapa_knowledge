@@ -110,6 +110,33 @@ def braced_end(text, start):
     return len(text)
 
 
+def interpolation_end(text, start):
+    """Skip a JS/TS interpolation, including nested objects and templates."""
+    depth = 1
+    index = start + 2
+    while index < len(text):
+        if text[index] == '\\':
+            index += 2
+        elif text[index] in '\"\'`':
+            index = quoted_end(text, index) + 1
+        elif text.startswith('//', index):
+            return len(text)  # Single-line scanner: the rest is a comment.
+        elif text.startswith('/*', index):
+            stop = text.find('*/', index + 2)
+            index = len(text) if stop < 0 else stop + 2
+        elif text[index] == '{':
+            depth += 1
+            index += 1
+        elif text[index] == '}':
+            depth -= 1
+            index += 1
+            if not depth:
+                return index
+        else:
+            index += 1
+    return len(text)
+
+
 def quoted_end(text, start):
     """Return the closing quote offset, respecting escapes and doubled quotes."""
     quote = text[start]
@@ -118,7 +145,8 @@ def quoted_end(text, start):
         if text[index] == '\\':
             index += 2
         elif text.startswith('${', index):
-            index = braced_end(text, index)
+            index = (interpolation_end(text, index) if quote == '`'
+                     else braced_end(text, index))
         elif text[index] == quote:
             if index + 1 < len(text) and text[index + 1] == quote:
                 index += 2
@@ -216,8 +244,8 @@ def lexemes(text, comment_at_start=True, separators=False, bare_equals=False):
                 index += 2
             elif text.startswith('${', index):
                 index = braced_end(text, index)
-            elif (text[index].isspace() or text[index] in ',:;()[]}&'
-                  or (text[index] == '=' and not bare_equals)
+            elif (text[index].isspace() or text[index] in ';()[]}&'
+                  or (text[index] in ',:=' and not bare_equals)
                   or (separators and text[index] == '|')
                   or quote_start(text, index)):
                 break
@@ -253,9 +281,8 @@ def candidates(text, comment_at_start=True, source=False):
                     cursor += 2
                 elif value.startswith('${', cursor):
                     chunks.append(value[begin:cursor])
-                    stop = braced_end(value, cursor)
-                    yield from literal_candidates(value[cursor:stop])
-                    begin = cursor = stop
+                    # Expressions are runtime values, never static template text.
+                    begin = cursor = interpolation_end(value, cursor)
                 else:
                     cursor += 1
             chunks.append(value[begin:])
@@ -319,7 +346,10 @@ def findings(text, path=None):
                     break
             if match['operator'] == ':':
                 annotation = TYPE_ANNOTATION.match(rest)
-                if annotation and rest[annotation.end():].strip().strip('='):
+                if (annotation and rest[annotation.end():].strip().strip('=')
+                        and ((path is not None and Path(path).suffix.lower() in
+                              {'.py', '.js', '.jsx', '.ts', '.tsx', '.mjs', '.cjs'})
+                             or re.search(r'\s=|=\s', annotation[0]))):
                     rest = rest[annotation.end():]
             embedded = any(start < match.start() < match.end() <= end
                            for start, end in spans)
