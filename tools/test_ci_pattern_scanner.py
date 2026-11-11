@@ -75,15 +75,28 @@ class TrustedPatternScannerTests(unittest.TestCase):
             self.assertIn("'payload':1: github-token [masked]", result.stdout)
             self.assertNotIn(payload, result.stdout + result.stderr)
 
-    def test_only_absent_base_scanner_bootstraps_with_notice(self):
+    def test_absent_base_scanner_skips_gate_without_executing_pr_copy(self):
         self.git('rm', 'tools/pattern_scan.py')
         self.commit()
         self.env['CI_PR_BASE'] = self.git('rev-parse', 'HEAD').decode().strip()
-        (self.root / 'tools/pattern_scan.py').write_text('raise SystemExit(0)\n', encoding='utf-8')
+        marker = self.root / 'pr-scanner-executed'
+        (self.root / 'tools/pattern_scan.py').write_text(
+            "from pathlib import Path\nPath('pr-scanner-executed').touch()\n"
+            "raise SystemExit('PR scanner must never run as the gate')\n", encoding='utf-8')
         result = self.prepare()
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertIn('::notice::Base revision has no tools/pattern_scan.py', result.stdout)
-        self.assertEqual(self.scanner(), self.root / 'tools/pattern_scan.py')
+        self.assertIn('blocking pattern scan skipped', result.stdout)
+        self.assertIn('the scanner exists on the base branch', result.stdout)
+        self.assertEqual(self.output.read_text(encoding='utf-8'), 'scanner=\n')
+        blocking = WORKFLOW.split('      - name: Block credential-shaped content without secrets', 1)[1]
+        self.assertIn("        if: steps.pattern-scanner.outputs.scanner != ''\n", blocking)
+        # Reproduce the workflow's nonempty-output guard before invoking Python.
+        scanner = self.output.read_text(encoding='utf-8').strip().partition('=')[2]
+        if scanner:
+            subprocess.run([sys.executable, '-I', '-B', scanner, '--root', '.'],
+                           cwd=self.root, env=self.env, capture_output=True, check=True)
+        self.assertFalse(marker.exists())
         self.assertEqual(list(self.runner.iterdir()), [])
 
     def test_missing_dependency_and_nonregular_scanner_fail_closed(self):

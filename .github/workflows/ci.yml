@@ -70,9 +70,11 @@ jobs:
                   git('cat-file', '-e', revision + '^{commit}')
               entry = git('ls-tree', revision, '--', 'tools/pattern_scan.py')
               if not entry:
-                  # Bootstrap only: this PR first introduces the pattern scanner.
+                  # Never use proposed PR code as a blocking security control.
+                  scanner = None
                   print('::notice::Base revision has no tools/pattern_scan.py; '
-                        'bootstrap uses the PR copy until the scanner is merged to main.')
+                        'blocking pattern scan skipped. The blocker activates once '
+                        'the scanner exists on the base branch.')
               else:
                   blobs = {}
                   for name in ('pattern_scan.py', 'secret_scan.py', 'credentials.py', 'git_read.py'):
@@ -92,9 +94,10 @@ jobs:
                       (directory / name).write_bytes(data)
                   scanner = directory / 'pattern_scan.py'
           with open(os.environ['GITHUB_OUTPUT'], 'a', encoding='utf-8') as output:
-              output.write('scanner=' + str(scanner) + '\n')
+              output.write('scanner=' + (str(scanner) if scanner is not None else '') + '\n')
           PY
       - name: Block credential-shaped content without secrets
+        if: steps.pattern-scanner.outputs.scanner != ''
         env:
           PATTERN_SCANNER: ${{ steps.pattern-scanner.outputs.scanner }}
         working-directory: ${{ github.workspace }}

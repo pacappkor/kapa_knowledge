@@ -52,7 +52,7 @@ class WorkflowTests(unittest.TestCase):
     def test_only_credential_job_has_an_event_gate(self):
         text = WORKFLOW.read_text(encoding='utf-8')
         offline, credential = text.split('\n  credential-scan:\n', 1)
-        self.assertNotIn('    if:', offline)
+        self.assertNotRegex(offline, r'(?m)^    if:')
         gate = credential.split('    runs-on:', 1)[0]
         self.assertEqual(gate, "    if: >-\n"
                          "      github.event_name == 'workflow_dispatch' ||\n"
@@ -101,13 +101,14 @@ class WorkflowTests(unittest.TestCase):
                         'tools/validate.py', '.github/ci/ci_docs.py',
                         '.github/ci/ci_tests_supervise.py', '.github/ci/ci_integrity.py'):
             self.assertIn('run: python -I -B ' + command + '\n', text)
-        self.assertNotIn('        if:', text)
+        self.assertEqual(re.findall(r'^        if: (.+)$', text, re.MULTILINE),
+                         ["steps.pattern-scanner.outputs.scanner != ''"])
         self.assertNotIn('continue-on-error:', text)
         self.assertLess(text.index('run: python -I -B "$PATTERN_SCANNER" --root .'),
                         text.index('run: python -I -B .github/ci/ci_tests_supervise.py'))
         self.assertIn('run: bash .github/ci/ci_whitespace.sh "$BASE_SHA"', text)
 
-    def test_pattern_scanner_uses_base_tooling_with_narrow_bootstrap(self):
+    def test_pattern_scanner_uses_base_tooling_and_skips_untrusted_bootstrap(self):
         text = WORKFLOW.read_text(encoding='utf-8').split('\n  credential-scan:\n', 1)[0]
         preparation, blocking = text.split('      - name: Block credential-shaped content without secrets', 1)
         self.assertIn('CI_PR_BASE: ${{ github.event.pull_request.base.sha }}', preparation)
@@ -118,6 +119,12 @@ class WorkflowTests(unittest.TestCase):
         self.assertIn("entry = git('ls-tree', revision, '--', 'tools/pattern_scan.py')\n"
                       '              if not entry:', preparation)
         self.assertIn('::notice::Base revision has no tools/pattern_scan.py', preparation)
+        absent = preparation.split('              if not entry:\n', 1)[1].split('              else:', 1)[0]
+        self.assertIn('scanner = None', absent)
+        self.assertIn('blocking pattern scan skipped', absent)
+        self.assertNotIn('subprocess.run', absent)
+        self.assertIn("(str(scanner) if scanner is not None else '')", preparation)
+        self.assertIn("        if: steps.pattern-scanner.outputs.scanner != ''\n", blocking)
         self.assertIn("('pattern_scan.py', 'secret_scan.py', 'credentials.py', 'git_read.py')", preparation)
         self.assertIn("blobs[name] = git('show', fields[2])", preparation)
         self.assertIn("Path(os.environ['RUNNER_TEMP'])", preparation)
