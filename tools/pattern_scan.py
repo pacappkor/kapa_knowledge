@@ -44,9 +44,9 @@ SPACE = re.compile(r'\s*')
 class Assignment:
     """Small match-compatible record produced by the forward-only name scan."""
 
-    def __init__(self, start, end, name, operator, key=None):
+    def __init__(self, start, end, name, operator, key=None, option=False):
         self.start_at, self.end_at = start, end
-        self.fields = {'name': name, 'key': key, 'operator': operator}
+        self.fields = {'name': name, 'key': key, 'operator': operator, 'option': option}
 
     def start(self):
         return self.start_at
@@ -61,8 +61,31 @@ class Assignment:
         return self.fields[key]
 
 
+def bracket_pairs(text, angles=False):
+    """Index balanced groups once so chained lookups never rescan suffixes."""
+    pairs, stack = {}, []
+    index = 0
+    while index < len(text):
+        char = text[index]
+        if char in '\"\'`':
+            index = quoted_end(text, index) + 1
+            continue
+        if char in '([{' or (angles and char == '<'):
+            stack.append((char, index))
+        elif char in ')]}>':
+            if char == '>' and index and text[index - 1] in '=-':
+                index += 1
+                continue
+            if stack and stack[-1][0] == {')': '(', ']': '[', '}': '{', '>': '<'}[char]:
+                _, opening = stack.pop()
+                pairs[opening] = index
+        index += 1
+    return pairs
+
+
 def assignments_in(text):
-    """Consume a dotted chain once, including when no operator follows it."""
+    """Consume dotted/indexed chains and command options in one forward pass."""
+    pairs = bracket_pairs(text) if '[' in text else {}
     cursor = 0
     while cursor < len(text):
         if text[cursor] == '\\':
@@ -76,7 +99,7 @@ def assignments_in(text):
         if text[start:end].endswith('.') and text[end:end + 1] in ('"', "'"):
             end -= 1
         cursor = end
-        if text[start] in '\"\'' and not re.fullmatch(r'[A-Za-z_][\w.-]*', text[start + 1:end - 1]):
+        if text[start] in '\"\'' and not re.fullmatch(r'[A-Za-z_][\w. -]*', text[start + 1:end - 1]):
             # Still recognize embedded examples inside ordinary strings/prose.
             if text.startswith('.', SPACE.match(text, end).end()):
                 pass  # Quoted namespace.
@@ -85,25 +108,45 @@ def assignments_in(text):
                 continue
         if text[start:end].endswith('-') and text[end:end + 1] == '>':
             end -= 1
-        if start and (text[start - 1].isalnum() or text[start - 1] in '_.-'):
+        option_start = start
+        while option_start and text[option_start - 1] == '-':
+            option_start -= 1
+        option = (start - option_start in (1, 2)
+                  and (not option_start or text[option_start - 1].isspace()))
+        if start and (text[start - 1].isalnum() or text[start - 1] in '_.-') and not option:
             continue
-        key = None
+        key = 'password' if option and text[start:end] == 'p' else None
         after = SPACE.match(text, end).end()
         if text[start] in '\"\'' and text[after:after + 1] == ']':
             key = text[start + 1:end - 1]
             after = SPACE.match(text, after + 1).end()
         else:
-            while text[after:after + 1] == '.':
-                following = NAME_TOKEN.match(text, SPACE.match(text, after + 1).end())
-                if following is None:
+            indexed_chain = False
+            while True:
+                if text[after:after + 1] == '[' and after in pairs:
+                    indexed_chain = True
+                    closing = pairs[after]
+                    indexed = text[after + 1:closing].strip()
+                    key = indexed[1:-1] if indexed[:1] in ('\"', "'") else '[dynamic]'
+                    end = closing + 1
+                    after = SPACE.match(text, end).end()
+                elif text[after:after + 1] == '.':
+                    following = NAME_TOKEN.match(text, SPACE.match(text, after + 1).end())
+                    if following is None:
+                        break
+                    if indexed_chain:
+                        key = following[0].strip('\"\'')
+                    end = following.end()
+                    after = SPACE.match(text, end).end()
+                else:
                     break
-                end = following.end()
-                after = SPACE.match(text, end).end()
             cursor = max(cursor, after)
         operator = OPERATOR.match(text, after)
         if operator:
-            yield Assignment(start, operator.end(), text[start:end], operator[0], key)
+            yield Assignment(start, operator.end(), text[start:end], operator[0], key, option)
             cursor = operator.end()
+        elif option and after > end and after < len(text):
+            yield Assignment(option_start, after, text[start:end], 'option', key, True)
 SEGMENTS = re.compile(r'[A-Za-z]+|[0-9]+')
 
 
@@ -605,9 +648,7 @@ def candidates(text, comment_at_start=True, source=False, shell=False):
             argument = LITERAL_PREFIX.match(text, call.end())
             if argument:
                 closing = quoted_end(text, argument.end() - 1)
-                key = text[argument.end():closing]
-                if re.fullmatch(r'[A-Za-z_$][\w$.-]*', key) and not high_entropy(key):
-                    getters.append((argument.start(), closing + 1))
+                getters.append((argument.start(), closing + 1))
     span_starts = [a for a, _ in spans]
     lookups = []
     for start, end in references:
@@ -667,7 +708,7 @@ def static_chunks(value, formatted=False):
     yield ''.join(chunk)
 
 
-REGEX_KEYWORDS = frozenset(('return', 'throw', 'case', 'delete', 'void',
+REGEX_KEYWORDS = frozenset(('else', 'do', 'return', 'throw', 'case', 'delete', 'void',
                             'typeof', 'instanceof', 'in', 'of', 'yield', 'await', 'new'))
 
 
@@ -716,6 +757,38 @@ class LineState:
             r'\b(?:def\s+[A-Za-z_$][\w$]*\s*+|function\s*+(?:\*\s*+)?(?:[A-Za-z_$][\w$]*\s*+)?)[(]', line)}
         methods = {m.end() - 1 for m in re.finditer(
             r'(?:^|[;,{}])\s*(?:(?:async|static|get|set)\s+)*[A-Za-z_$][\w$]*\s*\(', line)}
+        type_pairs = bracket_pairs(line, angles=True) if kind == 'javascript' else {}
+        annotation_cache = {}
+
+        def signature_tail(position):
+            position = SPACE.match(line, position).end()
+            if line[position:position + 1] != ':':
+                return position
+            position = SPACE.match(line, position + 1).end()
+            visited = []
+            while position < len(line):
+                if position in annotation_cache:
+                    position = annotation_cache[position]
+                    break
+                if line.startswith('=>', position) or line[position] in ';=':
+                    break
+                if line[position] == '{' and visited and line[visited[-1]] not in '|&':
+                    break  # Method body after a return type, not a type literal.
+                visited.append(position)
+                if position in type_pairs:
+                    function_type = line[position] == '('
+                    position = SPACE.match(line, type_pairs[position] + 1).end()
+                    if function_type and line.startswith('=>', position):
+                        position += 2
+                elif line[position] == '{':
+                    break
+                else:
+                    position += 1
+                position = SPACE.match(line, position).end()
+            for offset in visited:
+                annotation_cache[offset] = position
+            return position
+
         regex_allowed = True
         stack = [0]
         brace_depth = 0
@@ -820,9 +893,9 @@ class LineState:
             elif char in ')]}':
                 context = stack[-1]
                 if char == ')' and context in openings:
-                    if (re.compile(r'\s*+(?::\s*+[\w<>\[\]|? .]++)?\s*+=>').match(line, index + 1)
-                            or (openings[context] in methods
-                                and re.compile(r'\s*+(?::\s*+[\w<>\[\]|? .]++)?\s*+\{').match(line, index + 1))):
+                    tail = signature_tail(index + 1)
+                    if (line.startswith('=>', tail)
+                            or (openings[context] in methods and line[tail:tail + 1] == '{')):
                         self.parameters.add(context)
                 self.bounds[stack[-1]].append(index)
                 if len(stack) > 1:
@@ -921,7 +994,7 @@ def findings(text, path=None, budget=None):
             assignments = sorted({m.span(): m for m in
                                   raw_assignments + list(assignments_in(assignment_text))}.values(),
                                  key=lambda item: item.end())
-        word_ends = shell_word_boundaries(line) if shell else []
+        word_ends = shell_word_boundaries(line) if shell or any(m['option'] for m in assignments) else []
         tokens = (list(lexemes(line, comment_at_start=False, quotes=state.quotes))
                   if provider_matches else [])
         token_starts = [start for start, _, _ in tokens]
@@ -966,6 +1039,8 @@ def findings(text, path=None, budget=None):
             if (match['operator'] == '=>' and
                     (path is None or kind == 'javascript')):
                 continue
+            if match['operator'] == '->' and kind in ('c-family', 'php'):
+                continue
             if (match['operator'] == ':' and match.end() - 1 in state.ternary_colons
                     and kind == 'javascript'):
                 continue
@@ -982,6 +1057,11 @@ def findings(text, path=None, budget=None):
                     raise ScanError('pattern scan line work limit exceeded [masked]')
                 start = typed.end()
             stop = state.rhs_end(start)
+            if source_file and state.context[start]:
+                stop = min(stop, state.rhs_end(start, True))
+            if shell or match['option']:
+                word_start = SPACE.match(line, start).end()
+                stop = min(stop, word_ends[bisect_right(word_ends, word_start)])
             owner = state.owner[match.start()]
             embedded = owner >= match.end() and line[match.start()] not in '\"\''
             if owner >= match.end():

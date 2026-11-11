@@ -38,9 +38,10 @@ class PatternTests(unittest.TestCase):
                            'os.environ.get("LAW_' + OC_NAME + '")',
                            'os.getenv("X")', 'process.env.X'):
             self.assertFalse(list(pattern_scan.findings(OC_NAME + ' = ' + expression, 'sample.py')))
+        self.assertFalse(list(pattern_scan.findings(
+            OC_NAME + ' = config.get(' + repr(VALUE) + ')', 'sample.py')))
         for expression in ('config.get("X", ' + repr(VALUE) + ')',
-                           'os.getenv("X", ' + repr(VALUE) + ')',
-                           'config.get(' + repr(VALUE) + ')'):
+                           'os.getenv("X", ' + repr(VALUE) + ')'):
             self.assertEqual(list(pattern_scan.findings(OC_NAME + ' = ' + expression, 'sample.py')),
                              [(1, 'law-oc')])
         for operator in ('=', 'return ', 'throw ', '(', '[', '!', '&&', '?'):
@@ -55,6 +56,62 @@ class PatternTests(unittest.TestCase):
             for value, expected in ((reference, []), (VALUE, [(1, 'law-oc')])):
                 text = 'url = ' + prefix + quote + 'https://law.go.kr/DRF?' + OC_NAME + '=' + value + '&target=law' + quote
                 self.assertEqual(list(pattern_scan.findings(text, path)), expected)
+
+    def test_round_seven_regressions(self):
+        def check(text, path, expected):
+            self.assertEqual(list(pattern_scan.findings(text, path)),
+                             [(1, 'generic-secret')] if expected else [], (text, path))
+
+        for keyword in ('else', 'do', 'return', 'typeof', 'case', 'throw', 'void',
+                        'delete', 'in', 'of', 'instanceof', 'new', 'yield', 'await', '}'):
+            for value in (VALUE, '<hi>'):
+                check('if (x) {} ' + keyword + " /'/.test(s); accessToken = " + repr(value),
+                      'sample.js', value == VALUE)
+        check('const n = a / b; accessToken = ' + repr(VALUE), 'sample.js', True)
+        for annotation in ('Record<string, string>', 'string | number', 'Box<Map<K, V>>',
+                           '[string, number]', '(x: string) => string',
+                           '{ value: string }', 'Array<(x: string) => string>'):
+            check('const fn = (accessToken: string): ' + annotation + ' => ""', 'sample.ts', False)
+            check('const fn = (accessToken: string = ' + repr(VALUE) + '): ' + annotation + ' => ""',
+                  'sample.ts', True)
+        for path in ('sample.py', 'sample.js'):
+            getter_key = 'LAW_OFFICIAL_' + 'CREDENTIAL_ACCESS_IDENTIFIER'
+            check('accessToken = config.get(' + repr(getter_key) + ')', path, False)
+            check('accessToken = config.get(' + repr(VALUE) + ')', path, False)
+            check('accessToken = config.get("name", ' + repr(VALUE) + ')', path, True)
+        for path in ('sample.json', 'sample.yaml', 'sample.js'):
+            for name in ('access token', 'api key', 'access-token', 'api-key'):
+                for value in (VALUE, '<hi>'):
+                    for quote in ('\"', "'"):
+                        check('{' + quote + name + quote + ': ' + quote + value + quote + '}',
+                              path, value == VALUE)
+        for option in ('--access-token=', '--api-key ', '-p ', '-access-token '):
+            for value in (VALUE, '$TOKEN', '<hi>'):
+                check('run ' + option + value, 'sample.sh', value == VALUE)
+            check('run ' + option + '$TOKEN --description ' + VALUE, 'sample.sh', False)
+        for path in ('sample.c', 'sample.cpp', 'sample.php'):
+            check('consume(accessToken->value, ' + repr(VALUE) + ')', path, False)
+            check('accessToken = ' + repr(VALUE) + ';', path, True)
+        for path in ('sample.py', 'sample.js'):
+            check('request(access_token=get_access_token(), description=' + repr(VALUE) + ')', path, False)
+            check('request(access_token=' + repr(VALUE) + ')', path, True)
+            check('request(access_token=get_access_token(' + repr(VALUE) + '))', path, True)
+        for chain in ('config.credentials[0].access_token', 'config["credentials"].accessToken',
+                      'config[0][1].accessToken', 'config["access token"]'):
+            for value in (VALUE, '<hi>'):
+                check(chain + ' = ' + repr(value), 'sample.js', value == VALUE)
+        check('config[token] = ' + repr(VALUE), 'sample.js', False)
+
+    def test_long_indexed_member_chains_linear_work(self):
+        code = ('import sys,time;sys.path.insert(0,sys.argv[1]);import pattern_scan;'
+                'exec("for tail in [\'\', \'accessToken = \' + repr(\'aB3dE6gH9jK2\' + \'mN5pQ8sT1vW4yZ7\')]:\\n "'
+                '+"text=\'config\'+\'[0].member\'*15000+\'.\'+tail\\n "'
+                '+"start=time.perf_counter()\\n "'
+                '+"assert bool(list(pattern_scan.findings(text,\'sample.js\')))==bool(tail)\\n "'
+                '+"elapsed=time.perf_counter()-start\\n assert elapsed<2, elapsed\\n print(elapsed)")')
+        result = subprocess.run([sys.executable, '-I', '-B', '-c', code, str(SCRIPT.parent)],
+                                capture_output=True, text=True, timeout=10, check=True)
+        self.assertEqual(len(result.stdout.splitlines()), 2)
 
     def test_adversarial_name_scans_linear_work(self):
         code = ('import sys,time;sys.path.insert(0,sys.argv[1]);import pattern_scan;'
