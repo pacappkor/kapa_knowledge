@@ -6,6 +6,8 @@ Keep a Changelog와 유의적 버전을 따른다. [버전 규칙](docs/RELEASIN
 
 ### Secret-free CI hardening
 
+- Address three scanner findings: keep trailing possessive apostrophes out of quote bounds, preserve inner equals signs in bare assignment candidates, and recognize TOML dotted credential keys with quoted prefixes. Add runtime-built positive and negative regressions; no runs or catalog changes.
+
 - Address six scanner findings: extract trusted blobs with validated object IDs and cat-file, bound assignment RHS at quote-aware shell separators, include non-ignored untracked files, preserve padded colon values, distinguish source references from literals, and restrict placeholder markers to whole allowlisted shapes. Add runtime-built scanner and extracted-CI regressions; no research data changes.
 
 - Remove the untrusted PR-scanner bootstrap gate: when the immutable base lacks tools/pattern_scan.py, preparation succeeds with an explicit activation notice and the blocking step is skipped, never executing the PR copy. Keep ordinary scanner unit tests and fail-closed handling for every other extraction error; add hostile-copy and credential-gate regressions.

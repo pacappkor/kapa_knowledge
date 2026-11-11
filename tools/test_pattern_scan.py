@@ -275,6 +275,49 @@ class PatternTests(unittest.TestCase):
             self.assertFalse(self.rules(contraction + ' echo "token=example"; other="' + VALUE + '"'))
         self.assertFalse(self.rules("echo 'token=example'; other=\"" + VALUE + '"'))
 
+    def test_possessive_apostrophes_before_assignments(self):
+        for prose in ("Users'", "users',", "Users'.", "Users':", "Users' notes"):
+            for quote in ('', "'", '"'):
+                with self.subTest(prose=prose, quote=quote):
+                    self.assertEqual(self.rules(prose + ' token=' + quote + VALUE + quote),
+                                     {'generic-secret'})
+                    for safe in ('', 'example', '${NAME}', '<hi>'):
+                        self.assertFalse(self.rules(prose + ' token=' + quote + safe + quote))
+            self.assertFalse(self.rules(prose + ' token=\'\'; other=' + repr(VALUE)))
+        self.assertEqual(list(pattern_scan.quote_spans("Users'")), [])
+        self.assertFalse(self.rules("echo 'token=example'; other=" + repr(VALUE)))
+        self.assertEqual(self.rules("token=r'" + VALUE + "'"), {'generic-secret'})
+
+    def test_inner_equals_in_bare_values(self):
+        value = VALUE[:12] + '=' + VALUE[12:]
+        for path in (None, '.env', 'sample.sh', 'sample.toml'):
+            with self.subTest(path=path):
+                self.assertEqual(list(pattern_scan.findings('token=' + value, path)),
+                                 [(1, 'generic-secret')])
+                self.assertFalse(list(pattern_scan.findings('token=example=short', path)))
+                self.assertFalse(list(pattern_scan.findings(
+                    'token=example=; other=' + repr(VALUE), path)))
+        self.assertEqual(list(pattern_scan.candidates(value)), [value])
+        self.assertFalse(self.rules('token=' + VALUE[:12] + '= ' + VALUE[12:]))
+        self.assertFalse(self.rules('token=example= # ' + VALUE))
+
+    def test_toml_quoted_dotted_prefixes(self):
+        for prefix in ('"service config".', 'a."b c".', "'service config'.",
+                       'a . "b c" . ', '"service config".nested.'):
+            for name in ('clientSecret', 'api_key', 'accessToken'):
+                with self.subTest(prefix=prefix, name=name):
+                    self.assertEqual(list(pattern_scan.findings(
+                        prefix + name + ' = ' + repr(VALUE), 'sample.toml')),
+                        [(1, 'generic-secret')])
+                    for safe in ('', '<hi>', 'example', '${NAME}'):
+                        self.assertFalse(self.rules(prefix + name + ' = ' + repr(safe)))
+            self.assertFalse(self.rules(prefix + 'monkey = ' + repr(VALUE)))
+        self.assertEqual(self.rules('"service config".' + OC_NAME + '=' + repr(VALUE)),
+                         {'law-oc'})
+
+        for prefix in ('"api_key config".', "'secret token'.", 'a."private_key".'):
+            self.assertFalse(self.rules(prefix + 'monkey = ' + repr(VALUE)))
+
     def test_conventional_secret_key_names(self):
         for name in ('AWS_SECRET_ACCESS_KEY', 'secretKey', 'SECRET_KEY',
                      'accessKey', 'private_key', 'prefixSecretSigningKey',

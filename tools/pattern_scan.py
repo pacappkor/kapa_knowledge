@@ -38,7 +38,9 @@ TOKEN_RULES = (
 ASSIGNMENT = re.compile(
     r"""(?<![\w.-]) (?:
     ["'] (?P<key>[A-Za-z_][\w.-]*) ["'] \s* \] |
-    ["']? (?P<name>[A-Za-z_][\w.-]*) ["']?) \s*
+    (?P<name> (?: (?: "(?:\\.|[^"\\])*" | '(?:\\.|[^'\\])*' |
+                       [A-Za-z_][\w-]* ) \s* \. \s* )*
+    ["']? [A-Za-z_][\w.-]* ["']? )) \s*
     (?P<operator>\?\?=|\|\|=|&&=|\+=|:=|=>|->|\?=|=|:)""", re.X
 )
 SEGMENTS = re.compile(r'[A-Z]+(?=[A-Z][a-z]|$)|[A-Z]?[a-z]+|[A-Z]+|[0-9]+')
@@ -128,10 +130,11 @@ def quoted_end(text, start):
 
 
 def quote_start(text, index):
-    # Apostrophes within words are prose, not opening string delimiters.
-    return (text[index] in '\"\'`' and not (
-        text[index] == "'" and 0 < index < len(text) - 1
-        and re.match(r'\w', text[index - 1]) and re.match(r'\w', text[index + 1])))
+    # Word-internal and trailing possessive apostrophes are prose. Only a
+    # recognized literal prefix at a token boundary can open a quote after a word.
+    if text[index] == "'" and index > 0 and re.match(r'\w', text[index - 1]):
+        return bool(re.search(r'(?i)(?<![\w])[bruf]+$', text[:index]))
+    return text[index] in '\"\'`'
 
 
 def quote_spans(text):
@@ -173,7 +176,7 @@ def literal_candidates(value):
     yield value
 
 
-def lexemes(text, comment_at_start=True, separators=False):
+def lexemes(text, comment_at_start=True, separators=False, bare_equals=False):
     """Yield source bounds and values for single-line literals, refs and words.
 
     Python literal prefixes are syntax, not values. Source bounds let provider
@@ -213,7 +216,8 @@ def lexemes(text, comment_at_start=True, separators=False):
                 index += 2
             elif text.startswith('${', index):
                 index = braced_end(text, index)
-            elif (text[index].isspace() or text[index] in '=,:;()[]}&'
+            elif (text[index].isspace() or text[index] in ',:;()[]}&'
+                  or (text[index] == '=' and not bare_equals)
                   or (separators and text[index] == '|')
                   or quote_start(text, index)):
                 break
@@ -229,7 +233,9 @@ def lexemes(text, comment_at_start=True, separators=False):
 def candidates(text, comment_at_start=True, source=False):
     references = list(re.finditer(r'\b[A-Za-z_$][\w$]*(?:\.[A-Za-z_$][\w$]*|\[[^\]]*\])+', text)) if source else []
     spans = list(quote_spans(text)) if source else []
-    for start, end, value in lexemes(text, comment_at_start):
+    # The assignment operator has already been consumed; inner equals signs
+    # (including base64 padding) belong to the bare shell/config word.
+    for start, end, value in lexemes(text, comment_at_start, bare_equals=True):
         if source:
             # A quoted subscript is a lookup key, not a credential literal.
             if any(item.start() <= start and end <= item.end()
@@ -291,7 +297,11 @@ def findings(text, path=None):
                 if not (in_assignment and placeholder(enclosing)):
                     rules.add(rule)
         for match in assignments:
-            rule = credential_rule(match['key'] or match['name'])
+            # Quoted TOML prefixes are namespaces, not credential names. Keep
+            # bare dotted segments for conventional names such as prefix.api.key.
+            name = re.sub(r'''(?:"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*')\s*\.\s*''',
+                          '', match['key'] or match['name'])
+            rule = credential_rule(name)
             if rule is None:
                 continue
             rest = line[match.end():]
