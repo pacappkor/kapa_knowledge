@@ -20,6 +20,9 @@ ALLOWLIST = {
     ('tools/test_review_round6.py', 'law-oc', '5f389a44337cb5688c946171460f430ed1ea23e712c2d4b8e51939679f8af114'),
     # Deliberate ordinary word in a recursive masking regression fixture.
     ('tools/test_review_round7.py', 'law-oc', '15aef1191dcf0221d3f67420efd375774f18e9265f76fe0ab72c7347770056a2'),
+    # Runtime variables, not literal credentials, assigned to subscript targets.
+    ('tools/test_ci_trusted_scanner.py', 'law-oc', 'd26dec3ebec8d25cb4e2e7de04700eeef3ba835562b3fcf827c854ee2917a0a4'),
+    ('tools/test_secret_scan.py', 'law-oc', '8f0a9fcb537ccb47e2c0bea9c6db3f82406d7ed62823b856c55b01563b9c1397'),
     # Runtime concatenation of the example-not-a-real-key placeholder.
     ('tools/test_secret_scan.py', 'law-oc', '04e3a24f5e3c1e2f0d977063b6218f9e960beadc7c970161bfd53b70f45577e2'),
 }
@@ -32,8 +35,10 @@ TOKEN_RULES = (
 # Recognize names independently of value syntax. Once an assignment is found,
 # inspect the entire remaining line, rather than accepting one blessed RHS form.
 ASSIGNMENT = re.compile(
-    r"""(?<![\w.-]) ["']? (?P<name>[A-Za-z_][\w.-]*) ["']? \s*
-    (?P<operator>:=|=>|->|\?=|=|:)""", re.X
+    r"""(?<![\w.-]) (?:
+    ["'] (?P<key>[A-Za-z_][\w.-]*) ["'] \s* \] |
+    ["']? (?P<name>[A-Za-z_][\w.-]*) ["']?) \s*
+    (?P<operator>\?\?=|\|\|=|&&=|\+=|:=|=>|->|\?=|=|:)""", re.X
 )
 SEGMENTS = re.compile(r'[A-Z]+(?=[A-Z][a-z]|$)|[A-Z]?[a-z]+|[A-Z]+|[0-9]+')
 PLACEHOLDER = re.compile(
@@ -61,17 +66,23 @@ def credential_rule(name):
         return 'law-oc'
     if words and words[-1] in ('secret', 'token', 'password', 'passwd'):
         return 'generic-secret'
+    if words and words[-1] == 'key' and 'secret' in words[:-1]:
+        return 'generic-secret'
     pairs = set(zip(words, words[1:]))
-    if pairs & {('api', 'key'), ('service', 'key'), ('private', 'key')}:
+    if pairs & {('api', 'key'), ('service', 'key'), ('private', 'key'),
+                ('access', 'key'), ('secret', 'key')}:
         return 'generic-secret'
     # Preserve conventional all-lower/all-upper spellings as whole segments.
-    if any(word in ('apikey', 'servicekey', 'privatekey') for word in words):
+    if any(word in ('apikey', 'servicekey', 'privatekey', 'accesskey', 'secretkey')
+           for word in words):
         return 'generic-secret'
     return None
 
 
 def placeholder(value):
-    return not value or bool(PLACEHOLDER.fullmatch(value) or ENV_REFERENCE.fullmatch(value))
+    return not value or bool(PLACEHOLDER.fullmatch(value) or ENV_REFERENCE.fullmatch(value)
+                             or '***' in value
+                             or re.search(r'(?i)(?:^|[_-])FAKE(?:$|[_-])', value))
 
 
 def braced_end(text, start):
@@ -87,8 +98,42 @@ def braced_end(text, start):
     return len(text)
 
 
+def quoted_end(text, start):
+    """Return the closing quote offset, respecting escapes and doubled quotes."""
+    quote = text[start]
+    index = start + 1
+    while index < len(text):
+        if text[index] == '\\':
+            index += 2
+        elif text.startswith('${', index):
+            index = braced_end(text, index)
+        elif text[index] == quote:
+            if index + 1 < len(text) and text[index + 1] == quote:
+                index += 2
+            else:
+                return index
+        else:
+            index += 1
+    return len(text)
+
+
+def quote_spans(text):
+    index = 0
+    while index < len(text):
+        if text[index] == '\\':
+            index += 2
+        elif text[index] in '\"\'`':
+            end = quoted_end(text, index)
+            yield index, end
+            index = end + 1
+        else:
+            index += 1
+
+
 def literal_candidates(value):
     """Inspect expansion operands and template static parts, not reference names."""
+    if value and value[0] in '\"\'`' and quoted_end(value, 0) == len(value) - 1:
+        value = value[1:-1]
     if placeholder(value):
         return
     if value.startswith('${') and braced_end(value, 0) == len(value):
@@ -111,7 +156,7 @@ def literal_candidates(value):
     yield value
 
 
-def candidates(text):
+def candidates(text, comment_at_start=True):
     """Small single-line lexer: every literal or bare token is inspected.
 
     Python literal prefixes are syntax, not values. Backtick interpolations are
@@ -122,7 +167,9 @@ def candidates(text):
         if text[index].isspace() or text[index] in '=,:;()[]&':
             index += 1
             continue
-        if text[index] == '#':
+        if text[index] == '#' and ((index == 0 and comment_at_start)
+                                   or (index > 0 and (text[index - 1].isspace()
+                                                      or text[index - 1] in ';(&|'))):
             break
         env = ENV_REFERENCE.match(text, index)
         if env and (env.end() == len(text) or text[env.end()] in ' 	,;)]}\"\''):
@@ -132,24 +179,24 @@ def candidates(text):
         if prefix:
             quote_index = index + prefix.end() - 1
             quote = text[quote_index]
-            end = quote_index + 1
-            chunks = []
-            start = end
-            while end < len(text) and text[end] != quote:
-                if text[end] == '\\':
-                    end += 2
-                    continue
-                if quote == '`' and text.startswith('${', end):
-                    chunks.append(text[start:end])
-                    # Shell-style fallbacks are inspected even in templates.
-                    stop = braced_end(text, end)
-                    yield from literal_candidates(text[end:stop])
-                    end = stop
-                    start = end
-                    continue
-                end += 1
-            chunks.append(text[start:end])
-            yield from literal_candidates(''.join(chunks))
+            end = quoted_end(text, quote_index)
+            value = text[quote_index + 1:end]
+            if quote == '`':
+                chunks = []
+                start = cursor = 0
+                while cursor < len(value):
+                    if value[cursor] == '\\':
+                        cursor += 2
+                    elif value.startswith('${', cursor):
+                        chunks.append(value[start:cursor])
+                        stop = braced_end(value, cursor)
+                        yield from literal_candidates(value[cursor:stop])
+                        start = cursor = stop
+                    else:
+                        cursor += 1
+                chunks.append(value[start:])
+                value = ''.join(chunks)
+            yield from literal_candidates(value)
             index = end + 1
             continue
         start = index
@@ -178,12 +225,27 @@ def findings(text):
     """Yield only (line number, rule id); never return matched values."""
     for number, line in enumerate(text.splitlines(), 1):
         rules = set()
+        assignments = list(ASSIGNMENT.finditer(line))
+        spans = list(quote_spans(line))
         for rule, pattern in TOKEN_RULES:
             for match in pattern.finditer(line):
-                if not placeholder(match[0]):
+                # Exempt a provider shape only when its enclosing assignment
+                # token is a placeholder; bare tokens elsewhere still report.
+                enclosing = next((token[0] for token in re.finditer(
+                    r'''[^\s"'`=,;()\[\]{}]+''', line)
+                    if token.start() <= match.start() and token.end() >= match.end()), match[0])
+                in_assignment = any(
+                    item.end() <= match.start()
+                    and not any(line[index] == ';'
+                                and not any(start < index < end for start, end in spans)
+                                for index in range(item.end(), match.start()))
+                    and not any(start <= item.start() < item.end() <= end < match.start()
+                                for start, end in spans)
+                    for item in assignments)
+                if not (in_assignment and placeholder(enclosing)):
                     rules.add(rule)
-        for match in ASSIGNMENT.finditer(line):
-            rule = credential_rule(match['name'])
+        for match in assignments:
+            rule = credential_rule(match['key'] or match['name'])
             if rule is None:
                 continue
             rest = line[match.end():]
@@ -191,16 +253,15 @@ def findings(text):
             # inside a surrounding string cannot consume code after that string.
             if '?' in line[:match.start()] and rule == 'law-oc':
                 rest = rest.split('&', 1)[0]
-            before = line[:match.start()]
-            for quote in ('"', "'"):
-                if before.count(quote) % 2 and quote in rest:
-                    rest = rest.split(quote, 1)[0]
+            for start, end in spans:
+                if start <= match.start() < match.end() <= end:
+                    rest = rest[:end - match.end()]
                     break
             if match['operator'] == ':':
                 annotation = TYPE_ANNOTATION.match(rest)
                 if annotation:
                     rest = rest[annotation.end():]
-            for value in candidates(rest):
+            for value in candidates(rest, comment_at_start=False):
                 if not placeholder(value) and (rule == 'law-oc' or high_entropy(value)):
                     rules.add(rule)
         for rule in sorted(rules):

@@ -6,6 +6,8 @@ Keep a Changelog와 유의적 버전을 따른다. [버전 규칙](docs/RELEASIN
 
 ### Secret-free CI hardening
 
+- Address seven scanner review gaps with shared escape/doubled-quote handling, quoted shell operands, shell word-boundary comments, literal subscript targets, compound assignments, conventional secret-key names and enclosing provider placeholders. Add runtime-built positive/negative regressions; two exact path/rule/line-hash exceptions cover existing runtime-variable subscript fixtures, not literal credentials.
+
 - Scan strict UTF-16LE and UTF-16BE decodings independently whenever NUL-containing bytes have even length, in addition to the existing decoding. Union findings by line and rule so Korean-heavy BOM-less text cannot hide credentials; add runtime-built CLI detection, masking and clean-text regressions for both byte orders.
 
 - Default-inspect all single-line assignment candidates, with segmented credential names, prefixed/template literals and shell fallback operands. Add runtime-built regressions and document heuristic limits and the authoritative trusted LAW_OC control. Keep the exact-hash allowlist unchanged.

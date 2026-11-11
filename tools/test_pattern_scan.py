@@ -111,6 +111,90 @@ class PatternTests(unittest.TestCase):
                      'A secret is never printed.', 'token: Optional[str]'):
             self.assertFalse(self.rules(text))
 
+    def test_quoted_shell_operands(self):
+        for operator in (':-', '-', ':=', ':+', '=', '+'):
+            for quote in ('"', "'"):
+                for name, rule in ((OC_NAME, 'law-oc'), ('token', 'generic-secret')):
+                    prefix = name + '=${NAME' + operator + quote
+                    for value in ('${OTHER}', '$OTHER', 'example', '<value>', '***'):
+                        with self.subTest(operator=operator, quote=quote, value=value):
+                            self.assertFalse(self.rules(prefix + value + quote + '}'))
+                    self.assertEqual(self.rules(prefix + VALUE + quote + '}'), {rule})
+
+    def test_shell_hash_word_boundaries(self):
+        self.assertEqual(list(pattern_scan.candidates('x # comment')), ['x'])
+        self.assertEqual(list(pattern_scan.candidates('#' + VALUE, comment_at_start=False)),
+                         ['#' + VALUE])
+        for name, rule in ((OC_NAME, 'law-oc'), ('token', 'generic-secret')):
+            for value in ('#' + VALUE, VALUE + '#' + VALUE):
+                self.assertEqual(self.rules(name + '=' + value), {rule})
+            self.assertFalse(self.rules(name + '=example # ' + VALUE))
+            self.assertFalse(self.rules(name + '= # ' + VALUE))
+            self.assertEqual(self.rules(name + '="' + '#' + VALUE + '"'), {rule})
+
+    def test_literal_subscript_targets(self):
+        for target in ('config', 'os.environ', 'settings.credentials'):
+            for quote in ('"', "'"):
+                for name, rule in (('token', 'generic-secret'), (OC_NAME, 'law-oc'),
+                                   ('API_KEY', 'generic-secret')):
+                    prefix = target + '[' + quote + name + quote + '] = '
+                    self.assertEqual(self.rules(prefix + repr(VALUE)), {rule})
+                    for value in ('example', '${NAME}', '***'):
+                        self.assertFalse(self.rules(prefix + repr(value)))
+                self.assertFalse(self.rules(target + '[' + quote + 'monkey' + quote
+                                            + '] = ' + repr(VALUE)))
+        self.assertFalse(self.rules('config[token] = ' + repr(VALUE)))
+
+    def test_escape_aware_quote_boundaries(self):
+        slash = chr(92)
+        for prelude in ('echo "say ' + slash + '"hi"; ',
+                        "echo 'say " + slash + "'hi'; ",
+                        'echo "say ""hi"; ', 'echo "say ' + slash * 3 + '"hi"; '):
+            with self.subTest(prelude=prelude):
+                self.assertEqual(self.rules(prelude + 'token="' + VALUE + '"'),
+                                 {'generic-secret'})
+                self.assertFalse(self.rules(prelude + 'token="example"'))
+        for quote in ('"', "'"):
+            escaped = VALUE[:12] + '\\' + quote + VALUE[12:]
+            self.assertEqual(self.rules('token=' + quote + escaped + quote),
+                             {'generic-secret'})
+        # An assignment embedded in a string must not consume the next statement.
+        self.assertFalse(self.rules('echo "token=example"; other="' + VALUE + '"'))
+        self.assertFalse(self.rules('echo "say \\"hi token=example"; other="' + VALUE + '"'))
+
+    def test_provider_placeholder_wrappers(self):
+        providers = ('ghp' + '_' + VALUE * 2, 'hf' + '_' + VALUE * 2,
+                     'AK' + 'IA' + 'A1B2C3D4' * 2)
+        for value, rule in zip(providers, ('github-token', 'huggingface-token', 'aws-access-key')):
+            for wrapper in ('<{}>', '***{}', '{}***', 'FAKE_{}', '{}_FAKE'):
+                for quote in ('', '"', "'"):
+                    with self.subTest(rule=rule, wrapper=wrapper, quote=quote):
+                        self.assertFalse(self.rules('token=' + quote + wrapper.format(value) + quote))
+            self.assertIn(rule, self.rules('token=' + value))
+            self.assertIn(rule, self.rules('Documentation mentions ' + value))
+            self.assertIn(rule, self.rules('print("' + value + '")'))
+            self.assertIn(rule, self.rules('token=<example>; print("' + value + '")'))
+            self.assertIn(rule, self.rules('token=<example>; print("<' + value + '>")'))
+            self.assertIn(rule, self.rules('print("token=example", "<' + value + '>")'))
+
+    def test_conventional_secret_key_names(self):
+        for name in ('AWS_SECRET_ACCESS_KEY', 'secretKey', 'SECRET_KEY',
+                     'accessKey', 'private_key', 'prefixSecretSigningKey',
+                     'secretkey', 'ACCESSKEY'):
+            self.assertEqual(self.rules(name + '=' + repr(VALUE)), {'generic-secret'})
+            self.assertFalse(self.rules(name + '="example"'))
+        for name in ('key', 'monkey', 'keyword', 'secretaryKey', 'privateKeyboard'):
+            self.assertFalse(self.rules(name + '=' + repr(VALUE)))
+
+    def test_compound_assignment_operators(self):
+        for operator in ('??=', '||=', '&&=', '+='):
+            for name, rule in ((OC_NAME, 'law-oc'), ('token', 'generic-secret')):
+                with self.subTest(operator=operator, name=name):
+                    self.assertEqual(self.rules(name + operator + repr(VALUE)), {rule})
+                    for value in ('example', '${NAME}', '***'):
+                        self.assertFalse(self.rules(name + operator + repr(value)))
+            self.assertFalse(self.rules('monkey' + operator + repr(VALUE)))
+
     def test_bomless_utf16_and_binary(self):
         with tempfile.TemporaryDirectory(dir=os.environ.get('KK_TEST_TMP')) as temp:
             root = Path(temp)
