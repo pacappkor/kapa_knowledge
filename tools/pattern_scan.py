@@ -9,6 +9,7 @@ import re
 import stat
 import sys
 from collections import Counter
+from heapq import merge
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from secret_scan import ScanError, repository_files
@@ -513,6 +514,7 @@ class LineState:
         self.question = [False] * (len(line) + 1)
         self.bounds = {0: []}
         self.statements = []
+        self.comments = []
         self.parameters = set()
         self.ternary_colons = set()
         ternaries = Counter()
@@ -553,10 +555,13 @@ class LineState:
             # examines their text below; only structural accounting stops here.
             if ((line[index] == '#' or line.startswith('//', index))
                     and (not index or line[index - 1].isspace())):
+                self.comments.append((index, len(line)))
                 break
             if line.startswith('/*', index):
                 closing = line.find('*/', index + 2)
-                index = len(line) if closing < 0 else closing + 2
+                end = len(line) if closing < 0 else closing + 2
+                self.comments.append((index, end))
+                index = end
                 continue
             char = line[index]
             if char.isspace() or char in ';|':
@@ -608,9 +613,40 @@ class LineState:
             boundaries.append(len(line))
         self.statements.append(len(line))
 
+    def without_comments(self, line):
+        """Replace tracked trivia once, keeping all match offsets unchanged."""
+        parts = []
+        start = 0
+        for opening, end in self.comments:
+            parts.extend((line[start:opening], ' ' * (end - opening)))
+            start = end
+        parts.append(line[start:])
+        return ''.join(parts)
+
     def rhs_end(self, start, delimiters=False):
         boundaries = self.bounds[self.context[start]] if delimiters else self.statements
         return boundaries[bisect_right(boundaries, start - 1)]
+
+
+def shell_word_boundaries(line):
+    """Index unquoted word endings once; quotes and expansions may contain spaces."""
+    boundaries = []
+    index = 0
+    while index < len(line):
+        if line[index] == '\\':
+            index += 2
+        elif line[index] in '\"\'`':
+            index = quoted_end(line, index) + 1
+        elif line.startswith('$(', index):
+            index = command_end(line, index)
+        elif line.startswith('${', index):
+            index = braced_end(line, index)
+        else:
+            if line[index].isspace():
+                boundaries.append(index)
+            index += 1
+    boundaries.append(len(line))
+    return boundaries
 
 
 def high_entropy(value):
@@ -634,12 +670,26 @@ def findings(text, path=None, budget=None):
         work = len(line)
         value_end = len(line.rstrip(' \t='))
         state = LineState(line)
-        assignments = list(ASSIGNMENT.finditer(line))
+        suffix = Path(path).suffix.lower() if path is not None else ''
+        shell = suffix in {'.sh', '.bash', '.zsh', '.env', '.ini'} or (path is not None and Path(path).name == '.env')
+        assignment_text = (state.without_comments(line) if suffix in
+                           {'.js', '.jsx', '.ts', '.tsx', '.mjs', '.cjs'} else line)
+        # Preserve scanning of example assignments inside comments as well.
+        assignments = []
+        previous = None
+        for match in merge(ASSIGNMENT.finditer(line), ASSIGNMENT.finditer(assignment_text),
+                           key=lambda item: item.end()):
+            if match.span() != previous:
+                assignments.append(match)
+                previous = match.span()
+        word_ends = shell_word_boundaries(line) if shell else []
         tokens = list(lexemes(line, comment_at_start=False, quotes=state.quotes))
         token_starts = [start for start, _, _ in tokens]
         assignment_ranges = []
         for item in assignments:
             end = min(state.rhs_end(item.end(), True), state.rhs_end(item.end()))
+            if shell:
+                end = min(end, word_ends[bisect_right(word_ends, item.end() - 1)])
             owner = state.owner[item.start()]
             if owner >= 0 and item.end() <= owner:
                 end = min(end, owner)
@@ -682,7 +732,7 @@ def findings(text, path=None, budget=None):
                     {'.js', '.jsx', '.ts', '.tsx', '.mjs', '.cjs'}):
                 continue
             start = match.end()
-            typed = (TYPE_ANNOTATION.match(line, start, min(len(line), start + 4096))
+            typed = (TYPE_ANNOTATION.match(assignment_text, start, min(len(line), start + 4096))
                      if match['operator'] == ':' else None)
             if typed and not (
                     typed.end() < value_end

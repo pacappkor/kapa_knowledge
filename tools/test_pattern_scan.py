@@ -44,6 +44,48 @@ class PatternTests(unittest.TestCase):
         text = ("In the '90s " * 19000) + 'token=' + repr(VALUE)
         self.assertEqual(self.rules(text), {'generic-secret'})
 
+    def test_source_assignment_comment_trivia(self):
+        for path in ('sample.js', 'sample.ts', 'sample.jsx', 'sample.tsx',
+                     'sample.mjs', 'sample.cjs'):
+            for name, rule in (('accessToken', 'generic-secret'), (OC_NAME, 'law-oc')):
+                for middle in (' /* compatibility */ = ',
+                               ' /* one */ /* two */ = ',
+                               ' /* before */ : /* type */ string /* after */ = '):
+                    for value, expected in ((VALUE, [(1, rule)]), ('<hi>', []),
+                                            ('${NAME}', []), ('example', [])):
+                        text = 'const ' + name + middle + repr(value)
+                        with self.subTest(path=path, middle=middle, value=value):
+                            self.assertEqual(list(pattern_scan.findings(text, path)), expected)
+                # Comments cannot bridge lines in this single-line heuristic.
+                for comment in (' // compatibility', ' /* compatibility'):
+                    text = name + comment + '\n = ' + repr(VALUE)
+                    self.assertFalse(list(pattern_scan.findings(text, path)))
+            self.assertFalse(list(pattern_scan.findings(
+                'const tokenizer /* compatibility */ = ' + repr(VALUE), path)))
+        for middle in ('  = ', '\t = ', ': str  = '):
+            self.assertEqual(list(pattern_scan.findings('token' + middle + repr(VALUE), 'sample.py')),
+                             [(1, 'generic-secret')])
+            self.assertFalse(list(pattern_scan.findings('token' + middle + '"<hi>"', 'sample.py')))
+        self.assertFalse(list(pattern_scan.findings(
+            'token /* not Python trivia */ = ' + repr(VALUE), 'sample.py')))
+
+    def test_shell_placeholder_scope_ends_at_word(self):
+        provider = 'ghp' + '_' + VALUE * 2
+        wrapped = '<' + provider + '>'
+        for path in ('sample.sh', 'sample.bash', 'sample.zsh', '.env', 'sample.env', 'sample.ini'):
+            for whitespace in (' ', '\t'):
+                for rhs in ('"<placeholder>"', "'<placeholder>'", '<placeholder>',
+                            '"${NAME:-<placeholder>}"', '$(read_value "two words")'):
+                    text = 'token=' + rhs + whitespace + 'printf ' + repr(wrapped)
+                    self.assertIn((1, 'github-token'), list(pattern_scan.findings(text, path)))
+            # Spaces inside quotes, escaped spaces and expansion bodies are not boundaries.
+            for rhs in (repr('<prefix ' + provider + '>'),
+                        '"<prefix ' + provider + '>"', '<prefix' + chr(92) + ' ' + provider + '>'):
+                self.assertFalse(list(pattern_scan.findings('token=' + rhs, path)))
+            self.assertFalse(list(pattern_scan.findings('token=' + repr(wrapped), path)))
+            self.assertFalse(list(pattern_scan.findings('token="<placeholder>" printf ordinary', path)))
+            self.assertIn((1, 'github-token'), list(pattern_scan.findings('token=' + provider, path)))
+
     def test_shell_single_operator_boundaries(self):
         for operator in ('&', '|'):
             for path in (None, 'sample.sh', '.env'):

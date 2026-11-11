@@ -6,6 +6,8 @@ Keep a Changelog와 유의적 버전을 따른다. [버전 규칙](docs/RELEASIN
 
 ### Secret-free CI hardening
 
+- Recognize JS/TS assignment and type-annotation comment trivia through an offset-preserving view of the existing structural comment pass, and end shell provider-placeholder exemptions at the first unquoted, unescaped word boundary. Add runtime-built positive/negative regressions; retain the 3,000-property and 228 KB elision performance guards. No runs or catalogs changes.
+
 - Fix six scanner findings: cache leading-elision quote/assignment lookahead and avoid signature suffix copies, treat single shell background/pipe operators as boundaries without truncating URL queries or quotes, bound YAML flow-sequence values, exclude source ternary colons, recognize shell positional/special runtime parameters, and exempt bare null/empty sentinels. Quoted "null" remains a string (reportable for OC, subject to entropy for generic keys). Add runtime-built positive/negative regressions and a roughly 200 KiB elision test with a 2-second assertion and 10-second child timeout; retain the 3,000-property guard. No runs or catalogs changes.
 
 - Join adjacent quoted, bare and single-quoted static shell/config word fragments before OC and entropy checks; runtime references and command substitutions separate static runs. Preserve source-literal handling (Python implicit concatenation remains outside this heuristic), existing negative cases and the 3,000-property performance guard. Add runtime-built regressions; no runs or catalogs changes.
