@@ -348,7 +348,77 @@ def lexemes(text, comment_at_start=True, separators=False, bare_equals=False):
             yield start, index, re.sub(r'\\(.)', r'\1', text[start:index])
 
 
+def shell_word_candidates(text, comment_at_start=True):
+    """Join static shell word parts, flushing at operators and runtime expansions."""
+    parts = []
+    quote = None
+    index = 0
+    while index < len(text):
+        char = text[index]
+        if char == '\\' and quote != "'" and index + 1 < len(text):
+            parts.append(text[index + 1])
+            index += 2
+            continue
+        if quote == "'":
+            if char == quote:
+                quote = None
+            else:
+                parts.append(char)
+            index += 1
+            continue
+        if char == quote:
+            quote = None
+            index += 1
+            continue
+        if char in '\"\'' and quote is None:
+            quote = char
+            index += 1
+            continue
+        if char == '`' or text.startswith('$(', index) or text.startswith('${', index):
+            yield from literal_candidates(''.join(parts))
+            parts = []
+            if char == '`':
+                index = quoted_end(text, index) + 1
+            elif text.startswith('$(', index):
+                index = command_end(text, index)
+            else:
+                end = braced_end(text, index)
+                operand = SHELL_OPERAND.match(text, index + 2)
+                if operand:
+                    yield from shell_word_candidates(text[operand.end():end - 1], False)
+                index = end
+            continue
+        reference = ENV_REFERENCE.match(text, index) if char == '$' else None
+        if reference:
+            yield from literal_candidates(''.join(parts))
+            parts = []
+            # Preserve legacy dollar-prefixed credential-shape detection without
+            # joining either adjacent static run across the runtime reference.
+            if reference.end() < len(text) and text[reference.end()] in '!/':
+                yield reference[0] + text[reference.end()]
+            index = reference.end()
+            continue
+        if quote is None and (char.isspace() or char in ';|&()'):
+            yield from literal_candidates(''.join(parts))
+            parts = []
+        elif (quote is None and char == '#'
+              and ((index == 0 and comment_at_start)
+                   or (index > 0 and (text[index - 1].isspace() or text[index - 1] in ';(&|')))):
+            break
+        else:
+            parts.append(char)
+        index += 1
+    yield from literal_candidates(''.join(parts))
+
+
 def candidates(text, comment_at_start=True, source=False, shell=False):
+    # Source literals retain the existing per-token semantics (including Python
+    # implicit concatenation, which this heuristic deliberately does not fold).
+    # Unknown/config contexts keep template and prefixed-source literal handling.
+    if shell or (not source and not text.lstrip().startswith('`')
+                 and not re.search(r"(?:^|\s)[brufBRUF]+['\"]", text)):
+        yield from shell_word_candidates(text, comment_at_start)
+        return
     references = list(re.finditer(r'\b[A-Za-z_$][\w$]*(?:\.[A-Za-z_$][\w$]*|\[[^\]]*\])+', text)) if source else []
     spans = list(quote_spans(text)) if source else []
     span_starts = [a for a, _ in spans]
@@ -611,7 +681,8 @@ def findings(text, path=None, budget=None):
             expression = re.match(r'\s*[A-Za-z_$][\w$]*(?:\s*\(|\.[A-Za-z_$]|\[)', rest)
             for value in candidates(rest, comment_at_start=False,
                                     source=source or (path is None and bool(expression)),
-                                    shell=path is not None and Path(path).suffix.lower() in {'.sh', '.bash', '.zsh'}):
+                                    shell=path is not None and (Path(path).suffix.lower() in
+                                        {'.sh', '.bash', '.zsh', '.env', '.ini'} or Path(path).name == '.env')):
                 if not placeholder(value) and (rule == 'law-oc' or high_entropy(value)):
                     rules.add(rule)
         budget[0] -= work

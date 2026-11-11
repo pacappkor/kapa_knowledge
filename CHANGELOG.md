@@ -6,6 +6,8 @@ Keep a Changelog와 유의적 버전을 따른다. [버전 규칙](docs/RELEASIN
 
 ### Secret-free CI hardening
 
+- Join adjacent quoted, bare and single-quoted static shell/config word fragments before OC and entropy checks; runtime references and command substitutions separate static runs. Preserve source-literal handling (Python implicit concatenation remains outside this heuristic), existing negative cases and the 3,000-property performance guard. Add runtime-built regressions; no runs or catalogs changes.
+
 - Fix four scanner review findings: count only quote/comment-aware structural nesting (64 levels), scope URL query trimming to the containing token/string, recognize leading prose elisions, and restrict typed-parameter exemptions to source function signatures. Add runtime-built positive/negative regressions and retain the 3,000-property performance guard; no runs or catalogs changes.
 
 - Fix five scanner findings with precomputed quote/nesting/RHS state, bounded provider placeholder scope, shell command-substitution runtime handling, quoted type members, and typed parameter/default distinction. Runtime-built regressions include a 3,000-property object with a 2-second assertion and 10-second subprocess guard. Fail closed (masked ScanError, CLI exit 2) above 16 MiB per file, 256 Ki characters per line, 4 Mi units of candidate/suffix work per line, 64 Mi units per file across decodings, or 64 structural nesting levels outside strings/comments. These conservative limits may reject benign pathological input; files are never silently skipped. No runs or catalogs changes.

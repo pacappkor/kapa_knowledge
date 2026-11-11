@@ -98,6 +98,33 @@ class PatternTests(unittest.TestCase):
                 with self.assertRaises(pattern_scan.ScanError):
                     pattern_scan.scan(root)
 
+    def test_adjacent_shell_static_fragments(self):
+        # VALUE's first ten characters reproduce the reported quoted/bare split.
+        for path in ('sample.sh', 'sample.bash', '.env', 'sample.env', 'sample.ini',
+                     'sample.txt', None):
+            for rhs in ('"' + VALUE[:10] + '"' + VALUE[10:],
+                        '"' + VALUE[:8] + '"' + VALUE[8:16] + "'" + VALUE[16:] + "'",
+                        VALUE[:8] + "'" + VALUE[8:16] + "'" + '"' + VALUE[16:] + '"'):
+                with self.subTest(path=path, rhs=rhs):
+                    self.assertEqual(list(pattern_scan.findings('token=' + rhs, path)),
+                                     [(1, 'generic-secret')])
+            for expansion in ('$VAR', '${VAR}', '$(read_value)', '`read_value`'):
+                for rhs in ('"' + VALUE[:10] + '"' + expansion + "'" + VALUE[10:] + "'",
+                            '"' + VALUE[:10] + expansion + VALUE[10:] + '"'):
+                    self.assertFalse(list(pattern_scan.findings('token=' + rhs, path)))
+            for separator in (' ', '&', '|', ';', '(', ')'):
+                self.assertFalse(list(pattern_scan.findings(
+                    'token="' + VALUE[:10] + '"' + separator + "'" + VALUE[10:] + "'", path)))
+            self.assertEqual(list(pattern_scan.findings(OC_NAME + '="${LAW_OC}"&suffix', path)),
+                             [(1, 'law-oc')])
+            self.assertEqual(list(pattern_scan.findings(
+                ''.join(('token=', '"${VAR}"', VALUE)), path)), [(1, 'generic-secret')])
+        for path in ('sample.py', 'sample.js', 'sample.ts'):
+            # Preserve source behavior; Python implicit concatenation is not folded.
+            for separator in (' ', ' + '):
+                self.assertFalse(list(pattern_scan.findings(
+                    'token="' + VALUE[:10] + '"' + separator + '"' + VALUE[10:] + '"', path)))
+
     def test_shell_commands_are_runtime(self):
         commands = ('$(get_access_token_from_environment)', '$(read_law_oc)',
                     '$(outer "$(inner)" ")" )', '`read_law_oc`')
