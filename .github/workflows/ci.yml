@@ -3,9 +3,7 @@ name: CI
 
 on:
   pull_request:
-    branches: [main]
   push:
-    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -17,6 +15,48 @@ concurrency:
 
 jobs:
   offline-checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run environment-only credential scan without requiring a secret
+        run: python -I -B tools/secret_scan.py --worktree
+      - name: Reject tracked symlinks and gitlinks
+        run: python -I -B tools/validate.py --check-links
+      - name: Select checks from changed paths
+        id: changes
+        env:
+          CI_EVENT: ${{ github.event_name }}
+          CI_BASE: ${{ github.event.pull_request.base.sha }}
+          CI_BEFORE: ${{ github.event.before }}
+        run: python -I -B .github/ci/ci_changes.py
+      - name: Validate repository and pinned law metadata
+        run: python -I -B tools/validate.py
+      - name: Check documentation snapshot without rewriting it
+        run: python -I -B .github/ci/ci_docs.py
+      - name: Run stock unittest discovery with layout and completion checks
+        run: python -I -B .github/ci/ci_tests_supervise.py
+      - name: Check whole working tree including ignored files
+        run: python -I -B .github/ci/ci_integrity.py
+      - name: Check diff whitespace
+        env:
+          BASE_SHA: ${{ steps.changes.outputs.whitespace_base }}
+        run: bash .github/ci/ci_whitespace.sh "$BASE_SHA"
+
+  credential-scan:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'push' && github.ref == 'refs/heads/main') ||
+      (github.event_name == 'pull_request' &&
+       github.event.pull_request.head.repo.full_name == github.repository)
     runs-on: ubuntu-latest
     timeout-minutes: 10
     env:
@@ -93,33 +133,9 @@ jobs:
           PY
       # First repository-code execution is the extracted trusted scanner.
       # Workflow edits themselves still require trusted authors/review; see README.
-      # Fork PRs without secrets fail closed; never fall back to a credential file.
+      # Missing secrets fail closed on eligible events; forks skip this job.
       - name: Scan actual LAW_OC value
         env:
           TRUSTED_SCANNER: ${{ steps.scanner.outputs.directory }}
           LAW_OC: ${{ secrets.LAW_OC }}
         run: python -I -B "$TRUSTED_SCANNER/secret_scan.py" --require --worktree
-      - name: Reject tracked symlinks and gitlinks
-        run: python -I -B tools/validate.py --check-links
-      - name: Select checks from changed paths
-        id: changes
-        env:
-          CI_EVENT: ${{ github.event_name }}
-          CI_BASE: ${{ github.event.pull_request.base.sha }}
-          CI_BEFORE: ${{ github.event.before }}
-        run: python -I -B .github/ci/ci_changes.py
-      - name: Validate repository and pinned law metadata
-        if: steps.changes.outputs.validate == 'true'
-        run: python -I -B tools/validate.py
-      - name: Check documentation snapshot without rewriting it
-        if: steps.changes.outputs.validate == 'true'
-        run: python -I -B .github/ci/ci_docs.py
-      - name: Run stock unittest discovery with layout and completion checks
-        if: steps.changes.outputs.tests == 'true'
-        run: python -I -B .github/ci/ci_tests_supervise.py
-      - name: Check whole working tree including ignored files
-        run: python -I -B .github/ci/ci_integrity.py
-      - name: Check diff whitespace
-        env:
-          BASE_SHA: ${{ steps.changes.outputs.whitespace_base }}
-        run: bash .github/ci/ci_whitespace.sh "$BASE_SHA"
