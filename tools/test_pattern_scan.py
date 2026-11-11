@@ -21,6 +21,67 @@ class PatternTests(unittest.TestCase):
     def rules(self, text):
         return {rule for _, rule in pattern_scan.findings(text)}
 
+    def test_round_eight_assignment_regressions(self):
+        def check(text, path, expected):
+            self.assertEqual(list(pattern_scan.findings(text, path)),
+                             [(1, 'generic-secret')] if expected else [], (text, path))
+
+        for target in ('accessToken["x"]', 'tokens[0]', 'config["token"]',
+                       'config[0].accessTokens["x"]'):
+            for value in (VALUE, '<hi>'):
+                check(target + ' = ' + repr(value), 'sample.js', value == VALUE)
+        for target in ('config["description"]', 'config[token]', 'tokenizer[0]'):
+            check(target + ' = ' + repr(VALUE), 'sample.js', False)
+        for name in ('accessTokens', 'passwords', 'secretKeys', 'apiKeys', 'credentials',
+                     'API_KEYS', 'access_tokens'):
+            check(name + ' = ' + repr(VALUE), 'sample.py', True)
+            check(name + ' = "<hi>"', 'sample.py', False)
+        for name in ('tokenizer', 'passwordsmith', 'monkeys', 'apiKeyspace', 'credentialsCount'):
+            check(name + ' = ' + repr(VALUE), 'sample.py', False)
+        for control in ('if (x)', 'while (x)', 'for (;x;)', 'with (x)', 'if ((x))'):
+            for value in (VALUE, '<hi>'):
+                check(control + " /'/.test(s); accessToken = " + repr(value),
+                      'sample.js', value == VALUE)
+            check(control + ' /accessToken=' + VALUE + '/.test(s)', 'sample.js', False)
+        for head in ('accessToken', 'let accessToken', 'class A { accessToken',
+                     'interface A { accessToken', 'class A { accessToken?'):
+            check(head + ': string;', 'sample.ts', False)
+            check(head + ': ' + repr(VALUE) + ';', 'sample.ts', False)
+            check(head + ': string = ' + repr(VALUE) + ';', 'sample.ts', True)
+            check(head + ': string = "<hi>";', 'sample.ts', False)
+        check('let accessToken: string', 'sample.ts', False)
+        check('accessToken?: string = ' + repr(VALUE), 'sample.ts', True)
+        check('const obj = {accessToken: ' + repr(VALUE) + '}', 'sample.ts', True)
+        check('$accessToken .= "' + VALUE + '";', 'sample.php', True)
+        check('$accessToken .= "<hi>";', 'sample.php', False)
+        check('accessToken .= "' + VALUE + '";', 'sample.js', False)
+        for substitution in ('<(', '>(', '$('):
+            body = substitution + 'printf "' + VALUE + '")'
+            check('accessToken=' + body, 'sample.sh', False)
+            check('accessToken=' + body + VALUE, 'sample.sh', True)
+            check('accessToken=' + VALUE + body, 'sample.sh', True)
+            check('accessToken=' + body + '<hi>', 'sample.sh', False)
+        for suffix in ('.js', '.ts', '.java', '.cs', '.c', '.cpp', '.swift', '.php', '.dart'):
+            check('result = flag ? accessToken : ' + repr(VALUE) + ';', 'sample' + suffix, False)
+            check('accessToken = flag ? ' + repr(VALUE) + ' : runtime;', 'sample' + suffix, True)
+        self.assertNotIn(pattern_scan.file_type('', 'sample.kt'), pattern_scan.TERNARY_TYPES)
+        for suffix in ('.js', '.ts', '.cs', '.scala', '.rs', '.php'):
+            check('accessToken => ' + repr(VALUE), 'sample' + suffix, False)
+            check('accessToken = ' + repr(VALUE), 'sample' + suffix, True)
+        check("['token' => " + repr(VALUE) + ']', 'sample.php', True)
+        check("['description' => " + repr(VALUE) + ']', 'sample.php', False)
+        check("['token' => '<hi>']", 'sample.php', False)
+
+    def test_many_getters_linear_work(self):
+        code = ('import sys,time;sys.path.insert(0,sys.argv[1]);import pattern_scan;'
+                'text="accessToken = "+"get(\\"key\\")+"*10000;'
+                'start=time.perf_counter();'
+                'assert not list(pattern_scan.findings(text,"sample.py"));'
+                'elapsed=time.perf_counter()-start;assert elapsed<2,elapsed;print(elapsed)')
+        result = subprocess.run([sys.executable, '-I', '-B', '-c', code, str(SCRIPT.parent)],
+                                capture_output=True, text=True, timeout=5, check=True)
+        self.assertLess(float(result.stdout), 2)
+
     def test_javascript_slash_transitions(self):
         # Assert lexer state as well as findings: an apostrophe in a regex
         # exposes accidental treatment as division, and vice versa.

@@ -16,6 +16,8 @@ from secret_scan import ScanError, repository_files
 # Exact path/rule/whole-line SHA-256 only: edits invalidate each exception.
 # No path-wide exclusions or inline suppression directives.
 ALLOWLIST = {
+    # Regex tokenizer pattern, not a credential; plural tokens is now recognized.
+    ('tools/markdown_context.py', 'generic-secret', '65acb9e4e80e86c2c2dbef5442c70be0ab16ec87b82905d73f371decad6fa090'),
     # Runtime function call, not a literal credential.
     ('tools/lawapi.py', 'law-oc', 'acc7471c4a3039774577221742693dfe27341f130607ff4c6dd81967cb46e1d7'),
     # Synthetic KEY variable in a masking regression fixture.
@@ -37,7 +39,7 @@ TOKEN_RULES = (
 # Recognize names independently of value syntax. Once an assignment is found,
 # inspect the entire remaining line, rather than accepting one blessed RHS form.
 NAME_TOKEN = re.compile(r'''"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|[A-Za-z_][\w.-]*''')
-OPERATOR = re.compile(r'\?\?=|\|\|=|&&=|\+=|:=|=>|->|\?=|=(?!=|>)|:(?!=)')
+OPERATOR = re.compile(r'\?\?=|\|\|=|&&=|\+=|\.=|:=|=>|->|\?=|=(?!=|>)|:(?!=)')
 SPACE = re.compile(r'\s*')
 
 
@@ -103,7 +105,7 @@ def assignments_in(text, kind='unknown'):
             cursor += 1
             continue
         start, end = token.span()
-        if text[start:end].endswith('.') and text[end:end + 1] in ('"', "'"):
+        if text[start:end].endswith('.') and text[end:end + 1] in ('"', "'", '='):
             end -= 1
         cursor = end
         if text[start] in '\"\'' and not re.fullmatch(r'[A-Za-z_][\w. -]*', text[start + 1:end - 1]):
@@ -124,7 +126,7 @@ def assignments_in(text, kind='unknown'):
             continue
         key = 'password' if option and text[start:end] == 'p' else None
         after = SPACE.match(text, end).end()
-        if kind == 'c-family' and credential_rule(text[start:end]):
+        if kind in C_FAMILY_TYPES and credential_rule(text[start:end]):
             # Bound each lookahead independently of the line length. Only a
             # completed initializer is a declaration; bare declarations stay clean.
             declarator = DECLARATOR_SUFFIX.match(text, after, min(len(text), after + 4096))
@@ -142,7 +144,13 @@ def assignments_in(text, kind='unknown'):
                     indexed_chain = True
                     closing = pairs[after]
                     indexed = text[after + 1:closing].strip()
-                    key = indexed[1:-1] if indexed[:1] in ('\"', "'") else '[dynamic]'
+                    # A subscript selects an element, not a new target name,
+                    # when the base/member already names a credential.
+                    target = key or text[start:end]
+                    if credential_rule(target) and not generic_container(target):
+                        key = target
+                    else:
+                        key = indexed[1:-1] if indexed[:1] in ('\"', "'") else '[dynamic]'
                     end = closing + 1
                     after = SPACE.match(text, end).end()
                 elif text[after:after + 1] == '.':
@@ -156,6 +164,14 @@ def assignments_in(text, kind='unknown'):
                 else:
                     break
             cursor = max(cursor, after)
+        if kind == 'typescript' and text[after:after + 1] == '?':
+            optional = SPACE.match(text, after + 1).end()
+            if text[optional:optional + 1] == ':':
+                after = optional
+        if kind == 'shell' and text.startswith('=>(', after):
+            yield Assignment(start, after + 1, text[start:end], '=', key, option)
+            cursor = after + 1
+            continue
         operator = OPERATOR.match(text, after)
         if operator:
             yield Assignment(start, operator.end(), text[start:end], operator[0], key, option)
@@ -239,8 +255,27 @@ FILE_TYPES = {
     'markup': ('.html', '.htm', '.xml', '.svg'),
     'json': ('.json', '.jsonl'),
 }
+# Syntax capabilities live beside file classification, not in individual cases.
+LANGUAGE_SUFFIXES = {
+    'typescript': ('.ts', '.tsx'),
+    'csharp': ('.cs',), 'java': ('.java',), 'rust': ('.rs',),
+    'kotlin': ('.kt', '.kts'), 'swift': ('.swift',),
+    'scala': ('.scala', '.sc'), 'dart': ('.dart',),
+    'go': ('.go',), 'groovy': ('.groovy', '.gradle'),
+}
+C_FAMILY_TYPES = frozenset(('c-family', 'csharp', 'java', 'rust', 'kotlin',
+                            'swift', 'scala', 'dart', 'go', 'groovy'))
+JS_TYPES = frozenset(('javascript', 'typescript'))
+TERNARY_TYPES = frozenset(('javascript', 'typescript', 'c-family', 'csharp',
+                           'java', 'swift', 'php', 'dart', 'groovy'))
+ARROW_TYPES = frozenset(('javascript', 'typescript', 'csharp', 'scala', 'rust', 'php'))
+for language in C_FAMILY_TYPES:
+    COMMENT_SYNTAX[language] = COMMENT_SYNTAX['c-family']
+COMMENT_SYNTAX['typescript'] = COMMENT_SYNTAX['javascript']
 SUFFIX_TYPES = {suffix: kind for kind, suffixes in FILE_TYPES.items() for suffix in suffixes}
-SOURCE_TYPES = frozenset(('python', 'javascript', 'c-family', 'php'))
+SUFFIX_TYPES.update({suffix: kind for kind, suffixes in LANGUAGE_SUFFIXES.items()
+                     for suffix in suffixes})
+SOURCE_TYPES = C_FAMILY_TYPES | JS_TYPES | frozenset(('python', 'php'))
 SHELL_TYPES = frozenset(('shell', 'ini'))
 SHEBANG = re.compile(
     r'^#!\s*(?:/[^\s]*/)?(?P<command>[\w.+-]+)(?:\s|$)')
@@ -279,13 +314,31 @@ def literal_prefix(text, index):
     return prefix if (not start or not (text[start - 1].isalnum() or text[start - 1] == '_')) and all(c.lower() in 'bruf' for c in prefix) else ''
 
 
+def generic_container(name):
+    """A credentials collection uses its quoted element keys as target names."""
+    words = [word for part in re.split(r'[_ .-]+', name) for word in name_segments(part)]
+    return bool(words and words[-1] == 'credentials')
+
+
+# Singularize only known credential segments, never arbitrary trailing s.
+CREDENTIAL_PLURALS = {
+    'secrets': 'secret', 'tokens': 'token', 'passwords': 'password',
+    'passwds': 'passwd', 'keys': 'key', 'credentials': 'credential',
+    'apikeys': 'apikey', 'servicekeys': 'servicekey',
+    'privatekeys': 'privatekey', 'accesskeys': 'accesskey', 'secretkeys': 'secretkey',
+}
+
+
 def credential_rule(name):
     # Split delimiters first, then camel humps (including acronym boundaries).
     words = []
     for part in re.split(r'[_ .-]+', name):
         words.extend(name_segments(part))
+    words = [CREDENTIAL_PLURALS.get(word, word) for word in words]
     if words and words[-1] == 'oc':
         return 'law-oc'
+    if words == ['credential'] and name.lower() == 'credentials':
+        return 'generic-secret'
     if words and words[-1] in ('secret', 'token', 'password', 'passwd'):
         return 'generic-secret'
     if words and words[-1] == 'key' and 'secret' in words[:-1]:
@@ -595,12 +648,13 @@ def shell_word_candidates(text, comment_at_start=True):
             quote = char
             index += 1
             continue
-        if char == '`' or text.startswith('$(', index) or text.startswith('${', index):
+        process = quote is None and text.startswith(('<(', '>('), index)
+        if char == '`' or process or text.startswith('$(', index) or text.startswith('${', index):
             yield from literal_candidates(''.join(parts))
             parts = []
             if char == '`':
                 index = quoted_end(text, index) + 1
-            elif text.startswith('$(', index):
+            elif process or text.startswith('$(', index):
                 index = command_end(text, index)
             else:
                 end = braced_end(text, index)
@@ -671,11 +725,13 @@ def candidates(text, comment_at_start=True, source=False, shell=False):
         if position < 0 or not spans[position][0] < start < spans[position][1]:
             lookups.append((start, end))
     lookup_starts = [a for a, _ in lookups]
+    getter_starts = [a for a, _ in getters]
     # The assignment operator has already been consumed; inner equals signs
     # (including base64 padding) belong to the bare shell/config word.
     for start, end, value in lexemes(text, comment_at_start, bare_equals=True):
         if source:
-            if any(a <= start and end <= b for a, b in getters):
+            getter = bisect_right(getter_starts, start) - 1
+            if getter >= 0 and end <= getters[getter][1]:
                 continue
             # A quoted subscript is a lookup key, not a credential literal.
             lookup = bisect_right(lookup_starts, start) - 1
@@ -762,6 +818,9 @@ class LineState:
         self.statements = []
         self.comments = []
         self.parameters = set()
+        self.type_fields = set()
+        type_bodies = {m.end() - 1 for m in re.finditer(
+            r'\b(?:class|interface)\s+[A-Za-z_$][\w$]*(?:\s+[^{};]+)?\s*\{', line)}
         self.regex_spans = []
         self.formatted_spans = []
         self.ternary_colons = set()
@@ -772,7 +831,7 @@ class LineState:
             r'\b(?:def\s+[A-Za-z_$][\w$]*\s*+|function\s*+(?:\*\s*+)?(?:[A-Za-z_$][\w$]*\s*+)?)[(]', line)}
         methods = {m.end() - 1 for m in re.finditer(
             r'(?:^|[;,{}])\s*(?:(?:async|static|get|set)\s+)*[A-Za-z_$][\w$]*\s*\(', line)}
-        type_pairs = bracket_pairs(line, angles=True) if kind == 'javascript' else {}
+        type_pairs = bracket_pairs(line, angles=True) if kind in JS_TYPES else {}
         annotation_cache = {}
 
         def signature_tail(position):
@@ -804,6 +863,8 @@ class LineState:
                 annotation_cache[offset] = position
             return position
 
+        controls = {m.end() - 1 for m in re.finditer(
+            r'\b(?:if|while|for|with|switch|catch)\s*\(', line)} if kind in JS_TYPES else set()
         regex_allowed = True
         stack = [0]
         brace_depth = 0
@@ -813,7 +874,7 @@ class LineState:
             self.context[index] = stack[-1]
             self.braces[index] = brace_depth
             self.question[index] = question
-            if (kind == 'javascript' and line[index] == '/' and regex_allowed
+            if (kind in JS_TYPES and line[index] == '/' and regex_allowed
                     and not line.startswith(('//', '/*'), index)):
                 # ECMAScript's expression-start heuristic: escaped slashes and
                 # character classes do not terminate a regular expression.
@@ -823,7 +884,7 @@ class LineState:
                     index = end
                     regex_allowed = False
                     continue
-            if kind == 'javascript' and (line[index].isalpha() or line[index] in '_$'):
+            if kind in JS_TYPES and (line[index].isalpha() or line[index] in '_$'):
                 word = re.compile(r'[\w$]+').match(line, index)
                 regex_allowed = word[0] in REGEX_KEYWORDS
                 # Keep structural arrays populated at every offset.
@@ -876,7 +937,7 @@ class LineState:
                 self.comments.append((index, len(line)))
                 break
             char = line[index]
-            if kind == 'javascript' and not char.isspace():
+            if kind in JS_TYPES and not char.isspace():
                 if line.startswith(('++', '--'), index):
                     # Preserve expression-start for prefix operators, but a
                     # postfix operator ends an expression just like its operand.
@@ -909,6 +970,8 @@ class LineState:
                     raise ScanError('pattern scan nesting work limit exceeded [masked]')
                 context = len(self.bounds)
                 self.bounds[context] = []
+                if index in type_bodies:
+                    self.type_fields.add(context)
                 if char == '(':
                     openings[context] = index
                     if index in signatures:
@@ -918,6 +981,8 @@ class LineState:
             elif char in ')]}':
                 context = stack[-1]
                 if char == ')' and context in openings:
+                    if openings[context] in controls:
+                        regex_allowed = True
                     tail = signature_tail(index + 1)
                     if (line.startswith('=>', tail)
                             or (openings[context] in methods and line[tail:tail + 1] == '{')):
@@ -961,7 +1026,7 @@ def shell_word_boundaries(line):
             index += 2
         elif line[index] in '\"\'`':
             index = quoted_end(line, index) + 1
-        elif line.startswith('$(', index):
+        elif line.startswith(('$(', '<(', '>('), index):
             index = command_end(line, index)
         elif line.startswith('${', index):
             index = braced_end(line, index)
@@ -990,7 +1055,7 @@ def findings(text, path=None, budget=None):
     kind = file_type(text, path)
     shell = kind in SHELL_TYPES
     source_file = kind in SOURCE_TYPES
-    typed_source = kind in ('python', 'javascript')
+    typed_source = kind == 'python' or kind in JS_TYPES
     for number, line in enumerate(text.splitlines(), 1):
         if len(line) > MAX_LINE_CHARS:
             raise ScanError('pattern scan line work limit exceeded [masked]')
@@ -1062,12 +1127,15 @@ def findings(text, path=None, budget=None):
             if rule is None:
                 continue
             if (match['operator'] == '=>' and
-                    (path is None or kind == 'javascript')):
+                    (path is None or (kind in ARROW_TYPES and not
+                     (kind == 'php' and line[match.start()] in '\"\'')))):
                 continue
-            if match['operator'] == '->' and kind in ('c-family', 'php'):
+            if match['operator'] == '.=' and kind != 'php':
+                continue
+            if match['operator'] == '->' and (kind in C_FAMILY_TYPES or kind == 'php'):
                 continue
             if (match['operator'] == ':' and match.end() - 1 in state.ternary_colons
-                    and kind == 'javascript'):
+                    and kind in TERNARY_TYPES):
                 continue
             start = match.end()
             typed = (TYPE_ANNOTATION.match(assignment_text, start, min(len(line), start + 4096))
@@ -1076,6 +1144,13 @@ def findings(text, path=None, budget=None):
                     typed.end() < value_end
                     and (typed_source or re.search(r'\s=|=\s', typed[0]))):
                 typed = None
+            if (kind == 'typescript' and match['operator'] == ':' and not typed
+                    and state.owner[match.start()] < 0
+                    and (state.context[match.start()] == 0
+                         or state.context[match.start()] in state.type_fields)):
+                # Type-only fields/declarations have no value to inspect. Object
+                # literal properties retain colon-value semantics.
+                continue
             if typed:
                 work += typed.end() - start
                 if work > MAX_LINE_WORK:
