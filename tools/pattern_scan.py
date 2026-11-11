@@ -188,6 +188,15 @@ def quote_start(text, index):
     # recognized literal prefix at a token boundary can open a quote after a word.
     if text[index] == "'" and index > 0 and re.match(r'\w', text[index - 1]):
         return bool(literal_prefix(text, index))
+    if (text[index] == "'" and re.match(r'\w', text[index + 1:index + 2])
+            and (not index or text[index - 1].isspace())
+            and (not text[:index].rstrip() or text[:index].rstrip()[-1] not in '=(:,[{+')):
+        # Leading elisions are prose unless closed before a statement or the
+        # next assignment (whose quotes must not close the prose apostrophe).
+        boundary = re.search(r'[;\n]|(?<![\w.-])[A-Za-z_][\w.-]*\s*[:=]', text[index + 1:])
+        stop = index + 1 + boundary.start() if boundary else len(text)
+        if quoted_end(text[:stop], index) >= stop:
+            return False
     return text[index] in '\"\'`'
 
 
@@ -409,6 +418,8 @@ class LineState:
         self.question = [False] * (len(line) + 1)
         self.bounds = {0: []}
         self.statements = []
+        self.parameters = set()
+        openings = {}
         stack = [0]
         brace_depth = 0
         question = False
@@ -419,29 +430,60 @@ class LineState:
             self.question[index] = question
             if quote_start(line, index):
                 end = min(quoted_end(line, index), len(line))
+                query = False
+                expansion_end = index
                 for offset in range(index, min(end + 1, len(line))):
                     self.owner[offset] = end
                     self.context[offset] = stack[-1]
                     self.braces[offset] = brace_depth
-                    self.question[offset] = question
-                    if line[offset] == '?':
-                        question = True
+                    if offset >= expansion_end and (line[offset].isspace() or line[offset] in ';|'):
+                        query = False
+                    self.question[offset] = query
+                    if line.startswith('${', offset) and offset >= expansion_end:
+                        expansion_end = braced_end(line, offset)
+                    if (line[offset] == '?' and offset >= expansion_end
+                            and (not offset or line[offset - 1] != '\\')):
+                        query = True
+                question = False
                 index = end + 1
                 continue
+            # Comments contain no source nesting. Credential matching still
+            # examines their text below; only structural accounting stops here.
+            if ((line[index] == '#' or line.startswith('//', index))
+                    and (not index or line[index - 1].isspace())):
+                break
+            if line.startswith('/*', index):
+                closing = line.find('*/', index + 2)
+                index = len(line) if closing < 0 else closing + 2
+                continue
             char = line[index]
+            if char.isspace() or char in ';|':
+                question = False
             if char == '\\':
                 index += 2
                 continue
             if char == '?':
                 question = True
             if char in '([{':
-                if len(stack) >= MAX_NESTING:
+                if len(stack) > MAX_NESTING:
                     raise ScanError('pattern scan nesting work limit exceeded [masked]')
                 context = len(self.bounds)
                 self.bounds[context] = []
+                if char == '(':
+                    openings[context] = index
+                    if re.search(r'\b(?:def|function)\s+[A-Za-z_$][\w$]*\s*$', line[:index]):
+                        self.parameters.add(context)
                 stack.append(context)
                 brace_depth += char == '{'
             elif char in ')]}':
+                context = stack[-1]
+                if char == ')' and context in openings:
+                    tail = line[index + 1:]
+                    prefix = line[:openings[context]]
+                    if (re.match(r'\s*(?::\s*[\w<>\[\]|? .]+)?\s*=>', tail)
+                            or (re.search(r'(?:^|[;{}])\s*(?:(?:async|static|get|set)\s+)*[A-Za-z_$][\w$]*\s*$', prefix)
+                                and re.match(r'\s*(?::\s*[\w<>\[\]|? .]+)?\s*\{', tail))):
+                        self.parameters.add(context)
                 self.bounds[stack[-1]].append(index)
                 if len(stack) > 1:
                     stack.pop()
@@ -479,15 +521,6 @@ def findings(text, path=None, budget=None):
     for number, line in enumerate(text.splitlines(), 1):
         if len(line) > MAX_LINE_CHARS:
             raise ScanError('pattern scan line work limit exceeded [masked]')
-        # Guard recursive quote/interpolation helpers before entering them.
-        raw_depth = 0
-        for char in line:
-            if char in '([{':
-                raw_depth += 1
-                if raw_depth >= MAX_NESTING:
-                    raise ScanError('pattern scan nesting work limit exceeded [masked]')
-            elif char in ')]}':
-                raw_depth = max(0, raw_depth - 1)
         rules = set()
         work = len(line)
         value_end = len(line.rstrip(' \t='))
@@ -563,7 +596,9 @@ def findings(text, path=None, budget=None):
                 raise ScanError('pattern scan line work limit exceeded [masked]')
             rest = line[start:stop]
             if (match['operator'] == ':' and not typed
-                    and state.context[match.start()] != 0 and not state.braces[match.start()]):
+                    and path is not None and Path(path).suffix.lower() in
+                    {'.py', '.js', '.jsx', '.ts', '.tsx', '.mjs', '.cjs'}
+                    and state.context[match.start()] in state.parameters):
                 # Typed function parameters are declarations, not values.
                 # A literal default above still follows the assignment path.
                 continue

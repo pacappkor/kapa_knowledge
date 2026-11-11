@@ -33,6 +33,51 @@ class PatternTests(unittest.TestCase):
         text = '{' + ','.join(['"token":"example"'] * 3000) + ',"token":' + repr(VALUE) + '}'
         self.assertEqual(self.rules(text), {'generic-secret'})
 
+    def test_structural_depth_ignores_literals_and_comments(self):
+        for text in ('ordinary = ' + repr('(' * 1000),
+                     '# ' + '(' * 1000, '// ' + '[' * 1000,
+                     '/* ' + '{' * 1000 + ' */ ordinary = "example"'):
+            self.assertFalse(self.rules(text))
+        for opening, closing in (('(', ')'), ('[', ']'), ('{', '}')):
+            self.assertFalse(self.rules(opening * 64 + closing * 64))
+            with self.assertRaises(pattern_scan.ScanError):
+                self.rules(opening * 65 + closing * 65)
+        self.assertEqual(self.rules('ordinary = ' + repr('(' * 1000) + '; token=' + repr(VALUE)),
+                         {'generic-secret'})
+
+    def test_query_scope_is_local_to_url(self):
+        for prefix in ('note="?"; ', 'note=?; ', 'note=? ', 'note="https://x/?"; ',
+                       '"unrelated?"; '):
+            text = prefix + OC_NAME + '="${LAW_OC}&<hi>"'
+            self.assertEqual(self.rules(text), {'law-oc'})
+        for quote in ('', '"', "'"):
+            text = quote + 'https://x/?' + OC_NAME + '=${LAW_OC}&target=law' + quote
+            self.assertFalse(self.rules(text))
+            self.assertEqual(self.rules(text.replace('${LAW_OC}', VALUE)), {'law-oc'})
+
+    def test_leading_elisions_do_not_hide_assignments(self):
+        for elision in ("'90s", "'em", "'n'", "'tis", "'cause"):
+            text = 'In the ' + elision + ' token=' + repr(VALUE)
+            self.assertEqual(self.rules(text), {'generic-secret'})
+            self.assertFalse(self.rules('In the ' + elision + ' token="example"'))
+        self.assertFalse(self.rules("ordinary = 'plain single quoted prose'"))
+        self.assertEqual(self.rules('token=' + repr(VALUE)), {'generic-secret'})
+
+    def test_parameter_exemption_requires_source_signature(self):
+        for path in (None, 'sample.yaml', 'sample.json', 'sample.txt', 'sample.ts'):
+            for name, value, rule in (('token', VALUE, 'generic-secret'), (OC_NAME, 'VALUE', 'law-oc')):
+                self.assertEqual(list(pattern_scan.findings('entries: [' + name + ': ' + repr(value) + ']', path)),
+                                 [(1, rule)])
+            self.assertFalse(list(pattern_scan.findings('entries: [token: "<hi>"]', path)))
+        for path in ('sample.py', 'sample.js', 'sample.ts', 'sample.jsx', 'sample.tsx', 'sample.mjs', 'sample.cjs'):
+            for prefix, suffix in (('def f(', '): pass'), ('function f(', ') {}'),
+                                   ('const f = (', ') => 0'), ('class C { method(', ') {} }')):
+                self.assertFalse(list(pattern_scan.findings(prefix + OC_NAME + ': string' + suffix, path)))
+                self.assertEqual(list(pattern_scan.findings(prefix + 'token: string = ' + repr(VALUE) + suffix, path)),
+                                 [(1, 'generic-secret')])
+        self.assertEqual(list(pattern_scan.findings('def f(' + OC_NAME + ': string): pass', 'sample.txt')),
+                         [(1, 'law-oc')])
+
     def test_work_limits_fail_closed(self):
         with patch.object(pattern_scan, 'MAX_LINE_CHARS', 10):
             with self.assertRaises(pattern_scan.ScanError):
@@ -291,10 +336,10 @@ class PatternTests(unittest.TestCase):
                     self.assertFalse(list(pattern_scan.findings(
                         'accessToken = `' + template + '`', path)))
                     self.assertEqual(list(pattern_scan.findings(
-                        'accessToken = `prefix' + template + VALUE + '`', path)),
+                        'access' + 'Token = `prefix' + template + VALUE + '`', path)),
                         [(1, 'generic-secret')])
                     self.assertEqual(list(pattern_scan.findings(
-                        'accessToken = `' + VALUE + template + 'suffix`', path)),
+                        'access' + 'Token = `' + VALUE + template + 'suffix`', path)),
                         [(1, 'generic-secret')])
         self.assertFalse(self.rules('token = `prefix${runtimeValue}suffix`'))
         self.assertEqual(self.rules('token = `' + chr(92) + '${' + VALUE + '}`'),
