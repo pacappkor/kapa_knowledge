@@ -6,6 +6,8 @@ Keep a Changelog와 유의적 버전을 따른다. [버전 규칙](docs/RELEASIN
 
 ### Secret-free CI hardening
 
+- Fix five scanner findings with precomputed quote/nesting/RHS state, bounded provider placeholder scope, shell command-substitution runtime handling, quoted type members, and typed parameter/default distinction. Runtime-built regressions include a 3,000-property object with a 2-second assertion and 10-second subprocess guard. Fail closed (masked ScanError, CLI exit 2) above 16 MiB per file, 256 Ki characters per line, 4 Mi units of candidate/suffix work per line, 64 Mi units per file across decodings, or 64 raw/structural nesting levels. These conservative limits may reject benign pathological input; files are never silently skipped. No runs or catalogs changes.
+
 - Address scanner review findings with quote-aware object RHS boundaries, comparison/JS-arrow exclusion, union/generic annotations, intact bracketed config words, and independent JS-template/Python f-string static chunks (including rf/fr). Acquire trusted main only through pinned checkout, retain main-only absence skip and fail-closed extraction, align security documentation and refresh the snapshot. Add runtime-built positive/negative regressions; no runs or catalogs changes.
 
 - Resolve every PR's trusted pattern scanner from freshly fetched, validated default main instead of an arbitrary PR base; retain validated blob extraction, main-only absence notice, and fail-closed errors. Skip balanced JS/TS template interpolation expressions while inspecting static chunks, and preserve punctuation in bare shell/config values. Add runtime-built positive/negative and non-main-base regressions; no runs or catalog changes.

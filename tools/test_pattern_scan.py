@@ -21,6 +21,74 @@ class PatternTests(unittest.TestCase):
     def rules(self, text):
         return {rule for _, rule in pattern_scan.findings(text)}
 
+    def test_large_flow_object_linear_work(self):
+        # A child provides a hard guard even if the scanner regresses to cubic.
+        code = ('import sys,time;sys.path.insert(0,sys.argv[1]);import pattern_scan;'
+                'text="{"+",".join([chr(34)+"token"+chr(34)+":"+chr(34)+"example"+chr(34)]*3000)+"}";'
+                'start=time.perf_counter();assert not list(pattern_scan.findings(text,"sample.json"));'
+                'print(time.perf_counter()-start)')
+        result = subprocess.run([sys.executable, '-I', '-B', '-c', code, str(SCRIPT.parent)],
+                                capture_output=True, text=True, timeout=10, check=True)
+        self.assertLess(float(result.stdout), 2.0)
+        text = '{' + ','.join(['"token":"example"'] * 3000) + ',"token":' + repr(VALUE) + '}'
+        self.assertEqual(self.rules(text), {'generic-secret'})
+
+    def test_work_limits_fail_closed(self):
+        with patch.object(pattern_scan, 'MAX_LINE_CHARS', 10):
+            with self.assertRaises(pattern_scan.ScanError):
+                self.rules('ordinary prose' * 2)
+        with patch.object(pattern_scan, 'MAX_FILE_WORK', 20):
+            with self.assertRaises(pattern_scan.ScanError):
+                self.rules(('ordinary text\n') * 3)
+        with patch.object(pattern_scan, 'MAX_LINE_WORK', 100):
+            with self.assertRaises(pattern_scan.ScanError):
+                self.rules(('token=example ' * 20) + repr(VALUE))
+        with self.assertRaises(pattern_scan.ScanError):
+            self.rules('token=' + '(' * 100 + repr(VALUE))
+        with tempfile.TemporaryDirectory(dir=os.environ.get('KK_TEST_TMP')) as temp:
+            root = Path(temp)
+            (root / 'sample').write_bytes(b'x' * 100)
+            with patch.object(pattern_scan, 'MAX_FILE_BYTES', 50), patch.object(
+                    pattern_scan, 'repository_files', return_value=(root, ['sample'])):
+                with self.assertRaises(pattern_scan.ScanError):
+                    pattern_scan.scan(root)
+
+    def test_shell_commands_are_runtime(self):
+        commands = ('$(get_access_token_from_environment)', '$(read_law_oc)',
+                    '$(outer "$(inner)" ")" )', '`read_law_oc`')
+        for name in ('access_token', OC_NAME):
+            for command in commands:
+                for quote in ('', '"'):
+                    for tail, expected in (('', False), (VALUE, True)):
+                        text = name + '=' + quote + command + tail + quote
+                        with self.subTest(text=text):
+                            self.assertEqual(bool(list(pattern_scan.findings(text, 'sample.sh'))), expected)
+        self.assertFalse(self.rules('access_token="$(get_access_token_from_environment)"'))
+        self.assertFalse(self.rules(OC_NAME + '=$(read_law_oc)'))
+
+    def test_provider_exemption_rhs_scope(self):
+        provider = 'ghp' + '_' + VALUE * 2
+        for boundary in (',', ';', ')', '}', ']', ' && ', ' || '):
+            self.assertIn('github-token', self.rules(
+                'token=<' + provider + '>' + boundary + ' print("<' + provider + '>")'))
+            self.assertIn('github-token', self.rules(
+                'token=<' + provider + '>' + boundary + ' leaked=' + provider))
+            self.assertFalse(self.rules('token=<' + provider + '>'))
+
+    def test_quoted_annotation_members_and_parameters(self):
+        for annotation, path in (('Literal["legacy"] | str', 'sample.py'),
+                                 ('"a" | "b" | string', 'sample.ts')):
+            self.assertFalse(list(pattern_scan.findings('token: ' + annotation + ' = "<hi>"', path)))
+            self.assertEqual(list(pattern_scan.findings('token: ' + annotation + ' = ' + repr(VALUE), path)),
+                             [(1, 'generic-secret')])
+        for prefix, suffix, path in (('def f(token: str', '): return ""', 'sample.py'),
+                                     ('const fn = (accessToken: string', ') => ""', 'sample.ts'),
+                                     ('function f(apiKey: string', ') { return "<hi>" }', 'sample.ts')):
+            self.assertFalse(list(pattern_scan.findings(prefix + suffix, path)))
+            self.assertFalse(list(pattern_scan.findings(prefix + ' = "<hi>"' + suffix, path)))
+            self.assertEqual(list(pattern_scan.findings(prefix + ' = ' + repr(VALUE) + suffix, path)),
+                             [(1, 'generic-secret')])
+
     def test_provider_shapes(self):
         for prefix in ('ghp', 'gho', 'ghu', 'ghs', 'ghr', 'github_pat'):
             with self.subTest(prefix=prefix):

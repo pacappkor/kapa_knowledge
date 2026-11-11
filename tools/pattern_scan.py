@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: GPL-3.0-only
 """Blocking, secret-free credential shapes in non-ignored worktree files (not history)."""
 import argparse
+from bisect import bisect_right
 import hashlib
 import math
 from pathlib import Path
@@ -60,7 +61,25 @@ ENV_REFERENCE = re.compile(
     process\.env\.[A-Z_][A-Z0-9_]*)"""
 )
 SHELL_OPERAND = re.compile(r'[A-Za-z_][A-Za-z0-9_]*(?P<op>:-|:=|:\+|:\?|[-=+?])')
-TYPE_ANNOTATION = re.compile(r'\s*[A-Za-z_][\w.\s\[\]<>,|?]*=(?!=|>)')
+TYPE_ANNOTATION = re.compile(
+    r'''\s*(?:[A-Za-z_]|"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*')
+    (?:[\w.\s\[\]<>,|?]|"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*')*=(?!=|>)''', re.X)
+LITERAL_PREFIX = re.compile(r"(?i:([bruf]*))(['\"`])")
+# Deterministic work limits, not a best-effort timeout. Exceeding any limit
+# raises ScanError (CLI exit 2); no file is silently skipped.
+MAX_FILE_BYTES = 16 * 1024 * 1024
+MAX_LINE_CHARS = 256 * 1024
+MAX_LINE_WORK = 4 * 1024 * 1024
+MAX_FILE_WORK = 64 * 1024 * 1024
+MAX_NESTING = 64
+
+
+def literal_prefix(text, index):
+    start = index
+    while start and text[start - 1].isalpha():
+        start -= 1
+    prefix = text[start:index]
+    return prefix if (not start or not (text[start - 1].isalnum() or text[start - 1] == '_')) and all(c.lower() in 'bruf' for c in prefix) else ''
 
 
 def credential_rule(name):
@@ -140,7 +159,7 @@ def interpolation_end(text, start, opening=2, python=False):
 def quoted_end(text, start):
     """Return the closing quote offset, respecting escapes and doubled quotes."""
     quote = text[start]
-    formatted = quote != '`' and bool(re.search(r'(?i)(?<!\w)[bruf]*f[bruf]*$', text[:start]))
+    formatted = quote != '`' and 'f' in literal_prefix(text, start).lower()
     index = start + 1
     while index < len(text):
         if text[index] == '\\':
@@ -149,6 +168,8 @@ def quoted_end(text, start):
             index += 2
         elif formatted and text[index] == '{':
             index = interpolation_end(text, index, opening=1, python=True)
+        elif text.startswith('$(', index) and quote == '"':
+            index = command_end(text, index)
         elif text.startswith('${', index):
             index = (interpolation_end(text, index) if quote == '`'
                      else braced_end(text, index))
@@ -166,7 +187,7 @@ def quote_start(text, index):
     # Word-internal and trailing possessive apostrophes are prose. Only a
     # recognized literal prefix at a token boundary can open a quote after a word.
     if text[index] == "'" and index > 0 and re.match(r'\w', text[index - 1]):
-        return bool(re.search(r'(?i)(?<![\w])[bruf]+$', text[:index]))
+        return bool(literal_prefix(text, index))
     return text[index] in '\"\'`'
 
 
@@ -181,6 +202,58 @@ def quote_spans(text):
             index = end + 1
         else:
             index += 1
+
+
+def command_end(text, start):
+    """Consume nested $(...) with shell quotes; never inspect command bodies."""
+    stack = [(')', None)]
+    index = start + 2
+    while index < len(text):
+        closing, quote = stack[-1]
+        char = text[index]
+        if char == '\\':
+            index += 2
+            continue
+        if quote == "'":
+            if char == quote:
+                stack[-1] = (closing, None)
+        elif text.startswith('$(', index) and quote != '`':
+            if len(stack) >= MAX_NESTING:
+                raise ScanError('pattern scan nesting work limit exceeded [masked]')
+            stack.append((')', None))
+            index += 2
+            continue
+        elif quote:
+            if char == quote:
+                stack[-1] = (closing, None)
+        elif char in '\"\'`':
+            stack[-1] = (closing, char)
+        elif char == '(':
+            if len(stack) >= MAX_NESTING:
+                raise ScanError('pattern scan nesting work limit exceeded [masked]')
+            stack.append((')', None))
+        elif char == closing:
+            stack.pop()
+            if not stack:
+                return index + 1
+        index += 1
+    return len(text)
+
+
+def shell_static(text):
+    """Separate literal chunks around runtime command substitutions."""
+    index = start = 0
+    while index < len(text):
+        if text[index] == '\\':
+            index += 2
+        elif text.startswith('$(', index) or text[index] == '`':
+            yield text[start:index]
+            index = (command_end(text, index) if text[index] == '$'
+                     else quoted_end(text, index) + 1)
+            start = index
+        else:
+            index += 1
+    yield text[start:]
 
 
 def literal_candidates(value):
@@ -236,9 +309,9 @@ def lexemes(text, comment_at_start=True, separators=False, bare_equals=False):
             yield index, env.end(), env[0]
             index = env.end()
             continue
-        prefix = re.match(r"(?i:[bruf]*)['\"`]", text[index:])
+        prefix = LITERAL_PREFIX.match(text, index)
         if prefix:
-            quote_index = index + prefix.end() - 1
+            quote_index = prefix.end() - 1
             end = quoted_end(text, quote_index)
             value = text[quote_index + 1:end]
             yield index, end + 1, value
@@ -248,6 +321,8 @@ def lexemes(text, comment_at_start=True, separators=False, bare_equals=False):
         while index < len(text):
             if text[index] == '\\':
                 index += 2
+            elif text.startswith('$(', index):
+                index = command_end(text, index)
             elif text.startswith('${', index):
                 index = braced_end(text, index)
             elif (text[index].isspace() or text[index] in ';&'
@@ -264,23 +339,36 @@ def lexemes(text, comment_at_start=True, separators=False, bare_equals=False):
             yield start, index, re.sub(r'\\(.)', r'\1', text[start:index])
 
 
-def candidates(text, comment_at_start=True, source=False):
+def candidates(text, comment_at_start=True, source=False, shell=False):
     references = list(re.finditer(r'\b[A-Za-z_$][\w$]*(?:\.[A-Za-z_$][\w$]*|\[[^\]]*\])+', text)) if source else []
     spans = list(quote_spans(text)) if source else []
+    span_starts = [a for a, _ in spans]
+    lookups = []
+    for item in references:
+        position = bisect_right(span_starts, item.start()) - 1
+        if position < 0 or not spans[position][0] < item.start() < spans[position][1]:
+            lookups.append((item.start(), item.end()))
+    lookup_starts = [a for a, _ in lookups]
     # The assignment operator has already been consumed; inner equals signs
     # (including base64 padding) belong to the bare shell/config word.
     for start, end, value in lexemes(text, comment_at_start, bare_equals=True):
         if source:
             # A quoted subscript is a lookup key, not a credential literal.
-            if any(item.start() <= start and end <= item.end()
-                   and not any(a < item.start() < b for a, b in spans)
-                   for item in references):
+            lookup = bisect_right(lookup_starts, start) - 1
+            if lookup >= 0 and end <= lookups[lookup][1]:
                 continue
-            literal = re.match(r"(?i:[bruf]*)['\"`]", text[start:])
+            literal = LITERAL_PREFIX.match(text, start)
             if not literal:
                 continue
-        literal = re.match(r"(?i:([bruf]*))(['\"`])", text[start:])
-        if literal and (literal[2] == '`' or 'f' in literal[1].lower()):
+        literal = LITERAL_PREFIX.match(text, start)
+        if literal and literal[2] == '`' and shell:
+            continue
+        if shell and literal and literal[2] == "'":
+            yield from literal_candidates(value)
+        elif shell or '$(' in value:
+            for chunk in shell_static(value):
+                yield from literal_candidates(chunk)
+        elif literal and (literal[2] == '`' or 'f' in literal[1].lower()):
             for chunk in static_chunks(value, formatted=literal[2] != '`'):
                 yield from literal_candidates(chunk)
         else:
@@ -311,31 +399,67 @@ def static_chunks(value, formatted=False):
     yield ''.join(chunk)
 
 
-def object_rhs_end(text):
-    """Find an object's value boundary with the same quote-aware lexer."""
-    spans = iter(quote_spans(text))
-    quoted = next(spans, None)
-    depth = []
-    index = 0
-    while index < len(text):
-        if quoted and index == quoted[0]:
-            index = quoted[1] + 1
-            quoted = next(spans, None)
-            continue
-        char = text[index]
-        if char == '\\':
-            index += 2
-            continue
-        if char in '([{':
-            depth.append(char)
-        elif char in ')]}':
-            if not depth:
-                return index
-            depth.pop()
-        elif char == ',' and not depth:
-            return index
-        index += 1
-    return len(text)
+class LineState:
+    """One quote-aware structural pass; RHS queries are O(log n), not rescans."""
+
+    def __init__(self, line):
+        self.owner = [-1] * (len(line) + 1)
+        self.context = [0] * (len(line) + 1)
+        self.braces = [0] * (len(line) + 1)
+        self.question = [False] * (len(line) + 1)
+        self.bounds = {0: []}
+        self.statements = []
+        stack = [0]
+        brace_depth = 0
+        question = False
+        index = 0
+        while index < len(line):
+            self.context[index] = stack[-1]
+            self.braces[index] = brace_depth
+            self.question[index] = question
+            if quote_start(line, index):
+                end = min(quoted_end(line, index), len(line))
+                for offset in range(index, min(end + 1, len(line))):
+                    self.owner[offset] = end
+                    self.context[offset] = stack[-1]
+                    self.braces[offset] = brace_depth
+                    self.question[offset] = question
+                    if line[offset] == '?':
+                        question = True
+                index = end + 1
+                continue
+            char = line[index]
+            if char == '\\':
+                index += 2
+                continue
+            if char == '?':
+                question = True
+            if char in '([{':
+                if len(stack) >= MAX_NESTING:
+                    raise ScanError('pattern scan nesting work limit exceeded [masked]')
+                context = len(self.bounds)
+                self.bounds[context] = []
+                stack.append(context)
+                brace_depth += char == '{'
+            elif char in ')]}':
+                self.bounds[stack[-1]].append(index)
+                if len(stack) > 1:
+                    stack.pop()
+                brace_depth -= char == '}'
+            elif char in ',;':
+                self.bounds[stack[-1]].append(index)
+            if char in ';|' or line.startswith('&&', index):
+                self.statements.append(index)
+            index += 1
+        self.context[len(line)] = stack[-1]
+        self.length = len(line)
+        for boundaries in self.bounds.values():
+            boundaries.append(len(line))
+        self.statements.append(len(line))
+
+    def rhs_end(self, start, delimiters=False):
+        boundaries = self.bounds[self.context[start]] if delimiters else self.statements
+        return boundaries[bisect_right(boundaries, start - 1)]
 
 
 def high_entropy(value):
@@ -348,29 +472,55 @@ def high_entropy(value):
     return entropy >= 3.5
 
 
-def findings(text, path=None):
+def findings(text, path=None, budget=None):
     """Yield only (line number, rule id); never return matched values."""
+    if budget is None:
+        budget = [MAX_FILE_WORK]
     for number, line in enumerate(text.splitlines(), 1):
+        if len(line) > MAX_LINE_CHARS:
+            raise ScanError('pattern scan line work limit exceeded [masked]')
+        # Guard recursive quote/interpolation helpers before entering them.
+        raw_depth = 0
+        for char in line:
+            if char in '([{':
+                raw_depth += 1
+                if raw_depth >= MAX_NESTING:
+                    raise ScanError('pattern scan nesting work limit exceeded [masked]')
+            elif char in ')]}':
+                raw_depth = max(0, raw_depth - 1)
         rules = set()
+        work = len(line)
+        value_end = len(line.rstrip(' \t='))
+        state = LineState(line)
         assignments = list(ASSIGNMENT.finditer(line))
-        spans = list(quote_spans(line))
         tokens = list(lexemes(line, comment_at_start=False))
+        token_starts = [start for start, _, _ in tokens]
+        assignment_ranges = []
+        for item in assignments:
+            end = min(state.rhs_end(item.end(), True), state.rhs_end(item.end()))
+            owner = state.owner[item.start()]
+            if owner >= 0 and item.end() <= owner:
+                end = min(end, owner)
+            assignment_ranges.append((item.end(), end))
+        range_starts = [start for start, _ in assignment_ranges]
+        range_ends = []
+        furthest = -1
+        for _, end in assignment_ranges:
+            furthest = max(furthest, end)
+            range_ends.append(furthest)
         for rule, pattern in TOKEN_RULES:
             for match in pattern.finditer(line):
                 # Pure reference names are not credentials. Other placeholder
                 # wrappers are exempt only in assignments; bare prose still reports.
-                enclosing = next((value for start, end, value in tokens
-                                  if start <= match.start() and end >= match.end()), match[0])
+                token_index = bisect_right(token_starts, match.start()) - 1
+                enclosing = match[0]
+                if token_index >= 0 and tokens[token_index][1] >= match.end():
+                    enclosing = tokens[token_index][2]
                 if ENV_REFERENCE.fullmatch(enclosing):
                     continue
-                in_assignment = any(
-                    item.end() <= match.start()
-                    and not any(line[index] == ';'
-                                and not any(start < index < end for start, end in spans)
-                                for index in range(item.end(), match.start()))
-                    and not any(start <= item.start() < item.end() <= end < match.start()
-                                for start, end in spans)
-                    for item in assignments)
+                assignment_index = bisect_right(range_starts, match.start()) - 1
+                in_assignment = (assignment_index >= 0
+                                 and range_ends[assignment_index] >= match.end())
                 if not (in_assignment and placeholder(enclosing)):
                     rules.add(rule)
         for match in assignments:
@@ -385,44 +535,53 @@ def findings(text, path=None):
                     (path is None or Path(path).suffix.lower() in
                      {'.js', '.jsx', '.ts', '.tsx', '.mjs', '.cjs'})):
                 continue
-            rest = line[match.end():]
-            if match['operator'] == ':':
-                annotation = TYPE_ANNOTATION.match(rest)
-                if (annotation and rest[annotation.end():].strip().strip('=')
-                        and ((path is not None and Path(path).suffix.lower() in
-                              {'.py', '.js', '.jsx', '.ts', '.tsx', '.mjs', '.cjs'})
-                             or re.search(r'\s=|=\s', annotation[0]))):
-                    rest = rest[annotation.end():]
-            boundary = next((start for start, _, value in
-                             lexemes(rest, comment_at_start=False, separators=True)
-                             if value is None), len(rest))
-            rest = rest[:boundary]
-            if match['operator'] == ':':
-                # Flow-style JSON/YAML/JS objects, not bare config words whose
-                # commas are part of the value. Ignore braces inside strings.
-                prefix = ''.join(char for index, char in enumerate(line[:match.start()])
-                                 if not any(a <= index <= b for a, b in spans))
-                if prefix.count('{') > prefix.count('}'):
-                    rest = rest[:object_rhs_end(rest)]
-            # Embedded URL assignments end at the next query parameter. A name
-            # inside a surrounding string cannot consume code after that string.
-            if '?' in line[:match.start()] and rule == 'law-oc':
+            start = match.end()
+            typed = (TYPE_ANNOTATION.match(line, start, min(len(line), start + 4096))
+                     if match['operator'] == ':' else None)
+            if typed and not (
+                    typed.end() < value_end
+                    and ((path is not None and Path(path).suffix.lower() in
+                          {'.py', '.js', '.jsx', '.ts', '.tsx', '.mjs', '.cjs'})
+                         or re.search(r'\s=|=\s', typed[0]))):
+                typed = None
+            if typed:
+                work += typed.end() - start
+                if work > MAX_LINE_WORK:
+                    raise ScanError('pattern scan line work limit exceeded [masked]')
+                start = typed.end()
+            stop = state.rhs_end(start)
+            owner = state.owner[match.start()]
+            embedded = owner >= match.end() and line[match.start()] not in '\"\''
+            if owner >= match.end():
+                stop = min(stop, owner)
+            # Bound flow values before copying/lexing the suffix. Bare config
+            # words retain commas and other punctuation as literal characters.
+            if match['operator'] == ':' and state.braces[match.start()] > 0:
+                stop = min(stop, state.rhs_end(start, True))
+            work += stop - start
+            if work > MAX_LINE_WORK:
+                raise ScanError('pattern scan line work limit exceeded [masked]')
+            rest = line[start:stop]
+            if (match['operator'] == ':' and not typed
+                    and state.context[match.start()] != 0 and not state.braces[match.start()]):
+                # Typed function parameters are declarations, not values.
+                # A literal default above still follows the assignment path.
+                continue
+            if state.question[match.start()] and rule == 'law-oc':
                 rest = rest.split('&', 1)[0]
-            for start, end in spans:
-                if start <= match.start() < match.end() <= end:
-                    rest = rest[:end - match.end()]
-                    break
-            embedded = any(start < match.start() < match.end() <= end
-                           for start, end in spans)
             source = (not embedded and path is not None and Path(path).suffix.lower() in
                       {'.py', '.js', '.jsx', '.ts', '.tsx', '.mjs', '.cjs'})
             # Calls and access chains are references even without a source suffix;
             # bare config/shell words otherwise remain literal values.
             expression = re.match(r'\s*[A-Za-z_$][\w$]*(?:\s*\(|\.[A-Za-z_$]|\[)', rest)
             for value in candidates(rest, comment_at_start=False,
-                                    source=source or (path is None and bool(expression))):
+                                    source=source or (path is None and bool(expression)),
+                                    shell=path is not None and Path(path).suffix.lower() in {'.sh', '.bash', '.zsh'}):
                 if not placeholder(value) and (rule == 'law-oc' or high_entropy(value)):
                     rules.add(rule)
+        budget[0] -= work
+        if budget[0] < 0:
+            raise ScanError('pattern scan file work limit exceeded [masked]')
         for rule in sorted(rules):
             yield number, rule
 
@@ -463,7 +622,12 @@ def scan(root):
                     raise ScanError(f'{safe_path}: unsafe path [masked]')
             if not stat.S_ISREG(info.st_mode):
                 raise ScanError(f'{safe_path}: unsupported file type [masked]')
-            data = path.read_bytes()
+            if info.st_size > MAX_FILE_BYTES:
+                raise ScanError('pattern scan file work limit exceeded [masked]')
+            with path.open('rb') as stream:
+                data = stream.read(MAX_FILE_BYTES + 1)
+            if len(data) > MAX_FILE_BYTES:
+                raise ScanError('pattern scan file work limit exceeded [masked]')
         except FileNotFoundError:
             continue  # Tracked deletion.
         except OSError:
@@ -479,9 +643,10 @@ def scan(root):
                 except UnicodeError:
                     continue
         file_matches = set()
+        budget = [MAX_FILE_WORK]
         for text in texts:
             lines = text.splitlines()
-            for line, rule in findings(text, relative):
+            for line, rule in findings(text, relative, budget):
                 digest = hashlib.sha256(lines[line - 1].encode('utf-8')).hexdigest()
                 if (relative, rule, digest) not in ALLOWLIST:
                     file_matches.add((line, rule))
@@ -496,6 +661,9 @@ def main():
     args = parser.parse_args()
     try:
         matches = scan(args.root)
+    except RecursionError:
+        print('ERROR: pattern scan nesting work limit exceeded [masked]')
+        return 2
     except ScanError as exc:
         print(f'ERROR: {exc}')
         return 2
