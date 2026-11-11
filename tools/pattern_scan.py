@@ -29,18 +29,24 @@ TOKEN_RULES = (
     ('aws-access-key', re.compile(r'\bAKIA[A-Z0-9]{16}\b')),
     ('private-key', re.compile(r'-----BEGIN (?:RSA |EC |DSA |OPENSSH |ENCRYPTED )?PRIVATE KEY-----')),
 )
-# Capture quoted values including spaces, or a bare URL/config value. Boundary
-# excludes identifiers such as protocol while allowing OC query parameters.
+# Capture the value after an optional Python/TS type annotation, not the type.
+# Quoted values may contain spaces; bare braced references stay whole so suffixes
+# cannot masquerade as environment references. The name boundary excludes
+# identifiers such as protocol while allowing OC query parameters.
 ASSIGNMENT = re.compile(
     r'''(?ix)(?<![\w-]) ["']?
     (?P<name>oc|(?:[\w]+[_-])?(?:api[_-]?key|service[_-]?key|secret|token|password))
-    ["']? \s* [=:] \s*
+    ["']? \s*
+    (?: : \s* [A-Za-z_][\w.]* (?: \s* \[ [^\r\n=]* \])? \s* = | [=:]) \s*
     (?: "(?P<double>[^"\r\n]*)" | '(?P<single>[^'\r\n]*)' |
-        (?P<bare>[^\s&;,\}\]\)"'`]+))'''
+        (?P<bare>(?:\$\{\{[^\r\n]*?\}\}|\$\{[^{}\r\n]*\}|[^\s&;,\}\]\)"'`])+))'''
 )
 PLACEHOLDER = re.compile(
     r'(?ix)^(?:\*+|<[^>]*>|example(?:[_-].*)?|fake(?:[_-].*)?|'
-    r'not[-_]a[-_]real(?:[-_].*)?|your[_-].*|\$.*|%[A-Z_][A-Z0-9_]*%|'
+    r'not[-_]a[-_]real(?:[-_].*)?|your[_-].*|'
+    r'\$(?:[A-Z_][A-Z0-9_]*|env:[A-Z_][A-Z0-9_]*|'
+    r'\{[A-Z_][A-Z0-9_]*(?::?[-+?=][^{}\r\n]*)?\}|'
+    r'\{\{\s*(?:secrets|env)\.[A-Z_][A-Z0-9_]*\s*\}\})|%[A-Z_][A-Z0-9_]*%|'
     r'\{.*\}|(?:os\.)?(?:getenv|environ)(?:\b.*)|process\.env\..*)$'
 )
 
@@ -77,6 +83,25 @@ def findings(text):
             yield number, rule
 
 
+def decode_text(data):
+    """Recognize BOM-less UTF-16 text without interpreting arbitrary binary as it."""
+    if data.startswith((b'\xff\xfe', b'\xfe\xff')):
+        return data.decode('utf-16', errors='replace')
+    if len(data) >= 4 and len(data) % 2 == 0:
+        even, odd = data[::2], data[1::2]
+        for encoding, high, low in (('utf-16-le', odd, even), ('utf-16-be', even, odd)):
+            # ASCII-heavy UTF-16 has NULs predominantly in its high-byte lane.
+            if high.count(0) / len(high) < 0.6 or low.count(0) / len(low) > 0.1:
+                continue
+            try:
+                text = data.decode(encoding)
+            except UnicodeError:
+                continue
+            if sum(c.isprintable() or c in '\r\n\t' for c in text) / len(text) >= 0.95:
+                return text
+    return data.decode('utf-8', errors='replace')
+
+
 def scan(root):
     root, paths = repository_files(root)
     matches = []
@@ -99,9 +124,8 @@ def scan(root):
             continue  # Tracked deletion.
         except OSError:
             raise ScanError(f'{safe_path}: cannot read file [masked]') from None
-        # Decode UTF-16 BOM files too; no extension or binary-file exclusions.
-        encoding = 'utf-16' if data.startswith((b'\xff\xfe', b'\xfe\xff')) else 'utf-8'
-        text = data.decode(encoding, errors='replace')
+        # No extension exclusions; only plausible text gets BOM-less UTF-16 decoding.
+        text = decode_text(data)
         lines = text.splitlines()
         for line, rule in findings(text):
             digest = hashlib.sha256(lines[line - 1].encode('utf-8')).hexdigest()

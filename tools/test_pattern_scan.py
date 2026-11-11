@@ -43,6 +43,56 @@ class PatternTests(unittest.TestCase):
         self.assertFalse(self.rules('password=' + 'a' * 40))
         self.assertFalse(self.rules('token=short'))
 
+    def test_typed_assignments(self):
+        for name, rule in (('token', 'generic-secret'), ('apiKey', 'generic-secret'),
+                           (OC_NAME, 'law-oc')):
+            for annotation in ('str', 'Final[str]', 'Optional[str]', 'string',
+                               'typing.Final[Optional[str]]'):
+                for quote in ('"', "'"):
+                    prefix = name + ': ' + annotation + ' = '
+                    self.assertEqual(self.rules(prefix + quote + VALUE + quote), {rule})
+                    self.assertFalse(self.rules(prefix + quote + '${LAW_OC}' + quote))
+                    self.assertFalse(self.rules(prefix + quote + 'example' + quote))
+        self.assertFalse(self.rules('token: Optional[str]'))
+        self.assertFalse(self.rules('token: string = "short"'))
+
+    def test_environment_references_are_whole_values(self):
+        references = ('$NAME', '${NAME}', '${NAME:-default}', '${NAME-default}',
+                      '${NAME:+alternate}', '${NAME:?required}', '$env:NAME', '%NAME%',
+                      '${{ secrets.LAW_OC }}', '${{ env.LAW_OC }}')
+        for value in references:
+            self.assertTrue(pattern_scan.placeholder(value))
+            for quote in ('', '"', "'"):
+                self.assertFalse(self.rules(OC_NAME + '=' + quote + value + quote))
+        for value in ('$' + VALUE + '!/', '${NAME}' + VALUE, '$env:NAME/' + VALUE,
+                      '%NAME%' + VALUE, '${bad reference}' + VALUE):
+            self.assertFalse(pattern_scan.placeholder(value))
+            for quote in ('', '"', "'"):
+                self.assertEqual(self.rules('token=' + quote + value + quote), {'generic-secret'})
+                self.assertEqual(self.rules(OC_NAME + '=' + quote + value + quote), {'law-oc'})
+
+    def test_bomless_utf16_and_binary(self):
+        with tempfile.TemporaryDirectory(dir=os.environ.get('KK_TEST_TMP')) as temp:
+            root = Path(temp)
+            for encoding in ('utf-16-le', 'utf-16-be'):
+                for text, expected in (
+                    ('first\n' + OC_NAME + '=' + VALUE, [("'sample.dat'", 2, 'law-oc')]),
+                    ('first\ntoken: str = "' + VALUE + '"', [("'sample.dat'", 2, 'generic-secret')]),
+                    ('first\n' + 'ghp' + '_' + VALUE * 2, [("'sample.dat'", 2, 'github-token')]),
+                    ('first\n' + OC_NAME + '=${NAME:-default}', []),
+                    ('ordinary text\nno credentials', []),
+                ):
+                    (root / 'sample.dat').write_bytes(text.encode(encoding))
+                    with patch.object(pattern_scan, 'repository_files', return_value=(root, ['sample.dat'])):
+                        self.assertEqual(pattern_scan.scan(root), expected)
+            # Image-like bytes, NUL-heavy noise, and malformed UTF-16 must stay safe.
+            for data in (b'\x89PNG\r\n\x1a\n' + bytes(range(256)) * 4,
+                         b'\0' * 200, b'\xff\xfe\0', b'\xfe\xff\0',
+                         b'\0\xd8' * 50, b'\xd8\0' * 50):
+                (root / 'sample.dat').write_bytes(data)
+                with patch.object(pattern_scan, 'repository_files', return_value=(root, ['sample.dat'])):
+                    self.assertEqual(pattern_scan.scan(root), [])
+
     def test_placeholders_and_environment(self):
         for value in ('***', '<value>', 'example', 'FAKE', 'NOT-A-REAL',
                       'YOUR_KEY', '${LAW_OC}', '$LAW_OC', '%LAW_OC%',
