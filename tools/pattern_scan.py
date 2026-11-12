@@ -65,15 +65,28 @@ class Assignment:
         return self.fields[key]
 
 
-def bracket_pairs(text, angles=False):
+def bracket_pairs(text, angles=False, kind='unknown'):
     """Index balanced groups once so chained lookups never rescan suffixes."""
     pairs, stack = {}, []
+    quotes = QuoteIndex(text) if "'" in text else None
+    lines, blocks = COMMENT_SYNTAX[kind]
+    last_closings = {closing: text.rfind(closing) for _, closing in blocks}
     index = 0
     while index < len(text):
         char = text[index]
-        if char in '\"\'`':
-            index = quoted_end(text, index) + 1
+        literal = literal_boundary(text, index, kind, quotes)
+        if literal:
+            index = literal[0]
             continue
+        block = next(((a, b) for a, b in blocks if text.startswith(a, index)), None)
+        if block:
+            closing = (text.find(block[1], index + len(block[0]))
+                       if last_closings[block[1]] >= index + len(block[0]) else -1)
+            if closing >= 0 or kind != 'unknown':
+                index = len(text) if closing < 0 else closing + len(block[1])
+                continue
+        if any(text.startswith(marker, index) for marker in lines):
+            break
         if char in '([{' or (angles and char == '<'):
             stack.append((char, index))
         elif char in ')]}>':
@@ -94,9 +107,28 @@ DECLARATOR_SUFFIX = re.compile(
     r'=(?!=|>)')
 
 
+def go_declarator_end(text, start, pairs):
+    """Consume a bounded Go type, jumping its composite groups in O(1)."""
+    index = start
+    limit = min(len(text), start + 4096)
+    while index < limit:
+        char = text[index]
+        if char == '=':
+            return index + 1 if not text.startswith(('==', '=>'), index) else None
+        if char in '[({' and index in pairs:
+            index = pairs[index] + 1
+        elif char.isalnum() or char.isspace() or char in '_.*<>-':
+            index += 1
+        else:
+            return None
+    return None
+
+
 def assignments_in(text, kind='unknown'):
     """Consume dotted/indexed chains and bounded declarators in one forward pass."""
-    pairs = bracket_pairs(text) if '[' in text else {}
+    pairs = bracket_pairs(text, kind=kind) if '[' in text or kind == 'go' else {}
+    go_targets = ({m.start(1) for m in re.finditer(r'\bvar\s+([A-Za-z_][\w]*)', text)}
+                  if kind == 'go' else set())
     cursor = 0
     while cursor < len(text):
         if text[cursor] == '\\':
@@ -128,6 +160,12 @@ def assignments_in(text, kind='unknown'):
             continue
         key = 'password' if option and text[start:end] == 'p' else None
         after = SPACE.match(text, end).end()
+        if kind == 'go' and start in go_targets:
+            declarator_end = go_declarator_end(text, after, pairs)
+            if declarator_end is not None:
+                yield Assignment(start, declarator_end, text[start:end], '=')
+                cursor = declarator_end
+                continue
         if kind in C_FAMILY_TYPES and credential_rule(text[start:end]):
             # Bound each lookahead independently of the line length. Only a
             # completed initializer is a declaration; bare declarations stay clean.
@@ -166,6 +204,9 @@ def assignments_in(text, kind='unknown'):
                 else:
                     break
             cursor = max(cursor, after)
+        if (kind == 'typescript' and text[after:after + 1] == '!'
+                and not text.startswith('!=', after)):
+            after = SPACE.match(text, after + 1).end()
         if kind == 'typescript' and text[after:after + 1] == '?':
             optional = SPACE.match(text, after + 1).end()
             if text[optional:optional + 1] == ':':
@@ -232,6 +273,8 @@ COMMENT_SYNTAX = {
     'css': ((), (('/*', '*/'),)),
     'php': (('//', '#'), (('/*', '*/'),)),
     'python': (('#',), ()),
+    'ruby': (('#',), ()),
+    'powershell': (('#',), (('<#', '#>'),)),
     'shell': (('#',), ()),
     'hash-config': (('#',), ()),
     'ini': (('#', ';'), ()),
@@ -248,7 +291,9 @@ FILE_TYPES = {
                  '.m', '.mm', '.scala', '.sc', '.dart', '.groovy', '.gradle'),
     'css': ('.css', '.scss', '.less'),
     'php': ('.php', '.phtml'),
-    'python': ('.py', '.pyw'),
+    'python': ('.py', '.pyw', '.pyi'),
+    'ruby': ('.rb',),
+    'powershell': ('.ps1', '.psm1', '.psd1'),
     'shell': ('.sh', '.bash', '.zsh', '.dash', '.ksh', '.env'),
     'hash-config': ('.yaml', '.yml', '.toml'),
     'ini': ('.ini', '.cfg'),
@@ -259,7 +304,7 @@ FILE_TYPES = {
 }
 # Syntax capabilities live beside file classification, not in individual cases.
 LANGUAGE_SUFFIXES = {
-    'typescript': ('.ts', '.tsx'),
+    'typescript': ('.ts', '.tsx', '.mts', '.cts'),
     'cpp': ('.cc', '.cpp', '.cxx', '.hpp', '.hh', '.hxx', '.mm'),
     'csharp': ('.cs',), 'java': ('.java',), 'rust': ('.rs',),
     'kotlin': ('.kt', '.kts'), 'swift': ('.swift',),
@@ -274,6 +319,11 @@ C_FAMILY_TYPES = frozenset(('c-family', 'cpp', 'csharp', 'java', 'rust', 'kotlin
 STRING_SYNTAX = {
     'c-family': 'cpp', 'cpp': 'cpp', 'csharp': 'csharp', 'rust': 'rust', 'go': 'go',
     'python': 'python', 'swift': 'swift', 'kotlin': 'triple', 'java': 'triple',
+    'groovy': 'groovy', 'ruby': 'ordinary', 'powershell': 'powershell',
+    'javascript': 'ordinary', 'typescript': 'ordinary', 'scala': 'ordinary',
+    'dart': 'ordinary', 'php': 'ordinary', 'shell': 'shell', 'ini': 'shell',
+    'unknown': 'prose', 'hash-config': 'prose', 'css': 'ordinary',
+    'sql': 'ordinary', 'lua': 'ordinary', 'markup': 'prose', 'json': 'ordinary',
 }
 JS_TYPES = frozenset(('javascript', 'typescript'))
 TERNARY_TYPES = frozenset(('javascript', 'typescript', 'c-family', 'cpp', 'csharp',
@@ -285,7 +335,7 @@ COMMENT_SYNTAX['typescript'] = COMMENT_SYNTAX['javascript']
 SUFFIX_TYPES = {suffix: kind for kind, suffixes in FILE_TYPES.items() for suffix in suffixes}
 SUFFIX_TYPES.update({suffix: kind for kind, suffixes in LANGUAGE_SUFFIXES.items()
                      for suffix in suffixes})
-SOURCE_TYPES = C_FAMILY_TYPES | JS_TYPES | frozenset(('python', 'php'))
+SOURCE_TYPES = C_FAMILY_TYPES | JS_TYPES | frozenset(('python', 'php', 'ruby', 'powershell'))
 SHELL_TYPES = frozenset(('shell', 'ini'))
 SHEBANG = re.compile(
     r'^#!\s*(?:/[^\s]*/)?(?P<command>[\w.+-]+)(?:\s|$)')
@@ -389,24 +439,26 @@ def braced_end(text, start):
     return len(text)
 
 
-def interpolation_end(text, start, opening=2, python=False):
+def interpolation_end(text, start, opening=2, python=False, kind=None, delimiters=('{', '}')):
     """Skip a balanced interpolation, including nested objects and strings."""
+    kind = kind or ('python' if python else 'javascript')
+    lines, blocks = COMMENT_SYNTAX[kind]
     depth = 1
     index = start + opening
     while index < len(text):
         if text[index] == '\\':
             index += 2
-        elif text[index] in '\"\'`':
-            index = quoted_end(text, index) + 1
-        elif not python and text.startswith('//', index):
-            return len(text)  # Single-line scanner: the rest is a comment.
-        elif not python and text.startswith('/*', index):
-            stop = text.find('*/', index + 2)
-            index = len(text) if stop < 0 else stop + 2
-        elif text[index] == '{':
+        elif (literal := literal_boundary(text, index, kind)):
+            index = literal[0]
+        elif any(text.startswith(marker, index) for marker in lines):
+            return len(text)
+        elif (block := next(((a, b) for a, b in blocks if text.startswith(a, index)), None)):
+            stop = text.find(block[1], index + len(block[0]))
+            index = len(text) if stop < 0 else stop + len(block[1])
+        elif text[index] == delimiters[0]:
             depth += 1
             index += 1
-        elif text[index] == '}':
+        elif text[index] == delimiters[1]:
             depth -= 1
             index += 1
             if not depth:
@@ -416,7 +468,7 @@ def interpolation_end(text, start, opening=2, python=False):
     return len(text)
 
 
-def quoted_end(text, start):
+def quoted_end(text, start, kind='unknown'):
     """Return the closing quote offset, respecting escapes and doubled quotes."""
     quote = text[start]
     formatted = quote != '`' and 'f' in literal_prefix(text, start).lower()
@@ -427,11 +479,11 @@ def quoted_end(text, start):
         elif formatted and text[index:index + 2] in ('{{', '}}'):
             index += 2
         elif formatted and text[index] == '{':
-            index = interpolation_end(text, index, opening=1, python=True)
+            index = interpolation_end(text, index, opening=1, python=True, kind='python')
         elif text.startswith('$(', index) and quote == '"':
             index = command_end(text, index)
         elif text.startswith('${', index):
-            index = (interpolation_end(text, index) if quote == '`'
+            index = (interpolation_end(text, index, kind=kind if kind in JS_TYPES else 'javascript') if quote == '`'
                      else braced_end(text, index))
         elif text[index] == quote:
             if index + 1 < len(text) and text[index + 1] == quote:
@@ -496,6 +548,40 @@ def source_literal(text, start, kind):
             formatted = 'f' in prefix
             if len(match[1]) == 3:
                 tail = match[1]
+    if syntax == 'swift' and (opening != start or text[start] == '"'):
+        if opening == start:
+            opening = start + 1
+        hashes = len(text[start:opening]) - len(text[start:opening].lstrip('#'))
+        marker = '\\' + '#' * hashes + '('
+        closing_marker = tail or '"'
+        index = opening
+        while index < len(text):
+            if text.startswith(marker, index):
+                index = interpolation_end(text, index, opening=len(marker), kind=kind,
+                                          delimiters=('(', ')'))
+            elif text.startswith(closing_marker, index):
+                return index + len(closing_marker), opening, index, marker
+            elif text[index] == '\\' and not hashes:
+                index += 2
+            else:
+                index += 1
+        return len(text), opening, len(text), marker
+    if syntax == 'groovy':
+        if text.startswith('$/', start):
+            index = start + 2
+            while index < len(text):
+                if text.startswith(('$$', '$/'), index):
+                    index += 2
+                elif text.startswith('/$', index):
+                    return index + 2, start + 2, index, False
+                else:
+                    index += 1
+            return len(text), start + 2, len(text), False
+        if text[start] == '/' and not text.startswith(('//', '/*'), start) and regex_allowed_at(text, start):
+            closing = regex_end(text, start, flags=False, classes=False)
+            if closing is not None:
+                return closing, start + 1, closing - 1, False
+            return len(text), start + 1, len(text), False
     if opening == start:
         return None
     if tail is not None:
@@ -534,7 +620,7 @@ def source_literal(text, start, kind):
         elif formatted and text[index:index + 2] in ('{{', '}}'):
             index += 2
         elif formatted and text[index] == '{':
-            index = interpolation_end(text, index, opening=1, python=True)
+            index = interpolation_end(text, index, opening=1, python=True, kind='python')
         elif text[index] == quote:
             if verbatim and text.startswith(quote * 2, index):
                 index += 2
@@ -543,6 +629,17 @@ def source_literal(text, start, kind):
         else:
             index += 1
     return len(text), opening, len(text), formatted
+
+
+def literal_boundary(text, start, kind='unknown', quotes=None):
+    """Single language-table entry point for literal ownership and structure."""
+    literal = source_literal(text, start, kind)
+    if literal:
+        return literal
+    if quote_start(text, start, quotes):
+        end = quoted_end(text, start, kind=kind)
+        return min(len(text), end + 1), start + 1, end, False
+    return None
 
 
 class QuoteIndex:
@@ -590,13 +687,9 @@ def quote_spans(text, kind='unknown'):
     while index < len(text):
         if text[index] == '\\':
             index += 2
-        elif (literal := source_literal(text, index, kind)):
+        elif (literal := literal_boundary(text, index, kind, quotes)):
             yield index, literal[0] - 1
             index = literal[0]
-        elif quote_start(text, index, quotes):
-            end = quoted_end(text, index)
-            yield index, end
-            index = end + 1
         else:
             index += 1
 
@@ -717,10 +810,11 @@ def lexemes(text, comment_at_start=True, separators=False, bare_equals=False, qu
         prefix = LITERAL_PREFIX.match(text, index)
         if prefix:
             quote_index = prefix.end() - 1
-            end = quoted_end(text, quote_index)
-            value = text[quote_index + 1:end]
-            yield index, end + 1, value
-            index = end + 1
+            literal = literal_boundary(text, quote_index, kind, quotes)
+            end, opening, closing, _ = literal
+            value = text[opening:closing]
+            yield index, end, value
+            index = end
             continue
         start = index
         while index < len(text):
@@ -733,7 +827,8 @@ def lexemes(text, comment_at_start=True, separators=False, bare_equals=False, qu
             elif (text[index].isspace() or text[index] in ';&'
                   or (text[index] in ',:=()[]}' and not bare_equals)
                   or (separators and text[index] == '|')
-                  or quote_start(text, index, quotes)):
+                  or quote_start(text, index, quotes)
+                  or (text[index] in 'rRbBuULu@$#/' and source_literal(text, index, kind))):
                 break
             else:
                 index += 1
@@ -820,14 +915,16 @@ def candidates(text, comment_at_start=True, source=False, shell=False, kind='unk
     # literals to exclude. Do not retry a repeated chain at every member.
     references = []
     if source:
+        pairs = bracket_pairs(text, kind=kind) if '[' in text else {}
         cursor = 0
         while cursor < len(text):
             reference = re.compile(r'\b[A-Za-z_$][\w$]*\[').search(text, cursor)
             if reference is None:
                 break
-            closing = text.find(']', reference.end())
-            if closing < 0:
-                break
+            closing = pairs.get(reference.end() - 1)
+            if closing is None:
+                cursor = reference.end()
+                continue
             references.append((reference.start(), closing + 1))
             cursor = closing + 1
     spans = list(quote_spans(text, kind)) if source else []
@@ -836,10 +933,10 @@ def candidates(text, comment_at_start=True, source=False, shell=False, kind='unk
     getters = []
     if source:
         for call in re.finditer(r'\b(?:get|getenv)\s*\(\s*', text):
-            argument = LITERAL_PREFIX.match(text, call.end())
-            if argument:
-                closing = quoted_end(text, argument.end() - 1)
-                getters.append((argument.start(), closing + 1))
+            if call.end() < len(text):
+                literal = literal_boundary(text, call.end(), kind)
+                if literal:
+                    getters.append((call.end(), literal[0]))
     span_starts = [a for a, _ in spans]
     lookups = []
     for start, end in references:
@@ -864,7 +961,7 @@ def candidates(text, comment_at_start=True, source=False, shell=False, kind='unk
             if not literal and not syntax_literal:
                 continue
         if syntax_literal:
-            chunks = static_chunks(value, formatted=True) if syntax_literal[3] else (value,)
+            chunks = static_chunks(value, formatted=syntax_literal[3], kind=kind) if syntax_literal[3] else (value,)
             for chunk in chunks:
                 yield from literal_candidates(chunk)
             continue
@@ -883,19 +980,24 @@ def candidates(text, comment_at_start=True, source=False, shell=False, kind='unk
             yield from literal_candidates(value)
 
 
-def static_chunks(value, formatted=False):
+def static_chunks(value, formatted=False, kind='unknown'):
     """Keep noncontiguous template text separate; doubled f-braces are literal."""
     chunk = []
     cursor = 0
     while cursor < len(value):
-        if value[cursor] == '\\':
+        if isinstance(formatted, str) and value.startswith(formatted, cursor):
+            yield ''.join(chunk)
+            chunk = []
+            cursor = interpolation_end(value, cursor, opening=len(formatted), kind=kind,
+                                       delimiters=('(', ')'))
+        elif value[cursor] == '\\':
             width = 1 if formatted and value[cursor + 1:cursor + 2] in ('{', '}') else 2
             chunk.append(value[cursor:cursor + width])
             cursor += width
-        elif formatted and value[cursor:cursor + 2] in ('{{', '}}'):
+        elif formatted is True and value[cursor:cursor + 2] in ('{{', '}}'):
             chunk.append(value[cursor])
             cursor += 2
-        elif ((formatted and value[cursor] == '{')
+        elif ((formatted is True and value[cursor] == '{')
               or (not formatted and value.startswith('${', cursor))):
             yield ''.join(chunk)
             chunk = []
@@ -911,7 +1013,19 @@ REGEX_KEYWORDS = frozenset(('else', 'do', 'return', 'throw', 'case', 'delete', '
                             'typeof', 'instanceof', 'in', 'of', 'yield', 'await', 'new'))
 
 
-def regex_end(text, start):
+def regex_allowed_at(text, start):
+    previous = start - 1
+    while previous >= 0 and text[previous].isspace():
+        previous -= 1
+    if previous < 0 or text[previous] in '=(:,[!&|?;{}~+-*%/^<>':
+        return True
+    end = previous + 1
+    while previous >= 0 and (text[previous].isalnum() or text[previous] in '_$'):
+        previous -= 1
+    return text[previous + 1:end] in REGEX_KEYWORDS
+
+
+def regex_end(text, start, flags=True, classes=True):
     index = start + 1
     character_class = False
     while index < len(text):
@@ -919,17 +1033,51 @@ def regex_end(text, start):
         if char == '\\':
             index += 2
             continue
-        if char == '[':
+        if classes and char == '[':
             character_class = True
-        elif char == ']':
+        elif classes and char == ']':
             character_class = False
         elif char == '/' and not character_class:
             index += 1
-            while index < len(text) and text[index].isalpha():
+            while flags and index < len(text) and text[index].isalpha():
                 index += 1
             return index
         index += 1
     return None
+
+
+def typescript_type_openings(line, pairs):
+    """Mark balanced type groups, not runtime object/property values.
+
+    Type aliases and declaration annotations consume their groups by indexed
+    jumps; angle groups represent generic type arguments. No suffix rescans.
+    """
+    openings = set()
+    starts = [m.end() for m in re.finditer(
+        r'\btype\s+[A-Za-z_$][\w$]*(?:\s*<[^;={}]*>)?\s*=|'
+        r'\b(?:let|const|var)\s+[A-Za-z_$][\w$]*\s*:', line)]
+    for start in starts:
+        index = start
+        limit = min(len(line), start + 4096)
+        while index < limit:
+            if line[index] in ';=':
+                break
+            if index in pairs:
+                openings.add(index)
+                index = pairs[index] + 1
+            else:
+                index += 1
+    openings.update(a for a in pairs if line[a] == '<')
+    ranges = sorted((a, pairs[a]) for a in openings)
+    cursor = 0
+    end = -1
+    for index, char in enumerate(line):
+        while cursor < len(ranges) and ranges[cursor][0] <= index:
+            end = max(end, ranges[cursor][1])
+            cursor += 1
+        if char in '([{' and index < end:
+            openings.add(index)
+    return openings
 
 
 class LineState:
@@ -947,6 +1095,9 @@ class LineState:
         self.comments = []
         self.parameters = set()
         self.type_fields = set()
+        type_contexts = set()
+        interface_bodies = {m.end() - 1 for m in re.finditer(
+            r'\binterface\s+[A-Za-z_$][\w$]*(?:\s+[^{};]+)?\s*\{', line)}
         type_bodies = {m.end() - 1 for m in re.finditer(
             r'\b(?:class|interface)\s+[A-Za-z_$][\w$]*(?:\s+[^{};]+)?\s*\{', line)}
         self.regex_spans = []
@@ -959,7 +1110,8 @@ class LineState:
             r'\b(?:def\s+[A-Za-z_$][\w$]*\s*+|function\s*+(?:\*\s*+)?(?:[A-Za-z_$][\w$]*\s*+)?)[(]', line)}
         methods = {m.end() - 1 for m in re.finditer(
             r'(?:^|[;,{}])\s*(?:(?:async|static|get|set)\s+)*[A-Za-z_$][\w$]*\s*\(', line)}
-        type_pairs = bracket_pairs(line, angles=True) if kind in JS_TYPES else {}
+        type_pairs = bracket_pairs(line, angles=True, kind=kind) if kind in JS_TYPES else {}
+        type_openings = typescript_type_openings(line, type_pairs) if kind == 'typescript' else set()
         annotation_cache = {}
 
         def signature_tail(position):
@@ -1022,10 +1174,10 @@ class LineState:
                     self.question[offset] = question
                 index = word.end()
                 continue
-            literal = source_literal(line, index, kind)
-            if literal or quote_start(line, index, quotes):
-                end = literal[0] - 1 if literal else min(quoted_end(line, index), len(line))
-                formatted = literal[3] if literal else 'f' in literal_prefix(line, index).lower()
+            literal = literal_boundary(line, index, kind, quotes)
+            if literal:
+                end = literal[0] - 1
+                formatted = literal[3] or 'f' in literal_prefix(line, index).lower()
                 if formatted or line[index] == '`':
                     self.formatted_spans.append((index, end, formatted))
                 regex_allowed = False
@@ -1099,7 +1251,9 @@ class LineState:
                     raise ScanError('pattern scan nesting work limit exceeded [masked]')
                 context = len(self.bounds)
                 self.bounds[context] = []
-                if index in type_bodies:
+                if index in type_openings or index in interface_bodies or stack[-1] in type_contexts:
+                    type_contexts.add(context)
+                if index in type_bodies or context in type_contexts:
                     self.type_fields.add(context)
                 if char == '(':
                     openings[context] = index
@@ -1122,7 +1276,8 @@ class LineState:
                 brace_depth -= char in '}]'
             elif char in ',;':
                 self.bounds[stack[-1]].append(index)
-            if char in ';|' or (char == '&' and (not question or line.startswith('&&', index))):
+            if char in ';|' or (char == '&' and (line.startswith('&&', index)
+                                                      or (kind not in SOURCE_TYPES and not question))):
                 self.statements.append(index)
             index += 1
         self.context[len(line)] = stack[-1]
@@ -1324,7 +1479,7 @@ def findings(text, path=None, budget=None):
                 if formatted_owner:
                     # Preserve the enclosing template's interpolation mode even
                     # though the embedded query RHS has no opening quote.
-                    embedded_chunks = static_chunks(rest, formatted=formatted_owner[2])
+                    embedded_chunks = static_chunks(rest, formatted=formatted_owner[2], kind=kind)
             source = not embedded and source_file
             # Calls and access chains are references even without a source suffix;
             # bare config/shell words otherwise remain literal values.
