@@ -21,6 +21,88 @@ class PatternTests(unittest.TestCase):
     def rules(self, text):
         return {rule for _, rule in pattern_scan.findings(text)}
 
+    def test_csharp_raw_interpolation_arity(self):
+        for dollars in (1, 2, 3):
+            opening = '$' * dollars + '"""'
+            runtime = '{' * dollars + 'runtimeOC' + '}' * dollars
+            for name, rule in ((OC_NAME, 'law-oc'), ('accessToken', 'generic-secret')):
+                for body, expected in ((runtime, []), (VALUE + runtime, [(1, rule)]),
+                                       (runtime + VALUE, [(1, rule)]), ('<hi>', [])):
+                    text = 'var ' + name + ' = ' + opening + body + '""";'
+                    self.assertEqual(list(pattern_scan.findings(text, 'sample.cs')), expected)
+                if dollars > 1:
+                    body = '{' * (dollars - 1) + VALUE + '}' * (dollars - 1)
+                    self.assertEqual(list(pattern_scan.findings(
+                        'var ' + name + ' = ' + opening + body + '""";', 'sample.cs')),
+                        [(1, rule)])
+        self.assertFalse(list(pattern_scan.findings(
+            'var ' + OC_NAME + ' = $$"""{{get(' + repr(VALUE) + ')}}""";', 'sample.cs')))
+
+    def test_rust_lifetimes_are_not_literals(self):
+        for lifetime in ("'a", "'static", "'_"):
+            for name, rule in ((OC_NAME, 'law-oc'), ('accessToken', 'generic-secret')):
+                for rhs, expected in (('runtime_oc', []), ('get_token()', []),
+                                       (repr(VALUE), [(1, rule)]), ('"<hi>"', [])):
+                    text = 'let ' + name + ': &' + lifetime + ' str = ' + rhs + ';'
+                    self.assertEqual(list(pattern_scan.findings(text, 'sample.rs')), expected)
+        for char in ("'x'", "'\\n'"):
+            self.assertIsNotNone(pattern_scan.literal_boundary(char, 0, 'rust'))
+            self.assertEqual(list(pattern_scan.findings(
+                'let ' + OC_NAME + ' = ' + char + ';', 'sample.rs')), [(1, 'law-oc')])
+
+    def test_parallel_assignments(self):
+        forms = {
+            'sample.py': ('access_token, description = {a}, {b}',
+                          'description, access_token = {b}, {a}',
+                          '(description, access_token) = ({b}, {a})',
+                          'access_token, description = [{a}, {b}]'),
+            'sample.go': ('accessToken, err := {a}, {b}',
+                          'var accessToken, other string = {a}, {b}',
+                          'var other, accessToken string = {b}, {a}'),
+            'sample.js': ('[accessToken, other] = [{a}, {b}]',
+                          'const [other, accessToken] = [{b}, {a}]'),
+            'sample.ts': ('const [accessToken, other] = [{a}, {b}]',),
+            'sample.lua': ('local access_token, other = {a}, {b}',),
+            'sample.rb': ('access_token, other = {a}, {b}',),
+        }
+        for path, templates in forms.items():
+            for template in templates:
+                for a, b, expected in ((repr(VALUE), '"ordinary"', True),
+                                       ('"<hi>"', repr(VALUE), False),
+                                       ('get_token()', 'nil', False),
+                                       ('settings["token"]', repr(VALUE), False),
+                                       ('"<hi>"', 'call(' + repr(VALUE) + ', 1)', False),
+                                       (repr(VALUE + ',x'), 'call(1, 2)', True)):
+                    text = template.format(a=a, b=b)
+                    with self.subTest(path=path, text=text):
+                        self.assertEqual(list(pattern_scan.findings(text, path)),
+                                         [(1, 'generic-secret')] if expected else [])
+        for path in ('sample.js', 'sample.ts'):
+            for value, expected in ((VALUE, True), ('<hi>', False)):
+                text = 'const { accessToken } = { accessToken: ' + repr(value) + ' }'
+                self.assertEqual(bool(list(pattern_scan.findings(text, path))), expected)
+        for path in ('sample.py', 'sample.go', 'sample.lua', 'sample.rb'):
+            for rhs, expected in (('get_token()', False),
+                                  ('get_token(' + repr(VALUE) + ')', True),
+                                  ('"<hi>", "ordinary", ' + repr(VALUE), True)):
+                self.assertEqual(bool(list(pattern_scan.findings(
+                    'access_token, other = ' + rhs, path))), expected)
+        for path, target in (('sample.py', 'access_token, *other'),
+                             ('sample.js', '[accessToken, ...other]')):
+            self.assertTrue(list(pattern_scan.findings(
+                target + ' = ["<hi>", ' + repr(VALUE) + ']', path)))
+
+    def test_ten_thousand_parallel_targets_linear_work(self):
+        code = ('import sys,time;sys.path.insert(0,sys.argv[1]);import pattern_scan;'
+                'names=["access_token"]*10000;'
+                'text=",".join(names)+" = "+",".join([chr(34)+"<hi>"+chr(34)]*10000);'
+                'start=time.perf_counter();'
+                'assert not list(pattern_scan.findings(text,"sample.py"));'
+                'elapsed=time.perf_counter()-start;assert elapsed<2,elapsed;print(elapsed)')
+        result = subprocess.run([sys.executable, '-I', '-B', '-c', code, str(SCRIPT.parent)],
+                                capture_output=True, text=True, timeout=5, check=True)
+        self.assertLess(float(result.stdout), 2)
+
     def test_language_string_syntax(self):
         forms = {
             'cpp': [('R"(', ')"'), ('R"tag(', ')tag"'),

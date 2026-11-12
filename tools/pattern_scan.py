@@ -48,9 +48,10 @@ SPACE = re.compile(r'\s*')
 class Assignment:
     """Small match-compatible record produced by the forward-only name scan."""
 
-    def __init__(self, start, end, name, operator, key=None, option=False):
+    def __init__(self, start, end, name, operator, key=None, option=False, stop=None):
         self.start_at, self.end_at = start, end
-        self.fields = {'name': name, 'key': key, 'operator': operator, 'option': option}
+        self.fields = {'name': name, 'key': key, 'operator': operator, 'option': option,
+                       'stop': stop}
 
     def start(self):
         return self.start_at
@@ -124,9 +125,118 @@ def go_declarator_end(text, start, pairs):
     return None
 
 
+PARALLEL_NAME = re.compile(r'(?:\.\.\.|\*)?([A-Za-z_][\w]*)')
+
+
+def parallel_assignment(text, start, kind, pairs):
+    """Consume one flat target list and its RHS once, within the line bound.
+
+    Group jumps and literal boundaries keep commas inside calls, arrays and
+    strings out of the positional split. Ambiguous unpacking inspects all RHS
+    literals once per credential rule, never once per target.
+    """
+    grouped = text[start:start + 1] in PARALLEL_GROUPS.get(kind, '')
+    closing = pairs.get(start) if grouped else None
+    if grouped and closing is None:
+        return None
+    index = start + 1 if grouped else start
+    targets = []
+    unpacked = False
+    while index < len(text):
+        index = SPACE.match(text, index).end()
+        target = PARALLEL_NAME.match(text, index)
+        if target is None:
+            return None
+        unpacked |= text[index] in '*.'
+        targets.append((index, target[1]))
+        index = SPACE.match(text, target.end()).end()
+        if text[index:index + 1] != ',':
+            break
+        index += 1
+    if grouped:
+        if index != closing:
+            return None
+        index = SPACE.match(text, closing + 1).end()
+    elif len(targets) < 2:
+        return None
+    if kind == 'go' and not text.startswith(('=', ':='), index):
+        end = go_declarator_end(text, index, pairs)
+        operator_end = end
+    else:
+        operator = re.compile(r':=|=(?!=|>)').match(text, index)
+        operator_end = operator.end() if operator else None
+    if operator_end is None:
+        return None
+    values = []
+    index = beginning = operator_end
+    quotes = QuoteIndex(text) if "'" in text else None
+    line_comments, block_comments = COMMENT_SYNTAX[kind]
+    while index < len(text):
+        literal = literal_boundary(text, index, kind, quotes)
+        if literal:
+            index = literal[0]
+        elif any(text.startswith(marker, index) for marker in line_comments):
+            break
+        elif (block := next(((a, b) for a, b in block_comments
+                             if text.startswith(a, index)), None)):
+            end = text.find(block[1], index + len(block[0]))
+            index = len(text) if end < 0 else end + len(block[1])
+        elif index in pairs:
+            index = pairs[index] + 1
+        elif text[index] in ';)]}':
+            break
+        elif text[index] == ',':
+            values.append((beginning, index))
+            index += 1
+            beginning = index
+        else:
+            index += 1
+    values.append((beginning, index))
+    if kind in JS_TYPES or kind == 'python':
+        a = SPACE.match(text, operator_end).end()
+        b = pairs.get(a)
+        wrappers = '[' if kind in JS_TYPES else '(['
+        if text[a:a + 1] and text[a] in wrappers and b is not None and not text[b + 1:index].strip():
+            # Split the corresponding array initializer, not its outer wrapper.
+            values = top_level_values(text, a + 1, b, kind, pairs, quotes)
+    records = []
+    if unpacked or len(targets) != len(values):
+        seen = set()
+        for position, name in targets:
+            rule = credential_rule(name)
+            if rule and rule not in seen:
+                records.append(Assignment(position, operator_end, name, '=', stop=index))
+                seen.add(rule)
+    else:
+        for (position, name), (a, b) in zip(targets, values):
+            if credential_rule(name):
+                records.append(Assignment(position, a, name, '=', stop=b))
+    return operator_end, records
+
+
+def top_level_values(text, start, stop, kind, pairs, quotes):
+    """Split a bounded initializer without copying or rescanning its suffixes."""
+    values = []
+    index = beginning = start
+    while index < stop:
+        literal = literal_boundary(text, index, kind, quotes)
+        if literal:
+            index = literal[0]
+        elif index in pairs:
+            index = pairs[index] + 1
+        elif text[index] == ',':
+            values.append((beginning, index))
+            index += 1
+            beginning = index
+        else:
+            index += 1
+    values.append((beginning, stop))
+    return values
+
+
 def assignments_in(text, kind='unknown'):
     """Consume dotted/indexed chains and bounded declarators in one forward pass."""
-    pairs = bracket_pairs(text, kind=kind) if '[' in text or kind == 'go' else {}
+    pairs = bracket_pairs(text, kind=kind) if '[' in text or kind in PARALLEL_TYPES else {}
     go_targets = ({m.start(1) for m in re.finditer(r'\bvar\s+([A-Za-z_][\w]*)', text)}
                   if kind == 'go' else set())
     cursor = 0
@@ -134,6 +244,21 @@ def assignments_in(text, kind='unknown'):
         if text[cursor] == '\\':
             cursor += 2
             continue
+        if (kind in PARALLEL_TYPES
+                and (text[cursor].isalpha() or text[cursor] in '_*.([')):
+            previous = cursor - 1
+            while previous >= 0 and text[previous].isspace():
+                previous -= 1
+            if (text[cursor] in PARALLEL_GROUPS.get(kind, '')
+                    or ((text[cursor].isalpha() or text[cursor] in '_*.')
+                        and (previous < 0 or text[previous] not in ',.\"\'')
+                        and (not cursor or not (text[cursor - 1].isalnum()
+                                               or text[cursor - 1] == '_')))):
+                parallel = parallel_assignment(text, cursor, kind, pairs)
+                if parallel is not None:
+                    cursor, records = parallel
+                    yield from records
+                    continue
         token = NAME_TOKEN.match(text, cursor)
         if token is None:
             cursor += 1
@@ -160,6 +285,10 @@ def assignments_in(text, kind='unknown'):
             continue
         key = 'password' if option and text[start:end] == 'p' else None
         after = SPACE.match(text, end).end()
+        if (kind in JS_TYPES and text[start:end] in ('const', 'let', 'var')
+                and text[after:after + 1] == '['):
+            cursor = after
+            continue
         if kind == 'go' and start in go_targets:
             declarator_end = go_declarator_end(text, after, pairs)
             if declarator_end is not None:
@@ -335,7 +464,9 @@ COMMENT_SYNTAX['typescript'] = COMMENT_SYNTAX['javascript']
 SUFFIX_TYPES = {suffix: kind for kind, suffixes in FILE_TYPES.items() for suffix in suffixes}
 SUFFIX_TYPES.update({suffix: kind for kind, suffixes in LANGUAGE_SUFFIXES.items()
                      for suffix in suffixes})
-SOURCE_TYPES = C_FAMILY_TYPES | JS_TYPES | frozenset(('python', 'php', 'ruby', 'powershell'))
+PARALLEL_TYPES = JS_TYPES | frozenset(('python', 'go', 'lua', 'ruby'))
+PARALLEL_GROUPS = {'python': '([', 'javascript': '[', 'typescript': '['}
+SOURCE_TYPES = C_FAMILY_TYPES | JS_TYPES | frozenset(('python', 'php', 'ruby', 'powershell', 'lua'))
 SHELL_TYPES = frozenset(('shell', 'ini'))
 SHEBANG = re.compile(
     r'^#!\s*(?:/[^\s]*/)?(?P<command>[\w.+-]+)(?:\s|$)')
@@ -455,12 +586,12 @@ def interpolation_end(text, start, opening=2, python=False, kind=None, delimiter
         elif (block := next(((a, b) for a, b in blocks if text.startswith(a, index)), None)):
             stop = text.find(block[1], index + len(block[0]))
             index = len(text) if stop < 0 else stop + len(block[1])
-        elif text[index] == delimiters[0]:
+        elif text.startswith(delimiters[0], index):
             depth += 1
-            index += 1
-        elif text[index] == delimiters[1]:
+            index += len(delimiters[0])
+        elif text.startswith(delimiters[1], index):
             depth -= 1
-            index += 1
+            index += len(delimiters[1])
             if not depth:
                 return index
         else:
@@ -539,6 +670,8 @@ def source_literal(text, start, kind):
             verbatim = '@' in prefix
             if len(match[1]) >= 3:
                 tail = match[1]
+                dollars = prefix.count('$')
+                formatted = ('{' * dollars, '}' * dollars) if dollars else False
     elif syntax in ('python', 'swift', 'triple'):
         pattern = r"(?i:[bruf]{0,2})(\"{3}|'{3}|\"|')" if syntax == 'python' else r'("{3})'
         match = re.compile(pattern).match(text, start) if boundary or text[start] in '\"\'' else None
@@ -631,11 +764,21 @@ def source_literal(text, start, kind):
     return len(text), opening, len(text), formatted
 
 
+def rust_lifetime(text, start):
+    """An identifier apostrophe without an immediate char close is a lifetime."""
+    if text[start:start + 1] != "'":
+        return False
+    name = re.compile(r"'[A-Za-z_][A-Za-z_0-9]*").match(text, start)
+    return name is not None and text[name.end():name.end() + 1] != "'"
+
+
 def literal_boundary(text, start, kind='unknown', quotes=None):
     """Single language-table entry point for literal ownership and structure."""
     literal = source_literal(text, start, kind)
     if literal:
         return literal
+    if kind == 'rust' and rust_lifetime(text, start):
+        return None
     if quote_start(text, start, quotes):
         end = quoted_end(text, start, kind=kind)
         return min(len(text), end + 1), start + 1, end, False
@@ -806,6 +949,9 @@ def lexemes(text, comment_at_start=True, separators=False, bare_equals=False, qu
         if env and (env.end() == len(text) or text[env.end()] in ' 	,;)]}\"\''):
             yield index, env.end(), env[0]
             index = env.end()
+            continue
+        if kind == 'rust' and rust_lifetime(text, index):
+            index = re.compile(r"'[A-Za-z_][A-Za-z_0-9]*").match(text, index).end()
             continue
         prefix = LITERAL_PREFIX.match(text, index)
         if prefix:
@@ -985,7 +1131,12 @@ def static_chunks(value, formatted=False, kind='unknown'):
     chunk = []
     cursor = 0
     while cursor < len(value):
-        if isinstance(formatted, str) and value.startswith(formatted, cursor):
+        if isinstance(formatted, tuple) and value.startswith(formatted[0], cursor):
+            yield ''.join(chunk)
+            chunk = []
+            cursor = interpolation_end(value, cursor, opening=len(formatted[0]),
+                                       kind=kind, delimiters=formatted)
+        elif isinstance(formatted, str) and value.startswith(formatted, cursor):
             yield ''.join(chunk)
             chunk = []
             cursor = interpolation_end(value, cursor, opening=len(formatted), kind=kind,
@@ -1454,6 +1605,10 @@ def findings(text, path=None, budget=None):
             # words retain commas and other punctuation as literal characters.
             if match['operator'] == ':' and state.braces[match.start()] > 0:
                 stop = min(stop, state.rhs_end(start, True))
+            if match['stop'] is not None:
+                # Parallel assignments already have quote-aware positional bounds;
+                # their target context differs from the RHS array/tuple context.
+                stop = match['stop']
             work += stop - start
             if work > MAX_LINE_WORK:
                 raise ScanError('pattern scan line work limit exceeded [masked]')
