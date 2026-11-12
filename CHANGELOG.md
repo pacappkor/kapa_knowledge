@@ -4,6 +4,64 @@ Keep a Changelog와 유의적 버전을 따른다. [버전 규칙](docs/RELEASIN
 
 ## [Unreleased]
 
+### Secret-free CI hardening
+
+- Parse JavaScript/TypeScript object and array binding patterns, including aliased/shorthand names, nested patterns, defaults, rest bindings and parenthesized assignment. Map known initializer properties/positions, conservatively inspect ambiguous RHS values, and retain runtime-only exemptions. Add runtime-built regressions and a 6,000-property under-two-second guard for each language.
+
+- Fix five scanner review findings: conservatively inspect nested Python destructuring, share JVM System lookup exemptions, recognize Kotlin escaped credential names, inspect shell substitution/removal/case operands, and establish Ruby slash-regex ownership before quotes. Add runtime-built positive/negative regressions without weakening existing performance guards. No runs or catalogs changes.
+
+- Share dollar-template interpolation boundaries and static-chunk inspection across Groovy slashy/dollar-slashy/GStrings, Kotlin and Dart (including noninterpolated Groovy single quotes and Dart raw strings). Centralize language-specific runtime environment/config lookup forms, exclude only their first key argument and continue inspecting literal defaults. Add runtime-built positive/negative regressions; retain performance guards. No runs or catalogs changes.
+
+- Inspect multi-target Python, Go, JS/TS array destructuring, Lua and Ruby assignments with bounded forward target parsing and quote/bracket-aware positional RHS splitting. Ambiguous/rest unpacking inspects every RHS literal conservatively while runtime-only expressions remain clean; verify JS/TS object-literal properties, runtime-built positive/negative cases and a 10,000-target under-2-second guard. Preserve C# raw interpolation dollar/brace arity and distinguish Rust lifetimes from character literals, with runtime-built regressions. No runs or catalogs changes.
+
+- Fix nine scanner review findings (including duplicate Go declarator reports): share language-aware bracket/getter/interpolation boundaries, inspect Swift interpolation static chunks, suppress TypeScript type-only fields, retain Rust/C reference initializers, support composite Go declarators and TS non-null assignments, expand source extensions, and recognize Groovy slashy/dollar-slashy strings. Add runtime-built positive/negative cases and linear-work guards. No runs or catalogs changes.
+
+- Add centralized language-specific string literal capabilities for C++ raw/custom-delimiter strings, C# verbatim/raw/interpolated strings, Rust raw/byte strings, Go backticks, Python prefixed/triple strings, Swift hash/multiline strings, and Kotlin/Java text blocks. Share literal boundaries with structural ownership and candidate inspection; preserve JS/TS and unknown-file behavior. Multiline constructions remain outside the scanner's existing single-line scope (there is no cross-line quote state). Add runtime-built positive/negative regressions and bounded raw-delimiter/unterminated/hash performance guards. No runs or catalogs changes.
+
+- Fix ten scanner findings: index getter literals once, preserve credential subscript bases, recognize control-condition regex starts, distinguish TS type-only/optional fields, handle PHP concatenation assignments, segmented credential plurals, Bash process substitutions, and table-driven cross-language ternary/arrow syntax (PHP quoted array keys remain mappings). Add runtime-built positive/negative regressions and a 10,000-getter performance guard. No runs or catalogs changes.
+
+- Fix JS postfix increment/decrement slash state and bounded C-family/Go declarator suffixes before initializers. Verify Rust colon annotations and Java/C# leading generic types; add runtime-built positive/negative transition and declaration regressions plus a declarator performance guard. No runs or catalogs changes.
+
+- Fix eight scanner review findings: JS regex control-flow state, balanced composite TS arrow return annotations, unconditional getter-key exclusion with default inspection, spaced/hyphenated mapping keys, credential CLI options, C/C++/PHP member arrows, call-local assignment boundaries, and indexed member chains. Add runtime-built positive/negative regressions and a 15,000-indexed-member performance guard; retain all existing guards. No runs or catalogs changes.
+
+- Replace backtracking dotted-assignment matching with a forward tokenizer; avoid duplicate assignment, provider-token and structural passes on irrelevant lines. Recognize anonymous/generator/async and object-method typed parameters, JS/TS regex boundaries, runtime getter keys versus literal defaults, and interpolation-aware embedded OC queries. Add runtime-built positive/negative cases and 20,000-member adversarial guards while retaining existing performance tests. No runs or catalogs changes.
+
+- Centralize suffix/shebang file classification and per-type comment syntax. Recognize block-comment assignment trivia across C-family and CSS source, SQL and balanced same-line unknown syntax; use shell-word placeholder scope for extensionless shebang scripts and source semantics for Python/Node shebangs. Add runtime-built positive/negative regressions and retain all performance guards. No runs or catalogs changes.
+
+- Recognize JS/TS assignment and type-annotation comment trivia through an offset-preserving view of the existing structural comment pass, and end shell provider-placeholder exemptions at the first unquoted, unescaped word boundary. Add runtime-built positive/negative regressions; retain the 3,000-property and 228 KB elision performance guards. No runs or catalogs changes.
+
+- Fix six scanner findings: cache leading-elision quote/assignment lookahead and avoid signature suffix copies, treat single shell background/pipe operators as boundaries without truncating URL queries or quotes, bound YAML flow-sequence values, exclude source ternary colons, recognize shell positional/special runtime parameters, and exempt bare null/empty sentinels. Quoted "null" remains a string (reportable for OC, subject to entropy for generic keys). Add runtime-built positive/negative regressions and a roughly 200 KiB elision test with a 2-second assertion and 10-second child timeout; retain the 3,000-property guard. No runs or catalogs changes.
+
+- Join adjacent quoted, bare and single-quoted static shell/config word fragments before OC and entropy checks; runtime references and command substitutions separate static runs. Preserve source-literal handling (Python implicit concatenation remains outside this heuristic), existing negative cases and the 3,000-property performance guard. Add runtime-built regressions; no runs or catalogs changes.
+
+- Fix four scanner review findings: count only quote/comment-aware structural nesting (64 levels), scope URL query trimming to the containing token/string, recognize leading prose elisions, and restrict typed-parameter exemptions to source function signatures. Add runtime-built positive/negative regressions and retain the 3,000-property performance guard; no runs or catalogs changes.
+
+- Fix five scanner findings with precomputed quote/nesting/RHS state, bounded provider placeholder scope, shell command-substitution runtime handling, quoted type members, and typed parameter/default distinction. Runtime-built regressions include a 3,000-property object with a 2-second assertion and 10-second subprocess guard. Fail closed (masked ScanError, CLI exit 2) above 16 MiB per file, 256 Ki characters per line, 4 Mi units of candidate/suffix work per line, 64 Mi units per file across decodings, or 64 structural nesting levels outside strings/comments. These conservative limits may reject benign pathological input; files are never silently skipped. No runs or catalogs changes.
+
+- Address scanner review findings with quote-aware object RHS boundaries, comparison/JS-arrow exclusion, union/generic annotations, intact bracketed config words, and independent JS-template/Python f-string static chunks (including rf/fr). Acquire trusted main only through pinned checkout, retain main-only absence skip and fail-closed extraction, align security documentation and refresh the snapshot. Add runtime-built positive/negative regressions; no runs or catalogs changes.
+
+- Resolve every PR's trusted pattern scanner from freshly fetched, validated default main instead of an arbitrary PR base; retain validated blob extraction, main-only absence notice, and fail-closed errors. Skip balanced JS/TS template interpolation expressions while inspecting static chunks, and preserve punctuation in bare shell/config values. Add runtime-built positive/negative and non-main-base regressions; no runs or catalog changes.
+
+- Address three scanner findings: keep trailing possessive apostrophes out of quote bounds, preserve inner equals signs in bare assignment candidates, and recognize TOML dotted credential keys with quoted prefixes. Add runtime-built positive and negative regressions; no runs or catalog changes.
+
+- Address six scanner findings: extract trusted blobs with validated object IDs and cat-file, bound assignment RHS at quote-aware shell separators, include non-ignored untracked files, preserve padded colon values, distinguish source references from literals, and restrict placeholder markers to whole allowlisted shapes. Add runtime-built scanner and extracted-CI regressions; no research data changes.
+
+- Remove the untrusted PR-scanner bootstrap gate: when the immutable base lacks tools/pattern_scan.py, preparation succeeds with an explicit activation notice and the blocking step is skipped, never executing the PR copy. Keep ordinary scanner unit tests and fail-closed handling for every other extraction error; add hostile-copy and credential-gate regressions.
+
+- Close #7: preserve and unescape shell words with escaped whitespace, share enclosing lexer candidates for provider environment-reference exemptions, restrict masking/example markers to whole placeholder shapes, and keep prose apostrophes out of statement quote bounds. Add runtime-built positive and negative regressions for all four scanner findings.
+
+- Run the blocking PR pattern scan from immutable base tooling and its embedded allowlist outside the worktree, with a notice-only skip (never the PR copy) when the scanner is absent at base and fail-closed extraction otherwise. Keep PR scanner unit tests, add explicit worktree root support and trusted-extraction regressions, and document that scanner/allowlist changes apply after merge.
+
+- Address seven scanner review gaps with shared escape/doubled-quote handling, quoted shell operands, shell word-boundary comments, literal subscript targets, compound assignments, conventional secret-key names and enclosing provider placeholders. Add runtime-built positive/negative regressions; two exact path/rule/line-hash exceptions cover existing runtime-variable subscript fixtures, not literal credentials.
+
+- Scan strict UTF-16LE and UTF-16BE decodings independently whenever NUL-containing bytes have even length, in addition to the existing decoding. Union findings by line and rule so Korean-heavy BOM-less text cannot hide credentials; add runtime-built CLI detection, masking and clean-text regressions for both byte orders.
+
+- Default-inspect all single-line assignment candidates, with segmented credential names, prefixed/template literals and shell fallback operands. Add runtime-built regressions and document heuristic limits and the authoritative trusted LAW_OC control. Keep the exact-hash allowlist unchanged.
+
+- Address scanner review gaps: inspect typed assignment literals, exempt only whole environment references instead of arbitrary dollar-prefixed values, and recognize plausible BOM-less UTF-16LE/BE text. Add runtime-built positive/negative fixtures, including binary safety; keep masked diagnostics and the existing exact-line allowlist unchanged.
+- Add a blocking tracked-file credential-shape scan for all PRs, including forks and Dependabot, with masked diagnostics and synthetic regression tests. Four exact-line exceptions cover existing runtime expressions and masking fixtures; no research data changes.
+- Add CODEOWNERS and pin checkout v4.4.0 / setup-python v5.6.0 to release commit SHAs; retain the pinned central traffic workflow.
+
 ### 공개 여부와 독립적인 CI 준비
 
 - 공개 배포에 대비해 조직 템플릿의 일일 traffic workflow와 방문·clone 배지를 추가한다. 모든 PR·푸시의 secret-free 검사와 main 푸시·수동 실행·main 대상 same-repo PR(작성자와 실행 actor 모두 Dependabot이 아닌 경우)의 필수 실제 키 검사를 분리했다. 신뢰된 base scanner 추출과 최소 읽기 권한을 유지한다.

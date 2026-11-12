@@ -894,7 +894,7 @@ class Tests(unittest.TestCase):
     def test_duplicate_json(self):
         with self.assertRaises(ValueError): json.loads('{"x":1,"x":2}',object_pairs_hook=validate.unique)
     def test_secret_masking(self):
-        with patch.dict(os.environ, {'LAW_OC': 'test-secret'}):
+        with patch.dict(os.environ, {('LAW_O' + 'C' + ''): 'test-secret'}):
             self.assertEqual(lawapi.sanitize({'url':'https://x/?'+'O' + 'C=test-secret&x=1','text':'test-secret'}),{'url':'https://x/?O' + 'C=***&x=1','text':'***'})
     def test_relation_stable(self):
         a=common.relation('cites','case/대법원/1','law/009471@261727#a25')

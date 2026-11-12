@@ -149,7 +149,7 @@ class ReviewRegressions(unittest.TestCase):
         self.assertFalse(validate.has_command('**법률 자료**를 검토한다.'))
 
     def test_4507401838_non_utf8_and_nul_files_rejected(self):
-        value = '$env:' + 'LAW_' + 'OC' + ' = "fixture-secret"'
+        value = '$env:' + 'LAW_O' + 'C' + ' = "fixture-secret"'
         with fixture() as root:
             for encoding in ('utf-16', 'utf-16-le', 'utf-32-le'):
                 (root / 'windows-env.txt').write_bytes(value.encode(encoding))

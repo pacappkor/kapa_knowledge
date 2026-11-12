@@ -10,7 +10,8 @@ import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
 WORKFLOW = (ROOT / '.github/workflows/ci.yml').read_text(encoding='utf-8')
-PREPARATION = textwrap.dedent(WORKFLOW.split("          python -I -B - <<'PY'\n", 1)[1]
+PREPARATION = textwrap.dedent(WORKFLOW.split('\n  credential-scan:\n', 1)[1]
+                              .split("          python -I -B - <<'PY'\n", 1)[1]
                               .split('          PY\n', 1)[0])
 KEY = 'fixture-only-credential-7192'
 
@@ -141,6 +142,20 @@ class TrustedScannerTests(unittest.TestCase):
                 self.assertIn('accepted default branch', result.stderr)
                 self.assertFalse(self.output.exists())
                 self.assertEqual(list(self.runner.iterdir()), [])
+
+    def test_absent_credential_scanner_still_fails_closed_without_running_pr_copy(self):
+        # The secret-free pattern gate's absence-only skip must not weaken this job.
+        self.git('rm', 'tools/secret_scan.py')
+        self.git('commit', '-qm', 'base without credential scanner')
+        self.env['CI_PR_BASE'] = self.git('rev-parse', 'HEAD').decode().strip()
+        marker = self.root / 'pr-scanner-executed'
+        (self.root / 'tools/secret_scan.py').write_text(
+            "from pathlib import Path\nPath('pr-scanner-executed').touch()\n", encoding='utf-8')
+        result = self.prepare()
+        self.assertNotEqual(result.returncode, 0)
+        self.assertNotIn('::notice::', result.stdout)
+        self.assertFalse(self.output.exists())
+        self.assertFalse(marker.exists())
 
     def test_missing_or_linked_trusted_dependency_fails_closed(self):
         self.git('rm', 'tools/credentials.py')

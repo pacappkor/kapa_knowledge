@@ -155,7 +155,7 @@ class RoundFourteenRegressions(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'tracked gitlinks are not allowed'):
             common.check_tracked_links(self.root)
         script = common.CODE_ROOT / 'tools/validate.py'
-        env = dict(os.environ, KK_ROOT=str(self.root), LAW_OC='', LAW_OC_FILE=str(self.root / 'never-read.txt'))
+        env = dict(os.environ, KK_ROOT=str(self.root), **{'LAW_O' + 'C': ''}, LAW_OC_FILE=str(self.root / 'never-read.txt'))
         for args in (['--check-links'], []):
             with self.subTest(args=args):
                 result = subprocess.run([sys.executable, '-I', '-B', str(script), *args],

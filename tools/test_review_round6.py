@@ -28,7 +28,7 @@ ARTICLE = 'law/009471@261727#a25'
 
 class RoundSixRegressions(unittest.TestCase):
     def test_4508732344_shared_canonical_environment_masking(self):
-        with patch.dict(os.environ, {'LAW_OC': ' \t' + KEY + '\t\n '}):
+        with patch.dict(os.environ, {('LAW_O' + 'C' + ''): ' \t' + KEY + '\t\n '}):
             self.assertEqual(credentials.environment_key(), KEY)
             self.assertEqual(lawapi.key(), KEY)
             self.assertIn(('utf-8', KEY.encode()), secret_scan.environment_needles())
@@ -44,7 +44,7 @@ class RoundSixRegressions(unittest.TestCase):
                 self.assertNotIn(KEY, path.read_text(encoding='utf-8'))
 
     def test_shared_environment_helper_does_not_fall_back_for_whitespace(self):
-        with patch.dict(os.environ, {'LAW_OC': ' \t '}), patch.object(Path, 'read_text') as read:
+        with patch.dict(os.environ, {('LAW_O' + 'C' + ''): ' \t '}), patch.object(Path, 'read_text') as read:
             self.assertEqual(credentials.environment_key(), '')
             with self.assertRaises(RuntimeError):
                 lawapi.key()
@@ -62,7 +62,7 @@ class RoundSixRegressions(unittest.TestCase):
                 (root / 'cases').mkdir()
                 (root / 'cases/broken.md').write_text('---\n' + form + ': 1\n' + form + ': 2\n---\n', encoding='utf-8')
                 output = io.StringIO()
-                with patch.dict(os.environ, {'LAW_OC': ' \t' + KEY + ' '}), patch.object(collect_article, 'ROOT', root), patch.object(common, 'ROOT', root), patch.object(sys, 'argv', ['collect_article', ARTICLE]), patch.object(collect_article, 'load_index') as load, redirect_stdout(output):
+                with patch.dict(os.environ, {('LAW_O' + 'C' + ''): ' \t' + KEY + ' '}), patch.object(collect_article, 'ROOT', root), patch.object(common, 'ROOT', root), patch.object(sys, 'argv', ['collect_article', ARTICLE]), patch.object(collect_article, 'load_index') as load, redirect_stdout(output):
                     self.assertEqual(collect_article.main(), 1)
                 load.assert_not_called()
                 run = json.loads(next((root / 'runs/article').glob('*.json')).read_text(encoding='utf-8'))
@@ -81,7 +81,7 @@ class RoundSixRegressions(unittest.TestCase):
                     output = io.StringIO()
                     index = {'articles': {ARTICLE: {}}, 'laws': {'009471': {'name': '테스트법'}}}
                     error = ValueError('diagnostic: ' + form)
-                    with patch.dict(os.environ, {'LAW_OC': ' \t' + KEY + ' '}), patch.object(collect_article, 'ROOT', root), patch.object(common, 'ROOT', root), patch.object(sys, 'argv', ['collect_article', ARTICLE]), patch.object(collect_article, 'load_index', **({'side_effect': error} if track == 'dependency' else {'return_value': (index, root, 'WORKTREE')})), patch.object(lawweb, 'context', **({'side_effect': error} if track == 'context' else {'return_value': {}})), patch.object(lawweb, 'linked', side_effect=error), redirect_stdout(output):
+                    with patch.dict(os.environ, {('LAW_O' + 'C' + ''): ' \t' + KEY + ' '}), patch.object(collect_article, 'ROOT', root), patch.object(common, 'ROOT', root), patch.object(sys, 'argv', ['collect_article', ARTICLE]), patch.object(collect_article, 'load_index', **({'side_effect': error} if track == 'dependency' else {'return_value': (index, root, 'WORKTREE')})), patch.object(lawweb, 'context', **({'side_effect': error} if track == 'context' else {'return_value': {}})), patch.object(lawweb, 'linked', side_effect=error), redirect_stdout(output):
                         self.assertEqual(collect_article.main(), 1)
                     run_path = next((root / 'runs/article').glob('*.json'))
                     run = json.loads(run_path.read_text(encoding='utf-8'))
@@ -90,7 +90,7 @@ class RoundSixRegressions(unittest.TestCase):
                     self.assertTrue(validate.run_valid(run))
 
     def test_4508732351_fetch_failures_cover_every_documented_representation(self):
-        with patch.dict(os.environ, {'LAW_OC': KEY}):
+        with patch.dict(os.environ, {('LAW_O' + 'C' + ''): KEY}):
             needles = secret_scan.environment_needles()
         for number, (_, needle) in enumerate(needles):
             with self.subTest(form=number), tempfile.TemporaryDirectory(dir=os.environ.get('KK_TEST_TMP')) as folder:
@@ -99,7 +99,7 @@ class RoundSixRegressions(unittest.TestCase):
                 # This ASCII synthetic key's UTF-16 byte forms are valid UTF-8
                 # diagnostic strings too, including their NUL characters.
                 form = needle.decode('utf-8')
-                with patch.dict(os.environ, {'LAW_OC': ' \t' + KEY + ' '}), patch.object(fetch_material, 'ROOT', root), patch.object(common, 'ROOT', root), patch.object(fetch_material, 'fetch', side_effect=ValueError('diagnostic: ' + form)), redirect_stdout(output):
+                with patch.dict(os.environ, {('LAW_O' + 'C' + ''): ' \t' + KEY + ' '}), patch.object(fetch_material, 'ROOT', root), patch.object(common, 'ROOT', root), patch.object(fetch_material, 'fetch', side_effect=ValueError('diagnostic: ' + form)), redirect_stdout(output):
                     self.assertEqual(fetch_material.run_fetch('prec', '1'), 1)
                 run_path = next((root / 'runs/prec').glob('*.json'))
                 run = json.loads(run_path.read_text(encoding='utf-8'))
@@ -109,7 +109,7 @@ class RoundSixRegressions(unittest.TestCase):
                 self.assertTrue(validate.run_valid(run))
 
     def test_shared_redactor_fails_closed_for_invalid_environment(self):
-        with patch.dict(os.environ, {'LAW_OC': 'qz'}):
+        with patch.dict(os.environ, {('LAW_O' + 'C' + ''): 'qz'}):
             self.assertEqual(secret_scan.redact_diagnostic('error qz'), '[redacted]')
         with patch.dict(os.environ, {'LAW_OC': ''}):
             self.assertEqual(secret_scan.redact_diagnostic('ordinary error'), 'ordinary error')

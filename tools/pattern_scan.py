@@ -1,0 +1,1997 @@
+# SPDX-License-Identifier: GPL-3.0-only
+"""Blocking, secret-free credential shapes in non-ignored worktree files (not history)."""
+import argparse
+from bisect import bisect_right
+import hashlib
+import math
+from pathlib import Path
+import re
+import stat
+import sys
+from collections import Counter
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from secret_scan import ScanError, repository_files
+
+# Exact path/rule/whole-line SHA-256 only: edits invalidate each exception.
+# No path-wide exclusions or inline suppression directives.
+ALLOWLIST = {
+    # Assignment-name tokenizer regex, not an assigned credential literal.
+    ('tools/pattern_scan.py', 'generic-secret', 'd153645771ec4b5e5402d69e4da3e7a0adbe0cbc7691327ee372e56ecfdc9ca9'),
+    # Regex tokenizer pattern, not a credential; plural tokens is now recognized.
+    ('tools/markdown_context.py', 'generic-secret', '65acb9e4e80e86c2c2dbef5442c70be0ab16ec87b82905d73f371decad6fa090'),
+    # Runtime function call, not a literal credential.
+    ('tools/lawapi.py', 'law-oc', 'acc7471c4a3039774577221742693dfe27341f130607ff4c6dd81967cb46e1d7'),
+    # Synthetic KEY variable in a masking regression fixture.
+    ('tools/test_review_round6.py', 'law-oc', '5f389a44337cb5688c946171460f430ed1ea23e712c2d4b8e51939679f8af114'),
+    # Deliberate ordinary word in a recursive masking regression fixture.
+    ('tools/test_review_round7.py', 'law-oc', '15aef1191dcf0221d3f67420efd375774f18e9265f76fe0ab72c7347770056a2'),
+    # Runtime variables, not literal credentials, assigned to subscript targets.
+    ('tools/test_ci_trusted_scanner.py', 'law-oc', 'd26dec3ebec8d25cb4e2e7de04700eeef3ba835562b3fcf827c854ee2917a0a4'),
+    ('tools/test_secret_scan.py', 'law-oc', '8f0a9fcb537ccb47e2c0bea9c6db3f82406d7ed62823b856c55b01563b9c1397'),
+    # Runtime concatenation of the example-not-a-real-key placeholder.
+    ('tools/test_secret_scan.py', 'law-oc', '04e3a24f5e3c1e2f0d977063b6218f9e960beadc7c970161bfd53b70f45577e2'),
+}
+TOKEN_RULES = (
+    ('github-token', re.compile(r'\b(?:gh[pousr]_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{30,})')),
+    ('huggingface-token', re.compile(r'\bhf_[A-Za-z0-9]{30,}')),
+    ('aws-access-key', re.compile(r'\bAKIA[A-Z0-9]{16}\b')),
+    ('private-key', re.compile(r'-----BEGIN (?:RSA |EC |DSA |OPENSSH |ENCRYPTED )?PRIVATE KEY-----')),
+)
+# Recognize names independently of value syntax. Once an assignment is found,
+# inspect the entire remaining line, rather than accepting one blessed RHS form.
+NAME_TOKEN = re.compile(r'''"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|[A-Za-z_][\w.-]*''')
+OPERATOR = re.compile(r'\?\?=|\|\|=|&&=|\+=|\.=|:=|=>|->|\?=|=(?!=|>)|:(?!=)')
+SPACE = re.compile(r'\s*')
+
+
+class Assignment:
+    """Small match-compatible record produced by the forward-only name scan."""
+
+    def __init__(self, start, end, name, operator, key=None, option=False, stop=None):
+        self.start_at, self.end_at = start, end
+        self.fields = {'name': name, 'key': key, 'operator': operator, 'option': option,
+                       'stop': stop}
+
+    def start(self):
+        return self.start_at
+
+    def end(self):
+        return self.end_at
+
+    def span(self):
+        return self.start_at, self.end_at
+
+    def __getitem__(self, key):
+        return self.fields[key]
+
+
+def bracket_pairs(text, angles=False, kind='unknown'):
+    """Index balanced groups once so chained lookups never rescan suffixes."""
+    pairs, stack = {}, []
+    quotes = QuoteIndex(text) if "'" in text else None
+    lines, blocks = COMMENT_SYNTAX[kind]
+    last_closings = {closing: text.rfind(closing) for _, closing in blocks}
+    index = 0
+    while index < len(text):
+        char = text[index]
+        literal = literal_boundary(text, index, kind, quotes)
+        if literal:
+            index = literal[0]
+            continue
+        block = next(((a, b) for a, b in blocks if text.startswith(a, index)), None)
+        if block:
+            closing = (text.find(block[1], index + len(block[0]))
+                       if last_closings[block[1]] >= index + len(block[0]) else -1)
+            if closing >= 0 or kind != 'unknown':
+                index = len(text) if closing < 0 else closing + len(block[1])
+                continue
+        if any(text.startswith(marker, index) for marker in lines):
+            break
+        if char in '([{' or (angles and char == '<'):
+            stack.append((char, index))
+        elif char in ')]}>':
+            if char == '>' and index and text[index - 1] in '=-':
+                index += 1
+                continue
+            if stack and stack[-1][0] == {')': '(', ']': '[', '}': '{', '>': '<'}[char]:
+                _, opening = stack.pop()
+                pairs[opening] = index
+        index += 1
+    return pairs
+
+
+DECLARATOR_SUFFIX = re.compile(
+    r'(?:\[[A-Za-z_0-9\s]*+\]\s*+)*+(?:const\s++)*+'
+    r'(?:\*+(?:const\s++)*+)?'
+    r'(?:[A-Za-z_][\w.]*+(?:\s*\[[A-Za-z_0-9\s]*+\])*+(?:\s+const)*+\s*+)?'
+    r'=(?!=|>)')
+
+
+def go_declarator_end(text, start, pairs):
+    """Consume a bounded Go type, jumping its composite groups in O(1)."""
+    index = start
+    limit = min(len(text), start + 4096)
+    while index < limit:
+        char = text[index]
+        if char == '=':
+            return index + 1 if not text.startswith(('==', '=>'), index) else None
+        if char in '[({' and index in pairs:
+            index = pairs[index] + 1
+        elif char.isalnum() or char.isspace() or char in '_.*<>-':
+            index += 1
+        else:
+            return None
+    return None
+
+
+PARALLEL_NAME = re.compile(r'(?:\.\.\.|\*)?([A-Za-z_][\w]*)')
+
+
+def javascript_binding_assignment(text, start, kind, pairs):
+    """Map balanced binding patterns to literal initializers with iterative tasks.
+
+    Unknown/computed properties and rest bindings inspect the enclosing RHS
+    conservatively. Runtime-only expressions still yield no credential literals.
+    """
+    closing = pairs.get(start)
+    if closing is None:
+        return None
+    operator = OPERATOR.match(text, SPACE.match(text, closing + 1).end())
+    if operator is None or operator[0] != '=':
+        return None
+    quotes = QuoteIndex(text) if "'" in text else None
+    rhs_start = SPACE.match(text, operator.end()).end()
+    rhs_end = rhs_start
+    while rhs_end < len(text):
+        literal = literal_boundary(text, rhs_end, kind, quotes)
+        if literal:
+            rhs_end = literal[0]
+        elif rhs_end in pairs:
+            rhs_end = pairs[rhs_end] + 1
+        elif text[rhs_end] in ',;)]}':
+            break
+        else:
+            rhs_end += 1
+    records, seen = [], set()
+    tasks = [(start, closing + 1, rhs_start, rhs_end)]
+    while tasks:
+        a, b, value_start, value_end = tasks.pop()
+        a = SPACE.match(text, a).end()
+        while b > a and text[b - 1].isspace():
+            b -= 1
+        # Peel a binding default without treating its expression as a target.
+        index = a
+        default = None
+        while index < b:
+            literal = literal_boundary(text, index, kind, quotes)
+            if literal:
+                index = literal[0]
+            elif index in pairs:
+                index = pairs[index] + 1
+            elif text[index] == '=' and not text.startswith(('==', '=>'), index):
+                default = (index + 1, b)
+                b = index
+                break
+            else:
+                index += 1
+        if default:
+            tasks.append((a, b, *default))
+            while b > a and text[b - 1].isspace():
+                b -= 1
+        rest = text.startswith('...', a)
+        if rest:
+            a = SPACE.match(text, a + 3).end()
+        if text[a:a + 1] in ('{', '[') and pairs.get(a) == b - 1:
+            object_pattern = text[a] == '{'
+            fields = top_level_values(text, a + 1, b - 1, kind, pairs, quotes)
+            ambiguous = any(text.startswith('...', SPACE.match(text, fa).end())
+                            for fa, fb in fields)
+            value_start = SPACE.match(text, value_start).end()
+            while value_end > value_start and text[value_end - 1].isspace():
+                value_end -= 1
+            mapped = {}
+            values = []
+            if (text[value_start:value_start + 1] == text[a]
+                    and pairs.get(value_start) == value_end - 1):
+                values = top_level_values(text, value_start + 1, value_end - 1,
+                                          kind, pairs, quotes)
+                if object_pattern:
+                    for va, vb in values:
+                        key = NAME_TOKEN.match(text, SPACE.match(text, va).end())
+                        colon = SPACE.match(text, key.end()).end() if key else vb
+                        if key and text[colon:colon + 1] == ':':
+                            mapped[key[0].strip('\"\'')] = (colon + 1, vb)
+            for position, (ta, tb) in enumerate(fields):
+                ta = SPACE.match(text, ta).end()
+                if ta >= tb:
+                    continue
+                target = ta
+                selected = (value_start, value_end)
+                if object_pattern:
+                    key = NAME_TOKEN.match(text, ta)
+                    colon = SPACE.match(text, key.end()).end() if key else tb
+                    if key:
+                        if text[colon:colon + 1] == ':':
+                            target = colon + 1
+                        if not ambiguous:
+                            selected = mapped.get(key[0].strip('\"\''), selected)
+                    elif ta in pairs and text[SPACE.match(text, pairs[ta] + 1).end():
+                                              SPACE.match(text, pairs[ta] + 1).end() + 1] == ':':
+                        target = SPACE.match(text, pairs[ta] + 1).end() + 1
+                elif position < len(values) and not ambiguous:
+                    selected = values[position]
+                tasks.append((target, tb, *selected))
+        else:
+            target = PARALLEL_NAME.match(text, a)
+            if target and credential_rule(target[1]):
+                key = (credential_rule(target[1]), value_start, value_end)
+                if key not in seen:
+                    records.append(Assignment(target.start(), value_start, target[1], '=', stop=value_end))
+                    seen.add(key)
+    return operator.end(), records
+
+
+def parallel_assignment(text, start, kind, pairs):
+    """Consume balanced target lists and their RHS once, within the line bound.
+
+    Group jumps and literal boundaries keep commas inside calls, arrays and
+    strings out of the positional split. Ambiguous unpacking inspects all RHS
+    literals once per credential rule, never once per target.
+    """
+    if kind in JS_TYPES and text[start:start + 1] in ('{', '['):
+        return javascript_binding_assignment(text, start, kind, pairs)
+    grouped = text[start:start + 1] in PARALLEL_GROUPS.get(kind, '')
+    closing = pairs.get(start) if grouped else None
+    if grouped and closing is None:
+        return None
+    index = start + 1 if grouped else start
+    targets = []
+    unpacked = False
+    nested = []
+    while index < len(text):
+        index = SPACE.match(text, index).end()
+        if kind == 'python' and text[index:index + 1] in ('(', '['):
+            end = pairs.get(index)
+            if end is None:
+                return None
+            nested.append(end)
+            unpacked = True  # Flatten names; ambiguous positions inspect all RHS.
+            index += 1
+            continue
+        target = PARALLEL_NAME.match(text, index)
+        if target is None:
+            return None
+        unpacked |= text[index] in '*.'
+        targets.append((index, target[1]))
+        index = SPACE.match(text, target.end()).end()
+        while nested:
+            if text[index:index + 1] == ',' and SPACE.match(text, index + 1).end() == nested[-1]:
+                index = nested[-1]
+            if index != nested[-1]:
+                break
+            nested.pop()
+            index = SPACE.match(text, index + 1).end()
+        if text[index:index + 1] != ',':
+            break
+        index += 1
+        if grouped and SPACE.match(text, index).end() == closing:
+            index = closing
+            break
+    if nested:
+        return None
+    if grouped:
+        if index != closing:
+            return None
+        index = SPACE.match(text, closing + 1).end()
+    elif len(targets) < 2:
+        return None
+    if kind == 'go' and not text.startswith(('=', ':='), index):
+        end = go_declarator_end(text, index, pairs)
+        operator_end = end
+    else:
+        operator = re.compile(r':=|=(?!=|>)').match(text, index)
+        operator_end = operator.end() if operator else None
+    if operator_end is None:
+        return None
+    values = []
+    index = beginning = operator_end
+    quotes = QuoteIndex(text) if "'" in text else None
+    line_comments, block_comments = COMMENT_SYNTAX[kind]
+    while index < len(text):
+        literal = literal_boundary(text, index, kind, quotes)
+        if literal:
+            index = literal[0]
+        elif any(text.startswith(marker, index) for marker in line_comments):
+            break
+        elif (block := next(((a, b) for a, b in block_comments
+                             if text.startswith(a, index)), None)):
+            end = text.find(block[1], index + len(block[0]))
+            index = len(text) if end < 0 else end + len(block[1])
+        elif index in pairs:
+            index = pairs[index] + 1
+        elif text[index] in ';)]}':
+            break
+        elif text[index] == ',':
+            values.append((beginning, index))
+            index += 1
+            beginning = index
+        else:
+            index += 1
+    values.append((beginning, index))
+    if kind in JS_TYPES or kind == 'python':
+        a = SPACE.match(text, operator_end).end()
+        b = pairs.get(a)
+        wrappers = '[' if kind in JS_TYPES else '(['
+        if text[a:a + 1] and text[a] in wrappers and b is not None and not text[b + 1:index].strip():
+            # Split the corresponding array initializer, not its outer wrapper.
+            values = top_level_values(text, a + 1, b, kind, pairs, quotes)
+    records = []
+    if unpacked or len(targets) != len(values):
+        seen = set()
+        for position, name in targets:
+            rule = credential_rule(name)
+            if rule and rule not in seen:
+                records.append(Assignment(position, operator_end, name, '=', stop=index))
+                seen.add(rule)
+    else:
+        for (position, name), (a, b) in zip(targets, values):
+            if credential_rule(name):
+                records.append(Assignment(position, a, name, '=', stop=b))
+    return operator_end, records
+
+
+def top_level_values(text, start, stop, kind, pairs, quotes):
+    """Split a bounded initializer without copying or rescanning its suffixes."""
+    values = []
+    index = beginning = start
+    while index < stop:
+        literal = literal_boundary(text, index, kind, quotes)
+        if literal:
+            index = literal[0]
+        elif index in pairs:
+            index = pairs[index] + 1
+        elif text[index] == ',':
+            values.append((beginning, index))
+            index += 1
+            beginning = index
+        else:
+            index += 1
+    values.append((beginning, stop))
+    return values
+
+
+def assignments_in(text, kind='unknown'):
+    """Consume dotted/indexed chains and bounded declarators in one forward pass."""
+    pairs = bracket_pairs(text, kind=kind) if '[' in text or kind in PARALLEL_TYPES else {}
+    go_targets = ({m.start(1) for m in re.finditer(r'\bvar\s+([A-Za-z_][\w]*)', text)}
+                  if kind == 'go' else set())
+    cursor = 0
+    while cursor < len(text):
+        if text[cursor] == '\\':
+            cursor += 2
+            continue
+        if (kind in PARALLEL_TYPES
+                and (text[cursor].isalpha() or text[cursor] in '_*.([{')):
+            previous = cursor - 1
+            while previous >= 0 and text[previous].isspace():
+                previous -= 1
+            if (text[cursor] in PARALLEL_GROUPS.get(kind, '')
+                    or ((text[cursor].isalpha() or text[cursor] in '_*.')
+                        and (previous < 0 or text[previous] not in ',.\"\'')
+                        and (not cursor or not (text[cursor - 1].isalnum()
+                                               or text[cursor - 1] == '_')))):
+                parallel = parallel_assignment(text, cursor, kind, pairs)
+                if parallel is not None:
+                    cursor, records = parallel
+                    yield from records
+                    continue
+        escaped_name = (re.compile(r'`[^`\r\n]+`').match(text, cursor)
+                        if kind == 'kotlin' and text[cursor] == '`' else None)
+        if escaped_name:
+            end = escaped_name.end()
+            after = SPACE.match(text, end).end()
+            operator = OPERATOR.match(text, after)
+            if operator:
+                yield Assignment(cursor, operator.end(), text[cursor + 1:end - 1], operator[0])
+            cursor = end
+            continue
+        token = NAME_TOKEN.match(text, cursor)
+        if token is None:
+            cursor += 1
+            continue
+        start, end = token.span()
+        if text[start:end].endswith('.') and text[end:end + 1] in ('"', "'", '='):
+            end -= 1
+        cursor = end
+        if text[start] in '\"\'' and not re.fullmatch(r'[A-Za-z_][\w. -]*', text[start + 1:end - 1]):
+            # Still recognize embedded examples inside ordinary strings/prose.
+            if text.startswith('.', SPACE.match(text, end).end()):
+                pass  # Quoted namespace.
+            else:
+                cursor = start + 1
+                continue
+        if text[start:end].endswith('-') and text[end:end + 1] == '>':
+            end -= 1
+        option_start = start
+        while option_start and text[option_start - 1] == '-':
+            option_start -= 1
+        option = (start - option_start in (1, 2)
+                  and (not option_start or text[option_start - 1].isspace()))
+        if start and (text[start - 1].isalnum() or text[start - 1] in '_.-') and not option:
+            continue
+        key = 'password' if option and text[start:end] == 'p' else None
+        after = SPACE.match(text, end).end()
+        if (kind in JS_TYPES and text[start:end] in ('const', 'let', 'var')
+                and text[after:after + 1] == '['):
+            cursor = after
+            continue
+        if kind == 'go' and start in go_targets:
+            declarator_end = go_declarator_end(text, after, pairs)
+            if declarator_end is not None:
+                yield Assignment(start, declarator_end, text[start:end], '=')
+                cursor = declarator_end
+                continue
+        if kind in C_FAMILY_TYPES and credential_rule(text[start:end]):
+            # Bound each lookahead independently of the line length. Only a
+            # completed initializer is a declaration; bare declarations stay clean.
+            declarator = DECLARATOR_SUFFIX.match(text, after, min(len(text), after + 4096))
+            if declarator:
+                yield Assignment(start, declarator.end(), text[start:end], '=')
+                cursor = declarator.end()
+                continue
+        if text[start] in '\"\'' and text[after:after + 1] == ']':
+            key = text[start + 1:end - 1]
+            after = SPACE.match(text, after + 1).end()
+        else:
+            indexed_chain = False
+            while True:
+                if text[after:after + 1] == '[' and after in pairs:
+                    indexed_chain = True
+                    closing = pairs[after]
+                    indexed = text[after + 1:closing].strip()
+                    # A subscript selects an element, not a new target name,
+                    # when the base/member already names a credential.
+                    target = key or text[start:end]
+                    if credential_rule(target) and not generic_container(target):
+                        key = target
+                    else:
+                        key = indexed[1:-1] if indexed[:1] in ('\"', "'") else '[dynamic]'
+                    end = closing + 1
+                    after = SPACE.match(text, end).end()
+                elif text[after:after + 1] == '.':
+                    following = NAME_TOKEN.match(text, SPACE.match(text, after + 1).end())
+                    if following is None:
+                        break
+                    if indexed_chain:
+                        key = following[0].strip('\"\'')
+                    end = following.end()
+                    after = SPACE.match(text, end).end()
+                else:
+                    break
+            cursor = max(cursor, after)
+        if (kind == 'typescript' and text[after:after + 1] == '!'
+                and not text.startswith('!=', after)):
+            after = SPACE.match(text, after + 1).end()
+        if kind == 'typescript' and text[after:after + 1] == '?':
+            optional = SPACE.match(text, after + 1).end()
+            if text[optional:optional + 1] == ':':
+                after = optional
+        if kind == 'shell' and text.startswith('=>(', after):
+            yield Assignment(start, after + 1, text[start:end], '=', key, option)
+            cursor = after + 1
+            continue
+        operator = OPERATOR.match(text, after)
+        if operator:
+            yield Assignment(start, operator.end(), text[start:end], operator[0], key, option)
+            cursor = operator.end()
+        elif option and after > end and after < len(text):
+            yield Assignment(option_start, after, text[start:end], 'option', key, True)
+SEGMENTS = re.compile(r'[A-Za-z]+|[0-9]+')
+
+
+def name_segments(part):
+    """Split camel/acronym boundaries without uppercase-run backtracking."""
+    for match in SEGMENTS.finditer(part):
+        word = match[0]
+        start = 0
+        for index in range(1, len(word)):
+            if (word[index].isupper() and
+                    (word[index - 1].islower() or
+                     (index + 1 < len(word) and word[index + 1].islower()))):
+                yield word[start:index].lower()
+                start = index
+        yield word[start:].lower()
+PLACEHOLDER = re.compile(r'(?:[*•●]+|<[^>]*>)')
+MARKER_WORDS = frozenset(('example', 'fake', 'not', 'a', 'real', 'your',
+                          'api', 'key', 'here', 'token', 'secret', 'password',
+                          'value', 'placeholder', 'test', 'dummy', 'sample'))
+PROVIDER_PREFIXES = frozenset(('hf', 'ghp', 'gho', 'ghu', 'ghs', 'ghr', 'sk'))
+PLACEHOLDER_MARKERS = frozenset(('example', 'fake', 'your', 'placeholder',
+                                'test', 'dummy', 'sample'))
+ENV_REFERENCE = re.compile(
+    r"""(?ix)(?:\$env:[A-Z_][A-Z0-9_]*|\$[A-Z_][A-Z0-9_]*|
+    \$[0-9@*#?$!\-]|\$\{[0-9]+\}|
+    % [A-Z_][A-Z0-9_]* %|\$\{[A-Z_][A-Z0-9_]*\}|
+    \$\{\{\s*(?:secrets|env)\.[A-Z_][A-Z0-9_]*\s*\}\}|
+    (?:os\.)?getenv\(\s*["'][A-Z_][A-Z0-9_]*["']\s*\)|
+    (?:os\.)?environ\[\s*["'][A-Z_][A-Z0-9_]*["']\s*\]|
+    process\.env\.[A-Z_][A-Z0-9_]*)"""
+)
+SHELL_OPERAND = re.compile(r'[A-Za-z_][A-Za-z0-9_]*(?P<op>:-|:=|:\+|:\?|[-=+?])')
+TYPE_ANNOTATION = re.compile(
+    r'''\s*+(?:[A-Za-z_]|"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*')
+    (?:[\w.\s\[\]<>,|?]|"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*')*+=(?!=|>)''', re.X)
+LITERAL_PREFIX = re.compile(r"(?i:([bruf]*))(['\"`])")
+# Deterministic work limits, not a best-effort timeout. Exceeding any limit
+# raises ScanError (CLI exit 2); no file is silently skipped.
+MAX_FILE_BYTES = 16 * 1024 * 1024
+MAX_LINE_CHARS = 256 * 1024
+MAX_LINE_WORK = 4 * 1024 * 1024
+MAX_FILE_WORK = 64 * 1024 * 1024
+MAX_NESTING = 64
+
+# (line markers, block marker pairs). Unknown files retain prose/config handling,
+# but only balanced same-line block comments may act as assignment trivia.
+COMMENT_SYNTAX = {
+    'javascript': (('//',), (('/*', '*/'),)),
+    'c-family': (('//',), (('/*', '*/'),)),
+    'css': ((), (('/*', '*/'),)),
+    'php': (('//', '#'), (('/*', '*/'),)),
+    'python': (('#',), ()),
+    'ruby': (('#',), ()),
+    'powershell': (('#',), (('<#', '#>'),)),
+    'shell': (('#',), ()),
+    'hash-config': (('#',), ()),
+    'ini': (('#', ';'), ()),
+    'sql': (('--',), (('/*', '*/'),)),
+    'lua': (('--',), (('--[[', ']]'),)),
+    'markup': ((), (('<!--', '-->'),)),
+    'json': ((), ()),
+    'unknown': (('#', '//'), (('/*', '*/'),)),
+}
+FILE_TYPES = {
+    'javascript': ('.js', '.jsx', '.ts', '.tsx', '.mjs', '.cjs'),
+    'c-family': ('.c', '.h', '.cc', '.cpp', '.cxx', '.hpp', '.hh', '.hxx',
+                 '.cs', '.java', '.go', '.rs', '.kt', '.kts', '.swift',
+                 '.m', '.mm', '.scala', '.sc', '.dart', '.groovy', '.gradle'),
+    'css': ('.css', '.scss', '.less'),
+    'php': ('.php', '.phtml'),
+    'python': ('.py', '.pyw', '.pyi'),
+    'ruby': ('.rb',),
+    'powershell': ('.ps1', '.psm1', '.psd1'),
+    'shell': ('.sh', '.bash', '.zsh', '.dash', '.ksh', '.env'),
+    'hash-config': ('.yaml', '.yml', '.toml'),
+    'ini': ('.ini', '.cfg'),
+    'sql': ('.sql',),
+    'lua': ('.lua',),
+    'markup': ('.html', '.htm', '.xml', '.svg'),
+    'json': ('.json', '.jsonl'),
+}
+# Syntax capabilities live beside file classification, not in individual cases.
+LANGUAGE_SUFFIXES = {
+    'typescript': ('.ts', '.tsx', '.mts', '.cts'),
+    'cpp': ('.cc', '.cpp', '.cxx', '.hpp', '.hh', '.hxx', '.mm'),
+    'csharp': ('.cs',), 'java': ('.java',), 'rust': ('.rs',),
+    'kotlin': ('.kt', '.kts'), 'swift': ('.swift',),
+    'scala': ('.scala', '.sc'), 'dart': ('.dart',),
+    'go': ('.go',), 'groovy': ('.groovy', '.gradle'),
+}
+C_FAMILY_TYPES = frozenset(('c-family', 'cpp', 'csharp', 'java', 'rust', 'kotlin',
+                            'swift', 'scala', 'dart', 'go', 'groovy'))
+# Per-language string literal capabilities; unknown syntax deliberately retains
+# the legacy conservative prose/config lexer. No cross-line quote state existed:
+# multiline literals are recognized only when their delimiters share a line.
+STRING_SYNTAX = {
+    'c-family': 'cpp', 'cpp': 'cpp', 'csharp': 'csharp', 'rust': 'rust', 'go': 'go',
+    'python': 'python', 'swift': 'swift', 'kotlin': 'triple', 'java': 'triple',
+    'groovy': 'groovy', 'ruby': 'ordinary', 'powershell': 'powershell',
+    'javascript': 'ordinary', 'typescript': 'ordinary', 'scala': 'ordinary',
+    'dart': 'ordinary', 'php': 'ordinary', 'shell': 'shell', 'ini': 'shell',
+    'unknown': 'prose', 'hash-config': 'prose', 'css': 'ordinary',
+    'sql': 'ordinary', 'lua': 'ordinary', 'markup': 'prose', 'json': 'ordinary',
+}
+# Dollar templates share balanced-expression and identifier interpolation rules.
+DOLLAR_TEMPLATES = {
+    'groovy': ('"""', '$/', '"', '/'),
+    'kotlin': ('"""', '"'),
+    'dart': ('"""', "'''", '"', "'"),
+}
+# Match through the opening delimiter only: the first literal is a lookup key,
+# never the remaining default arguments. Generic getters retain legacy behavior.
+RUNTIME_REFERENCES = {
+    '*': r'\b(?:get|getenv)\s*\(\s*',
+    'csharp': r'\b(?:Environment\s*\.\s*GetEnvironmentVariable\s*\(|(?:config|configuration)\s*\[|config\s*\.\s*GetValue\s*(?:<[^<>\n]{1,256}>)?\s*\()\s*',
+    'java': r'\bSystem\s*\.\s*(?:getenv|getProperty)\s*\(\s*',
+    'go': r'\bos\s*\.\s*(?:Getenv|LookupEnv)\s*\(\s*',
+    'rust': r'\b(?:(?:std\s*::\s*)?env\s*::\s*var|env!)\s*\(\s*',
+    'ruby': r'\bENV\s*(?:\[|\.\s*fetch\s*\()\s*',
+    'php': r'(?:\bgetenv\s*\(|\$_ENV\s*\[)\s*',
+    'powershell': r'\$env:[A-Za-z_][\w]*',
+    'javascript': r'\bprocess\s*\.\s*env\s*(?:\[\s*|\.[A-Za-z_$][\w$]*)',
+    'typescript': r'\bprocess\s*\.\s*env\s*(?:\[\s*|\.[A-Za-z_$][\w$]*)',
+    'python': r'\b(?:os\s*\.\s*)?(?:getenv\s*\(|environ\s*(?:\[|\.\s*get\s*\())\s*',
+}
+# These System APIs are shared by all supported JVM source languages.
+for language in ('kotlin', 'groovy', 'scala'):
+    RUNTIME_REFERENCES[language] = RUNTIME_REFERENCES['java']
+RUNTIME_REFERENCE_PATTERNS = {
+    kind: re.compile(RUNTIME_REFERENCES['*'] + '|' + pattern)
+    for kind, pattern in RUNTIME_REFERENCES.items() if kind != '*'
+}
+DEFAULT_RUNTIME_REFERENCE = re.compile(RUNTIME_REFERENCES['*'])
+JS_TYPES = frozenset(('javascript', 'typescript'))
+TERNARY_TYPES = frozenset(('javascript', 'typescript', 'c-family', 'cpp', 'csharp',
+                           'java', 'swift', 'php', 'dart', 'groovy'))
+ARROW_TYPES = frozenset(('javascript', 'typescript', 'csharp', 'scala', 'rust', 'php'))
+for language in C_FAMILY_TYPES:
+    COMMENT_SYNTAX[language] = COMMENT_SYNTAX['c-family']
+COMMENT_SYNTAX['typescript'] = COMMENT_SYNTAX['javascript']
+SUFFIX_TYPES = {suffix: kind for kind, suffixes in FILE_TYPES.items() for suffix in suffixes}
+SUFFIX_TYPES.update({suffix: kind for kind, suffixes in LANGUAGE_SUFFIXES.items()
+                     for suffix in suffixes})
+PARALLEL_TYPES = JS_TYPES | frozenset(('python', 'go', 'lua', 'ruby'))
+PARALLEL_GROUPS = {'python': '([', 'javascript': '[{', 'typescript': '[{'}
+SOURCE_TYPES = C_FAMILY_TYPES | JS_TYPES | frozenset(('python', 'php', 'ruby', 'powershell', 'lua'))
+SHELL_TYPES = frozenset(('shell', 'ini'))
+SHEBANG = re.compile(
+    r'^#!\s*(?:/[^\s]*/)?(?P<command>[\w.+-]+)(?:\s|$)')
+
+
+def file_type(text, path=None):
+    """Classify once per file; an interpreter shebang takes precedence over suffix."""
+    first_line = text[:min(len(text), MAX_LINE_CHARS + 1)].split('\n', 1)[0]
+    match = SHEBANG.match(first_line)
+    if match:
+        command = match['command']
+        if command == 'env':
+            # Support env options (notably -S) and leading NAME=value arguments.
+            words = first_line[match.end():].split()
+            command = next((word for word in words
+                            if not word.startswith('-') and '=' not in word), '')
+        if command in ('sh', 'bash', 'zsh', 'dash', 'ksh'):
+            return 'shell'
+        if re.fullmatch(r'python(?:\d+(?:\.\d+)*)?', command):
+            return 'python'
+        if command in ('node', 'nodejs'):
+            return 'javascript'
+    if path is None:
+        return 'unknown'
+    name = Path(path)
+    if name.name == '.env':
+        return 'shell'
+    return SUFFIX_TYPES.get(name.suffix.lower(), 'unknown')
+
+
+def literal_prefix(text, index):
+    start = index
+    while start and text[start - 1].isalpha():
+        start -= 1
+    prefix = text[start:index]
+    return prefix if (not start or not (text[start - 1].isalnum() or text[start - 1] == '_')) and all(c.lower() in 'bruf' for c in prefix) else ''
+
+
+def generic_container(name):
+    """A credentials collection uses its quoted element keys as target names."""
+    words = [word for part in re.split(r'[_ .-]+', name) for word in name_segments(part)]
+    return bool(words and words[-1] == 'credentials')
+
+
+# Singularize only known credential segments, never arbitrary trailing s.
+CREDENTIAL_PLURALS = {
+    'secrets': 'secret', 'tokens': 'token', 'passwords': 'password',
+    'passwds': 'passwd', 'keys': 'key', 'credentials': 'credential',
+    'apikeys': 'apikey', 'servicekeys': 'servicekey',
+    'privatekeys': 'privatekey', 'accesskeys': 'accesskey', 'secretkeys': 'secretkey',
+}
+
+
+def credential_rule(name):
+    # Split delimiters first, then camel humps (including acronym boundaries).
+    words = []
+    for part in re.split(r'[_ .-]+', name):
+        words.extend(name_segments(part))
+    words = [CREDENTIAL_PLURALS.get(word, word) for word in words]
+    if words and words[-1] == 'oc':
+        return 'law-oc'
+    if words == ['credential'] and name.lower() == 'credentials':
+        return 'generic-secret'
+    if words and words[-1] in ('secret', 'token', 'password', 'passwd'):
+        return 'generic-secret'
+    if words and words[-1] == 'key' and 'secret' in words[:-1]:
+        return 'generic-secret'
+    pairs = set(zip(words, words[1:]))
+    if pairs & {('api', 'key'), ('service', 'key'), ('private', 'key'),
+                ('access', 'key'), ('secret', 'key')}:
+        return 'generic-secret'
+    # Preserve conventional all-lower/all-upper spellings as whole segments.
+    if any(word in ('apikey', 'servicekey', 'privatekey', 'accesskey', 'secretkey')
+           for word in words):
+        return 'generic-secret'
+    return None
+
+
+def placeholder(value):
+    if not value or PLACEHOLDER.fullmatch(value) or ENV_REFERENCE.fullmatch(value):
+        return True
+    words = re.split(r'[_-]', value.lower())
+    if words[0] in PROVIDER_PREFIXES:
+        words = words[1:]
+    return bool(words and all(word in MARKER_WORDS for word in words)
+                and (set(words) & PLACEHOLDER_MARKERS
+                     or words[:4] == ['not', 'a', 'real', 'token']
+                     or words == ['not', 'a', 'real']))
+
+
+def braced_end(text, start):
+    """Find a balanced shell expansion without mistaking nested refs for literals."""
+    depth = 1
+    for index in range(start + 2, len(text)):
+        if text[index] == '{':
+            depth += 1
+        elif text[index] == '}':
+            depth -= 1
+            if not depth:
+                return index + 1
+    return len(text)
+
+
+def interpolation_end(text, start, opening=2, python=False, kind=None, delimiters=('{', '}')):
+    """Skip a balanced interpolation, including nested objects and strings."""
+    kind = kind or ('python' if python else 'javascript')
+    lines, blocks = COMMENT_SYNTAX[kind]
+    depth = 1
+    index = start + opening
+    while index < len(text):
+        if text[index] == '\\':
+            index += 2
+        elif (literal := literal_boundary(text, index, kind)):
+            index = literal[0]
+        elif any(text.startswith(marker, index) for marker in lines):
+            return len(text)
+        elif (block := next(((a, b) for a, b in blocks if text.startswith(a, index)), None)):
+            stop = text.find(block[1], index + len(block[0]))
+            index = len(text) if stop < 0 else stop + len(block[1])
+        elif text.startswith(delimiters[0], index):
+            depth += 1
+            index += len(delimiters[0])
+        elif text.startswith(delimiters[1], index):
+            depth -= 1
+            index += len(delimiters[1])
+            if not depth:
+                return index
+        else:
+            index += 1
+    return len(text)
+
+
+def quoted_end(text, start, kind='unknown'):
+    """Return the closing quote offset, respecting escapes and doubled quotes."""
+    quote = text[start]
+    formatted = quote != '`' and 'f' in literal_prefix(text, start).lower()
+    index = start + 1
+    while index < len(text):
+        if text[index] == '\\':
+            index += 1 if formatted and text[index + 1:index + 2] in ('{', '}') else 2
+        elif formatted and text[index:index + 2] in ('{{', '}}'):
+            index += 2
+        elif formatted and text[index] == '{':
+            index = interpolation_end(text, index, opening=1, python=True, kind='python')
+        elif text.startswith('$(', index) and quote == '"':
+            index = command_end(text, index)
+        elif text.startswith('${', index):
+            index = (interpolation_end(text, index, kind=kind if kind in JS_TYPES else 'javascript') if quote == '`'
+                     else braced_end(text, index))
+        elif text[index] == quote:
+            if index + 1 < len(text) and text[index + 1] == quote:
+                index += 2
+            else:
+                return index
+        else:
+            index += 1
+    return len(text)
+
+
+def source_literal(text, start, kind):
+    """Return (end, content_start, content_end, formatted), or None.
+
+    Match at the current cursor only. Fixed prefixes and bounded C++ delimiters
+    take constant lookahead; arbitrary Rust/Swift hashes are consumed once.
+    str.find performs the single forward search for a literal's closing marker.
+    Unterminated literals consume the remaining line, never retry its suffixes.
+    """
+    syntax = STRING_SYNTAX.get(kind)
+    if not syntax:
+        return None
+    boundary = not start or not (text[start - 1].isalnum() or text[start - 1] == '_')
+    tail = None
+    opening = start
+    formatted = False
+    verbatim = False
+    if syntax == 'cpp' and boundary:
+        match = re.compile(r'(?:u8|u|U|L)?R"([^ ()\\\t\r\n]{0,16})\(').match(text, start)
+        if match:
+            opening = match.end()
+            tail = ')' + match[1] + '"'
+    elif syntax == 'rust' and boundary:
+        match = re.compile(r'(?:br|r)(#*)"|b"').match(text, start)
+        if match:
+            opening = match.end()
+            if match[1] is not None:
+                tail = '"' + match[1]
+    elif (syntax == 'swift' and text[start] == '#'
+          and (not start or text[start - 1] != '#')):
+        match = re.compile(r'(#+)("{3}|")').match(text, start)
+        if match:
+            opening = match.end()
+            tail = match[2] + match[1]
+    elif syntax == 'go' and text[start] == '`':
+        opening, tail = start + 1, '`'
+    elif syntax == 'csharp' and (not start or text[start - 1] != '$'):
+        match = re.compile(r'(?:\$+@|@\$|@|\$+)?("{3,}|")').match(text, start)
+        if match:
+            opening = match.end()
+            prefix = text[start:opening - len(match[1])]
+            formatted = '$' in prefix
+            verbatim = '@' in prefix
+            if len(match[1]) >= 3:
+                tail = match[1]
+                dollars = prefix.count('$')
+                formatted = ('{' * dollars, '}' * dollars) if dollars else False
+    elif syntax in ('python', 'swift', 'triple'):
+        pattern = r"(?i:[bruf]{0,2})(\"{3}|'{3}|\"|')" if syntax == 'python' else r'("{3})'
+        match = re.compile(pattern).match(text, start) if boundary or text[start] in '\"\'' else None
+        if match:
+            opening = match.end()
+            prefix = text[start:opening - len(match[1])].lower()
+            formatted = 'f' in prefix
+            if len(match[1]) == 3:
+                tail = match[1]
+    if syntax == 'swift' and (opening != start or text[start] == '"'):
+        if opening == start:
+            opening = start + 1
+        hashes = len(text[start:opening]) - len(text[start:opening].lstrip('#'))
+        marker = '\\' + '#' * hashes + '('
+        closing_marker = tail or '"'
+        index = opening
+        while index < len(text):
+            if text.startswith(marker, index):
+                index = interpolation_end(text, index, opening=len(marker), kind=kind,
+                                          delimiters=('(', ')'))
+            elif text.startswith(closing_marker, index):
+                return index + len(closing_marker), opening, index, marker
+            elif text[index] == '\\' and not hashes:
+                index += 2
+            else:
+                index += 1
+        return len(text), opening, len(text), marker
+    if kind in DOLLAR_TEMPLATES:
+        raw = kind == 'dart' and text[start] == 'r' and boundary
+        position = start + 1 if raw else start
+        markers = DOLLAR_TEMPLATES[kind]
+        marker = next((q for q in markers if text.startswith(q, position)), None)
+        if (marker == '/' and (text.startswith(('//', '/*'), position)
+                               or not regex_allowed_at(text, position))):
+            marker = None
+        if marker:
+            opening = position + len(marker)
+            tail = '/$' if marker == '$/' else marker
+            # Carry the escape convention with the shared template marker.
+            formatted = ('dollar', '$' if marker == '$/' else
+                         '' if raw or (kind == 'kotlin' and len(marker) == 3) else '\\')
+            index = opening
+            while index < len(text):
+                if formatted[1] and text[index] == formatted[1]:
+                    if formatted[1] == '\\' or text[index + 1:index + 2] in ('$', '/'):
+                        index += 2
+                        continue
+                end = dollar_interpolation_end(text, index, kind) if not raw else None
+                if end is not None:
+                    index = end
+                elif text.startswith(tail, index):
+                    return index + len(tail), opening, index, False if raw else formatted
+                else:
+                    index += 1
+            return len(text), opening, len(text), False if raw else formatted
+    if opening == start:
+        return None
+    if tail is not None:
+        if syntax in ('python', 'triple') or (syntax == 'swift' and text[start] != '#'):
+            closing = opening
+            while closing < len(text):
+                if text[closing] == '\\':
+                    closing += 2
+                elif formatted and text[closing:closing + 2] in ('{{', '}}'):
+                    closing += 2
+                elif formatted and text[closing] == '{':
+                    closing = interpolation_end(text, closing, opening=1, python=True)
+                elif text.startswith(tail, closing):
+                    return closing + len(tail), opening, closing, formatted
+                else:
+                    closing += 1
+            return len(text), opening, len(text), formatted
+        closing = text.find(tail, opening)
+        if closing < 0:
+            return len(text), opening, len(text), formatted
+        return closing + len(tail), opening, closing, formatted
+    # Preserve the legacy ordinary Python/prose adjacency and embedded-example
+    # behavior; only triple delimiters require a different boundary algorithm.
+    if syntax == 'python':
+        if opening == start + 1:
+            return None  # Let quote_start retain conservative prose elision.
+        closing = quoted_end(text, opening - 1)
+        return min(len(text), closing + 1), opening, closing, formatted
+    # Ordinary prefixed/byte/verbatim strings need language-specific escaping.
+    quote = text[opening - 1]
+    index = opening
+    while index < len(text):
+        if text[index] == '\\' and not verbatim:
+            # Python raw strings still escape their quote delimiter lexically.
+            index += 2
+        elif formatted and text[index:index + 2] in ('{{', '}}'):
+            index += 2
+        elif formatted and text[index] == '{':
+            index = interpolation_end(text, index, opening=1, python=True, kind='python')
+        elif text[index] == quote:
+            if verbatim and text.startswith(quote * 2, index):
+                index += 2
+            else:
+                return index + 1, opening, index, formatted
+        else:
+            index += 1
+    return len(text), opening, len(text), formatted
+
+
+def rust_lifetime(text, start):
+    """An identifier apostrophe without an immediate char close is a lifetime."""
+    if text[start:start + 1] != "'":
+        return False
+    name = re.compile(r"'[A-Za-z_][A-Za-z_0-9]*").match(text, start)
+    return name is not None and text[name.end():name.end() + 1] != "'"
+
+
+def literal_boundary(text, start, kind='unknown', quotes=None):
+    """Single language-table entry point for literal ownership and structure."""
+    if kind == 'ruby' and text[start:start + 1] == '/' and regex_allowed_at(text, start):
+        end = regex_end(text, start)
+        if end is not None:
+            return end, start + 1, end - 1, False
+    literal = source_literal(text, start, kind)
+    if literal:
+        return literal
+    if kind == 'rust' and rust_lifetime(text, start):
+        return None
+    if quote_start(text, start, quotes):
+        end = quoted_end(text, start, kind=kind)
+        return min(len(text), end + 1), start + 1, end, False
+    return None
+
+
+class QuoteIndex:
+    """Cache prose-elision lookahead once, without copying per-quote suffixes."""
+
+    def __init__(self, text):
+        self.boundaries = [m.start() for m in re.finditer(
+            r'[;\n]|(?<![\w.-])[A-Za-z_][\w.-]*\s*[:=]', text)] + [len(text)]
+        self.single_end = [len(text)] * (len(text) + 2)
+        self.previous = [''] * len(text)
+        previous = ''
+        for index, char in enumerate(text):
+            self.previous[index] = previous
+            if not char.isspace():
+                previous = char
+        for index in range(len(text) - 1, -1, -1):
+            char = text[index]
+            if char == '\\':
+                self.single_end[index] = self.single_end[index + 2]
+            elif char == "'":
+                self.single_end[index] = (self.single_end[index + 2]
+                                          if text.startswith("''", index) else index)
+            else:
+                self.single_end[index] = self.single_end[index + 1]
+
+
+def quote_start(text, index, quotes=None):
+    # Word-internal and trailing possessive apostrophes are prose. Only a
+    # recognized literal prefix at a token boundary can open a quote after a word.
+    if text[index] == "'" and index > 0 and re.match(r'\w', text[index - 1]):
+        return bool(literal_prefix(text, index))
+    if (text[index] == "'" and re.match(r'\w', text[index + 1:index + 2])
+            and (not index or text[index - 1].isspace())):
+        quotes = quotes if quotes is not None else QuoteIndex(text)
+        if quotes.previous[index] not in '=(:,[{+' or not quotes.previous[index]:
+            stop = quotes.boundaries[bisect_right(quotes.boundaries, index)]
+            if quotes.single_end[index + 1] >= stop:
+                return False
+    return text[index] in '\"\'`'
+
+
+def quote_spans(text, kind='unknown'):
+    quotes = QuoteIndex(text)
+    index = 0
+    while index < len(text):
+        if text[index] == '\\':
+            index += 2
+        elif (literal := literal_boundary(text, index, kind, quotes)):
+            yield index, literal[0] - 1
+            index = literal[0]
+        else:
+            index += 1
+
+
+def command_end(text, start):
+    """Consume nested $(...) with shell quotes; never inspect command bodies."""
+    stack = [(')', None)]
+    index = start + 2
+    while index < len(text):
+        closing, quote = stack[-1]
+        char = text[index]
+        if char == '\\':
+            index += 2
+            continue
+        if quote == "'":
+            if char == quote:
+                stack[-1] = (closing, None)
+        elif text.startswith('$(', index) and quote != '`':
+            if len(stack) >= MAX_NESTING:
+                raise ScanError('pattern scan nesting work limit exceeded [masked]')
+            stack.append((')', None))
+            index += 2
+            continue
+        elif quote:
+            if char == quote:
+                stack[-1] = (closing, None)
+        elif char in '\"\'`':
+            stack[-1] = (closing, char)
+        elif char == '(':
+            if len(stack) >= MAX_NESTING:
+                raise ScanError('pattern scan nesting work limit exceeded [masked]')
+            stack.append((')', None))
+        elif char == closing:
+            stack.pop()
+            if not stack:
+                return index + 1
+        index += 1
+    return len(text)
+
+
+def shell_static(text):
+    """Separate literal chunks around runtime command substitutions."""
+    index = start = 0
+    while index < len(text):
+        if text[index] == '\\':
+            index += 2
+        elif text.startswith('$(', index) or text[index] == '`':
+            yield text[start:index]
+            index = (command_end(text, index) if text[index] == '$'
+                     else quoted_end(text, index) + 1)
+            start = index
+        else:
+            index += 1
+    yield text[start:]
+
+
+def literal_candidates(value):
+    """Inspect expansion operands and template static parts, not reference names."""
+    if value and value[0] in '\"\'`' and quoted_end(value, 0) == len(value) - 1:
+        value = value[1:-1]
+    if placeholder(value):
+        return
+    if value.startswith('${') and braced_end(value, 0) == len(value):
+        operand = SHELL_OPERAND.match(value, 2)
+        if operand:
+            yield from literal_candidates(value[operand.end():-1])
+            return
+    # A mixed reference/literal is not exempt. Also inspect operands separately
+    # so a long fallback cannot hide behind low-entropy surrounding syntax.
+    index = 0
+    while index < len(value):
+        start = value.find('${', index)
+        if start < 0:
+            break
+        end = braced_end(value, start)
+        operand = SHELL_OPERAND.match(value, start + 2)
+        if operand:
+            yield from literal_candidates(value[operand.end():end - 1])
+        index = end
+    yield value
+
+
+def lexemes(text, comment_at_start=True, separators=False, bare_equals=False, quotes=None,
+            kind='unknown'):
+    """Yield source bounds and values for single-line literals, refs and words.
+
+    Python literal prefixes are syntax, not values. Source bounds let provider
+    rules reuse the generic lexer's whole-reference test. Not a language parser.
+    """
+    quotes = quotes if quotes is not None else QuoteIndex(text)
+    index = 0
+    while index < len(text):
+        if separators and text[index] in ';|&\n':
+            stop = index + (2 if text[index:index + 2] in ('&&', '||') else 1)
+            if text[index] != '&' or stop == index + 2:
+                yield index, stop, None
+            index = stop
+            continue
+        if (text[index].isspace() or text[index] in '=,:;()&'
+                or (not bare_equals and text[index] in '[]')):
+            index += 1
+            continue
+        literal = source_literal(text, index, kind)
+        if literal:
+            end, opening, closing, formatted = literal
+            yield index, end, text[opening:closing]
+            index = end
+            continue
+        if text[index] == '#' and ((index == 0 and comment_at_start)
+                                   or (index > 0 and (text[index - 1].isspace()
+                                                      or text[index - 1] in ';(&|'))):
+            break
+        env = ENV_REFERENCE.match(text, index)
+        if env and (env.end() == len(text) or text[env.end()] in ' 	,;)]}\"\''):
+            yield index, env.end(), env[0]
+            index = env.end()
+            continue
+        if kind == 'rust' and rust_lifetime(text, index):
+            index = re.compile(r"'[A-Za-z_][A-Za-z_0-9]*").match(text, index).end()
+            continue
+        prefix = LITERAL_PREFIX.match(text, index)
+        if prefix:
+            quote_index = prefix.end() - 1
+            literal = literal_boundary(text, quote_index, kind, quotes)
+            end, opening, closing, _ = literal
+            value = text[opening:closing]
+            yield index, end, value
+            index = end
+            continue
+        start = index
+        while index < len(text):
+            if text[index] == '\\':
+                index += 2
+            elif text.startswith('$(', index):
+                index = command_end(text, index)
+            elif text.startswith('${', index):
+                index = braced_end(text, index)
+            elif (text[index].isspace() or text[index] in ';&'
+                  or (text[index] in ',:=()[]}' and not bare_equals)
+                  or (separators and text[index] == '|')
+                  or quote_start(text, index, quotes)
+                  or (text[index] in 'rRbBuULu@$#/' and source_literal(text, index, kind))):
+                break
+            else:
+                index += 1
+        if index == start:
+            index += 1
+        else:
+            # Escaped whitespace and delimiters belong to the same shell word.
+            yield start, index, re.sub(r'\\(.)', r'\1', text[start:index])
+
+
+def shell_parameter_operands(text, start, stop):
+    """Yield static operand regions, excluding the runtime parameter and operator."""
+    operand = SHELL_OPERAND.match(text, start)
+    if operand:
+        yield text[operand.end():stop]
+        return
+    parameter = re.compile(r'(?:[A-Za-z_][A-Za-z0-9_]*|[0-9]+|[?@*#$!-])').match(text, start)
+    if parameter is None:
+        return
+    index = parameter.end()
+    operator = re.compile(r'//?|##?|%%?|\^\^?|,,?|:').match(text, index)
+    if operator is None:
+        return  # Pure references and transformation/indirection flags have no literals.
+    substitution = operator[0].startswith('/')
+    index = beginning = operator.end()
+    quote = None
+    while index < stop:
+        char = text[index]
+        if char == '\\':
+            index += 2
+            continue
+        if quote:
+            if char == quote:
+                quote = None
+        elif char in '\"\'':
+            quote = char
+        elif text.startswith('${', index):
+            index = braced_end(text, index)
+            continue
+        elif text.startswith('$(', index):
+            index = command_end(text, index)
+            continue
+        elif substitution and char == '/':
+            yield text[beginning:index]
+            beginning = index + 1
+            substitution = False  # Further slashes are part of the replacement.
+        index += 1
+    yield text[beginning:stop]
+
+
+def shell_word_candidates(text, comment_at_start=True):
+    """Join static shell word parts, flushing at operators and runtime expansions."""
+    parts = []
+    quote = None
+    index = 0
+    while index < len(text):
+        char = text[index]
+        if char == '\\' and quote != "'" and index + 1 < len(text):
+            parts.append(text[index + 1])
+            index += 2
+            continue
+        if quote == "'":
+            if char == quote:
+                quote = None
+            else:
+                parts.append(char)
+            index += 1
+            continue
+        if char == quote:
+            quote = None
+            index += 1
+            continue
+        if char in '\"\'' and quote is None:
+            quote = char
+            index += 1
+            continue
+        process = quote is None and text.startswith(('<(', '>('), index)
+        if char == '`' or process or text.startswith('$(', index) or text.startswith('${', index):
+            yield from literal_candidates(''.join(parts))
+            parts = []
+            if char == '`':
+                index = quoted_end(text, index) + 1
+            elif process or text.startswith('$(', index):
+                index = command_end(text, index)
+            else:
+                end = braced_end(text, index)
+                for operand in shell_parameter_operands(text, index + 2, end - 1):
+                    yield from shell_word_candidates(operand, False)
+                index = end
+            continue
+        reference = ENV_REFERENCE.match(text, index) if char == '$' else None
+        if reference:
+            yield from literal_candidates(''.join(parts))
+            parts = []
+            # Preserve legacy dollar-prefixed credential-shape detection without
+            # joining either adjacent static run across the runtime reference.
+            if reference.end() < len(text) and text[reference.end()] in '!/':
+                yield reference[0] + text[reference.end()]
+            index = reference.end()
+            continue
+        if quote is None and (char.isspace() or char in ';|&()'):
+            yield from literal_candidates(''.join(parts))
+            parts = []
+        elif (quote is None and char == '#'
+              and ((index == 0 and comment_at_start)
+                   or (index > 0 and (text[index - 1].isspace() or text[index - 1] in ';(&|')))):
+            break
+        else:
+            parts.append(char)
+        index += 1
+    yield from literal_candidates(''.join(parts))
+
+
+def candidates(text, comment_at_start=True, source=False, shell=False, kind='unknown'):
+    # Source literals retain the existing per-token semantics (including Python
+    # implicit concatenation, which this heuristic deliberately does not fold).
+    # Unknown/config contexts keep template and prefixed-source literal handling.
+    if shell or (not source and not text.lstrip().startswith('`')
+                 and not re.search(r"(?:^|\s)[brufBRUF]+['\"]", text)):
+        yield from shell_word_candidates(text, comment_at_start)
+        return
+    # Only brackets can enclose quoted keys; bare member chains have no
+    # literals to exclude. Do not retry a repeated chain at every member.
+    references = []
+    if source:
+        pairs = bracket_pairs(text, kind=kind) if '[' in text else {}
+        cursor = 0
+        while cursor < len(text):
+            reference = re.compile(r'\b[A-Za-z_$][\w$]*\[').search(text, cursor)
+            if reference is None:
+                break
+            closing = pairs.get(reference.end() - 1)
+            if closing is None:
+                cursor = reference.end()
+                continue
+            references.append((reference.start(), closing + 1))
+            cursor = closing + 1
+    spans = list(quote_spans(text, kind)) if source else []
+    # Getter first arguments are names, like bracketed lookup keys. Defaults
+    # remain separate literals and are deliberately not excluded.
+    getters = []
+    if source:
+        pattern = RUNTIME_REFERENCE_PATTERNS.get(kind, DEFAULT_RUNTIME_REFERENCE)
+        for call in pattern.finditer(text):
+            if call.end() < len(text):
+                literal = literal_boundary(text, call.end(), kind)
+                if literal:
+                    getters.append((call.end(), literal[0]))
+    span_starts = [a for a, _ in spans]
+    lookups = []
+    for start, end in references:
+        position = bisect_right(span_starts, start) - 1
+        if position < 0 or not spans[position][0] < start < spans[position][1]:
+            lookups.append((start, end))
+    lookup_starts = [a for a, _ in lookups]
+    getter_starts = [a for a, _ in getters]
+    # The assignment operator has already been consumed; inner equals signs
+    # (including base64 padding) belong to the bare shell/config word.
+    for start, end, value in lexemes(text, comment_at_start, bare_equals=True, kind=kind):
+        syntax_literal = source_literal(text, start, kind)
+        if source:
+            getter = bisect_right(getter_starts, start) - 1
+            if getter >= 0 and end <= getters[getter][1]:
+                continue
+            # A quoted subscript is a lookup key, not a credential literal.
+            lookup = bisect_right(lookup_starts, start) - 1
+            if lookup >= 0 and end <= lookups[lookup][1]:
+                continue
+            literal = LITERAL_PREFIX.match(text, start)
+            if not literal and not syntax_literal:
+                continue
+        if syntax_literal:
+            chunks = static_chunks(value, formatted=syntax_literal[3], kind=kind) if syntax_literal[3] else (value,)
+            for chunk in chunks:
+                yield from literal_candidates(chunk)
+            continue
+        literal = LITERAL_PREFIX.match(text, start)
+        if literal and literal[2] == '`' and shell:
+            continue
+        if shell and literal and literal[2] == "'":
+            yield from literal_candidates(value)
+        elif shell or '$(' in value:
+            for chunk in shell_static(value):
+                yield from literal_candidates(chunk)
+        elif literal and (literal[2] == '`' or 'f' in literal[1].lower()):
+            for chunk in static_chunks(value, formatted=literal[2] != '`'):
+                yield from literal_candidates(chunk)
+        else:
+            yield from literal_candidates(value)
+
+
+def dollar_interpolation_end(text, start, kind):
+    if text[start] != '$':
+        return None
+    if text.startswith('${', start):
+        return interpolation_end(text, start, kind=kind)
+    if text[start:start + 1] == '$':
+        pattern = r'[A-Za-z_][\w]*' + (r'(?:\.[A-Za-z_][\w]*)*' if kind == 'groovy' else '')
+        name = re.compile(pattern).match(text, start + 1)
+        if name:
+            return name.end()
+    return None
+
+
+def static_chunks(value, formatted=False, kind='unknown'):
+    """Keep noncontiguous template text separate; doubled f-braces are literal."""
+    chunk = []
+    cursor = 0
+    while cursor < len(value):
+        if isinstance(formatted, tuple) and formatted[0] == 'dollar':
+            escape = formatted[1]
+            if (escape and value[cursor] == escape
+                    and (escape == '\\' or value[cursor + 1:cursor + 2] in ('$', '/'))):
+                chunk.append(value[cursor:cursor + 2])
+                cursor += 2
+            elif (end := dollar_interpolation_end(value, cursor, kind)) is not None:
+                yield ''.join(chunk)
+                chunk = []
+                cursor = end
+            else:
+                chunk.append(value[cursor])
+                cursor += 1
+        elif isinstance(formatted, tuple) and value.startswith(formatted[0], cursor):
+            yield ''.join(chunk)
+            chunk = []
+            cursor = interpolation_end(value, cursor, opening=len(formatted[0]),
+                                       kind=kind, delimiters=formatted)
+        elif isinstance(formatted, str) and value.startswith(formatted, cursor):
+            yield ''.join(chunk)
+            chunk = []
+            cursor = interpolation_end(value, cursor, opening=len(formatted), kind=kind,
+                                       delimiters=('(', ')'))
+        elif value[cursor] == '\\':
+            width = 1 if formatted and value[cursor + 1:cursor + 2] in ('{', '}') else 2
+            chunk.append(value[cursor:cursor + width])
+            cursor += width
+        elif formatted is True and value[cursor:cursor + 2] in ('{{', '}}'):
+            chunk.append(value[cursor])
+            cursor += 2
+        elif ((formatted is True and value[cursor] == '{')
+              or (not formatted and value.startswith('${', cursor))):
+            yield ''.join(chunk)
+            chunk = []
+            cursor = interpolation_end(value, cursor, opening=1 if formatted else 2,
+                                       python=formatted)
+        else:
+            chunk.append(value[cursor])
+            cursor += 1
+    yield ''.join(chunk)
+
+
+REGEX_KEYWORDS = frozenset(('else', 'do', 'return', 'throw', 'case', 'delete', 'void',
+                            'typeof', 'instanceof', 'in', 'of', 'yield', 'await', 'new'))
+
+
+def regex_allowed_at(text, start):
+    previous = start - 1
+    while previous >= 0 and text[previous].isspace():
+        previous -= 1
+    if previous < 0 or text[previous] in '=(:,[!&|?;{}~+-*%/^<>':
+        return True
+    end = previous + 1
+    while previous >= 0 and (text[previous].isalnum() or text[previous] in '_$'):
+        previous -= 1
+    return text[previous + 1:end] in REGEX_KEYWORDS
+
+
+def regex_end(text, start, flags=True, classes=True):
+    index = start + 1
+    character_class = False
+    while index < len(text):
+        char = text[index]
+        if char == '\\':
+            index += 2
+            continue
+        if classes and char == '[':
+            character_class = True
+        elif classes and char == ']':
+            character_class = False
+        elif char == '/' and not character_class:
+            index += 1
+            while flags and index < len(text) and text[index].isalpha():
+                index += 1
+            return index
+        index += 1
+    return None
+
+
+def typescript_type_openings(line, pairs):
+    """Mark balanced type groups, not runtime object/property values.
+
+    Type aliases and declaration annotations consume their groups by indexed
+    jumps; angle groups represent generic type arguments. No suffix rescans.
+    """
+    openings = set()
+    starts = [m.end() for m in re.finditer(
+        r'\btype\s+[A-Za-z_$][\w$]*(?:\s*<[^;={}]*>)?\s*=|'
+        r'\b(?:let|const|var)\s+[A-Za-z_$][\w$]*\s*:', line)]
+    for start in starts:
+        index = start
+        limit = min(len(line), start + 4096)
+        while index < limit:
+            if line[index] in ';=':
+                break
+            if index in pairs:
+                openings.add(index)
+                index = pairs[index] + 1
+            else:
+                index += 1
+    openings.update(a for a in pairs if line[a] == '<')
+    ranges = sorted((a, pairs[a]) for a in openings)
+    cursor = 0
+    end = -1
+    for index, char in enumerate(line):
+        while cursor < len(ranges) and ranges[cursor][0] <= index:
+            end = max(end, ranges[cursor][1])
+            cursor += 1
+        if char in '([{' and index < end:
+            openings.add(index)
+    return openings
+
+
+class LineState:
+    """One quote-aware structural pass; RHS queries are O(log n), not rescans."""
+
+    def __init__(self, line, kind='unknown'):
+        line_comments, block_comments = COMMENT_SYNTAX[kind]
+        last_closings = {closing: line.rfind(closing) for _, closing in block_comments}
+        self.owner = [-1] * (len(line) + 1)
+        self.context = [0] * (len(line) + 1)
+        self.braces = [0] * (len(line) + 1)
+        self.question = [False] * (len(line) + 1)
+        self.bounds = {0: []}
+        self.statements = []
+        self.comments = []
+        self.parameters = set()
+        self.type_fields = set()
+        type_contexts = set()
+        interface_bodies = {m.end() - 1 for m in re.finditer(
+            r'\binterface\s+[A-Za-z_$][\w$]*(?:\s+[^{};]+)?\s*\{', line)}
+        type_bodies = {m.end() - 1 for m in re.finditer(
+            r'\b(?:class|interface)\s+[A-Za-z_$][\w$]*(?:\s+[^{};]+)?\s*\{', line)}
+        self.regex_spans = []
+        self.formatted_spans = []
+        self.ternary_colons = set()
+        ternaries = Counter()
+        self.quotes = quotes = QuoteIndex(line)
+        openings = {}
+        signatures = {m.end() - 1 for m in re.finditer(
+            r'\b(?:def\s+[A-Za-z_$][\w$]*\s*+|function\s*+(?:\*\s*+)?(?:[A-Za-z_$][\w$]*\s*+)?)[(]', line)}
+        methods = {m.end() - 1 for m in re.finditer(
+            r'(?:^|[;,{}])\s*(?:(?:async|static|get|set)\s+)*[A-Za-z_$][\w$]*\s*\(', line)}
+        type_pairs = bracket_pairs(line, angles=True, kind=kind) if kind in JS_TYPES else {}
+        type_openings = typescript_type_openings(line, type_pairs) if kind == 'typescript' else set()
+        annotation_cache = {}
+
+        def signature_tail(position):
+            position = SPACE.match(line, position).end()
+            if line[position:position + 1] != ':':
+                return position
+            position = SPACE.match(line, position + 1).end()
+            visited = []
+            while position < len(line):
+                if position in annotation_cache:
+                    position = annotation_cache[position]
+                    break
+                if line.startswith('=>', position) or line[position] in ';=':
+                    break
+                if line[position] == '{' and visited and line[visited[-1]] not in '|&':
+                    break  # Method body after a return type, not a type literal.
+                visited.append(position)
+                if position in type_pairs:
+                    function_type = line[position] == '('
+                    position = SPACE.match(line, type_pairs[position] + 1).end()
+                    if function_type and line.startswith('=>', position):
+                        position += 2
+                elif line[position] == '{':
+                    break
+                else:
+                    position += 1
+                position = SPACE.match(line, position).end()
+            for offset in visited:
+                annotation_cache[offset] = position
+            return position
+
+        controls = {m.end() - 1 for m in re.finditer(
+            r'\b(?:if|while|for|with|switch|catch)\s*\(', line)} if kind in JS_TYPES else set()
+        regex_allowed = True
+        stack = [0]
+        brace_depth = 0
+        question = False
+        index = 0
+        while index < len(line):
+            self.context[index] = stack[-1]
+            self.braces[index] = brace_depth
+            self.question[index] = question
+            if (line[index] == '/'
+                    and ((kind in JS_TYPES and regex_allowed
+                          and not line.startswith(('//', '/*'), index))
+                         or (kind == 'ruby' and regex_allowed_at(line, index)))):
+                # ECMAScript's expression-start heuristic: escaped slashes and
+                # character classes do not terminate a regular expression.
+                end = regex_end(line, index)
+                if end is not None:
+                    self.regex_spans.append((index, end))
+                    index = end
+                    regex_allowed = False
+                    continue
+            if kind in JS_TYPES and (line[index].isalpha() or line[index] in '_$'):
+                word = re.compile(r'[\w$]+').match(line, index)
+                regex_allowed = word[0] in REGEX_KEYWORDS
+                # Keep structural arrays populated at every offset.
+                for offset in range(index, word.end()):
+                    self.context[offset] = stack[-1]
+                    self.braces[offset] = brace_depth
+                    self.question[offset] = question
+                index = word.end()
+                continue
+            literal = literal_boundary(line, index, kind, quotes)
+            if literal:
+                end = literal[0] - 1
+                formatted = literal[3] or 'f' in literal_prefix(line, index).lower()
+                if formatted or line[index] == '`':
+                    self.formatted_spans.append((index, end, formatted))
+                regex_allowed = False
+                query = False
+                expansion_end = index
+                for offset in range(index, min(end + 1, len(line))):
+                    self.owner[offset] = end
+                    self.context[offset] = stack[-1]
+                    self.braces[offset] = brace_depth
+                    if offset >= expansion_end and (line[offset].isspace() or line[offset] in ';|'):
+                        query = False
+                    self.question[offset] = query
+                    if line.startswith('${', offset) and offset >= expansion_end:
+                        expansion_end = braced_end(line, offset)
+                    if (line[offset] == '?' and offset >= expansion_end
+                            and (not offset or line[offset - 1] != '\\')):
+                        query = True
+                question = False
+                index = end + 1
+                continue
+            # Comments contain no source nesting. Credential matching still
+            # examines their text below; only structural accounting stops here.
+            block = next(((opening, closing) for opening, closing in block_comments
+                          if line.startswith(opening, index)), None)
+            if block:
+                opening, closing_marker = block
+                closing = (line.find(closing_marker, index + len(opening))
+                           if last_closings[closing_marker] >= index + len(opening) else -1)
+                if closing >= 0 or kind != 'unknown':
+                    end = len(line) if closing < 0 else closing + len(closing_marker)
+                    self.comments.append((index, end))
+                    index = end
+                    continue
+            if (any(line.startswith(marker, index) for marker in line_comments)
+                    and (kind not in ('shell', 'unknown', 'ini')
+                         or not index or line[index - 1].isspace()
+                         or line[index - 1] in ';(&|')):
+                self.comments.append((index, len(line)))
+                break
+            char = line[index]
+            if kind in JS_TYPES and not char.isspace():
+                if line.startswith(('++', '--'), index):
+                    # Preserve expression-start for prefix operators, but a
+                    # postfix operator ends an expression just like its operand.
+                    # Consume both characters so the second cannot reset state.
+                    for offset in (index, index + 1):
+                        self.context[offset] = stack[-1]
+                        self.braces[offset] = brace_depth
+                        self.question[offset] = question
+                    index += 2
+                    continue
+                regex_allowed = char in '=(:,[!&|?;{}~+-*%/^<>'
+            if char.isspace() or char in ';|':
+                question = False
+            if char == '\\':
+                index += 2
+                continue
+            if char == '?':
+                question = True
+                if (not line.startswith(('??', '?.', '?='), index)
+                        and not re.compile(r'\s*:').match(line, index + 1)
+                        and (not index or line[index - 1] != '?')):
+                    ternaries[stack[-1]] += 1
+            elif char == ':' and ternaries[stack[-1]] and not line.startswith(':=', index):
+                self.ternary_colons.add(index)
+                ternaries[stack[-1]] -= 1
+            elif char == ';':
+                ternaries[stack[-1]] = 0
+            if char in '([{':
+                if len(stack) > MAX_NESTING:
+                    raise ScanError('pattern scan nesting work limit exceeded [masked]')
+                context = len(self.bounds)
+                self.bounds[context] = []
+                if index in type_openings or index in interface_bodies or stack[-1] in type_contexts:
+                    type_contexts.add(context)
+                if index in type_bodies or context in type_contexts:
+                    self.type_fields.add(context)
+                if char == '(':
+                    openings[context] = index
+                    if index in signatures:
+                        self.parameters.add(context)
+                stack.append(context)
+                brace_depth += char in '{['
+            elif char in ')]}':
+                context = stack[-1]
+                if char == ')' and context in openings:
+                    if openings[context] in controls:
+                        regex_allowed = True
+                    tail = signature_tail(index + 1)
+                    if (line.startswith('=>', tail)
+                            or (openings[context] in methods and line[tail:tail + 1] == '{')):
+                        self.parameters.add(context)
+                self.bounds[stack[-1]].append(index)
+                if len(stack) > 1:
+                    stack.pop()
+                brace_depth -= char in '}]'
+            elif char in ',;':
+                self.bounds[stack[-1]].append(index)
+            if char in ';|' or (char == '&' and (line.startswith('&&', index)
+                                                      or (kind not in SOURCE_TYPES and not question))):
+                self.statements.append(index)
+            index += 1
+        self.context[len(line)] = stack[-1]
+        self.length = len(line)
+        for boundaries in self.bounds.values():
+            boundaries.append(len(line))
+        self.statements.append(len(line))
+
+    def without_comments(self, line):
+        """Replace tracked trivia once, keeping all match offsets unchanged."""
+        parts = []
+        start = 0
+        for opening, end in self.comments:
+            parts.extend((line[start:opening], ' ' * (end - opening)))
+            start = end
+        parts.append(line[start:])
+        return ''.join(parts)
+
+    def rhs_end(self, start, delimiters=False):
+        boundaries = self.bounds[self.context[start]] if delimiters else self.statements
+        return boundaries[bisect_right(boundaries, start - 1)]
+
+
+def shell_word_boundaries(line):
+    """Index unquoted word endings once; quotes and expansions may contain spaces."""
+    boundaries = []
+    index = 0
+    while index < len(line):
+        if line[index] == '\\':
+            index += 2
+        elif line[index] in '\"\'`':
+            index = quoted_end(line, index) + 1
+        elif line.startswith(('$(', '<(', '>('), index):
+            index = command_end(line, index)
+        elif line.startswith('${', index):
+            index = braced_end(line, index)
+        else:
+            if line[index].isspace():
+                boundaries.append(index)
+            index += 1
+    boundaries.append(len(line))
+    return boundaries
+
+
+def high_entropy(value):
+    # Public URL scheme syntax does not contribute credential entropy/length.
+    value = re.sub(r'^https?://', '', value)
+    if len(value) < 20:
+        return False
+    counts = Counter(value)
+    entropy = -sum((n / len(value)) * math.log2(n / len(value)) for n in counts.values())
+    return entropy >= 3.5
+
+
+def findings(text, path=None, budget=None):
+    """Yield only (line number, rule id); never return matched values."""
+    if budget is None:
+        budget = [MAX_FILE_WORK]
+    kind = file_type(text, path)
+    shell = kind in SHELL_TYPES
+    source_file = kind in SOURCE_TYPES
+    typed_source = kind == 'python' or kind in JS_TYPES
+    for number, line in enumerate(text.splitlines(), 1):
+        if len(line) > MAX_LINE_CHARS:
+            raise ScanError('pattern scan line work limit exceeded [masked]')
+        rules = set()
+        work = len(line)
+        value_end = len(line.rstrip(' \t='))
+        raw_assignments = list(assignments_in(line, kind))
+        provider_matches = [(rule, match) for rule, pattern in TOKEN_RULES
+                            for match in pattern.finditer(line)]
+        # Most repository lines contain no credential-shaped name or provider.
+        # Avoid all quote/structure/token passes on those lines. Keep structural
+        # work-limit enforcement for potentially deeply nested input.
+        if (not provider_matches and not any(credential_rule(m['key'] or m['name'])
+                                            for m in raw_assignments)
+                and not any(marker in line for marker in ('/*', '<!--', '--[['))
+                and sum(line.count(c) for c in '([{') <= MAX_NESTING):
+            budget[0] -= work
+            if budget[0] < 0:
+                raise ScanError('pattern scan file work limit exceeded [masked]')
+            continue
+        state = LineState(line, kind)
+        assignment_text = state.without_comments(line)
+        # Only rescan when comment elision actually changed the line.
+        assignments = raw_assignments
+        if assignment_text != line:
+            assignments = sorted({m.span(): m for m in
+                                  raw_assignments + list(assignments_in(assignment_text, kind))}.values(),
+                                 key=lambda item: item.end())
+        word_ends = shell_word_boundaries(line) if shell or any(m['option'] for m in assignments) else []
+        tokens = (list(lexemes(line, comment_at_start=False, quotes=state.quotes, kind=kind))
+                  if provider_matches else [])
+        token_starts = [start for start, _, _ in tokens]
+        assignment_ranges = []
+        for item in assignments:
+            end = min(state.rhs_end(item.end(), True), state.rhs_end(item.end()))
+            if shell:
+                end = min(end, word_ends[bisect_right(word_ends, item.end() - 1)])
+            owner = state.owner[item.start()]
+            if owner >= 0 and item.end() <= owner:
+                end = min(end, owner)
+            assignment_ranges.append((item.end(), end))
+        range_starts = [start for start, _ in assignment_ranges]
+        range_ends = []
+        furthest = -1
+        for _, end in assignment_ranges:
+            furthest = max(furthest, end)
+            range_ends.append(furthest)
+        for rule, pattern in TOKEN_RULES:
+            for match in pattern.finditer(line):
+                # Pure reference names are not credentials. Other placeholder
+                # wrappers are exempt only in assignments; bare prose still reports.
+                token_index = bisect_right(token_starts, match.start()) - 1
+                enclosing = match[0]
+                if token_index >= 0 and tokens[token_index][1] >= match.end():
+                    enclosing = tokens[token_index][2]
+                if ENV_REFERENCE.fullmatch(enclosing):
+                    continue
+                assignment_index = bisect_right(range_starts, match.start()) - 1
+                in_assignment = (assignment_index >= 0
+                                 and range_ends[assignment_index] >= match.end())
+                if not (in_assignment and placeholder(enclosing)):
+                    rules.add(rule)
+        for match in assignments:
+            # Quoted TOML prefixes are namespaces, not credential names. Keep
+            # bare dotted segments for conventional names such as prefix.api.key.
+            name = re.sub(r'''(?:"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*')\s*\.\s*''',
+                          '', match['key'] or match['name'])
+            rule = credential_rule(name)
+            if rule is None:
+                continue
+            if (match['operator'] == '=>' and
+                    (path is None or (kind in ARROW_TYPES and not
+                     (kind == 'php' and line[match.start()] in '\"\'')))):
+                continue
+            if match['operator'] == '.=' and kind != 'php':
+                continue
+            if match['operator'] == '->' and (kind in C_FAMILY_TYPES or kind == 'php'):
+                continue
+            if (match['operator'] == ':' and match.end() - 1 in state.ternary_colons
+                    and kind in TERNARY_TYPES):
+                continue
+            start = match.end()
+            typed = (TYPE_ANNOTATION.match(assignment_text, start, min(len(line), start + 4096))
+                     if match['operator'] == ':' else None)
+            if typed and not (
+                    typed.end() < value_end
+                    and (typed_source or re.search(r'\s=|=\s', typed[0]))):
+                typed = None
+            if (kind == 'typescript' and match['operator'] == ':' and not typed
+                    and state.owner[match.start()] < 0
+                    and (state.context[match.start()] == 0
+                         or state.context[match.start()] in state.type_fields)):
+                # Type-only fields/declarations have no value to inspect. Object
+                # literal properties retain colon-value semantics.
+                continue
+            if typed:
+                work += typed.end() - start
+                if work > MAX_LINE_WORK:
+                    raise ScanError('pattern scan line work limit exceeded [masked]')
+                start = typed.end()
+            stop = state.rhs_end(start)
+            if source_file and state.context[start]:
+                stop = min(stop, state.rhs_end(start, True))
+            if shell or match['option']:
+                word_start = SPACE.match(line, start).end()
+                stop = min(stop, word_ends[bisect_right(word_ends, word_start)])
+            owner = state.owner[match.start()]
+            embedded = owner >= match.end() and line[match.start()] not in '\"\''
+            if owner >= match.end():
+                stop = min(stop, owner)
+            # Bound flow values before copying/lexing the suffix. Bare config
+            # words retain commas and other punctuation as literal characters.
+            if match['operator'] == ':' and state.braces[match.start()] > 0:
+                stop = min(stop, state.rhs_end(start, True))
+            if match['stop'] is not None:
+                # Parallel assignments already have quote-aware positional bounds;
+                # their target context differs from the RHS array/tuple context.
+                stop = match['stop']
+            work += stop - start
+            if work > MAX_LINE_WORK:
+                raise ScanError('pattern scan line work limit exceeded [masked]')
+            rest = line[start:stop]
+            # Only bare config nulls are sentinels. Quoted "null" is a string
+            # (and remains reportable for OC); source literals are unchanged.
+            if rest.strip() in ('', '~', 'null', 'Null', 'NULL'):
+                continue
+            if (match['operator'] == ':' and not typed
+                    and typed_source
+                    and state.context[match.start()] in state.parameters):
+                # Typed function parameters are declarations, not values.
+                # A literal default above still follows the assignment path.
+                continue
+            if state.question[match.start()] and rule == 'law-oc':
+                rest = rest.split('&', 1)[0]
+            if any(a <= match.start() < b for a, b in state.regex_spans):
+                continue
+            embedded_chunks = None
+            if embedded:
+                formatted_owner = next(((a, b, f) for a, b, f in state.formatted_spans
+                                        if a <= match.start() < b), None)
+                if formatted_owner:
+                    # Preserve the enclosing template's interpolation mode even
+                    # though the embedded query RHS has no opening quote.
+                    embedded_chunks = static_chunks(rest, formatted=formatted_owner[2], kind=kind)
+            source = not embedded and source_file
+            # Calls and access chains are references even without a source suffix;
+            # bare config/shell words otherwise remain literal values.
+            expression = re.match(r'\s*[A-Za-z_$][\w$]*(?:\s*\(|\.[A-Za-z_$]|\[)', rest)
+            if embedded_chunks is not None:
+                values = (value for chunk in embedded_chunks
+                          for value in literal_candidates(chunk))
+            else:
+                values = candidates(rest, comment_at_start=False,
+                                    source=source or (path is None and bool(expression)),
+                                    shell=shell, kind=kind)
+            for value in values:
+                if not placeholder(value) and (rule == 'law-oc' or high_entropy(value)):
+                    rules.add(rule)
+        budget[0] -= work
+        if budget[0] < 0:
+            raise ScanError('pattern scan file work limit exceeded [masked]')
+        for rule in sorted(rules):
+            yield number, rule
+
+
+def decode_text(data):
+    """Recognize BOM-less UTF-16 text without interpreting arbitrary binary as it."""
+    if data.startswith((b'\xff\xfe', b'\xfe\xff')):
+        return data.decode('utf-16', errors='replace')
+    if len(data) >= 4 and len(data) % 2 == 0:
+        even, odd = data[::2], data[1::2]
+        for encoding, high, low in (('utf-16-le', odd, even), ('utf-16-be', even, odd)):
+            # ASCII-heavy UTF-16 has NULs predominantly in its high-byte lane.
+            if high.count(0) / len(high) < 0.6 or low.count(0) / len(low) > 0.1:
+                continue
+            try:
+                text = data.decode(encoding)
+            except UnicodeError:
+                continue
+            if sum(c.isprintable() or c in '\r\n\t' for c in text) / len(text) >= 0.95:
+                return text
+    return data.decode('utf-8', errors='replace')
+
+
+def scan(root):
+    root, paths = repository_files(root, worktree=True)
+    matches = []
+    for relative in paths:
+        # A credential-shaped filename must not leak through diagnostics either.
+        safe_path = '[redacted path]' if list(findings(relative)) else ascii(relative)
+        path = root / relative
+        try:
+            # Refuse links/reparse points in any component before opening a file.
+            current = root
+            for part in Path(relative).parts:
+                current = current / part
+                info = current.lstat()
+                if current.is_symlink() or getattr(info, 'st_file_attributes', 0) & 0x400:
+                    raise ScanError(f'{safe_path}: unsafe path [masked]')
+            if not stat.S_ISREG(info.st_mode):
+                raise ScanError(f'{safe_path}: unsupported file type [masked]')
+            if info.st_size > MAX_FILE_BYTES:
+                raise ScanError('pattern scan file work limit exceeded [masked]')
+            with path.open('rb') as stream:
+                data = stream.read(MAX_FILE_BYTES + 1)
+            if len(data) > MAX_FILE_BYTES:
+                raise ScanError('pattern scan file work limit exceeded [masked]')
+        except FileNotFoundError:
+            continue  # Tracked deletion.
+        except OSError:
+            raise ScanError(f'{safe_path}: cannot read file [masked]') from None
+        # Keep the original decoding, but do not let ASCII-lane heuristics hide
+        # credentials surrounded by non-ASCII UTF-16 text. Strict decoding rejects
+        # malformed binary data; each byte order is attempted independently.
+        texts = [decode_text(data)]
+        if b'\0' in data and len(data) % 2 == 0:
+            for encoding in ('utf-16-le', 'utf-16-be'):
+                try:
+                    texts.append(data.decode(encoding, errors='strict'))
+                except UnicodeError:
+                    continue
+        file_matches = set()
+        budget = [MAX_FILE_WORK]
+        for text in texts:
+            lines = text.splitlines()
+            for line, rule in findings(text, relative, budget):
+                digest = hashlib.sha256(lines[line - 1].encode('utf-8')).hexdigest()
+                if (relative, rule, digest) not in ALLOWLIST:
+                    file_matches.add((line, rule))
+        matches.extend((safe_path, line, rule) for line, rule in sorted(file_matches))
+    return matches
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--root', type=Path, default=Path.cwd(),
+                        help='Git worktree to scan (default: current working directory)')
+    args = parser.parse_args()
+    try:
+        matches = scan(args.root)
+    except RecursionError:
+        print('ERROR: pattern scan nesting work limit exceeded [masked]')
+        return 2
+    except ScanError as exc:
+        print(f'ERROR: {exc}')
+        return 2
+    for path, line, rule in matches:
+        print(f'{path}:{line}: {rule} [masked]')
+    print(f'Pattern scan: {len(matches)} finding(s).')
+    return 1 if matches else 0
+
+
+if __name__ == '__main__':
+    raise SystemExit(main())

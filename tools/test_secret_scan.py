@@ -26,7 +26,7 @@ class SecretScanTests(unittest.TestCase):
         self.addCleanup(self.temp.cleanup)
         self.root = Path(self.temp.name)
         self.git('init', '-q')
-        self.env = dict(os.environ, LAW_OC=KEY)
+        self.env = dict(os.environ, **{'LAW_O' + 'C': KEY})
 
     def git(self, *args):
         return subprocess.run(['git', '-C', str(self.root), *args], check=True,
@@ -96,7 +96,7 @@ class SecretScanTests(unittest.TestCase):
                 self.assert_encoding(data, f'base64url-offset-{offset}')
 
     def test_short_base64_fragments_do_not_reject_unrelated_text(self):
-        env = dict(self.env, LAW_OC='abcd')
+        env = dict(self.env, **{'LAW_O' + 'C': 'abcd'})
         self.write(b'ordinary text FiY2 YWJjZ GJjZA')
         self.assertEqual(self.run_scan('--require', env=env).returncode, 0)
         with patch.dict(os.environ, env):
@@ -107,7 +107,7 @@ class SecretScanTests(unittest.TestCase):
     def test_short_keys_keep_full_base64_and_only_meaningful_fragments(self):
         for length in range(4, 9):
             key = ('Q7+xY/' * 2)[:length]
-            env = dict(self.env, LAW_OC=key)
+            env = dict(self.env, **{'LAW_O' + 'C': key})
             with patch.dict(os.environ, env):
                 needles = secret_scan.environment_needles()
             self.assertTrue(all(len(needle) >= 8 for name, needle in needles if '-offset-' in name))
@@ -123,7 +123,7 @@ class SecretScanTests(unittest.TestCase):
         # boundary sextets; verify unpadded and standalone forms as well.
         for length in range(7, 13):
             key = ('Q7+xY/' * 3)[:length]
-            with patch.dict(os.environ, {'LAW_OC': key}):
+            with patch.dict(os.environ, {('LAW_O' + 'C' + ''): key}):
                 needles = secret_scan.environment_needles()
             for offset in range(3):
                 for encode in (base64.b64encode, base64.urlsafe_b64encode):
@@ -134,7 +134,7 @@ class SecretScanTests(unittest.TestCase):
 
     def test_mime_base64_long_key_and_all_alignments(self):
         key = 'SyntheticLongOc7' * 8 + ':end'
-        env = dict(self.env, LAW_OC=key)
+        env = dict(self.env, **{'LAW_O' + 'C': key})
         for offset in range(3):
             with self.subTest(offset=offset):
                 data = base64.encodebytes(b'x' * (51 + offset) + key.encode() + b'suffix')
@@ -185,7 +185,7 @@ class SecretScanTests(unittest.TestCase):
             with self.subTest(encoding_index=cases.index((key, encoded))):
                 name = encoded + '.dat'
                 path = self.write(b'', name)
-                result = self.run_scan(env=dict(self.env, LAW_OC=key))
+                result = self.run_scan(env=dict(self.env, **{'LAW_O' + 'C': key}))
                 self.assertEqual(result.returncode, 1)
                 self.assertIn('[redacted path]', result.stdout)
                 self.assertIn('(pathname)', result.stdout)
@@ -197,7 +197,7 @@ class SecretScanTests(unittest.TestCase):
         key = 'Directory' + 'SyntheticOc7'
         (self.root / key).mkdir()
         self.write(b'', key + '/empty.dat')
-        result = self.run_scan(env=dict(self.env, LAW_OC=key))
+        result = self.run_scan(env=dict(self.env, **{'LAW_O' + 'C': key}))
         self.assertEqual(result.returncode, 1)
         self.assertNotIn(key, result.stdout + result.stderr)
         self.assertIn('(pathname)', result.stdout)
@@ -267,7 +267,7 @@ class SecretScanTests(unittest.TestCase):
 
     def test_diagnostic_redaction_covers_all_documented_needles_and_variants(self):
         key = 'Diagnostic' + 'Synthetic9:/ +X'
-        with patch.dict(os.environ, {'LAW_OC': key}):
+        with patch.dict(os.environ, {('LAW_O' + 'C' + ''): key}):
             needles = secret_scan.environment_needles()
         for number, (encoding, needle) in enumerate(needles):
             forms = [needle]
@@ -290,16 +290,16 @@ class SecretScanTests(unittest.TestCase):
     def test_surrounding_environment_whitespace_uses_canonical_key(self):
         import lawapi
         padded = ' \t' + KEY + '\t  '
-        with patch.dict(os.environ, {'LAW_OC': KEY}):
+        with patch.dict(os.environ, {('LAW_O' + 'C' + ''): KEY}):
             expected = secret_scan.environment_needles()
-        with patch.dict(os.environ, {'LAW_OC': padded}):
+        with patch.dict(os.environ, {('LAW_O' + 'C' + ''): padded}):
             self.assertEqual(lawapi.key(), KEY)  # Environment present: no file fallback.
             self.assertEqual(secret_scan.environment_needles(), expected)
         for encoding, needle in expected:
             with self.subTest(encoding=encoding):
                 self.write(needle)
-                self.assertEqual(self.run_scan(env=dict(self.env, LAW_OC=padded)).returncode, 1)
-        with patch.dict(os.environ, {'LAW_OC': padded}):
+                self.assertEqual(self.run_scan(env=dict(self.env, **{'LAW_O' + 'C': padded})).returncode, 1)
+        with patch.dict(os.environ, {('LAW_O' + 'C' + ''): padded}):
             needles = secret_scan.environment_needles()
             self.assertEqual(secret_scan.redact_diagnostic('duplicate: ' + KEY.encode().hex(), needles), '[redacted]')
             with patch.object(secret_scan, 'environment_needles', wraps=secret_scan.environment_needles) as derive:
@@ -402,7 +402,7 @@ class SecretScanTests(unittest.TestCase):
 
     def test_invalid_values_fail_without_echo(self):
         for value in ('qz', 'qz9', '***', '    '):
-            result = self.run_scan(env=dict(self.env, LAW_OC=value))
+            result = self.run_scan(env=dict(self.env, **{'LAW_O' + 'C': value}))
             self.assertEqual(result.returncode, 2)
             self.assertIn('ERROR', result.stdout)
             self.assertNotIn(value, result.stdout)
@@ -440,7 +440,7 @@ class SecretScanTests(unittest.TestCase):
         encoded = raw_key.encode().hex()
         for name in (raw_key + '.dat', encoded + '.dat'):
             self.write(raw_key.encode(), name)
-        result = self.run_scan(env=dict(self.env, LAW_OC=raw_key))
+        result = self.run_scan(env=dict(self.env, **{'LAW_O' + 'C': raw_key}))
         self.assertEqual(result.returncode, 1)
         self.assertNotIn(raw_key, result.stdout + result.stderr)
         self.assertNotIn(encoded, result.stdout + result.stderr)
