@@ -105,6 +105,69 @@ class LanguageStructureTests(unittest.TestCase):
             self.check('def x = a / b; accessToken = "VALUE";', 'sample.' + suffix)
             self.check('accessToken = /<hi>/; description = "VALUE";', 'sample.' + suffix, False)
 
+    def test_dollar_templates(self):
+        forms = [('groovy', '$/', '/$'), ('groovy', '/', '/'),
+                 ('groovy', '"', '"'), ('groovy', '"""', '"""'),
+                 ('kt', '"', '"'), ('kt', '"""', '"""'),
+                 ('dart', '"', '"'), ('dart', "'", "'"),
+                 ('dart', '"""', '"""'), ('dart', "'''", "'''")]
+        for suffix, opening, closing in forms:
+            path = 'sample.' + suffix
+            for expression in ('${getAccessTokenFromEnvironment()}', '$runtimeCredentialName',
+                               '${lookup("' + VALUE + '", {x: runtime})}'):
+                text = 'def accessToken = ' + opening + expression + closing
+                self.assertFalse(list(pattern_scan.findings(text, path)), text)
+                self.assertFalse(list(pattern_scan.findings(
+                    OC_NAME + ' = ' + opening + expression + closing, path)), text)
+                self.check('accessToken = ' + opening + 'VALUE' + expression + closing, path)
+                self.check('accessToken = ' + opening + expression + ':VALUE' + closing, path)
+            # Static chunks must not be joined across runtime expressions.
+            self.check('accessToken = ' + opening + VALUE[:12] + '${runtime}' +
+                       VALUE[12:] + closing, path, False)
+        for quote in ("'", "'''"):
+            text = 'accessToken = ' + quote + '${getAccessTokenFromEnvironment()}' + quote
+            self.assertEqual(list(pattern_scan.findings(text, 'sample.groovy')),
+                             [(1, 'generic-secret')])
+        self.assertEqual(list(pattern_scan.findings(
+            'accessToken' + ' = r"${getAccessTokenFromEnvironment()}"', 'sample.dart')),
+            [(1, 'generic-secret')])
+
+    def test_runtime_reference_table(self):
+        forms = {
+            'cs': ['Environment.GetEnvironmentVariable("KEY")', 'configuration["KEY"]',
+                   'config.GetValue<string>("KEY")'],
+            'java': ['System.getenv("KEY")', 'System.getProperty("KEY")'],
+            'go': ['os.Getenv("KEY")', 'os.LookupEnv("KEY")'],
+            'rs': ['env::var("KEY")', 'std::env::var("KEY")', 'env!("KEY")'],
+            'rb': ['ENV["KEY"]', 'ENV.fetch("KEY", runtime)'],
+            'php': ['getenv("KEY")', '$_ENV["KEY"]'],
+            'ps1': ['$env:KEY'],
+            'js': ['process.env.KEY', 'process.env["KEY"]'],
+            'ts': ['process.env.KEY', 'process.env["KEY"]'],
+            'py': ['os.getenv("KEY")', 'os.environ["KEY"]',
+                   'os.environ.get("KEY")', 'getenv("KEY")'],
+        }
+        for suffix, expressions in forms.items():
+            path = 'sample.' + suffix
+            for expression in expressions:
+                # Even credential-shaped/high-entropy lookup keys are names.
+                for key in ('LAW_' + OC_NAME, VALUE):
+                    rhs = expression.replace('KEY', key)
+                    for name in (OC_NAME, 'accessToken'):
+                        text = name + ' = ' + rhs
+                        self.assertFalse(list(pattern_scan.findings(text, path)), text)
+                    self.check('accessToken = ' + rhs + ' + "VALUE"', path)
+            self.check('accessToken = unknownRuntime("VALUE")', path)
+        defaults = {'cs': 'config.GetValue<string>("KEY", "VALUE")',
+                    'java': 'System.getProperty("KEY", "VALUE")',
+                    'rb': 'ENV.fetch("KEY", "VALUE")',
+                    'py': 'os.getenv("KEY", "VALUE")'}
+        for suffix, expression in defaults.items():
+            self.check('accessToken = ' + expression, 'sample.' + suffix)
+            text = OC_NAME + ' = ' + expression.replace('VALUE', VALUE)
+            self.assertEqual(list(pattern_scan.findings(text, 'sample.' + suffix)),
+                             [(1, 'law-oc')])
+
     def test_language_adversarial_guards(self):
         cases = [('auto x = R"([")"; ' * 3000 + 'tokens[0] = "<hi>"', 'sample.cpp'),
                  ('var accessTokens ' + 'map[string]' * 12000 + 'string', 'sample.go'),

@@ -454,6 +454,32 @@ STRING_SYNTAX = {
     'unknown': 'prose', 'hash-config': 'prose', 'css': 'ordinary',
     'sql': 'ordinary', 'lua': 'ordinary', 'markup': 'prose', 'json': 'ordinary',
 }
+# Dollar templates share balanced-expression and identifier interpolation rules.
+DOLLAR_TEMPLATES = {
+    'groovy': ('"""', '$/', '"', '/'),
+    'kotlin': ('"""', '"'),
+    'dart': ('"""', "'''", '"', "'"),
+}
+# Match through the opening delimiter only: the first literal is a lookup key,
+# never the remaining default arguments. Generic getters retain legacy behavior.
+RUNTIME_REFERENCES = {
+    '*': r'\b(?:get|getenv)\s*\(\s*',
+    'csharp': r'\b(?:Environment\s*\.\s*GetEnvironmentVariable\s*\(|(?:config|configuration)\s*\[|config\s*\.\s*GetValue\s*(?:<[^<>\n]{1,256}>)?\s*\()\s*',
+    'java': r'\bSystem\s*\.\s*(?:getenv|getProperty)\s*\(\s*',
+    'go': r'\bos\s*\.\s*(?:Getenv|LookupEnv)\s*\(\s*',
+    'rust': r'\b(?:(?:std\s*::\s*)?env\s*::\s*var|env!)\s*\(\s*',
+    'ruby': r'\bENV\s*(?:\[|\.\s*fetch\s*\()\s*',
+    'php': r'(?:\bgetenv\s*\(|\$_ENV\s*\[)\s*',
+    'powershell': r'\$env:[A-Za-z_][\w]*',
+    'javascript': r'\bprocess\s*\.\s*env\s*(?:\[\s*|\.[A-Za-z_$][\w$]*)',
+    'typescript': r'\bprocess\s*\.\s*env\s*(?:\[\s*|\.[A-Za-z_$][\w$]*)',
+    'python': r'\b(?:os\s*\.\s*)?(?:getenv\s*\(|environ\s*(?:\[|\.\s*get\s*\())\s*',
+}
+RUNTIME_REFERENCE_PATTERNS = {
+    kind: re.compile(RUNTIME_REFERENCES['*'] + '|' + pattern)
+    for kind, pattern in RUNTIME_REFERENCES.items() if kind != '*'
+}
+DEFAULT_RUNTIME_REFERENCE = re.compile(RUNTIME_REFERENCES['*'])
 JS_TYPES = frozenset(('javascript', 'typescript'))
 TERNARY_TYPES = frozenset(('javascript', 'typescript', 'c-family', 'cpp', 'csharp',
                            'java', 'swift', 'php', 'dart', 'groovy'))
@@ -699,22 +725,34 @@ def source_literal(text, start, kind):
             else:
                 index += 1
         return len(text), opening, len(text), marker
-    if syntax == 'groovy':
-        if text.startswith('$/', start):
-            index = start + 2
+    if kind in DOLLAR_TEMPLATES:
+        raw = kind == 'dart' and text[start] == 'r' and boundary
+        position = start + 1 if raw else start
+        markers = DOLLAR_TEMPLATES[kind]
+        marker = next((q for q in markers if text.startswith(q, position)), None)
+        if (marker == '/' and (text.startswith(('//', '/*'), position)
+                               or not regex_allowed_at(text, position))):
+            marker = None
+        if marker:
+            opening = position + len(marker)
+            tail = '/$' if marker == '$/' else marker
+            # Carry the escape convention with the shared template marker.
+            formatted = ('dollar', '$' if marker == '$/' else
+                         '' if raw or (kind == 'kotlin' and len(marker) == 3) else '\\')
+            index = opening
             while index < len(text):
-                if text.startswith(('$$', '$/'), index):
-                    index += 2
-                elif text.startswith('/$', index):
-                    return index + 2, start + 2, index, False
+                if formatted[1] and text[index] == formatted[1]:
+                    if formatted[1] == '\\' or text[index + 1:index + 2] in ('$', '/'):
+                        index += 2
+                        continue
+                end = dollar_interpolation_end(text, index, kind) if not raw else None
+                if end is not None:
+                    index = end
+                elif text.startswith(tail, index):
+                    return index + len(tail), opening, index, False if raw else formatted
                 else:
                     index += 1
-            return len(text), start + 2, len(text), False
-        if text[start] == '/' and not text.startswith(('//', '/*'), start) and regex_allowed_at(text, start):
-            closing = regex_end(text, start, flags=False, classes=False)
-            if closing is not None:
-                return closing, start + 1, closing - 1, False
-            return len(text), start + 1, len(text), False
+            return len(text), opening, len(text), False if raw else formatted
     if opening == start:
         return None
     if tail is not None:
@@ -1078,7 +1116,8 @@ def candidates(text, comment_at_start=True, source=False, shell=False, kind='unk
     # remain separate literals and are deliberately not excluded.
     getters = []
     if source:
-        for call in re.finditer(r'\b(?:get|getenv)\s*\(\s*', text):
+        pattern = RUNTIME_REFERENCE_PATTERNS.get(kind, DEFAULT_RUNTIME_REFERENCE)
+        for call in pattern.finditer(text):
             if call.end() < len(text):
                 literal = literal_boundary(text, call.end(), kind)
                 if literal:
@@ -1126,12 +1165,38 @@ def candidates(text, comment_at_start=True, source=False, shell=False, kind='unk
             yield from literal_candidates(value)
 
 
+def dollar_interpolation_end(text, start, kind):
+    if text[start] != '$':
+        return None
+    if text.startswith('${', start):
+        return interpolation_end(text, start, kind=kind)
+    if text[start:start + 1] == '$':
+        pattern = r'[A-Za-z_][\w]*' + (r'(?:\.[A-Za-z_][\w]*)*' if kind == 'groovy' else '')
+        name = re.compile(pattern).match(text, start + 1)
+        if name:
+            return name.end()
+    return None
+
+
 def static_chunks(value, formatted=False, kind='unknown'):
     """Keep noncontiguous template text separate; doubled f-braces are literal."""
     chunk = []
     cursor = 0
     while cursor < len(value):
-        if isinstance(formatted, tuple) and value.startswith(formatted[0], cursor):
+        if isinstance(formatted, tuple) and formatted[0] == 'dollar':
+            escape = formatted[1]
+            if (escape and value[cursor] == escape
+                    and (escape == '\\' or value[cursor + 1:cursor + 2] in ('$', '/'))):
+                chunk.append(value[cursor:cursor + 2])
+                cursor += 2
+            elif (end := dollar_interpolation_end(value, cursor, kind)) is not None:
+                yield ''.join(chunk)
+                chunk = []
+                cursor = end
+            else:
+                chunk.append(value[cursor])
+                cursor += 1
+        elif isinstance(formatted, tuple) and value.startswith(formatted[0], cursor):
             yield ''.join(chunk)
             chunk = []
             cursor = interpolation_end(value, cursor, opening=len(formatted[0]),
