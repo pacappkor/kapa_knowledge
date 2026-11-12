@@ -20,6 +20,36 @@ class LanguageStructureTests(unittest.TestCase):
                              [(1, 'generic-secret')] if expected and value == VALUE else [],
                              (path, text))
 
+    def test_javascript_object_binding_patterns(self):
+        for suffix in ('js', 'ts'):
+            for declaration in ('const ', 'let ', 'var ', ''):
+                for target, rhs in (
+                        ('{a: accessToken}', '{a: "VALUE"}'),
+                        ('{accessToken}', '{accessToken: "VALUE"}'),
+                        ('{a: {b: accessToken}}', '{a: {b: "VALUE"}}'),
+                        ('{a: [other, accessToken]}', '{a: ["ok", "VALUE"]}'),
+                        ('[{a: accessToken}]', '[{a: "VALUE"}]'),
+                        ('{a: accessToken = "VALUE"}', 'runtime'),
+                        ('{a: accessToken = "<hi>"}', '{a: "VALUE"}'),
+                        ('{ a: { b: accessToken } = { b: "VALUE" } }', 'runtime'),
+                        ('{...accessToken}', '{ordinary: "VALUE"}'),
+                        ('{[property]: accessToken}', '{ordinary: "VALUE"}')):
+                    self.check(declaration + target + ' = ' + rhs + ';', 'sample.' + suffix)
+                self.check(declaration + '{a: accessToken} = runtime;', 'sample.' + suffix, False)
+                self.check(declaration + '{a: accessToken, b: other} = '
+                           '{a: "<hi>", b: "VALUE"};', 'sample.' + suffix, False)
+            self.check('({a: accessToken} = {a: "VALUE"});', 'sample.' + suffix)
+            self.check('const {a: ordinary} = {a: "VALUE"};', 'sample.' + suffix, False)
+
+    def test_object_binding_linear_work(self):
+        for suffix in ('js', 'ts'):
+            target = ','.join('p' + str(i) + ': accessToken' for i in range(6000))
+            rhs = ','.join('p' + str(i) + ': "<hi>"' for i in range(6000))
+            text = 'const {' + target + '} = {' + rhs + '};'
+            start = time.perf_counter()
+            self.assertFalse(list(pattern_scan.findings(text, 'sample.' + suffix)))
+            self.assertLess(time.perf_counter() - start, 2)
+
     def test_nested_python_targets(self):
         for target in ('((access_token, other), x)', '[[access_token, other], x]',
                        '(x, (other, access_token))', '((access_token,), x)',

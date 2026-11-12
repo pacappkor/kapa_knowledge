@@ -128,6 +128,110 @@ def go_declarator_end(text, start, pairs):
 PARALLEL_NAME = re.compile(r'(?:\.\.\.|\*)?([A-Za-z_][\w]*)')
 
 
+def javascript_binding_assignment(text, start, kind, pairs):
+    """Map balanced binding patterns to literal initializers with iterative tasks.
+
+    Unknown/computed properties and rest bindings inspect the enclosing RHS
+    conservatively. Runtime-only expressions still yield no credential literals.
+    """
+    closing = pairs.get(start)
+    if closing is None:
+        return None
+    operator = OPERATOR.match(text, SPACE.match(text, closing + 1).end())
+    if operator is None or operator[0] != '=':
+        return None
+    quotes = QuoteIndex(text) if "'" in text else None
+    rhs_start = SPACE.match(text, operator.end()).end()
+    rhs_end = rhs_start
+    while rhs_end < len(text):
+        literal = literal_boundary(text, rhs_end, kind, quotes)
+        if literal:
+            rhs_end = literal[0]
+        elif rhs_end in pairs:
+            rhs_end = pairs[rhs_end] + 1
+        elif text[rhs_end] in ',;)]}':
+            break
+        else:
+            rhs_end += 1
+    records, seen = [], set()
+    tasks = [(start, closing + 1, rhs_start, rhs_end)]
+    while tasks:
+        a, b, value_start, value_end = tasks.pop()
+        a = SPACE.match(text, a).end()
+        while b > a and text[b - 1].isspace():
+            b -= 1
+        # Peel a binding default without treating its expression as a target.
+        index = a
+        default = None
+        while index < b:
+            literal = literal_boundary(text, index, kind, quotes)
+            if literal:
+                index = literal[0]
+            elif index in pairs:
+                index = pairs[index] + 1
+            elif text[index] == '=' and not text.startswith(('==', '=>'), index):
+                default = (index + 1, b)
+                b = index
+                break
+            else:
+                index += 1
+        if default:
+            tasks.append((a, b, *default))
+            while b > a and text[b - 1].isspace():
+                b -= 1
+        rest = text.startswith('...', a)
+        if rest:
+            a = SPACE.match(text, a + 3).end()
+        if text[a:a + 1] in ('{', '[') and pairs.get(a) == b - 1:
+            object_pattern = text[a] == '{'
+            fields = top_level_values(text, a + 1, b - 1, kind, pairs, quotes)
+            ambiguous = any(text.startswith('...', SPACE.match(text, fa).end())
+                            for fa, fb in fields)
+            value_start = SPACE.match(text, value_start).end()
+            while value_end > value_start and text[value_end - 1].isspace():
+                value_end -= 1
+            mapped = {}
+            values = []
+            if (text[value_start:value_start + 1] == text[a]
+                    and pairs.get(value_start) == value_end - 1):
+                values = top_level_values(text, value_start + 1, value_end - 1,
+                                          kind, pairs, quotes)
+                if object_pattern:
+                    for va, vb in values:
+                        key = NAME_TOKEN.match(text, SPACE.match(text, va).end())
+                        colon = SPACE.match(text, key.end()).end() if key else vb
+                        if key and text[colon:colon + 1] == ':':
+                            mapped[key[0].strip('\"\'')] = (colon + 1, vb)
+            for position, (ta, tb) in enumerate(fields):
+                ta = SPACE.match(text, ta).end()
+                if ta >= tb:
+                    continue
+                target = ta
+                selected = (value_start, value_end)
+                if object_pattern:
+                    key = NAME_TOKEN.match(text, ta)
+                    colon = SPACE.match(text, key.end()).end() if key else tb
+                    if key:
+                        if text[colon:colon + 1] == ':':
+                            target = colon + 1
+                        if not ambiguous:
+                            selected = mapped.get(key[0].strip('\"\''), selected)
+                    elif ta in pairs and text[SPACE.match(text, pairs[ta] + 1).end():
+                                              SPACE.match(text, pairs[ta] + 1).end() + 1] == ':':
+                        target = SPACE.match(text, pairs[ta] + 1).end() + 1
+                elif position < len(values) and not ambiguous:
+                    selected = values[position]
+                tasks.append((target, tb, *selected))
+        else:
+            target = PARALLEL_NAME.match(text, a)
+            if target and credential_rule(target[1]):
+                key = (credential_rule(target[1]), value_start, value_end)
+                if key not in seen:
+                    records.append(Assignment(target.start(), value_start, target[1], '=', stop=value_end))
+                    seen.add(key)
+    return operator.end(), records
+
+
 def parallel_assignment(text, start, kind, pairs):
     """Consume balanced target lists and their RHS once, within the line bound.
 
@@ -135,6 +239,8 @@ def parallel_assignment(text, start, kind, pairs):
     strings out of the positional split. Ambiguous unpacking inspects all RHS
     literals once per credential rule, never once per target.
     """
+    if kind in JS_TYPES and text[start:start + 1] in ('{', '['):
+        return javascript_binding_assignment(text, start, kind, pairs)
     grouped = text[start:start + 1] in PARALLEL_GROUPS.get(kind, '')
     closing = pairs.get(start) if grouped else None
     if grouped and closing is None:
@@ -266,7 +372,7 @@ def assignments_in(text, kind='unknown'):
             cursor += 2
             continue
         if (kind in PARALLEL_TYPES
-                and (text[cursor].isalpha() or text[cursor] in '_*.([')):
+                and (text[cursor].isalpha() or text[cursor] in '_*.([{')):
             previous = cursor - 1
             while previous >= 0 and text[previous].isspace():
                 previous -= 1
@@ -525,7 +631,7 @@ SUFFIX_TYPES = {suffix: kind for kind, suffixes in FILE_TYPES.items() for suffix
 SUFFIX_TYPES.update({suffix: kind for kind, suffixes in LANGUAGE_SUFFIXES.items()
                      for suffix in suffixes})
 PARALLEL_TYPES = JS_TYPES | frozenset(('python', 'go', 'lua', 'ruby'))
-PARALLEL_GROUPS = {'python': '([', 'javascript': '[', 'typescript': '['}
+PARALLEL_GROUPS = {'python': '([', 'javascript': '[{', 'typescript': '[{'}
 SOURCE_TYPES = C_FAMILY_TYPES | JS_TYPES | frozenset(('python', 'php', 'ruby', 'powershell', 'lua'))
 SHELL_TYPES = frozenset(('shell', 'ini'))
 SHEBANG = re.compile(

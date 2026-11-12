@@ -6,6 +6,8 @@ Keep a Changelog와 유의적 버전을 따른다. [버전 규칙](docs/RELEASIN
 
 ### Secret-free CI hardening
 
+- Parse JavaScript/TypeScript object and array binding patterns, including aliased/shorthand names, nested patterns, defaults, rest bindings and parenthesized assignment. Map known initializer properties/positions, conservatively inspect ambiguous RHS values, and retain runtime-only exemptions. Add runtime-built regressions and a 6,000-property under-two-second guard for each language.
+
 - Fix five scanner review findings: conservatively inspect nested Python destructuring, share JVM System lookup exemptions, recognize Kotlin escaped credential names, inspect shell substitution/removal/case operands, and establish Ruby slash-regex ownership before quotes. Add runtime-built positive/negative regressions without weakening existing performance guards. No runs or catalogs changes.
 
 - Share dollar-template interpolation boundaries and static-chunk inspection across Groovy slashy/dollar-slashy/GStrings, Kotlin and Dart (including noninterpolated Groovy single quotes and Dart raw strings). Centralize language-specific runtime environment/config lookup forms, exclude only their first key argument and continue inspecting literal defaults. Add runtime-built positive/negative regressions; retain performance guards. No runs or catalogs changes.
