@@ -129,7 +129,7 @@ PARALLEL_NAME = re.compile(r'(?:\.\.\.|\*)?([A-Za-z_][\w]*)')
 
 
 def parallel_assignment(text, start, kind, pairs):
-    """Consume one flat target list and its RHS once, within the line bound.
+    """Consume balanced target lists and their RHS once, within the line bound.
 
     Group jumps and literal boundaries keep commas inside calls, arrays and
     strings out of the positional split. Ambiguous unpacking inspects all RHS
@@ -142,17 +142,38 @@ def parallel_assignment(text, start, kind, pairs):
     index = start + 1 if grouped else start
     targets = []
     unpacked = False
+    nested = []
     while index < len(text):
         index = SPACE.match(text, index).end()
+        if kind == 'python' and text[index:index + 1] in ('(', '['):
+            end = pairs.get(index)
+            if end is None:
+                return None
+            nested.append(end)
+            unpacked = True  # Flatten names; ambiguous positions inspect all RHS.
+            index += 1
+            continue
         target = PARALLEL_NAME.match(text, index)
         if target is None:
             return None
         unpacked |= text[index] in '*.'
         targets.append((index, target[1]))
         index = SPACE.match(text, target.end()).end()
+        while nested:
+            if text[index:index + 1] == ',' and SPACE.match(text, index + 1).end() == nested[-1]:
+                index = nested[-1]
+            if index != nested[-1]:
+                break
+            nested.pop()
+            index = SPACE.match(text, index + 1).end()
         if text[index:index + 1] != ',':
             break
         index += 1
+        if grouped and SPACE.match(text, index).end() == closing:
+            index = closing
+            break
+    if nested:
+        return None
     if grouped:
         if index != closing:
             return None
@@ -259,6 +280,16 @@ def assignments_in(text, kind='unknown'):
                     cursor, records = parallel
                     yield from records
                     continue
+        escaped_name = (re.compile(r'`[^`\r\n]+`').match(text, cursor)
+                        if kind == 'kotlin' and text[cursor] == '`' else None)
+        if escaped_name:
+            end = escaped_name.end()
+            after = SPACE.match(text, end).end()
+            operator = OPERATOR.match(text, after)
+            if operator:
+                yield Assignment(cursor, operator.end(), text[cursor + 1:end - 1], operator[0])
+            cursor = end
+            continue
         token = NAME_TOKEN.match(text, cursor)
         if token is None:
             cursor += 1
@@ -475,6 +506,9 @@ RUNTIME_REFERENCES = {
     'typescript': r'\bprocess\s*\.\s*env\s*(?:\[\s*|\.[A-Za-z_$][\w$]*)',
     'python': r'\b(?:os\s*\.\s*)?(?:getenv\s*\(|environ\s*(?:\[|\.\s*get\s*\())\s*',
 }
+# These System APIs are shared by all supported JVM source languages.
+for language in ('kotlin', 'groovy', 'scala'):
+    RUNTIME_REFERENCES[language] = RUNTIME_REFERENCES['java']
 RUNTIME_REFERENCE_PATTERNS = {
     kind: re.compile(RUNTIME_REFERENCES['*'] + '|' + pattern)
     for kind, pattern in RUNTIME_REFERENCES.items() if kind != '*'
@@ -812,6 +846,10 @@ def rust_lifetime(text, start):
 
 def literal_boundary(text, start, kind='unknown', quotes=None):
     """Single language-table entry point for literal ownership and structure."""
+    if kind == 'ruby' and text[start:start + 1] == '/' and regex_allowed_at(text, start):
+        end = regex_end(text, start)
+        if end is not None:
+            return end, start + 1, end - 1, False
     literal = source_literal(text, start, kind)
     if literal:
         return literal
@@ -1023,6 +1061,46 @@ def lexemes(text, comment_at_start=True, separators=False, bare_equals=False, qu
             yield start, index, re.sub(r'\\(.)', r'\1', text[start:index])
 
 
+def shell_parameter_operands(text, start, stop):
+    """Yield static operand regions, excluding the runtime parameter and operator."""
+    operand = SHELL_OPERAND.match(text, start)
+    if operand:
+        yield text[operand.end():stop]
+        return
+    parameter = re.compile(r'(?:[A-Za-z_][A-Za-z0-9_]*|[0-9]+|[?@*#$!-])').match(text, start)
+    if parameter is None:
+        return
+    index = parameter.end()
+    operator = re.compile(r'//?|##?|%%?|\^\^?|,,?|:').match(text, index)
+    if operator is None:
+        return  # Pure references and transformation/indirection flags have no literals.
+    substitution = operator[0].startswith('/')
+    index = beginning = operator.end()
+    quote = None
+    while index < stop:
+        char = text[index]
+        if char == '\\':
+            index += 2
+            continue
+        if quote:
+            if char == quote:
+                quote = None
+        elif char in '\"\'':
+            quote = char
+        elif text.startswith('${', index):
+            index = braced_end(text, index)
+            continue
+        elif text.startswith('$(', index):
+            index = command_end(text, index)
+            continue
+        elif substitution and char == '/':
+            yield text[beginning:index]
+            beginning = index + 1
+            substitution = False  # Further slashes are part of the replacement.
+        index += 1
+    yield text[beginning:stop]
+
+
 def shell_word_candidates(text, comment_at_start=True):
     """Join static shell word parts, flushing at operators and runtime expansions."""
     parts = []
@@ -1059,9 +1137,8 @@ def shell_word_candidates(text, comment_at_start=True):
                 index = command_end(text, index)
             else:
                 end = braced_end(text, index)
-                operand = SHELL_OPERAND.match(text, index + 2)
-                if operand:
-                    yield from shell_word_candidates(text[operand.end():end - 1], False)
+                for operand in shell_parameter_operands(text, index + 2, end - 1):
+                    yield from shell_word_candidates(operand, False)
                 index = end
             continue
         reference = ENV_REFERENCE.match(text, index) if char == '$' else None
@@ -1370,8 +1447,10 @@ class LineState:
             self.context[index] = stack[-1]
             self.braces[index] = brace_depth
             self.question[index] = question
-            if (kind in JS_TYPES and line[index] == '/' and regex_allowed
-                    and not line.startswith(('//', '/*'), index)):
+            if (line[index] == '/'
+                    and ((kind in JS_TYPES and regex_allowed
+                          and not line.startswith(('//', '/*'), index))
+                         or (kind == 'ruby' and regex_allowed_at(line, index)))):
                 # ECMAScript's expression-start heuristic: escaped slashes and
                 # character classes do not terminate a regular expression.
                 end = regex_end(line, index)

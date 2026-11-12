@@ -6,6 +6,8 @@ Keep a Changelog와 유의적 버전을 따른다. [버전 규칙](docs/RELEASIN
 
 ### Secret-free CI hardening
 
+- Fix five scanner review findings: conservatively inspect nested Python destructuring, share JVM System lookup exemptions, recognize Kotlin escaped credential names, inspect shell substitution/removal/case operands, and establish Ruby slash-regex ownership before quotes. Add runtime-built positive/negative regressions without weakening existing performance guards. No runs or catalogs changes.
+
 - Share dollar-template interpolation boundaries and static-chunk inspection across Groovy slashy/dollar-slashy/GStrings, Kotlin and Dart (including noninterpolated Groovy single quotes and Dart raw strings). Centralize language-specific runtime environment/config lookup forms, exclude only their first key argument and continue inspecting literal defaults. Add runtime-built positive/negative regressions; retain performance guards. No runs or catalogs changes.
 
 - Inspect multi-target Python, Go, JS/TS array destructuring, Lua and Ruby assignments with bounded forward target parsing and quote/bracket-aware positional RHS splitting. Ambiguous/rest unpacking inspects every RHS literal conservatively while runtime-only expressions remain clean; verify JS/TS object-literal properties, runtime-built positive/negative cases and a 10,000-target under-2-second guard. Preserve C# raw interpolation dollar/brace arity and distinguish Rust lifetimes from character literals, with runtime-built regressions. No runs or catalogs changes.

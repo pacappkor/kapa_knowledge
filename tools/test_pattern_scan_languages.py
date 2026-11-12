@@ -20,6 +20,56 @@ class LanguageStructureTests(unittest.TestCase):
                              [(1, 'generic-secret')] if expected and value == VALUE else [],
                              (path, text))
 
+    def test_nested_python_targets(self):
+        for target in ('((access_token, other), x)', '[[access_token, other], x]',
+                       '(x, (other, access_token))', '((access_token,), x)',
+                       'access_token, (other, x)'):
+            self.check(target + ' = (("VALUE", "ok"), "x")', 'sample.py')
+            self.check(target + ' = runtime_values', 'sample.py', False)
+        # Target traversal itself does not consume the Python recursion limit.
+        text = '(' * 1200 + 'access_token' + ',)' * 1200 + ' = "<hi>"'
+        pairs = pattern_scan.bracket_pairs(text, kind='python')
+        self.assertEqual(len(pattern_scan.parallel_assignment(text, 0, 'python', pairs)[1]), 1)
+
+    def test_jvm_runtime_lookups(self):
+        for suffix in ('java', 'kt', 'kts', 'groovy', 'scala'):
+            for method in ('getenv', 'getProperty'):
+                self.check('val accessToken = System.' + method + '("VALUE")',
+                           'sample.' + suffix, False)
+                self.check('val accessToken = System.' + method + '("CONFIG", "VALUE")',
+                           'sample.' + suffix)
+                self.check('val accessToken = System.' + method + '("VALUE") + "VALUE"',
+                           'sample.' + suffix)
+
+    def test_kotlin_escaped_names(self):
+        for suffix in ('kt', 'kts'):
+            for target in ('`access token`', '`api key`', '`access-token`'):
+                self.check('var ' + target + ' = "VALUE"', 'sample.' + suffix)
+            self.check('var `access token` = System.getProperty("VALUE")',
+                       'sample.' + suffix, False)
+        self.check('`access token` = "VALUE"', 'sample.js', False)
+
+    def test_shell_parameter_operator_literals(self):
+        for rhs in ('${SOURCE/x/VALUE}', '${SOURCE//x/VALUE}', '${SOURCE/#x/VALUE}',
+                    '${SOURCE/%x/VALUE}', '${SOURCE/VALUE/x}', '${SOURCE#VALUE}',
+                    '${SOURCE##VALUE}', '${SOURCE%VALUE}', '${SOURCE%%VALUE}',
+                    '${SOURCE^VALUE}', '${SOURCE^^VALUE}', '${SOURCE,VALUE}',
+                    '${SOURCE,,VALUE}', '${SOURCE/x/"VALUE"}', '${SOURCE/x/${OTHER:-VALUE}}'):
+            self.check('access_token=' + rhs, 'sample.sh')
+            text = OC_NAME + '=' + rhs.replace('VALUE', 'FAKEVALUE')
+            self.assertEqual(list(pattern_scan.findings(text, 'sample.sh')), [(1, 'law-oc')])
+        for rhs in ('${VAR}', '${VAR:-}', '${VAR//$PATTERN/$OTHER}', '${VAR@Q}',
+                    '${#VAR}', '${!VAR}'):
+            self.assertFalse(list(pattern_scan.findings(OC_NAME + '=' + rhs, 'sample.sh')))
+
+    def test_ruby_regex_quote_ownership(self):
+        for regex in ("/'/", '/[\"\']/i', r'/a\/' + "'/", '/access_token = fake/'):
+            self.check('x =~ ' + regex + '; access_token = "VALUE"', 'sample.rb')
+        self.check("x =~ /'/; access_token = 'VALUE'", 'sample.rb')
+        self.check("x !~ /[']/; access_token = 'VALUE'", 'sample.rb')
+        self.check('x = /access_token = "VALUE"/', 'sample.rb', False)
+        self.check('x = a / b; access_token = "VALUE"', 'sample.rb')
+
     def test_raw_brackets_and_getters(self):
         for prefix, suffix in [('R"([")"', 'cpp'), ('r#"[\""#', 'rs'),
                                ('`["`', 'go'), ('@"["""', 'cs'),
@@ -167,6 +217,15 @@ class LanguageStructureTests(unittest.TestCase):
             text = OC_NAME + ' = ' + expression.replace('VALUE', VALUE)
             self.assertEqual(list(pattern_scan.findings(text, 'sample.' + suffix)),
                              [(1, 'law-oc')])
+
+    def test_review_operator_adversarial_guards(self):
+        cases = [('var `ordinary name` = runtime; ' * 5000, 'sample.kt'),
+                 ('x =~ /[\"\']/; ' * 5000 + 'access_token = "<hi>"', 'sample.rb'),
+                 ('access_token=${SOURCE/' + 'x' * 100000 + '/<hi>}', 'sample.sh')]
+        for text, path in cases:
+            start = time.perf_counter()
+            self.assertFalse(list(pattern_scan.findings(text, path)))
+            self.assertLess(time.perf_counter() - start, 2, path)
 
     def test_language_adversarial_guards(self):
         cases = [('auto x = R"([")"; ' * 3000 + 'tokens[0] = "<hi>"', 'sample.cpp'),
